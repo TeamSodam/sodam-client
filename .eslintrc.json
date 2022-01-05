@@ -1,3 +1,92 @@
 {
-  "extends": "next/core-web-vitals"
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "sourceType": "module"
+  },
+  "env": {
+    "node": true,
+    "browser": true,
+    "es6": true
+  },
+  "extends": [
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:import/recommended",
+    "eslint:recommended",
+    "next",
+    "plugin:prettier/recommended"
+  ],
+  "rules": {
+    "react/no-array-index-key": "error",
+    "react/destructuring-assignment": "error",
+    "react/function-component-definition": ["warn", {
+      "namedComponents": "function-declaration"
+    }],
+    "react/self-closing-comp": ["error", {
+      "component": true,
+      "html": true
+    }],
+    "react/jsx-boolean-value": "error",
+    "react/jsx-no-useless-fragment": "error",
+    "@typescript-eslint/array-type": ["warn", { "default": "array-simple" }], // 단순 타입이면 string[], 복합 타입이면 array<string | number>
+		"@typescript-eslint/consistent-type-definitions": ["error", "interface"], // 객체에 type 대신 interface 사용
+		"@typescript-eslint/promise-function-async": [ // promise를 리턴하면 async 추가
+	    "error", 
+			{
+	      "checkArrowFunctions": true,
+	      "checkFunctionDeclarations": true,
+	      "checkFunctionExpressions": true,
+	      "checkMethodDeclarations": true
+	    }
+	  ],
+		"react/boolean-prop-naming": ["error", { "rule": "^(is|has)[A-Z]([A-Za-z0-9]?)+" }], // boolean에 is 또는 has 사용
+		"react-hooks/rules-of-hooks": "error", // hook 위치 확인
+    "react-hooks/exhaustive-deps": "warn", // useEffect dependencies 확인
+		"import/no-unresolved": "error", // import 제대로 됐는지 확인
+		"import/no-duplicates": "error", // 중복 import 제거
+		"default-case": "error", // switch에 default 없으면 에러
+		"eqeqeq": "error", // == 및 != 사용 금지 -> === 및 !== 사용
+		"no-alert": "error", // alert, prompt, confirm 사용 금지
+		"no-delete-var": "error", // delete 및 var 사용 금지
+		"no-useless-return": "error", // 쓸데없는 return 사용 금지
+		"prefer-const": "error", // 가능한 모든 경우에 const 사용
+		"require-await": "error", // async 함수에 반드시 await 존재
+		/* 포맷팅 */
+		"simple-import-sort/imports": "error", // import 정렬
+    "simple-import-sort/exports": "error", // export 정렬
+		"import/newline-after-import": "error", // import 다음에 빈줄 추가
+		"no-multiple-empty-lines": ["error", { "max": 1 }], // 빈줄 최대 1줄 허용
+		"comma-dangle": ["error", "always-multiline"], // 여러 줄일 때 항상 comma 추가
+		"quotes": ["error", "single"], // single quote만 사용
+		"arrow-body-style": ["error", "as-needed"], // 한 줄일 때는 {} 없이, 두 줄 이상이면 {} 포함
+		"func-style": ["error", "declaration", { "allowArrowFunctions": true }], // function 및 arrow function 사용
+		"no-else-return": "error", // if(cond) return a; else return b; 대신에 if(cond) return a; return b; 사용
+		"object-shorthand": ["error", "always"], // const obj = {a, b} 가능
+    "arrow-parens": ["error", "always"], // arrow-function 인자가 2개 이상이면 괄호 필수
+		"eol-last": ["error", "always"], // 파일 마지막에 빈줄 추가
+		"no-multi-spaces": "error" // 스페이스 여러개 금지
+	},
+  "plugins": [
+    "simple-import-sort",
+    "@typescript-eslint"
+  ],
+  "globals": {
+    "React": "writable"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "import/parsers": {
+      "@typescript-eslint/parser": [
+        ".ts",
+        ".tsx",
+        ".js"
+      ]
+    }
+  }
 }

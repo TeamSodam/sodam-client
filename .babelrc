@@ -1,0 +1,25 @@
+{
+  "presets": ["next/babel"],
+  "plugins": [
+    ["styled-components", { "ssr": true }],
+    [
+      "module-resolver",
+      {
+        "alias": {
+          "components": "./src/components",
+          "hooks": "./src/hooks",
+          "libs": "./src/libs",
+          "map": "./src/map",
+          "reducers": "./src/reducers",
+          "types": "./src/types",
+          "app": "./src/app",
+          "pages": "./src/pages",
+          "public": "./public",
+          "constants": "./src/constants",
+          "features": "./src/features",
+          "styles": "./src/styles"
+        }
+      }
+    ]
+  ]
+}

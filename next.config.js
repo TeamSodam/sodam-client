@@ -1,4 +1,25 @@
 /** @type {import('next').NextConfig} */
+
+const path = require('path');
+
 module.exports = {
   reactStrictMode: true,
-}
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      'components': path.resolve(__dirname, 'src/components'),
+      'hooks': path.resolve(__dirname, 'src/hooks'),
+      'constants': path.resolve(__dirname, 'src/constants'),
+      'public': path.resolve(__dirname, 'public'),
+      'styles': path.resolve(__dirname, 'src/styles'),
+      'libs': path.resolve(__dirname, 'src/libs'),
+      'map': path.resolve(__dirname, 'src/map'),
+      'reducers': path.resolve(__dirname, 'src/reducers'),
+      'types': path.resolve(__dirname, 'src/types'),
+      'app': path.resolve(__dirname, 'src/app'),
+      'pages': path.resolve(__dirname, 'src/pages'),
+      'features': path.resolve(__dirname, 'src/features'),
+    };
+    return config;
+  },
+};
