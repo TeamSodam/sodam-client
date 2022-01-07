@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { useRef, useState } from 'react';
 import styled from 'styled-components';
 
-function Home() {
+function MapTesting() {
   const mapRef = useRef(null);
   const [input, setInput] = useState('');
   const { displayMarkerByAddress, moveByAddress } = useMap(mapRef);
@@ -44,4 +44,4 @@ const MapContainer = styled.div`
   height: 500px;
 `;
 
-export default Home;
+export default MapTesting;
