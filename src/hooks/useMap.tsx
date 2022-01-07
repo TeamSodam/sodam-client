@@ -1,12 +1,11 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { displayMarker } from 'map/utils/display';
-import { getLocationByAddress } from 'map/utils/search';
+import { getLocationByAddress, searchAndMoveByAddress } from 'map/utils/search';
 import { RefObject, useEffect, useState } from 'react';
+import { KakaoMap } from 'types/map';
 
 declare global {
   interface Window {
-    kakao: any;
+    kakao: KakaoMap;
   }
 }
 
@@ -15,6 +14,10 @@ function useMap<T>(containerRef: RefObject<T extends HTMLElement ? T : HTMLEleme
 
   const displayMarkerByAddress = async (address: string) => {
     if (map) await displayMarker(map, address);
+  };
+
+  const moveByAddress = (address: string) => {
+    if (map) searchAndMoveByAddress(map, address);
   };
 
   useEffect(() => {
@@ -28,7 +31,7 @@ function useMap<T>(containerRef: RefObject<T extends HTMLElement ? T : HTMLEleme
     initMap();
   }, [containerRef, map]);
 
-  return { map, displayMarkerByAddress };
+  return { map, displayMarkerByAddress, moveByAddress };
 }
 
 export default useMap;

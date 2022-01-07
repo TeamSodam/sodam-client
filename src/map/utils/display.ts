@@ -1,5 +1,5 @@
 import { getToolTipTemplate } from 'map/overlays/tooltip';
-import { KakaoMap } from 'types/index';
+import { KakaoMap } from 'types/map';
 
 import { getLocationByAddress } from './search';
 
@@ -9,7 +9,7 @@ export const displayMarker = async (map: KakaoMap, address: string) => {
 
   const markerSrc = '/assets/marker.svg';
   const activeMarkerSrc = '/assets/activeMarker.svg';
-  const imageSize = new kakao.maps.Size(30, 30); // 마커이미지의 크기입니다
+  const imageSize = new kakao.maps.Size(30, 30);
   const imageOption = { offset: new kakao.maps.Point(18, 36) };
 
   const markerImage = new kakao.maps.MarkerImage(markerSrc, imageSize, imageOption);
