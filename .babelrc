@@ -17,7 +17,8 @@
           "public": "./public",
           "constants": "./src/constants",
           "features": "./src/features",
-          "styles": "./src/styles"
+          "styles": "./src/styles",
+          "assets": "./assets"
         }
       }
     ]

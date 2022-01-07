@@ -30,6 +30,7 @@
       "constants/*": ["./src/constants/*"],     
       "features/*": ["./src/features/*"],
       "styles/*": ["./src/styles/*"],
+      "assets/*": ["./assets/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
