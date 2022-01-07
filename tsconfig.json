@@ -16,6 +16,8 @@
     "jsx": "preserve",
     "incremental": true,
     "noImplicitAny": true,
+    "typeRoots": ["node_modules/@types"],
+    "types": ["kakao.maps.d.ts"],
     "paths": {
       "components/*": ["./src/components/*"],
       "hooks/*": ["./src/hooks/*"],
@@ -24,6 +26,7 @@
       "reducers/*": ["./src/reducers/*"],
       "reducers": ["./src/reducers"],
       "types/*": ["./src/types/*"],
+      "types": ["./src/types"],
       "app/*": ["./src/app/*"],
       "pages/*": ["./src/pages/*"],
       "public/*": ["./public/*"],
