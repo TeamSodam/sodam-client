@@ -17,6 +17,7 @@ export interface Review {
   text: string;
   tagList?: string[];
   writer: User;
+  date: string;
   liked: number;
   saved: number;
 }

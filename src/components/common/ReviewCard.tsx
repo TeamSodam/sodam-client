@@ -1,31 +1,46 @@
 import Image from 'next/image';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
 import { ReviewCardData } from 'types/review';
 
 interface ReviewCardProps {
   reviewData: ReviewCardData;
+  isHoverAvailable?: boolean;
+  isMyReview?: boolean;
 }
 
 function ReviewCard(props: ReviewCardProps) {
-  const { reviewData } = props;
-  const { thumbnail, text, writer, liked, saved } = reviewData;
+  const { reviewData, isHoverAvailable, isMyReview } = props;
+  const { thumbnail, shopName, shopCategoryList, text, writer, date, liked, saved } = reviewData;
+
+  const [isHovered, setIsHovered] = useState(false);
 
   const likedCount = liked > 99 ? '99+' : liked;
   const savedCount = saved > 99 ? '99+' : saved;
+  const category = shopCategoryList.join(', ');
 
   return (
-    <StyledRoot>
+    <StyledRoot onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+      {isHoverAvailable && isHovered && (
+        <StyledHover>
+          <p>{shopName}</p>
+          <p>{category}</p>
+        </StyledHover>
+      )}
       <StyledImageThumbnail>
         <Image src={thumbnail} width={384} height={208} alt="thumbnail" />
       </StyledImageThumbnail>
       <StyledContents>
         <StyledHeader>
-          <div className="profile">
-            <Image src={writer.thumbnail} width={24} height={24} alt="profile" />
-            <p>{writer.name}</p>
-          </div>
+          {isMyReview ? (
+            <p className="date">{date}</p>
+          ) : (
+            <div className="profile">
+              <Image src={writer.thumbnail} width={24} height={24} alt="profile" />
+              <p>{writer.name}</p>
+            </div>
+          )}
           <div className="figure">
             <StyledImageIcon>
               <Image src={'/assets/ic_heart.svg'} width={15} height={13} alt="liked" />
@@ -49,6 +64,42 @@ const StyledRoot = styled.div`
   width: 384px;
   height: 320px;
   border-radius: 5px;
+  &:hover {
+    cursor: pointer;
+  }
+`;
+const StyledHover = styled.div`
+  position: absolute;
+  z-index: 2;
+  width: inherit;
+  height: inherit;
+  border-radius: 5px;
+  background-color: rgba(81, 76, 87, 0.85);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  p:first-child {
+    font-size: 18px;
+    line-height: 26px;
+    font-weight: 500;
+    margin: 7px auto 4px auto;
+  }
+  p:last-child {
+    font-size: 12px;
+    line-height: 17px;
+    font-weight: 400;
+  }
+  animation: 0.3s linear appear;
+  @keyframes appear {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 `;
 const StyledContents = styled.div`
   display: flex;
@@ -77,6 +128,11 @@ const StyledHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 8px;
+  .date {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 23px;
+  }
   .profile {
     display: flex;
     justify-content: flex-start;
