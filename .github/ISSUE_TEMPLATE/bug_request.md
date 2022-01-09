@@ -1,7 +1,7 @@
 ---
 name: BUG 리포트
 about: 버그를 고쳐보아요.
-title: "[BUG] E#00-T#00 `Bug 상세`"
+title: "[BUG] E#0-S#0 Bug 상세"
 labels: bug
 assignees: ''
 
