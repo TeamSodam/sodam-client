@@ -42,11 +42,12 @@ const StyledTitle = styled.div`
   flex: 1;
   h3 {
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 700;
     line-height: 26px;
   }
   p {
     font-size: 14px;
+    font-weight: 500;
     color: ${theme.colors.gray1};
     margin-top: 4px;
     line-height: 20px;
