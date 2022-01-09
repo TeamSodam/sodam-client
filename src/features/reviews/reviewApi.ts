@@ -1,14 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { axiosBaseQuery } from 'libs/api';
-
-export interface ReviewInfo {
-  author: string;
-  likeCount: number;
-  scrapCount: number;
-  createdAt: string;
-  content: string;
-  tags: string[];
-}
+import { ReviewInfo } from 'types/review';
 
 export const reviewApi = createApi({
   reducerPath: 'reviewApi',

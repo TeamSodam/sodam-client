@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { axiosBaseQuery } from 'libs/api';
-import { ShopInfoInMarker as ShopInfo } from 'types/map';
+import { ShopInfo } from 'types/shop';
 
 export const shopApi = createApi({
   reducerPath: 'shopApi',
