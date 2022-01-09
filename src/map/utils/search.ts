@@ -1,11 +1,4 @@
-import { KakaoLatLng, KakaoMap } from 'types/map';
-
-interface xy {
-  x: string;
-  y: string;
-}
-
-type StatusText = 'OK' | 'ZERO_RESULT' | 'ERROR';
+import { KakaoLatLng, KakaoMap, StatusText, xy } from 'types/map';
 
 // address: 서울 서초구 방배천로18길 28 (실제주소) 반환 값: LatLng 객체
 export const getLocationByAddress = async (address: string): Promise<KakaoLatLng> => {

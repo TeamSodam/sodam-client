@@ -1,4 +1,5 @@
 import { css } from 'styled-components';
+import { ShopInfoInMarker } from 'types/map';
 
 export const tooltipStyle = css`
   .map-overlay-tooltip {
@@ -51,15 +52,16 @@ export const tooltipStyle = css`
   }
 `;
 
-export const getToolTipTemplate = (): string => {
+export const getToolTipTemplate = (shopInfo: ShopInfoInMarker): string => {
+  const { name, category, address } = shopInfo;
   const tooltipTemplate = `
     <div class="map-overlay-tooltip">
       <div class="map-overlay-tooltip__header">
-        <h3>소품샵 이름</h3>
-        <h4>소품샵 분류</h4>
+        <h3>${name}</h3>
+        <h4>${category}</h4>
       </div>
       <p class="map-overlay-tooltip__content">
-        소품샵의 상세한 주소가 나타남.
+        ${address}
       </p>
     </div>
   `;

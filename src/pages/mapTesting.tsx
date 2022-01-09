@@ -15,13 +15,13 @@ function MapTesting() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>
+        <button onClick={async () => await displayMarkerByAddress()}>마커 찍기</button>
         <input
           placeholder="ex) 서울 서초구 방배중앙로29길 7"
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
         />
-        <button onClick={async () => await displayMarkerByAddress(input)}>마커 찍기</button>
         <button onClick={() => moveByAddress(input)}>위치 이동</button>
         <MapContainer ref={mapRef} />
       </Container>

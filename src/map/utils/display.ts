@@ -1,24 +1,25 @@
 import { getToolTipTemplate } from 'map/overlays/tooltip';
-import { KakaoMap } from 'types/map';
+import { KakaoMap, ShopInfoInMarker } from 'types/map';
 
 import { getLocationByAddress } from './search';
 
-export const displayMarker = async (map: KakaoMap, address: string) => {
+export const displayMarker = async (map: KakaoMap, shopInfo: ShopInfoInMarker) => {
   const { kakao } = window;
+  const { address, name } = shopInfo;
   const markerPosition = await getLocationByAddress(address);
 
-  const markerSrc = '/assets/marker.svg';
-  const activeMarkerSrc = '/assets/activeMarker.svg';
+  const MARKER_SRC = '/assets/marker.svg';
+  const ACTIVE_MARKER_SRC = '/assets/activeMarker.svg';
   const imageSize = new kakao.maps.Size(30, 30);
   const imageOption = { offset: new kakao.maps.Point(18, 36) };
 
-  const markerImage = new kakao.maps.MarkerImage(markerSrc, imageSize, imageOption);
-  const activeMarkerImage = new kakao.maps.MarkerImage(activeMarkerSrc, imageSize, imageOption);
+  const markerImage = new kakao.maps.MarkerImage(MARKER_SRC, imageSize, imageOption);
+  const activeMarkerImage = new kakao.maps.MarkerImage(ACTIVE_MARKER_SRC, imageSize, imageOption);
   const marker = new kakao.maps.Marker({
     position: markerPosition,
     image: markerImage,
     clickable: true,
-    title: '소품샵 이름',
+    title: name,
     zIndex: 1,
   });
 
@@ -27,7 +28,7 @@ export const displayMarker = async (map: KakaoMap, address: string) => {
     position: marker.getPosition(),
   });
 
-  customOverlay.setContent(getToolTipTemplate());
+  customOverlay.setContent(getToolTipTemplate(shopInfo));
   customOverlay.setMap(null);
 
   let isClicked = false;

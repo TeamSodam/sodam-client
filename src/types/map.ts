@@ -5,3 +5,16 @@ export interface KakaoLatLng {
   La: string;
   Ma: string;
 }
+
+export interface ShopInfoInMarker {
+  address: string;
+  name: string;
+  category: string;
+}
+
+export interface xy {
+  x: string;
+  y: string;
+}
+
+export type StatusText = 'OK' | 'ZERO_RESULT' | 'ERROR';
