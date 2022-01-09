@@ -13,7 +13,8 @@ export const makeStore = () =>
       [shopApi.reducerPath]: shopApi.reducer,
       [reviewApi.reducerPath]: reviewApi.reducer,
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(shopApi.middleware),
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat([shopApi.middleware, reviewApi.middleware]),
   });
 
 export const wrapper = createWrapper(makeStore, { debug: process.env.NODE_ENV !== 'production' });

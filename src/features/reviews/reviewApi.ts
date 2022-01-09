@@ -1,4 +1,5 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
+import { axiosBaseQuery } from 'libs/api';
 
 export interface ReviewInfo {
   author: string;
@@ -11,21 +12,21 @@ export interface ReviewInfo {
 
 export const reviewApi = createApi({
   reducerPath: 'reviewApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:4000' }),
+  baseQuery: axiosBaseQuery(),
   refetchOnFocus: true,
   endpoints: (builder) => ({
     // builder.query<T, U>() --> T는 쿼리의 반환값 타입, U는 쿼리 파라미터의 타입.
     getMyReview: builder.query<ReviewInfo[], void>({
-      query: () => 'review/my',
+      query: () => ({ url: '/review/my', method: 'GET' }),
     }),
     getRecentReview: builder.query<ReviewInfo[], void>({
-      query: () => 'review/recent',
+      query: () => ({ url: '/review/recent', method: 'GET' }),
     }),
     postReview: builder.mutation<ReviewInfo, { token: string; reviewInfo: Required<ReviewInfo> }>({
       query: ({ token, reviewInfo }) => ({
-        url: 'review',
+        url: '/review',
         method: 'POST',
-        body: reviewInfo,
+        data: reviewInfo,
         headers: {
           'Access-token': token,
         },

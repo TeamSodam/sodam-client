@@ -1,20 +1,21 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi } from '@reduxjs/toolkit/query/react';
+import { axiosBaseQuery } from 'libs/api';
 import { ShopInfoInMarker as ShopInfo } from 'types/map';
 
 export const shopApi = createApi({
   reducerPath: 'shopApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:4000' }),
+  baseQuery: axiosBaseQuery(),
   refetchOnFocus: true,
   endpoints: (builder) => ({
     // builder.query<T, U>() --> T는 쿼리의 반환값 타입, U는 쿼리 파라미터의 타입.
     getRecommendedShop: builder.query<ShopInfo[], void>({
-      query: () => 'shop/recommend',
+      query: () => ({ url: '/shop/recommend', method: 'GET' }),
     }),
     getHotShop: builder.query<ShopInfo[], void>({
-      query: () => 'shop/hot',
+      query: () => ({ url: '/shop/hot', method: 'GET' }),
     }),
     getShopByTheme: builder.query<ShopInfo[], string>({
-      query: (themeType) => `theme/${themeType}`,
+      query: (themeType) => ({ url: `/theme/${themeType}`, method: 'GET' }),
     }),
   }),
 });
