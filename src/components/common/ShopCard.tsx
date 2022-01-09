@@ -28,8 +28,8 @@ function ShopCard(props: ShopCardProps) {
 const StyledRoot = styled.div`
   display: flex;
   flex-direction: column;
-  width: 282px;
-  height: 270px;
+  width: 28.2rem;
+  height: 27rem;
   img {
     border-radius: 10px;
   }
@@ -41,16 +41,16 @@ const StyledTitle = styled.div`
   align-items: center;
   flex: 1;
   h3 {
-    font-size: 18px;
+    font-size: 1.8rem;
     font-weight: 700;
-    line-height: 26px;
+    line-height: 2.6rem;
   }
   p {
-    font-size: 14px;
+    font-size: 1.4rem;
     font-weight: 500;
     color: ${theme.colors.gray1};
-    margin-top: 4px;
-    line-height: 20px;
+    margin-top: 0.4rem;
+    line-height: 2rem;
   }
 `;
 

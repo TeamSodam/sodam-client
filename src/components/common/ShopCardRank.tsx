@@ -40,7 +40,7 @@ function ShopCardRank(props: ShopCardRankProps) {
 const StyledImage = styled.div`
   position: absolute;
   z-index: 2;
-  margin-left: 17px;
+  margin-left: 1.7rem;
 `;
 
 export default ShopCardRank;

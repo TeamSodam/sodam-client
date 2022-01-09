@@ -61,8 +61,8 @@ function ReviewCard(props: ReviewCardProps) {
 const StyledRoot = styled.div`
   display: flex;
   flex-direction: column;
-  width: 384px;
-  height: 320px;
+  width: 38.4rem;
+  height: 32rem;
   border-radius: 5px;
   &:hover {
     cursor: pointer;
@@ -81,14 +81,14 @@ const StyledHover = styled.div`
   align-items: center;
   color: white;
   p:first-child {
-    font-size: 18px;
-    line-height: 26px;
+    font-size: 1.8rem;
+    line-height: 2.6rem;
     font-weight: 500;
-    margin: 7px auto 4px auto;
+    margin: 0.7rem auto 0.4rem auto;
   }
   p:last-child {
-    font-size: 12px;
-    line-height: 17px;
+    font-size: 1.2rem;
+    line-height: 1.7rem;
     font-weight: 400;
   }
   animation: 0.3s linear appear;
@@ -109,13 +109,13 @@ const StyledContents = styled.div`
   border-bottom-right-radius: 5px;
   border: 1px solid ${theme.colors.gray1};
   border-top: none;
-  padding: 16px 24px 23px 24px;
-  margin-top: -2px;
+  padding: 1.6rem 2.4rem 2.3rem 2.4rem;
+  margin-top: -0.2rem;
   & > p {
-    height: 41px;
-    font-size: 12px;
+    height: 4.1rem;
+    font-size: 1.2rem;
     font-weight: 400;
-    line-height: 22px;
+    line-height: 2.2rem;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -127,11 +127,11 @@ const StyledHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 0.8rem;
   .date {
-    font-size: 14px;
+    font-size: 1.4rem;
     font-weight: 500;
-    line-height: 23px;
+    line-height: 2.3rem;
   }
   .profile {
     display: flex;
@@ -141,10 +141,10 @@ const StyledHeader = styled.div`
       border-radius: 12px;
     }
     p {
-      font-size: 14px;
+      font-size: 1.4rem;
       font-weight: 500;
-      line-height: 23px;
-      margin-left: 8px;
+      line-height: 2.3rem;
+      margin-left: 0.8rem;
     }
   }
   .figure {
@@ -152,9 +152,9 @@ const StyledHeader = styled.div`
     justify-content: flex-end;
     align-items: center;
     p {
-      font-size: 12px;
+      font-size: 1.2rem;
       font-weight: 400;
-      line-height: 22px;
+      line-height: 2.2rem;
     }
   }
 `;
@@ -165,8 +165,10 @@ const StyledImageThumbnail = styled.div`
   }
 `;
 const StyledImageIcon = styled.div`
-  margin-right: 6px;
-  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  margin-right: 0.6rem;
+  margin-left: 1rem;
 `;
 
 export default ReviewCard;
