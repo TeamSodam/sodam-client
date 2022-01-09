@@ -19,6 +19,7 @@ module.exports = {
       'app': path.resolve(__dirname, 'src/app'),
       'pages': path.resolve(__dirname, 'src/pages'),
       'features': path.resolve(__dirname, 'src/features'),
+      'assets': path.resolve(__dirname, 'assets'),
     };
     return config;
   },

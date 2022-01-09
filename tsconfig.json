@@ -16,6 +16,8 @@
     "jsx": "preserve",
     "incremental": true,
     "noImplicitAny": true,
+    "typeRoots": ["node_modules/@types"],
+    "types": ["kakao.maps.d.ts"],
     "paths": {
       "components/*": ["./src/components/*"],
       "hooks/*": ["./src/hooks/*"],
@@ -24,14 +26,16 @@
       "reducers/*": ["./src/reducers/*"],
       "reducers": ["./src/reducers"],
       "types/*": ["./src/types/*"],
+      "types": ["./src/types"],
       "app/*": ["./src/app/*"],
       "pages/*": ["./src/pages/*"],
       "public/*": ["./public/*"],
       "constants/*": ["./src/constants/*"],     
       "features/*": ["./src/features/*"],
       "styles/*": ["./src/styles/*"],
+      "assets/*": ["./assets/*"],
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["./src/types/styled.d.ts" ,"next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }

@@ -24,12 +24,11 @@ const Container = styled.main`
   justify-content: center;
   align-items: center;
   gap: 3rem;
-
   background-color: #eeeeff;
+
   & > h1 {
     font-size: 5rem;
     color: #9796fe;
-    font-weight: bolder;
   }
 
   & > h2 {
