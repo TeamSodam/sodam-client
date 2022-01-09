@@ -1,0 +1,379 @@
+{
+  "shop": [
+    {
+      "id": "recommend",
+      "data": [
+        {
+          "id": 1,
+          "name": "오구오구",
+          "category": "인테리어소품",
+          "address": "서울 종로구 인사동길 35-6 1층 114, 115호",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 2,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 3,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 4,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 5,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 6,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 7,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 8,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        }
+      ]
+    },
+    {
+      "id": "hot",
+      "data": [
+        {
+          "id": 1,
+          "name": "오구오구",
+          "category": "인테리어소품",
+          "address": "서울 종로구 인사동길 35-6 1층 114, 115호",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 2,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 3,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 4,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 5,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 6,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 7,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 8,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 9,
+          "name": "추가된거니",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        }
+      ]
+    }
+  ],
+  "theme": [
+    {
+      "id": "type1",
+      "data": [
+        {
+          "id": 1,
+          "name": "오구오구",
+          "category": "인테리어소품",
+          "address": "서울 종로구 인사동길 35-6 1층 114, 115호",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 2,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 3,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 4,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 5,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 6,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 7,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 8,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        }
+      ]
+    },
+    {
+      "id": "type2",
+      "data": [
+        {
+          "id": 1,
+          "name": "오구오구",
+          "category": "인테리어소품",
+          "address": "서울 종로구 인사동길 35-6 1층 114, 115호",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 2,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 3,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 4,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 5,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 6,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 7,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 8,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        }
+      ]
+    },
+    {
+      "id": "type3",
+      "data": [
+        {
+          "id": 1,
+          "name": "오구오구",
+          "category": "인테리어소품",
+          "address": "서울 종로구 인사동길 35-6 1층 114, 115호",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 2,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 3,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 4,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 5,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 6,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 7,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 8,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        }
+      ]
+    },
+    {
+      "id": "type4",
+      "data": [
+        {
+          "id": 1,
+          "name": "오구오구",
+          "category": "인테리어소품",
+          "address": "서울 종로구 인사동길 35-6 1층 114, 115호",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 2,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 3,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 4,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 5,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 6,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 7,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        },
+        {
+          "id": 8,
+          "name": "공감도",
+          "category": "공예품",
+          "address": "서울 종로구 창덕궁길 35",
+          "img": "/assets/dummy-shop.png"
+        }
+      ]
+    }
+  ]
+}
