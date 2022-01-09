@@ -1,7 +1,7 @@
 ---
 name: FEATURE 생성/등록
 about: 1 task per 1 issue
-title: "[FEATURE] E#00-T#00 `Feature 상세`"
+title: "[FEATURE] E#0-S#0 Feature 상세"
 labels: feature
 assignees: ''
 

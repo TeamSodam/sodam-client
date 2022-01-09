@@ -1,7 +1,7 @@
 ---
 name: REFACTOR 생성/등록
 about: 리팩토링을 진행하도록 합시다
-title: "[REFACTOR] E#00-T#00 `Refactor 상세`"
+title: "[REFACTOR] E#0-S#0 Refactor 상세"
 labels: refactor
 assignees: ''
 
