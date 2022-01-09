@@ -9,7 +9,7 @@ import reducer, { RootReducerState } from 'reducers';
 export const makeStore = () =>
   configureStore({
     reducer: {
-      user: reducer as Reducer<RootReducerState, AnyAction>,
+      reducer: reducer as Reducer<RootReducerState, AnyAction>,
       [shopApi.reducerPath]: shopApi.reducer,
       [reviewApi.reducerPath]: reviewApi.reducer,
     },
