@@ -375,5 +375,173 @@
         }
       ]
     }
+  ],
+  "review": [
+    {
+      "id": "my",
+      "data": [
+        {
+          "id": 1,
+          "author": "김권",
+          "likeCount": 123,
+          "scrapCount": 40,
+          "createdAt": "22.01.09",
+          "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias aliquam, nihil id animi eveniet soluta reprehenderit magnam quod tempora porro ut quisquam praesentium natus? Magni dolor nesciunt deleniti enim excepturi!",
+          "tags": [
+            "아기자기",
+            "개졸귀탱",
+            "십상타치"
+          ]
+        },
+        {
+          "id": 2,
+          "author": "김수한무",
+          "likeCount": 15,
+          "scrapCount": 4,
+          "createdAt": "22.01.08",
+          "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias aliquam, nihil id animi eveniet soluta reprehenderit magnam quod tempora porro ut quisquam praesentium natus? Magni dolor nesciunt deleniti enim excepturi!",
+          "tags": [
+            "아기자기",
+            "개졸귀탱",
+            "십상타치"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "recent",
+      "data": [
+        {
+          "id": 1,
+          "author": "김권",
+          "likeCount": 123,
+          "scrapCount": 40,
+          "createdAt": "22.01.09",
+          "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias aliquam, nihil id animi eveniet soluta reprehenderit magnam quod tempora porro ut quisquam praesentium natus? Magni dolor nesciunt deleniti enim excepturi!",
+          "tags": [
+            "아기자기",
+            "개졸귀탱",
+            "십상타치"
+          ]
+        },
+        {
+          "id": 2,
+          "author": "김수한무",
+          "likeCount": 15,
+          "scrapCount": 4,
+          "createdAt": "22.01.08",
+          "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias aliquam, nihil id animi eveniet soluta reprehenderit magnam quod tempora porro ut quisquam praesentium natus? Magni dolor nesciunt deleniti enim excepturi!",
+          "tags": [
+            "아기자기",
+            "개졸귀탱",
+            "십상타치"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "author": "김권",
+      "likeCount": 123,
+      "scrapCount": 40,
+      "createdAt": "22.01.09",
+      "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias aliquam, nihil id animi eveniet soluta reprehenderit magnam quod tempora porro ut quisquam praesentium natus? Magni dolor nesciunt deleniti enim excepturi!",
+      "tags": [
+        "아기자기",
+        "개졸귀탱",
+        "십상타치"
+      ]
+    },
+    {
+      "id": 2,
+      "author": "김수한무",
+      "likeCount": 15,
+      "scrapCount": 4,
+      "createdAt": "22.01.08",
+      "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias aliquam, nihil id animi eveniet soluta reprehenderit magnam quod tempora porro ut quisquam praesentium natus? Magni dolor nesciunt deleniti enim excepturi!",
+      "tags": [
+        "아기자기",
+        "개졸귀탱",
+        "십상타치"
+      ]
+    },
+    {
+      "author": "권혁진",
+      "likeCount": 123,
+      "scrapCount": 4,
+      "createdAt": "22.01.09",
+      "content": "something text will be placed. this is not my intend",
+      "tags": [
+        "바보",
+        "배고파",
+        "피자"
+      ],
+      "id": "azgQVd8"
+    },
+    {
+      "author": "권혁진",
+      "likeCount": 123,
+      "scrapCount": 4,
+      "createdAt": "22.01.09",
+      "content": "something text will be placed. this is not my intend",
+      "tags": [
+        "바보",
+        "배고파",
+        "피자"
+      ],
+      "id": "oXZerJf"
+    },
+    {
+      "author": "권혁진",
+      "likeCount": 123,
+      "scrapCount": 4,
+      "createdAt": "22.01.09",
+      "content": "something text will be placed. this is not my intend",
+      "tags": [
+        "바보",
+        "배고파",
+        "피자"
+      ],
+      "id": "qELlJzW"
+    },
+    {
+      "author": "권혁진",
+      "likeCount": 123,
+      "scrapCount": 4,
+      "createdAt": "22.01.09",
+      "content": "something text will be placed. this is not my intend",
+      "tags": [
+        "바보",
+        "배고파",
+        "피자"
+      ],
+      "id": "za0kpL-"
+    },
+    {
+      "author": "권혁진",
+      "likeCount": 123,
+      "scrapCount": 4,
+      "createdAt": "22.01.09",
+      "content": "something text will be placed. this is not my intend",
+      "tags": [
+        "바보",
+        "배고파",
+        "피자"
+      ],
+      "id": "8Lz8N2m"
+    },
+    {
+      "author": "권혁진",
+      "likeCount": 123,
+      "scrapCount": 4,
+      "createdAt": "22.01.09",
+      "content": "something text will be placed. this is not my intend",
+      "tags": [
+        "바보",
+        "배고파",
+        "피자"
+      ],
+      "id": "h7iGMOW"
+    }
   ]
 }
