@@ -6,58 +6,90 @@
         {
           "id": 1,
           "name": "오구오구",
-          "category": "인테리어소품",
-          "address": "서울 종로구 인사동길 35-6 1층 114, 115호",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["인테리어소품", "카테고리2"],
+          "addressRoad": "서울 종로구 인사동길 35-6 1층 114, 115호",
+          "addressLand": "서울 종로구 인사동길 35-6 1층 114, 115호",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 2,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 3,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 4,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 5,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 6,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 7,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 8,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         }
       ]
     },
@@ -67,65 +99,101 @@
         {
           "id": 1,
           "name": "오구오구",
-          "category": "인테리어소품",
-          "address": "서울 종로구 인사동길 35-6 1층 114, 115호",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["인테리어소품", "카테고리2"],
+          "addressRoad": "서울 종로구 인사동길 35-6 1층 114, 115호",
+          "addressLand": "서울 종로구 인사동길 35-6 1층 114, 115호",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 2,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 3,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 4,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 5,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 6,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 7,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 8,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 9,
           "name": "추가된거니",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         }
       ]
     }
@@ -137,58 +205,90 @@
         {
           "id": 1,
           "name": "오구오구",
-          "category": "인테리어소품",
-          "address": "서울 종로구 인사동길 35-6 1층 114, 115호",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["인테리어소품", "카테고리2"],
+          "addressRoad": "서울 종로구 인사동길 35-6 1층 114, 115호",
+          "addressLand": "서울 종로구 인사동길 35-6 1층 114, 115호",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 2,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 3,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 4,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 5,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 6,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 7,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 8,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         }
       ]
     },
@@ -198,58 +298,90 @@
         {
           "id": 1,
           "name": "오구오구",
-          "category": "인테리어소품",
-          "address": "서울 종로구 인사동길 35-6 1층 114, 115호",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["인테리어소품", "카테고리2"],
+          "addressRoad": "서울 종로구 인사동길 35-6 1층 114, 115호",
+          "addressLand": "서울 종로구 인사동길 35-6 1층 114, 115호",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 2,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 3,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 4,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 5,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 6,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 7,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 8,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         }
       ]
     },
@@ -259,58 +391,90 @@
         {
           "id": 1,
           "name": "오구오구",
-          "category": "인테리어소품",
-          "address": "서울 종로구 인사동길 35-6 1층 114, 115호",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["인테리어소품", "카테고리2"],
+          "addressRoad": "서울 종로구 인사동길 35-6 1층 114, 115호",
+          "addressLand": "서울 종로구 인사동길 35-6 1층 114, 115호",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 2,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 3,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 4,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 5,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 6,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 7,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 8,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         }
       ]
     },
@@ -320,58 +484,90 @@
         {
           "id": 1,
           "name": "오구오구",
-          "category": "인테리어소품",
-          "address": "서울 종로구 인사동길 35-6 1층 114, 115호",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["인테리어소품", "카테고리2"],
+          "addressRoad": "서울 종로구 인사동길 35-6 1층 114, 115호",
+          "addressLand": "서울 종로구 인사동길 35-6 1층 114, 115호",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 2,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 3,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 4,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 5,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 6,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 7,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         },
         {
           "id": 8,
           "name": "공감도",
-          "category": "공예품",
-          "address": "서울 종로구 창덕궁길 35",
-          "img": "/assets/dummy-shop.png"
+          "categoryList": ["공예품", "카테고리2"],
+          "addressRoad": "서울 종로구 창덕궁길 35",
+          "addressLand": "서울 종로구 창덕궁길 35",
+          "hour": "12:00 ~ 21:00",
+          "website": "https://nukw0n-dev.tistory.com",
+          "sns": "instargram",
+          "thumbnail": "/assets/dummy/dummy-shop.png"
         }
       ]
     }
@@ -382,29 +578,41 @@
       "data": [
         {
           "id": 1,
-          "author": "김권",
-          "likeCount": 123,
-          "scrapCount": 40,
-          "createdAt": "22.01.09",
-          "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias aliquam, nihil id animi eveniet soluta reprehenderit magnam quod tempora porro ut quisquam praesentium natus? Magni dolor nesciunt deleniti enim excepturi!",
-          "tags": [
+          "shopName": "소품샵이지롱",
+          "write": {
+            "name": "권혁진",
+            "thumbnail": "assets/ex-profile.jpg"
+          },
+          "liked": 123,
+          "saved": 40,
+          "date": "22.01.09",
+          "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias aliquam, nihil id animi eveniet soluta reprehenderit magnam quod tempora porro ut quisquam praesentium natus? Magni dolor nesciunt deleniti enim excepturi!",
+          "shopCategoryList": ["인테리어소품", "장난감"],
+          "tagList": [
             "아기자기",
             "개졸귀탱",
             "십상타치"
-          ]
+          ],
+          "thumbnail": "assets/dummy/dummy-image.jpg"
         },
         {
           "id": 2,
-          "author": "김수한무",
-          "likeCount": 15,
-          "scrapCount": 4,
-          "createdAt": "22.01.08",
-          "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias aliquam, nihil id animi eveniet soluta reprehenderit magnam quod tempora porro ut quisquam praesentium natus? Magni dolor nesciunt deleniti enim excepturi!",
-          "tags": [
+          "shopName": "소품샵이지롱",
+          "write": {
+            "name": "권혁진",
+            "thumbnail": "assets/ex-profile.jpg"
+          },
+          "liked": 15,
+          "saved": 4,
+          "date": "22.01.08",
+          "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias aliquam, nihil id animi eveniet soluta reprehenderit magnam quod tempora porro ut quisquam praesentium natus? Magni dolor nesciunt deleniti enim excepturi!",
+          "shopCategoryList": ["인테리어소품", "장난감"],
+          "tagList": [
             "아기자기",
             "개졸귀탱",
             "십상타치"
-          ]
+          ],
+          "thumbnail": "assets/dummy/dummy-image.jpg"
         }
       ]
     },
@@ -413,40 +621,57 @@
       "data": [
         {
           "id": 1,
-          "author": "김권",
-          "likeCount": 123,
-          "scrapCount": 40,
-          "createdAt": "22.01.09",
-          "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias aliquam, nihil id animi eveniet soluta reprehenderit magnam quod tempora porro ut quisquam praesentium natus? Magni dolor nesciunt deleniti enim excepturi!",
-          "tags": [
+          "shopName": "소품샵이지롱",
+          "write": {
+            "name": "권혁진",
+            "thumbnail": "assets/ex-profile.jpg"
+          },
+          "liked": 123,
+          "saved": 40,
+          "date": "22.01.09",
+          "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias aliquam, nihil id animi eveniet soluta reprehenderit magnam quod tempora porro ut quisquam praesentium natus? Magni dolor nesciunt deleniti enim excepturi!",
+          "shopCategoryList": ["인테리어소품", "장난감"],
+          "tagList": [
             "아기자기",
             "개졸귀탱",
             "십상타치"
-          ]
+          ],
+          "thumbnail": "assets/dummy/dummy-image.jpg"
         },
         {
           "id": 2,
-          "author": "김수한무",
-          "likeCount": 15,
-          "scrapCount": 4,
-          "createdAt": "22.01.08",
-          "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias aliquam, nihil id animi eveniet soluta reprehenderit magnam quod tempora porro ut quisquam praesentium natus? Magni dolor nesciunt deleniti enim excepturi!",
-          "tags": [
+          "shopName": "소품샵이지롱",
+          "write": {
+            "name": "권혁진",
+            "thumbnail": "assets/ex-profile.jpg"
+          },
+          "liked": 15,
+          "saved": 4,
+          "date": "22.01.08",
+          "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias aliquam, nihil id animi eveniet soluta reprehenderit magnam quod tempora porro ut quisquam praesentium natus? Magni dolor nesciunt deleniti enim excepturi!",
+          "shopCategoryList": ["인테리어소품", "장난감"],
+          "tagList": [
             "아기자기",
             "개졸귀탱",
             "십상타치"
-          ]
+          ],
+          "thumbnail": "assets/dummy/dummy-image.jpg"
         }
       ]
     },
     {
       "id": 1,
-      "author": "김권",
-      "likeCount": 123,
-      "scrapCount": 40,
-      "createdAt": "22.01.09",
-      "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias aliquam, nihil id animi eveniet soluta reprehenderit magnam quod tempora porro ut quisquam praesentium natus? Magni dolor nesciunt deleniti enim excepturi!",
-      "tags": [
+      "shopName": "소품샵이지롱",
+      "write": {
+        "name": "권혁진",
+        "thumbnail": "assets/ex-profile.jpg"
+      },
+      "liked": 123,
+      "saved": 40,
+      "date": "22.01.09",
+      "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias aliquam, nihil id animi eveniet soluta reprehenderit magnam quod tempora porro ut quisquam praesentium natus? Magni dolor nesciunt deleniti enim excepturi!",
+      "shopCategoryList": ["인테리어소품", "장난감"],
+      "tagList": [
         "아기자기",
         "개졸귀탱",
         "십상타치"
@@ -454,24 +679,34 @@
     },
     {
       "id": 2,
-      "author": "김수한무",
-      "likeCount": 15,
-      "scrapCount": 4,
-      "createdAt": "22.01.08",
-      "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias aliquam, nihil id animi eveniet soluta reprehenderit magnam quod tempora porro ut quisquam praesentium natus? Magni dolor nesciunt deleniti enim excepturi!",
-      "tags": [
+      "shopName": "소품샵이지롱",
+      "write": {
+        "name": "권혁진",
+        "thumbnail": "assets/ex-profile.jpg"
+      },
+      "liked": 15,
+      "saved": 4,
+      "date": "22.01.08",
+      "text": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias aliquam, nihil id animi eveniet soluta reprehenderit magnam quod tempora porro ut quisquam praesentium natus? Magni dolor nesciunt deleniti enim excepturi!",
+      "shopCategoryList": ["인테리어소품", "장난감"],
+      "tagList": [
         "아기자기",
         "개졸귀탱",
         "십상타치"
       ]
     },
     {
-      "author": "권혁진",
-      "likeCount": 123,
-      "scrapCount": 4,
-      "createdAt": "22.01.09",
-      "content": "something text will be placed. this is not my intend",
-      "tags": [
+      "shopName": "소품샵이지롱",
+      "write": {
+        "name": "권혁진",
+        "thumbnail": "assets/ex-profile.jpg"
+      },
+      "liked": 123,
+      "saved": 4,
+      "date": "22.01.09",
+      "text": "something text will be placed. this is not my intend",
+      "shopCategoryList": ["인테리어소품", "장난감"],
+      "tagList": [
         "바보",
         "배고파",
         "피자"
@@ -479,12 +714,17 @@
       "id": "azgQVd8"
     },
     {
-      "author": "권혁진",
-      "likeCount": 123,
-      "scrapCount": 4,
-      "createdAt": "22.01.09",
-      "content": "something text will be placed. this is not my intend",
-      "tags": [
+      "shopName": "소품샵이지롱",
+      "write": {
+        "name": "권혁진",
+        "thumbnail": "assets/ex-profile.jpg"
+      },
+      "liked": 123,
+      "saved": 4,
+      "date": "22.01.09",
+      "text": "something text will be placed. this is not my intend",
+      "shopCategoryList": ["인테리어소품", "장난감"],
+      "tagList": [
         "바보",
         "배고파",
         "피자"
@@ -492,12 +732,17 @@
       "id": "oXZerJf"
     },
     {
-      "author": "권혁진",
-      "likeCount": 123,
-      "scrapCount": 4,
-      "createdAt": "22.01.09",
-      "content": "something text will be placed. this is not my intend",
-      "tags": [
+      "shopName": "소품샵이지롱",
+      "write": {
+        "name": "권혁진",
+        "thumbnail": "assets/ex-profile.jpg"
+      },
+      "liked": 123,
+      "saved": 4,
+      "date": "22.01.09",
+      "text": "something text will be placed. this is not my intend",
+      "shopCategoryList": ["인테리어소품", "장난감"],
+      "tagList": [
         "바보",
         "배고파",
         "피자"
@@ -505,12 +750,17 @@
       "id": "qELlJzW"
     },
     {
-      "author": "권혁진",
-      "likeCount": 123,
-      "scrapCount": 4,
-      "createdAt": "22.01.09",
-      "content": "something text will be placed. this is not my intend",
-      "tags": [
+      "shopName": "소품샵이지롱",
+      "write": {
+        "name": "권혁진",
+        "thumbnail": "assets/ex-profile.jpg"
+      },
+      "liked": 123,
+      "saved": 4,
+      "date": "22.01.09",
+      "text": "something text will be placed. this is not my intend",
+      "shopCategoryList": ["인테리어소품", "장난감"],
+      "tagList": [
         "바보",
         "배고파",
         "피자"
@@ -518,12 +768,17 @@
       "id": "za0kpL-"
     },
     {
-      "author": "권혁진",
-      "likeCount": 123,
-      "scrapCount": 4,
-      "createdAt": "22.01.09",
-      "content": "something text will be placed. this is not my intend",
-      "tags": [
+      "shopName": "소품샵이지롱",
+      "write": {
+        "name": "권혁진",
+        "thumbnail": "assets/ex-profile.jpg"
+      },
+      "liked": 123,
+      "saved": 4,
+      "date": "22.01.09",
+      "text": "something text will be placed. this is not my intend",
+      "shopCategoryList": ["인테리어소품", "장난감"],
+      "tagList": [
         "바보",
         "배고파",
         "피자"
@@ -531,12 +786,17 @@
       "id": "8Lz8N2m"
     },
     {
-      "author": "권혁진",
-      "likeCount": 123,
-      "scrapCount": 4,
-      "createdAt": "22.01.09",
-      "content": "something text will be placed. this is not my intend",
-      "tags": [
+      "shopName": "소품샵이지롱",
+      "write": {
+        "name": "권혁진",
+        "thumbnail": "assets/ex-profile.jpg"
+      },
+      "liked": 123,
+      "saved": 4,
+      "date": "22.01.09",
+      "text": "something text will be placed. this is not my intend",
+      "shopCategoryList": ["인테리어소품", "장난감"],
+      "tagList": [
         "바보",
         "배고파",
         "피자"
