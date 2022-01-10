@@ -107,7 +107,7 @@ const StyledContents = styled.div`
   flex: 1;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
-  border: 1px solid ${theme.colors.gray1};
+  border: 1px solid ${theme.colors.gray2};
   border-top: none;
   padding: 1.6rem 2.4rem 2.3rem 2.4rem;
   margin-top: -0.2rem;
