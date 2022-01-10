@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { theme } from 'styles/theme';
 import { ReviewCardData } from 'types/review';
 
+import ImageDiv from './ImageDiv';
+
 interface ReviewCardProps {
   reviewData: ReviewCardData;
   isHoverAvailable?: boolean;
@@ -28,9 +30,13 @@ function ReviewCard(props: ReviewCardProps) {
           <p>{category}</p>
         </StyledHover>
       )}
-      <StyledImageThumbnail>
-        <Image src={thumbnail} width={384} height={208} alt="thumbnail" />
-      </StyledImageThumbnail>
+      <ImageDiv
+        className="thumbnail__image"
+        src={thumbnail}
+        width={384}
+        height={208}
+        alt="thumbnail"
+      />
       <StyledContents>
         <StyledHeader>
           {isMyReview ? (
@@ -42,13 +48,21 @@ function ReviewCard(props: ReviewCardProps) {
             </div>
           )}
           <div className="figure">
-            <StyledImageIcon>
-              <Image src={'/assets/ic_heart.svg'} width={15} height={13} alt="liked" />
-            </StyledImageIcon>
+            <ImageDiv
+              className="figure__icon"
+              src={'/assets/ic_heart.svg'}
+              width={15}
+              height={13}
+              alt="liked"
+            />
             <p>{likedCount}</p>
-            <StyledImageIcon>
-              <Image src={'/assets/ic_save.svg'} width={12} height={14} alt="saved" />
-            </StyledImageIcon>
+            <ImageDiv
+              className="figure__icon"
+              src={'/assets/ic_save.svg'}
+              width={12}
+              height={14}
+              alt="saved"
+            />
             <p>{savedCount}</p>
           </div>
         </StyledHeader>
@@ -66,6 +80,12 @@ const StyledRoot = styled.div`
   border-radius: 5px;
   &:hover {
     cursor: pointer;
+  }
+  .thumbnail__image {
+    & img {
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+    }
   }
 `;
 const StyledHover = styled.div`
@@ -156,19 +176,13 @@ const StyledHeader = styled.div`
       font-weight: 400;
       line-height: 2.2rem;
     }
+    &__icon {
+      display: flex;
+      align-items: center;
+      margin-right: 0.6rem;
+      margin-left: 1rem;
+    }
   }
-`;
-const StyledImageThumbnail = styled.div`
-  img {
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-  }
-`;
-const StyledImageIcon = styled.div`
-  display: flex;
-  align-items: center;
-  margin-right: 0.6rem;
-  margin-left: 1rem;
 `;
 
 export default ReviewCard;

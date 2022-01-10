@@ -1,8 +1,8 @@
-import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
 import { ShopCardData } from 'types/shop';
 
+import ImageDiv from './ImageDiv';
 import ShopCard from './ShopCard';
 
 interface ShopCardRankProps {
@@ -16,19 +16,21 @@ function ShopCardRank(props: ShopCardRankProps) {
   const getRankIcon = (): string => `/assets/ic_rank_${rank}.svg`;
 
   return (
-    <div>
-      <StyledImage>
-        {rank && rank <= 3 && <Image src={getRankIcon()} width={32} height={40} alt="rank" />}
-      </StyledImage>
+    <StyledRoot>
+      {rank && rank <= 3 && (
+        <ImageDiv className="rank__icon" src={getRankIcon()} width={32} height={40} alt="rank" />
+      )}
       <ShopCard cardData={cardData} />
-    </div>
+    </StyledRoot>
   );
 }
 
-const StyledImage = styled.div`
-  position: absolute;
-  z-index: 2;
-  margin-left: 1.7rem;
+const StyledRoot = styled.div`
+  .rank__icon {
+    position: absolute;
+    z-index: 2;
+    margin-left: 1.7rem;
+  }
 `;
 
 export default ShopCardRank;
