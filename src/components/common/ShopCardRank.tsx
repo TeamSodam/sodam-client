@@ -11,26 +11,14 @@ interface ShopCardRankProps {
 
 function ShopCardRank(props: ShopCardRankProps) {
   const { cardData } = props;
-  const { rank } = cardData;
+  const { rank = null } = cardData;
 
-  const getRankIcon = (): string | null => {
-    switch (rank) {
-      case 1:
-        return '/assets/ic_rank_1.svg';
-      case 2:
-        return '/assets/ic_rank_2.svg';
-      case 3:
-        return '/assets/ic_rank_3.svg';
-      default:
-        return null;
-    }
-  };
-  const rankIcon = getRankIcon();
+  const getRankIcon = (): string => `/assets/ic_rank_${rank}.svg`;
 
   return (
     <div>
       <StyledImage>
-        {rankIcon && <Image src={rankIcon} width={32} height={40} alt="rank" />}
+        {rank && rank <= 3 && <Image src={getRankIcon()} width={32} height={40} alt="rank" />}
       </StyledImage>
       <ShopCard cardData={cardData} />
     </div>
