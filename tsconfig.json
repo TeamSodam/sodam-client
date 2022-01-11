@@ -17,7 +17,6 @@
     "incremental": true,
     "noImplicitAny": true,
     "typeRoots": ["node_modules/@types"],
-    "types": ["kakao.maps.d.ts"],
     "paths": {
       "components/*": ["./src/components/*"],
       "hooks/*": ["./src/hooks/*"],
