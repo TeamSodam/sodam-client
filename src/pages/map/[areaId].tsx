@@ -1,3 +1,4 @@
+import MapSidebar from 'components/MapSidebar';
 import useMap from 'hooks/useMap';
 import { useRouter } from 'next/router';
 import LeftArr from 'public/assets/ic_leftArr.svg';
@@ -22,7 +23,9 @@ function MapWithAreaId() {
         <LeftArrIC />
         <span>지역 다시 선택하기</span>
       </StyledGoBack>
-      <MapContainer ref={mapRef} />
+      <MapContainer ref={mapRef}>
+        <MapSidebar />
+      </MapContainer>
     </StyledContainer>
   );
 }
@@ -63,6 +66,8 @@ const MapContainer = styled.div`
   height: 82.4rem;
 
   margin: 3.5rem 0 13.2rem 0;
+
+  position: relative;
 `;
 
 export default MapWithAreaId;

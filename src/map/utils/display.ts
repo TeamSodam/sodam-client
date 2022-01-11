@@ -8,8 +8,8 @@ export const displayMarker = async (map: KakaoMap, shopInfo: ShopInfoInMarker) =
   const { address, name } = shopInfo;
   const markerPosition = await getLocationByAddress(address);
 
-  const MARKER_SRC = '/assets/ic_active_marker.svg';
-  const ACTIVE_MARKER_SRC = '/assets/ic_basic_marker.svg';
+  const MARKER_SRC = '/assets/ic_basic_marker.svg';
+  const ACTIVE_MARKER_SRC = '/assets/ic_active_marker.svg';
   const imageSize = new kakao.maps.Size(32, 38);
   const imageOption = { offset: new kakao.maps.Point(18, 36) };
 
