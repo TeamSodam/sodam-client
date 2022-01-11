@@ -1,19 +1,32 @@
-import MapSidebar from 'components/MapSidebar';
+import { useAppDispatch } from 'app/hook';
+import MapSidebar, { dummyShopList } from 'components/MapSidebar';
+import { initMap } from 'features/map/mapSlice';
 import useMap from 'hooks/useMap';
 import { useRouter } from 'next/router';
 import LeftArr from 'public/assets/ic_leftArr.svg';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 function MapWithAreaId() {
   const mapRef = useRef<HTMLDivElement>(null);
-  useMap(mapRef);
+  const { displayMarkerByAddress } = useMap(mapRef);
+  const dispatch = useAppDispatch();
   const router = useRouter();
   const { areaId } = router.query;
 
   const onClickGoBack = () => {
+    dispatch(initMap());
     router.push('/map');
   };
+
+  useEffect(() => {
+    (() => {
+      dummyShopList.forEach(async (dummy) => {
+        const { address, shopName: name, category } = dummy;
+        await displayMarkerByAddress({ address, name, category });
+      });
+    })();
+  }, [displayMarkerByAddress]);
 
   if (!areaId) return <div>something wrong!</div>;
 

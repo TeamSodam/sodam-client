@@ -1,9 +1,16 @@
+import type { PayloadAction } from '@reduxjs/toolkit';
+import { MarkerInfo } from 'features/map/mapSlice';
 import { getToolTipTemplate } from 'map/overlays/tooltip';
 import { KakaoMap, ShopInfoInMarker } from 'types/map';
 
 import { getLocationByAddress } from './search';
 
-export const displayMarker = async (map: KakaoMap, shopInfo: ShopInfoInMarker) => {
+export const displayMarker = async (
+  map: KakaoMap,
+  shopInfo: ShopInfoInMarker,
+  addMarkerToList: (markerInfo: MarkerInfo) => PayloadAction<MarkerInfo>,
+  changeClickState: (markerInfo: MarkerInfo) => PayloadAction<MarkerInfo>,
+) => {
   const { kakao } = window;
   const { address, name } = shopInfo;
   const markerPosition = await getLocationByAddress(address);
@@ -33,6 +40,11 @@ export const displayMarker = async (map: KakaoMap, shopInfo: ShopInfoInMarker) =
 
   let isClicked = false;
   kakao.maps.event.addListener(marker, 'click', () => {
+    const nextMarkerState = {
+      marker,
+      name,
+      isClicked: !isClicked,
+    };
     if (isClicked) {
       marker.setImage(markerImage);
       customOverlay.setMap(null);
@@ -41,8 +53,14 @@ export const displayMarker = async (map: KakaoMap, shopInfo: ShopInfoInMarker) =
       customOverlay.setMap(map);
     }
 
+    changeClickState(nextMarkerState);
     isClicked = !isClicked;
   });
 
+  addMarkerToList({
+    marker,
+    name,
+    isClicked,
+  });
   marker.setMap(map);
 };

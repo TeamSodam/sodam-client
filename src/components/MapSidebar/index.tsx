@@ -10,16 +10,7 @@ interface StyledMapProps {
   isOpen?: boolean;
 }
 
-const dummyShopList: ShopElementProps[] = [
-  {
-    shopId: 1,
-    shopName: '소품샵 최대길이 소품샵 최대길이 소품 분류와 8px 남기고',
-    category: ['인테리어소품'],
-    image: '/assets/dummy/dummy-shop.png',
-    address: '서울 마포구 동교로46길 33',
-    close: '영업시간 12:00~17:00',
-    reviewCount: 35,
-  },
+export const dummyShopList: ShopElementProps[] = [
   {
     shopId: 2,
     shopName: '수바코',

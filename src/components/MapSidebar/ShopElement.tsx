@@ -1,3 +1,4 @@
+import useMap from 'hooks/useMap';
 import Image from 'next/image';
 import DelimiterIC from 'public/assets/ic_delimiter.svg';
 import styled from 'styled-components';
@@ -17,6 +18,7 @@ export interface ShopElementProps {
 }
 
 function ShopElement({ shopInfo }: { shopInfo: ShopElementProps }) {
+  const { moveByAddress } = useMap();
   const { shopName, category, image, address, close, reviewCount } = shopInfo;
 
   const joinCategory = (category: string[]) => {
@@ -26,7 +28,7 @@ function ShopElement({ shopInfo }: { shopInfo: ShopElementProps }) {
   };
 
   return (
-    <StyledShopElement>
+    <StyledShopElement onClick={() => moveByAddress(address, shopName)}>
       <ShopLeftWrapper>
         <ShopMainInfo>
           <h2>{shopName}</h2>
@@ -56,6 +58,11 @@ const StyledShopElement = styled.li<StyledShopElementProps>`
   display: grid;
   grid-template-columns: 1fr 10rem;
   gap: 2rem;
+
+  &:hover {
+    cursor: pointer;
+    background-color: ${(props) => props.theme.colors.gray2};
+  }
 `;
 
 const ShopLeftWrapper = styled.div`
