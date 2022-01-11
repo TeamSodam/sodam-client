@@ -20,7 +20,8 @@
     "react-redux": "7.2.6",
     "react-responsive": "^9.0.0-beta.5",
     "styled-components": "5.3.3",
-    "styled-reset": "4.3.4"
+    "styled-reset": "4.3.4",
+    "swiper": "6.8.4"
   },
   "devDependencies": {
     "@types/node": "17.0.8",
