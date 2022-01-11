@@ -17,13 +17,11 @@ const GlobalStyles = createGlobalStyle`
 
     font-family: 'Noto Sans KR', sans-serif;
     font-weight: 500;
-
     font-size: 40%;
     
     ${applyMediaQuery('wide')} {
       font-size: 62.5%;
     }
-
   }
 
   button:hover {
