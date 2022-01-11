@@ -1,6 +1,7 @@
 import MainSlider from 'components/common/MainSlider';
 import ReviewCard from 'components/common/ReviewCard';
 import ShopCardRank from 'components/common/ShopCardRank';
+import ImageSlider from 'components/review/ImageSlider';
 import styled from 'styled-components';
 import { ReviewCardData } from 'types/review';
 import { ShopCardData } from 'types/shop';
@@ -127,6 +128,16 @@ function SliderTesting() {
       saved: 56,
     },
   ];
+  const imageSliderDummyData: string[] = [
+    '/assets/ex_thumbnail.png',
+    '/assets/ex_thumbnail.png',
+    '/assets/ex_thumbnail.png',
+    '/assets/ex_thumbnail.png',
+    '/assets/ex_thumbnail.png',
+    '/assets/ex_thumbnail.png',
+    '/assets/ex_thumbnail.png',
+    '/assets/ex_thumbnail.png',
+  ];
 
   const shopDataList = shopDummyData.map((data) => <ShopCardRank key={data.id} cardData={data} />);
   const shopTitle = (
@@ -144,6 +155,7 @@ function SliderTesting() {
     <StyledRoot>
       <MainSlider cardList={shopDataList} title={shopTitle} slidesPerView={4} />
       <MainSlider cardList={reviewDataList} title={reviewTitle} slidesPerView={3} />
+      <ImageSlider imageList={imageSliderDummyData} />
     </StyledRoot>
   );
 }
