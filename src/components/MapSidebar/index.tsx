@@ -114,11 +114,18 @@ function MapSidebar() {
       {isOpen && (
         <>
           <OptionList>{showOptions()}</OptionList>
-          <ShopList>
-            {dummyShopList.map((dummy) => (
-              <ShopElement shopInfo={dummy} key={dummy.shopId} />
-            ))}
-          </ShopList>
+
+          {dummyShopList.length ? (
+            <ShopList>
+              {dummyShopList.map((dummy) => (
+                <ShopElement shopInfo={dummy} key={dummy.shopId} />
+              ))}
+            </ShopList>
+          ) : (
+            <EmptyShopList>
+              <span>선택 지역에 해당하는 저장한 소품샵이 없어요</span>
+            </EmptyShopList>
+          )}
         </>
       )}
       <ToggleBtn onClick={toggle}>
@@ -167,16 +174,12 @@ const Option = styled.li<StyledMapProps>`
       ? css`
           color: white;
           background-color: ${({ theme }) => theme.colors.purpleText};
-          border: 0.1rem solid ${({ theme }) => theme.colors.purpleText};
+          box-shadow: 0.05rem 0.05rem 0.05rem 0.05rem ${({ theme }) => theme.colors.purpleText};
         `
       : css`
           color: ${({ theme }) => theme.colors.purpleText};
+          box-shadow: 0.05rem 0.05rem 0.05rem 0.05rem ${({ theme }) => theme.colors.gray2};
         `};
-
-  &:nth-child(2) {
-    border: 0.1rem solid ${({ theme }) => theme.colors.gray2};
-    border-right: none;
-  }
 
   &:hover {
     cursor: pointer;
@@ -190,6 +193,24 @@ const ShopList = styled.ul`
   overflow-y: auto;
   ::-webkit-scrollbar {
     display: none;
+  }
+`;
+
+const EmptyShopList = styled.div`
+  flex: 5.22;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & > span {
+    max-width: 16rem;
+    font-weight: 500;
+    font-size: 1.6rem;
+    line-height: 2.3rem;
+    color: ${({ theme }) => theme.colors.gray1};
+    word-wrap: break-word;
+    opacity: 0.5;
+    text-align: center;
   }
 `;
 
