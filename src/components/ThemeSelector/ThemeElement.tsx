@@ -4,12 +4,12 @@ import styled from 'styled-components';
 import { theme } from 'styles/theme';
 
 function ThemeElement(props) {
-  const { themeType } = props;
+  const { themeType, isMain, currentTheme } = props;
 
   return (
-    <Link passHref href={`shop/theme/${themeType}`}>
+    <Link passHref href={`/shop/theme/${themeType}`}>
       <StyledRoot>
-        <StyledImgWrapper />
+        <StyledImgWrapper isMain={isMain} themeType={themeType} currentTheme={currentTheme} />
         <p>{themeType}</p>
       </StyledRoot>
     </Link>
@@ -36,8 +36,9 @@ const StyledRoot = styled.div`
 
 const StyledImgWrapper = styled.div`
   display: flex;
-  background-color: ${theme.colors.grayBg};
-  width: 28.4rem;
+  background-color: ${({ currentTheme, themeType }) =>
+    currentTheme === themeType ? theme.colors.purpleBg : theme.colors.grayBg};
+  width: ${({ isMain }) => (isMain === true ? '28.4rem' : '21rem')};
   height: 21rem;
-  border-radius: 5rem;
+  border-radius: ${({ isMain }) => (isMain === true ? '5rem' : '50%')};
 `;
