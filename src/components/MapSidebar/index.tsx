@@ -1,4 +1,6 @@
 import ActivePinIC from 'public/assets/ic_active_marker.svg';
+import InActivePinIC from 'public/assets/ic_basic_marker.svg';
+import EmptyStarIC from 'public/assets/ic_empty_star.svg';
 import LeftArrIC from 'public/assets/ic_leftArr.svg';
 import StarIC from 'public/assets/ic_star.svg';
 import { useState } from 'react';
@@ -8,6 +10,7 @@ import ShopElement, { ShopElementProps } from './ShopElement';
 
 interface StyledMapProps {
   isOpen?: boolean;
+  isActive?: boolean;
 }
 
 export const dummyShopList: ShopElementProps[] = [
@@ -67,28 +70,44 @@ export const dummyShopList: ShopElementProps[] = [
   },
 ];
 
+type OptionLabel = '인기 순' | '내가 저장한';
+interface OptionInfo {
+  icon: Array<React.FC<React.SVGProps<SVGSVGElement>>>;
+  label: OptionLabel;
+}
+
 function MapSidebar() {
   const [isOpen, setIsOpen] = useState(true);
+  const [currentOption, setCurrentOption] = useState<OptionLabel>('인기 순');
   const toggle = () => setIsOpen((prevState) => !prevState);
 
-  const optionList = [
+  const optionList: OptionInfo[] = [
     {
-      icon: ActivePinIC,
+      icon: [ActivePinIC, InActivePinIC],
       label: '인기 순',
     },
     {
-      icon: StarIC,
+      icon: [EmptyStarIC, StarIC],
       label: '내가 저장한',
     },
   ];
 
   const showOptions = () =>
-    optionList.map((option) => (
-      <Option key={option.label}>
-        <option.icon />
-        <span>{option.label}</span>
-      </Option>
-    ));
+    optionList.map((option) => {
+      const [ActiveIcon, InActiveIcon] = option.icon;
+      const isActive = currentOption === option.label;
+      const CurrentIcon = isActive ? ActiveIcon : InActiveIcon;
+      return (
+        <Option
+          key={option.label}
+          onClick={() => setCurrentOption(option.label)}
+          isActive={isActive}
+        >
+          <CurrentIcon />
+          <span>{option.label}</span>
+        </Option>
+      );
+    });
 
   return (
     <StyledSidebar isOpen={isOpen}>
@@ -133,7 +152,7 @@ const OptionList = styled.ul`
   margin-left: -1px;
 `;
 
-const Option = styled.li`
+const Option = styled.li<StyledMapProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -143,21 +162,24 @@ const Option = styled.li`
   width: 100%;
   height: 7.8rem;
 
-  &:first-child {
-    color: white;
-    background-color: ${({ theme }) => theme.colors.purpleText};
-    border: 0.1rem solid ${({ theme }) => theme.colors.purpleText};
-  }
+  ${(props) =>
+    props.isActive
+      ? css`
+          color: white;
+          background-color: ${({ theme }) => theme.colors.purpleText};
+          border: 0.1rem solid ${({ theme }) => theme.colors.purpleText};
+        `
+      : css`
+          color: ${({ theme }) => theme.colors.purpleText};
+        `};
 
   &:nth-child(2) {
-    color: ${({ theme }) => theme.colors.purpleText};
     border: 0.1rem solid ${({ theme }) => theme.colors.gray2};
     border-right: none;
   }
 
   &:hover {
     cursor: pointer;
-    opacity: 0.7;
   }
 `;
 
