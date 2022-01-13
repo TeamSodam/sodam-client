@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import logo from 'public/assets/footerLogo.svg';
 import styled from 'styled-components';
 
@@ -24,21 +25,35 @@ function Footer() {
   const sodamDoc = [
     {
       docTitle: '이용약관',
-      docURL: 'https://www.naver.com',
+      docURL: 'https://www.notion.so/d062eead83c14467a64c232212591b48',
     },
     {
       docTitle: '개인정보처리방침',
-      docURL: 'https://www.naver.com',
+      docURL: 'https://www.notion.so/d062eead83c14467a64c232212591b48',
     },
     {
       docTitle: '제휴/광고 문의',
-      docURL: 'https://www.naver.com',
+      docURL: 'https://www.instagram.com/official_sodam/',
     },
     {
       docTitle: '소품샵 등록/삭제 문의',
-      docURL: 'https://www.naver.com',
+      docURL: 'https://www.instagram.com/official_sodam/',
     },
   ];
+
+  const router = useRouter();
+
+  const onClickContact = (sodamContact: {
+    contactTitle: string;
+    contactContent: string;
+    contactURL: string;
+  }) => {
+    router.push(sodamContact.contactURL);
+  };
+
+  const onClickDoc = (sodamDoc: { docTitle: string; docURL: string }) => {
+    router.push(sodamDoc.docURL);
+  };
 
   return (
     <FooterWrapper>
@@ -47,7 +62,7 @@ function Footer() {
       </Logo>
       <LeftFooterWrapper>
         {sodamContact.map((contact) => (
-          <LeftFooter key={contact.contactTitle}>
+          <LeftFooter key={contact.contactTitle} onClick={() => onClickContact(contact)}>
             <ContactTitle>{contact.contactTitle}</ContactTitle>
             <ContactContent>{contact.contactContent}</ContactContent>
           </LeftFooter>
@@ -55,7 +70,9 @@ function Footer() {
       </LeftFooterWrapper>
       <RightFooterWrapper>
         {sodamDoc.map((doc) => (
-          <RightFooter key={doc.docTitle}>{doc.docTitle}</RightFooter>
+          <RightFooter key={doc.docTitle} onClick={() => onClickDoc(doc)}>
+            {doc.docTitle}
+          </RightFooter>
         ))}
       </RightFooterWrapper>
     </FooterWrapper>
@@ -64,11 +81,10 @@ function Footer() {
 
 const FooterWrapper = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
   width: 100%;
-  background-color: #f8f8f8;
-  color: #514c57;
+  padding: 5.5rem 0 5.5rem 36rem;
+  background-color: ${({ theme }) => theme.colors.grayBg};
+  color: ${({ theme }) => theme.colors.black2};
 `;
 
 const Logo = styled.div`
@@ -87,18 +103,19 @@ const LeftFooter = styled.div`
 `;
 
 const ContactTitle = styled.div`
-  font-weight: bold;
+  font-weight: 600;
   font-size: 1.4rem;
 `;
 
 const ContactContent = styled.div`
-  font-weight: medium;
+  font-weight: 400;
   font-size: 1.4rem;
 `;
 
 const RightFooterWrapper = styled.div`
+  font-weight: 400;
   font-size: 1.4rem;
-  padding: 5.4rem;
+  padding: 0 5.4rem;
 `;
 
 const RightFooter = styled.div`
