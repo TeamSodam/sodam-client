@@ -14,25 +14,24 @@ function GlobalNav() {
     { menuName: 'My Review', menuURL: '/review/my' },
   ];
 
-  interface Menu {
+  interface MenuList {
     menuName: string;
     menuURL: string;
   }
 
   const router = useRouter();
-  console.log(router);
 
   const onClickLogo = () => {
     router.push('/');
   };
 
-  const onClickMenu = (menu: Menu) => {
+  const onClickMenu = (menu: MenuList) => {
     menu.menuName === 'My Review' ? router.push('/review/my/write') : router.push(menu.menuURL);
   };
 
   const isCurrentPathIncludesMyReview = () => router.asPath.includes('/review/my');
 
-  const getIsActive = (menu: Menu) => {
+  const getIsActive = (menu: MenuList) => {
     if (menu.menuName === 'My Review') {
       return isCurrentPathIncludesMyReview();
     }
@@ -40,11 +39,11 @@ function GlobalNav() {
   };
 
   return (
-    <NavbarWrapper>
+    <>
       <GlobalNavWrapper>
         <GlobalNavBar>
           <LeftNav>
-            <Logo onClick={() => onClickLogo()}>
+            <Logo onClick={onClickLogo}>
               <Image src={logo} alt="logo" />
             </Logo>
             <MenuList>
@@ -74,16 +73,14 @@ function GlobalNav() {
         </GlobalNavBar>
       </GlobalNavWrapper>
       {isCurrentPathIncludesMyReview() && <LocalNav />}
-    </NavbarWrapper>
+    </>
   );
 }
-
-const NavbarWrapper = styled.div``;
 
 const GlobalNavWrapper = styled.div`
   width: 100%;
   padding: 2.8rem 36rem;
-  border-bottom: solid 1px #ebe9e8;
+  border-bottom: solid 1px ${({ theme }) => theme.colors.navLine};
 `;
 
 const GlobalNavBar = styled.div`
@@ -125,7 +122,7 @@ const MenuList = styled.div`
 
 const Menu = styled.a<{ isActive: boolean }>`
   margin-right: 3.2rem;
-  color: ${(props) => props.isActive && '#abacfe'};
+  color: ${(props) => props.isActive && props.theme.colors.purpleMain};
   font-weight: ${(props) => (props.isActive ? '600' : '400')};
 `;
 
@@ -135,7 +132,7 @@ const SearchBar = styled.div`
   width: 28.2rem;
   height: 4rem;
   margin-right: 2.1rem;
-  border: 2px solid #abacfe;
+  border: 2px solid ${({ theme }) => theme.colors.purpleMain};
   border-radius: 20px;
 `;
 

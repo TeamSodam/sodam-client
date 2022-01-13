@@ -2,6 +2,11 @@ import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
 function LocalNav() {
+  interface MenuList {
+    menuName: string;
+    menuURL: string;
+  }
+
   const reviewMenuList = [
     { menuName: '내가 작성한 리뷰', menuURL: '/review/my/write' },
     { menuName: '스크랩한 리뷰', menuURL: '/review/my/scrap' },
@@ -9,7 +14,7 @@ function LocalNav() {
 
   const router = useRouter();
   console.log(router.pathname);
-  const onClickMenu = (menu: { menuName: string; menuURL: string }) => {
+  const onClickMenu = (menu: MenuList) => {
     router.push(menu.menuURL);
   };
 
@@ -33,14 +38,14 @@ function LocalNav() {
 const LocalNavbarWrapper = styled.div`
   width: 100%;
   padding: 0 36rem;
-  border-bottom: solid 1px #ebe9e8;
+  border-bottom: solid 1px ${({ theme }) => theme.colors.navLine};
 `;
 
 const LocalNavbar = styled.div`
   display: flex;
   align-items: center;
   font-size: 1.6rem;
-  color: #8c8c95;
+  color: ${({ theme }) => theme.colors.gray1};
 
   & > a {
     min-width: fit-content;
@@ -54,8 +59,8 @@ const ReviewMenu = styled.a<{ isActive: boolean }>`
   margin-right: 3.2rem;
   height: 6.2rem;
   font-weight: 500;
-  color: ${(props) => props.isActive && '#abacfe'};
+  color: ${(props) => props.isActive && props.theme.colors.purpleMain};
   font-weight: ${(props) => (props.isActive ? '600' : '400')};
-  border-bottom: ${(props) => props.isActive && 'solid 2px #abacfe'};
+  border-bottom: ${(props) => props.isActive && ('solid 2px' || props.theme.colors.purpleMain)};
 `;
 export default LocalNav;
