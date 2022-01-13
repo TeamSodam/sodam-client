@@ -1,77 +1,30 @@
+import SodamContact from 'constants/sodamContactList';
+import SodamDoc from 'constants/sodamDocList';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 import logo from 'public/assets/footerLogo.svg';
 import styled from 'styled-components';
 
 function Footer() {
-  const sodamContact = [
-    {
-      contactTitle: 'Contact',
-      contactContent: 'vvayun@naver.com',
-      contactURL: 'https://www.naver.com',
-    },
-    {
-      contactTitle: 'Info',
-      contactContent: '공식 노션 바로가기',
-      contactURL: 'https://www.notion.so/d062eead83c14467a64c232212591b48',
-    },
-    {
-      contactTitle: 'Instagram',
-      contactContent: '@official_sodam',
-      contactURL: 'https://www.instagram.com/official_sodam/',
-    },
-  ];
-
-  const sodamDoc = [
-    {
-      docTitle: '이용약관',
-      docURL: 'https://www.notion.so/d062eead83c14467a64c232212591b48',
-    },
-    {
-      docTitle: '개인정보처리방침',
-      docURL: 'https://www.notion.so/d062eead83c14467a64c232212591b48',
-    },
-    {
-      docTitle: '제휴/광고 문의',
-      docURL: 'https://www.instagram.com/official_sodam/',
-    },
-    {
-      docTitle: '소품샵 등록/삭제 문의',
-      docURL: 'https://www.instagram.com/official_sodam/',
-    },
-  ];
-
-  const router = useRouter();
-
-  const onClickContact = (sodamContact: {
-    contactTitle: string;
-    contactContent: string;
-    contactURL: string;
-  }) => {
-    router.push(sodamContact.contactURL);
-  };
-
-  const onClickDoc = (sodamDoc: { docTitle: string; docURL: string }) => {
-    router.push(sodamDoc.docURL);
-  };
-
   return (
     <FooterWrapper>
       <Logo>
         <Image src={logo} alt="로고" />
       </Logo>
       <LeftFooterWrapper>
-        {sodamContact.map((contact) => (
-          <LeftFooter key={contact.contactTitle} onClick={() => onClickContact(contact)}>
+        {SodamContact.map((contact) => (
+          <LeftFooter key={contact.contactTitle}>
             <ContactTitle>{contact.contactTitle}</ContactTitle>
-            <ContactContent>{contact.contactContent}</ContactContent>
+            <ContactContent>
+              <Link href={contact.contactURL}>{contact.contactContent}</Link>
+            </ContactContent>
           </LeftFooter>
         ))}
       </LeftFooterWrapper>
       <RightFooterWrapper>
-        {sodamDoc.map((doc) => (
-          <RightFooter key={doc.docTitle} onClick={() => onClickDoc(doc)}>
-            {doc.docTitle}
+        {SodamDoc.map((doc) => (
+          <RightFooter key={doc.docTitle}>
+            <Link href={doc.docURL}>{doc.docTitle}</Link>
           </RightFooter>
         ))}
       </RightFooterWrapper>
@@ -107,9 +60,15 @@ const ContactTitle = styled.div`
   font-size: 1.4rem;
 `;
 
-const ContactContent = styled.div`
+const ContactContent = styled.li`
+  list-style: none;
   font-weight: 400;
   font-size: 1.4rem;
+
+  & > a {
+    text-decoration: none;
+    color: inherit;
+  }
 `;
 
 const RightFooterWrapper = styled.div`
@@ -118,10 +77,16 @@ const RightFooterWrapper = styled.div`
   padding: 0 5.4rem;
 `;
 
-const RightFooter = styled.div`
+const RightFooter = styled.li`
+  list-style: none;
   display: flex;
   justify-content: space-between;
   margin: 0 0 1.6rem 12.6rem;
+
+  & > a {
+    text-decoration: none;
+    color: inherit;
+  }
 `;
 
 export default Footer;
