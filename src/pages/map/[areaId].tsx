@@ -24,7 +24,7 @@ function MapWithAreaId() {
 
   const mapRef = useRef<HTMLDivElement>(null);
   const { data: areaShopList } = useGetShopByAreaQuery(SEOUL_ENUM[AREA_ID]);
-  const initialLocation = areaShopList && areaShopList[0].roadAddress;
+  const initialLocation = areaShopList && areaShopList.length > 0 && areaShopList[0].roadAddress;
   const { displayMarkerByAddress } = useMap(mapRef, initialLocation || SEOUL_ENUM[AREA_ID]);
   const onClickGoBack = () => {
     dispatch(initMap());
