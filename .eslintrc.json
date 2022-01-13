@@ -55,6 +55,7 @@
 		"no-useless-return": "error", // 쓸데없는 return 사용 금지
 		"prefer-const": "error", // 가능한 모든 경우에 const 사용
 		"require-await": "error", // async 함수에 반드시 await 존재
+    "@typescript-eslint/no-unused-vars": ["error"],
 		/* 포맷팅 */
 		"simple-import-sort/imports": "error", // import 정렬
     "simple-import-sort/exports": "error", // export 정렬
