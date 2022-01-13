@@ -43,7 +43,7 @@ export const mapSlice = createSlice({
 
 export const { setMap, addCurrentMarker, setMarkerCilckState, initMap } = mapSlice.actions;
 
-export const selectMap = (state: RootState) => state.map.map;
-export const selectCurrentMarkerList = (state: RootState) => state.map.currentMarkerList;
+export const selectMap = (state: RootState) => state.reducer.map.map;
+export const selectCurrentMarkerList = (state: RootState) => state.reducer.map.currentMarkerList;
 
 export default mapSlice.reducer;
