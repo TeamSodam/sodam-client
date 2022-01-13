@@ -3,10 +3,21 @@ import React from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
 
-function ThemeElement(props) {
+interface StyledELProps {
+  themeType: string;
+  isMain: boolean;
+  currentTheme: string;
+  imgSrc?: string;
+}
+
+function ThemeElement(props: StyledELProps) {
   const { themeType, isMain, currentTheme } = props;
 
-  const Category = {
+  interface CategoryType {
+    [key: string]: string;
+  }
+
+  const Category: CategoryType = {
     아기자기한: 'Adorable',
     힙한: 'Hip',
     모던한: 'Modern',
@@ -48,7 +59,7 @@ const StyledRoot = styled.div`
   }
 `;
 
-const StyledImgWrapper = styled.div`
+const StyledImgWrapper = styled.div<StyledELProps>`
   display: flex;
   justify-content: center;
   background-color: ${({ currentTheme, themeType }) =>

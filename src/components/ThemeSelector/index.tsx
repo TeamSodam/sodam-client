@@ -4,6 +4,10 @@ import { theme } from 'styles/theme';
 
 import ThemeElement from './ThemeElement';
 
+interface StyledThemeELProps {
+  isMain?: boolean;
+}
+
 function ThemeSelector() {
   const category: string[] = ['아기자기한', '힙한', '모던한', '빈티지한'];
   const router = useRouter();
@@ -14,14 +18,16 @@ function ThemeSelector() {
     <StyledRoot>
       <h4>테마별 소품샵</h4>
       <StyledElWrapper isMain={isMain}>
-        {category.map((themeType) => (
-          <ThemeElement
-            key={themeType}
-            themeType={themeType}
-            isMain={isMain}
-            currentTheme={currentTheme}
-          />
-        ))}
+        {category.map((themeType) => {
+          if (typeof currentTheme === 'string') {
+            <ThemeElement
+              key={themeType}
+              themeType={themeType}
+              isMain={isMain}
+              currentTheme={currentTheme}
+            />;
+          }
+        })}
       </StyledElWrapper>
     </StyledRoot>
   );
@@ -41,7 +47,7 @@ const StyledRoot = styled.div`
   }
 `;
 
-const StyledElWrapper = styled.div`
+const StyledElWrapper = styled.div<StyledThemeELProps>`
   display: flex;
   gap: ${({ isMain }) => (isMain === true ? '2.5rem' : '10.8rem')};
   margin-top: 3.2rem;
