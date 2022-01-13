@@ -2,6 +2,8 @@ import { tooltipStyle } from 'map/overlays/tooltip';
 import { createGlobalStyle } from 'styled-components';
 import { reset } from 'styled-reset';
 
+import { applyMediaQuery } from './mediaQuery';
+
 const GlobalStyles = createGlobalStyle` 
   ${reset}
 
@@ -15,10 +17,7 @@ const GlobalStyles = createGlobalStyle`
 
     font-family: 'Noto Sans KR', sans-serif;
     font-weight: 500;
-
-
     font-size: 62.5%;
-
   }
 
   button:hover {
