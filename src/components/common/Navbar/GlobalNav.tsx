@@ -140,6 +140,8 @@ const SearchBar = styled.div`
 `;
 
 const SearchIcon = styled.div`
+  display: flex;
+  align-items: center;
   margin-left: 1.2rem;
   width: 2.1rem;
   height: 2rem;
