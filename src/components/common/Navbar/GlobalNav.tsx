@@ -1,3 +1,4 @@
+import LocalNav from 'components/common/Navbar/LocalNav';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import logo from 'public/assets/mainLogo.svg';
@@ -7,60 +8,85 @@ import styled from 'styled-components';
 
 function GlobalNav() {
   const menuList = [
-    { menuName: '소품샵 지도', menuURL: '/shopmap' },
-    { menuName: '테마별 소품샵', menuURL: '/themeshop' },
-    { menuName: '저장한 소품샵', menuURL: '/savedshop' },
-    { menuName: 'My Review', menuURL: '/myreview' },
+    { menuName: '소품샵 지도', menuURL: '/map' },
+    { menuName: '테마별 소품샵', menuURL: '/shop/theme/list' },
+    { menuName: '저장한 소품샵', menuURL: '/shop/collect' },
+    { menuName: 'My Review', menuURL: '/review/my' },
   ];
 
+  interface Menu {
+    menuName: string;
+    menuURL: string;
+  }
+
   const router = useRouter();
-  console.log(router.pathname);
-  const onClickMenu = (menu: { menuName: string; menuURL: string }) => {
-    router.push(menu.menuURL);
+  console.log(router);
+
+  const onClickLogo = () => {
+    router.push('/');
+  };
+
+  const onClickMenu = (menu: Menu) => {
+    menu.menuName === 'My Review' ? router.push('/review/my/write') : router.push(menu.menuURL);
+  };
+
+  const isCurrentPathIncludesMyReview = () => router.asPath.includes('/review/my');
+
+  const getIsActive = (menu: Menu) => {
+    if (menu.menuName === 'My Review') {
+      return isCurrentPathIncludesMyReview();
+    }
+    return menu.menuURL === router.asPath;
   };
 
   return (
     <NavbarWrapper>
-      <Navbar>
-        <LeftNav>
-          <Logo>
-            <Image src={logo} alt="logo" />
-          </Logo>
-          <MenuList>
-            {menuList.map((menu) => (
-              <Menu
-                key={menu.menuName}
-                onClick={() => onClickMenu(menu)}
-                isActive={menu.menuURL === router.asPath}
-              >
-                {menu.menuName}
-              </Menu>
-            ))}
-          </MenuList>
-        </LeftNav>
-        <RightNav>
-          <SearchBar>
-            <SearchIcon>
-              <Image src={search} alt="search" />
-            </SearchIcon>
-            <SearchText />
-          </SearchBar>
-          <Login>로그아웃</Login>
-          <Profile>
-            <Image src={profile} alt="profile" />
-          </Profile>
-        </RightNav>
-      </Navbar>
+      <GlobalNavWrapper>
+        <GlobalNavBar>
+          <LeftNav>
+            <Logo onClick={() => onClickLogo()}>
+              <Image src={logo} alt="logo" />
+            </Logo>
+            <MenuList>
+              {menuList.map((menu) => (
+                <Menu
+                  key={menu.menuName}
+                  onClick={() => onClickMenu(menu)}
+                  isActive={getIsActive(menu)}
+                >
+                  {menu.menuName}
+                </Menu>
+              ))}
+            </MenuList>
+          </LeftNav>
+          <RightNav>
+            <SearchBar>
+              <SearchIcon>
+                <Image src={search} alt="search" />
+              </SearchIcon>
+              <SearchText />
+            </SearchBar>
+            <Login>로그아웃</Login>
+            <Profile>
+              <Image src={profile} alt="profile" />
+            </Profile>
+          </RightNav>
+        </GlobalNavBar>
+      </GlobalNavWrapper>
+      {isCurrentPathIncludesMyReview() && <LocalNav />}
     </NavbarWrapper>
   );
 }
 
-const NavbarWrapper = styled.div`
+const NavbarWrapper = styled.div``;
+
+const GlobalNavWrapper = styled.div`
   width: 100%;
   padding: 2.8rem 36rem;
+  border-bottom: solid 1px #ebe9e8;
 `;
 
-const Navbar = styled.div`
+const GlobalNavBar = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -90,6 +116,7 @@ const MenuList = styled.div`
   justify-content: space-between;
   align-items: center;
   font-size: 1.6rem;
+  font-weight: 500;
 
   & > a {
     min-width: fit-content;
@@ -99,7 +126,7 @@ const MenuList = styled.div`
 const Menu = styled.a<{ isActive: boolean }>`
   margin-right: 3.2rem;
   color: ${(props) => props.isActive && '#abacfe'};
-  font-weight: ${(props) => props.isActive && 'bold'};
+  font-weight: ${(props) => (props.isActive ? '600' : '400')};
 `;
 
 const SearchBar = styled.div`
