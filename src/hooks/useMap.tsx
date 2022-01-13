@@ -18,7 +18,10 @@ declare global {
   }
 }
 
-function useMap<T>(containerRef?: RefObject<T extends HTMLElement ? T : HTMLElement>) {
+function useMap<T>(
+  containerRef?: RefObject<T extends HTMLElement ? T : HTMLElement>,
+  initialLocation?: string,
+) {
   const map = useAppSelector(selectMap);
   const currentMarkerList = useAppSelector(selectCurrentMarkerList);
   const dispatch = useAppDispatch();
@@ -54,20 +57,20 @@ function useMap<T>(containerRef?: RefObject<T extends HTMLElement ? T : HTMLElem
   useEffect(() => {
     (async () => {
       if (containerRef?.current) {
-        const defaultLocation = await getLocationByAddress('서울 마포구 희우정로16길 32');
+        const location = await getLocationByAddress(`서울 ${initialLocation || '마포구'}`);
         if (!map) {
           dispatch(
             setMap(
               new window.kakao.maps.Map(containerRef.current, {
-                center: defaultLocation,
-                level: 1,
+                center: location,
+                level: 4,
               }),
             ),
           );
         }
       }
     })();
-  }, [containerRef, dispatch, map]);
+  }, [containerRef, dispatch, map, initialLocation]);
 
   return { map, displayMarkerByAddress, moveByAddress };
 }
