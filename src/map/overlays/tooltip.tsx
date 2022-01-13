@@ -7,11 +7,10 @@ export const tooltipStyle = css`
     position: relative;
     display: flex;
     flex-direction: column;
-    align-items: space-between;
     gap: 0.5rem;
 
     background-color: white;
-    transform: translate(0, calc(-100% - 15px));
+    margin-top: -50%;
     border-radius: 10px;
     padding: 1.6rem 2.4rem;
 

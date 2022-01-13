@@ -27,7 +27,6 @@ export const displayMarker = async (
     image: markerImage,
     clickable: true,
     title: name,
-    zIndex: 1,
   });
 
   const customOverlay = new kakao.maps.CustomOverlay({
