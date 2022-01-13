@@ -10,7 +10,8 @@ import {
 import { displayMarker } from 'map/utils/display';
 import { getLocationByAddress, searchAndMoveByAddress } from 'map/utils/search';
 import { RefObject, useCallback, useEffect } from 'react';
-import { KakaoMap, ShopInfoInMarker } from 'types/map';
+import { KakaoMap } from 'types/map';
+import { NewShop as Shop } from 'types/shop';
 
 declare global {
   interface Window {
@@ -27,7 +28,7 @@ function useMap<T>(
   const dispatch = useAppDispatch();
 
   const displayMarkerByAddress = useCallback(
-    async (shopInfo: ShopInfoInMarker) => {
+    async (shopInfo: Pick<Shop, 'store' | 'category' | 'roadAddress' | 'shopId'>) => {
       const addMarkerToList = (markerInfo: MarkerInfo) => dispatch(addCurrentMarker(markerInfo));
       const changeClickState = (markerInfo: MarkerInfo) =>
         dispatch(setMarkerCilckState(markerInfo));

@@ -1,5 +1,5 @@
 import { css } from 'styled-components';
-import { ShopInfoInMarker } from 'types/map';
+import { NewShop as Shop } from 'types/shop';
 
 export const tooltipStyle = css`
   .marker-tooltip {
@@ -10,9 +10,11 @@ export const tooltipStyle = css`
     gap: 0.5rem;
 
     background-color: white;
-    margin-top: -50%;
+    margin-top: calc(-50%);
     border-radius: 10px;
     padding: 1.6rem 2.4rem;
+
+    text-decoration: none;
 
     filter: drop-shadow(0px 4px 6px rgba(149, 144, 140, 0.4));
 
@@ -51,11 +53,18 @@ export const tooltipStyle = css`
       left: 50%;
       transform: translateX(calc(-50% - 0.5rem));
     }
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.05);
+    }
   }
 `;
 
-export const getToolTipTemplate = (shopInfo: ShopInfoInMarker): string => {
-  const { name, category, address } = shopInfo;
+export const getToolTipTemplate = (
+  shopInfo: Pick<Shop, 'store' | 'category' | 'roadAddress' | 'shopId'>,
+): string => {
+  const { store, category, roadAddress, shopId } = shopInfo;
   const parseCategory = (category: string | string[]) => {
     if (typeof category === 'string') return category;
 
@@ -65,15 +74,15 @@ export const getToolTipTemplate = (shopInfo: ShopInfoInMarker): string => {
   };
 
   const tooltipTemplate = `
-    <div class="marker-tooltip">
+    <a class="marker-tooltip" href="/shop/detail/${shopId}">
       <div class="marker-tooltip__header">
-        <span class="marker-tooltip__title">${name}</span>
+        <span class="marker-tooltip__title">${store}</span>
         <span class="marker-tooltip__category">${parseCategory(category)}</span>
       </div>
       <p class="marker-tooltip__content">
-        ${address}
+        ${roadAddress}
       </p>
-    </div>
+    </a>
   `;
 
   return tooltipTemplate;
