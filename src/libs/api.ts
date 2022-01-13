@@ -1,5 +1,5 @@
 import type { BaseQueryFn } from '@reduxjs/toolkit/query';
-import axios, { AxiosError, AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 
 const DEV_BASE_URL = 'http://localhost:4000';
 
@@ -10,10 +10,12 @@ export const axiosBaseQuery =
       const result = await axios({ url: DEV_BASE_URL + url, method, ...args });
       return { data: result.data };
     } catch (error) {
-      const axiosError = error as AxiosError;
-      return {
-        error: { status: axiosError.response?.status, data: axiosError.response?.data },
-      };
+      if (axios.isAxiosError(error)) {
+        return {
+          error: { status: error.response?.status, data: error.response?.data },
+        };
+      }
+      throw new Error('axios 이외의 에러 발생');
     }
   };
 
