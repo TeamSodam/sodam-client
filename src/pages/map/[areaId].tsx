@@ -1,5 +1,6 @@
 import { useAppDispatch } from 'app/hook';
-import MapSidebar, { dummyShopList } from 'components/MapSidebar';
+import MapSidebar from 'components/MapSidebar';
+import { dummyShopList } from 'constants/dummy';
 import { initMap } from 'features/map/mapSlice';
 import useMap from 'hooks/useMap';
 import { useRouter } from 'next/router';
