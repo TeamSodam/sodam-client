@@ -5,7 +5,7 @@ import { theme } from 'styles/theme';
 import ThemeElement from './ThemeElement';
 
 function ThemeSelector() {
-  const category: string[] = ['아기자기한', '힙한', '모던한', '빈티지'];
+  const category: string[] = ['아기자기한', '힙한', '모던한', '빈티지한'];
   const router = useRouter();
   const isMain = router.pathname === '/' ? true : false;
   const currentTheme = router.query.type;

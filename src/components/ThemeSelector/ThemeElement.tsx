@@ -6,10 +6,24 @@ import { theme } from 'styles/theme';
 function ThemeElement(props) {
   const { themeType, isMain, currentTheme } = props;
 
+  const Category = {
+    아기자기한: 'Adorable',
+    힙한: 'Hip',
+    모던한: 'Modern',
+    빈티지한: 'Vintage',
+  };
+
+  const getCategoryIcon = (): string => `/assets/ic_theme${Category[themeType]}.svg`;
+
   return (
     <Link passHref href={`/shop/theme/${themeType}`}>
       <StyledRoot>
-        <StyledImgWrapper isMain={isMain} themeType={themeType} currentTheme={currentTheme} />
+        <StyledImgWrapper
+          isMain={isMain}
+          themeType={themeType}
+          currentTheme={currentTheme}
+          imgSrc={getCategoryIcon()}
+        />
         <p>{themeType}</p>
       </StyledRoot>
     </Link>
@@ -36,9 +50,13 @@ const StyledRoot = styled.div`
 
 const StyledImgWrapper = styled.div`
   display: flex;
+  justify-content: center;
   background-color: ${({ currentTheme, themeType }) =>
     currentTheme === themeType ? theme.colors.purpleBg : theme.colors.grayBg};
   width: ${({ isMain }) => (isMain === true ? '28.4rem' : '21rem')};
   height: 21rem;
   border-radius: ${({ isMain }) => (isMain === true ? '5rem' : '50%')};
+  background-image: ${({ imgSrc }) => `url(${imgSrc})`};
+  background-repeat: no-repeat;
+  background-position: center center;
 `;
