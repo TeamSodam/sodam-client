@@ -1,5 +1,4 @@
 import ShopElement from 'components/MapSidebar/ShopElement';
-import { dummyShopList } from 'constants/dummy';
 import ActivePinIC from 'public/assets/ic_active_marker.svg';
 import InActivePinIC from 'public/assets/ic_basic_marker.svg';
 import EmptyStarIC from 'public/assets/ic_empty_star.svg';
@@ -7,6 +6,7 @@ import LeftArrIC from 'public/assets/ic_leftArr.svg';
 import StarIC from 'public/assets/ic_star.svg';
 import { useState } from 'react';
 import styled, { css } from 'styled-components';
+import { NewShop as Shop } from 'types/shop';
 
 interface StyledMapProps {
   isOpen?: boolean;
@@ -19,7 +19,7 @@ interface OptionInfo {
   label: OptionLabel;
 }
 
-function MapSidebar() {
+function MapSidebar({ shopList }: { shopList: Shop[] }) {
   const [isOpen, setIsOpen] = useState(true);
   const [currentOption, setCurrentOption] = useState<OptionLabel>('인기 순');
   const toggle = () => setIsOpen((prevState) => !prevState);
@@ -58,10 +58,10 @@ function MapSidebar() {
         <>
           <OptionList>{showOptions()}</OptionList>
 
-          {dummyShopList.length ? (
+          {shopList.length ? (
             <ShopList>
-              {dummyShopList.map((dummy) => (
-                <ShopElement shopInfo={dummy} key={dummy.shopId} />
+              {shopList.map((shop) => (
+                <ShopElement shopInfo={shop} key={shop.shopId} />
               ))}
             </ShopList>
           ) : (

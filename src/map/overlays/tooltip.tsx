@@ -57,16 +57,19 @@ export const tooltipStyle = css`
 
 export const getToolTipTemplate = (shopInfo: ShopInfoInMarker): string => {
   const { name, category, address } = shopInfo;
-  const joinCategory = (category: string[]) => {
+  const parseCategory = (category: string | string[]) => {
+    if (typeof category === 'string') return category;
+
     if (category.length > 1) return category.join(', ');
 
     return category[0];
   };
+
   const tooltipTemplate = `
     <div class="marker-tooltip">
       <div class="marker-tooltip__header">
         <span class="marker-tooltip__title">${name}</span>
-        <span class="marker-tooltip__category">${joinCategory(category)}</span>
+        <span class="marker-tooltip__category">${parseCategory(category)}</span>
       </div>
       <p class="marker-tooltip__content">
         ${address}

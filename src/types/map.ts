@@ -14,7 +14,7 @@ export interface KakaoLatLng {
 export interface ShopInfoInMarker {
   address: string;
   name: string;
-  category: string[];
+  category: string | string[];
 }
 
 export interface xy {

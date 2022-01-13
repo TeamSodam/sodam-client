@@ -17,7 +17,8 @@
       "instagram": "instargram",
       "image": "/assets/dummy/dummy-shop.png",
       "type": "random",
-      "area": "종로구"
+      "area": "종로구",
+      "reviewCount": 21
     },
     {
       "shopId": 2,
@@ -36,7 +37,8 @@
       "instagram": "instargram",
       "image": "/assets/dummy/dummy-shop.png",
       "type": "random",
-      "area": "종로구"
+      "area": "종로구",
+      "reviewCount": 21
     },
     {
       "shopId": 3,
@@ -55,7 +57,8 @@
       "instagram": "instargram",
       "image": "/assets/dummy/dummy-shop.png",
       "type": "random",
-      "area": "영등포구"
+      "area": "영등포구",
+      "reviewCount": 21
     },
     {
       "shopId": 4,
@@ -74,7 +77,8 @@
       "instagram": "instargram",
       "image": "/assets/dummy/dummy-shop.png",
       "type": "random",
-      "area": "성북구"
+      "area": "성북구",
+      "reviewCount": 21
     },
     {
       "shopId": 5,
@@ -93,7 +97,8 @@
       "instagram": "instargram",
       "image": "/assets/dummy/dummy-shop.png",
       "type": "random",
-      "area": "광진구"
+      "area": "광진구",
+      "reviewCount": 21
     },
     {
       "shopId": 6,
@@ -112,7 +117,8 @@
       "instagram": "instargram",
       "image": "/assets/dummy/dummy-shop.png",
       "type": "popular",
-      "area": "송파구"
+      "area": "송파구",
+      "reviewCount": 21
     },
     {
       "shopId": 7,
@@ -131,7 +137,8 @@
       "instagram": "instargram",
       "image": "/assets/dummy/dummy-shop.png",
       "type": "popular",
-      "area": "노원구"
+      "area": "노원구",
+      "reviewCount": 21
     },
     {
       "shopId": 8,
@@ -150,7 +157,8 @@
       "instagram": "instargram",
       "image": "/assets/dummy/dummy-shop.png",
       "type": "popular",
-      "area": "관악구"
+      "area": "관악구",
+      "reviewCount": 21
     }
   ],
   "review": [
@@ -180,7 +188,8 @@
       "shopId": "oXZerJf",
       "sort": "review",
       "type": "random",
-      "area": "종로구"
+      "area": "종로구",
+      "reviewCount": 21
     },
     {
       "shopName": "소품샵이지롱",
@@ -195,6 +204,7 @@
       "shopId": "qELlJzW",
       "sort": "save",
       "area": "종로구",
+      "reviewCount": 21,
       "type": "random"
     },
     {
@@ -210,6 +220,7 @@
       "shopId": "za0kpL-",
       "sort": "recent",
       "area": "종로구",
+      "reviewCount": 21,
       "type": "random"
     },
     {
@@ -225,6 +236,7 @@
       "shopId": "8Lz8N2m",
       "sort": "save",
       "area": "종로구",
+      "reviewCount": 21,
       "type": "random"
     },
     {
@@ -240,6 +252,7 @@
       "shopId": "h7iGMOW",
       "sort": "review",
       "area": "종로구",
+      "reviewCount": 21,
       "type": "random"
     }
   ]

@@ -2,38 +2,31 @@ import useMap from 'hooks/useMap';
 import Image from 'next/image';
 import DelimiterIC from 'public/assets/ic_delimiter.svg';
 import styled from 'styled-components';
+import { NewShop as Shop } from 'types/shop';
 
 interface StyledShopElementProps {
   isSelected?: boolean;
 }
 
-export interface ShopElementProps {
-  shopId: number;
-  shopName: string;
-  category: string[];
-  image: string;
-  address: string;
-  close: string;
-  reviewCount: number;
-}
-
-function ShopElement({ shopInfo }: { shopInfo: ShopElementProps }) {
+function ShopElement({ shopInfo }: { shopInfo: Shop }) {
   const { moveByAddress } = useMap();
-  const { shopName, category, image, address, close, reviewCount } = shopInfo;
+  const { store, category, image, roadAddress, close, reviewCount } = shopInfo;
 
-  const joinCategory = (category: string[]) => {
+  const parseCategory = (category: string | string[]) => {
+    if (typeof category === 'string') return category;
+
     if (category.length > 1) return category.join(', ');
 
     return category[0];
   };
 
   return (
-    <StyledShopElement onClick={() => moveByAddress(address, shopName)}>
+    <StyledShopElement onClick={() => moveByAddress(roadAddress, store)}>
       <ShopLeftWrapper>
         <ShopMainInfo>
-          <h2>{shopName}</h2>
-          <span>{joinCategory(category)}</span>
-          <ShopAddress>{address}</ShopAddress>
+          <h2>{store}</h2>
+          <span>{parseCategory(category)}</span>
+          <ShopAddress>{roadAddress}</ShopAddress>
         </ShopMainInfo>
         <ShopSubInfo>
           <WorkHour>{close}</WorkHour>
