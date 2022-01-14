@@ -1,3 +1,4 @@
+import { ItemsList } from 'constants/ItemsList';
 import { MouseEvent, useState } from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
@@ -10,15 +11,6 @@ function MoreFilter() {
   const [isActive, setIsActive] = useState('문구·팬시');
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen((prevIsOpen) => !prevIsOpen);
-
-  const MoreFilterList = [
-    '문구·팬시',
-    '인테리어소품',
-    '주방용품',
-    '패션소품',
-    '공예품',
-    '인형·장난감',
-  ];
 
   const handleClick = (e: MouseEvent) => {
     if (!(e.target instanceof HTMLElement)) return;
@@ -33,7 +25,7 @@ function MoreFilter() {
         <span>더보기</span>
         {isOpen && (
           <StyledUl>
-            {MoreFilterList.map((option) => (
+            {ItemsList.map((option) => (
               <StyledLi key={option} option={option} isActive={isActive} onClick={handleClick}>
                 {option}
               </StyledLi>
