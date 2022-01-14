@@ -37,7 +37,6 @@ export const displayMarker = async (
   });
 
   customOverlay.setContent(getToolTipTemplate(shopInfo));
-
   if (!isStaticMarker) {
     customOverlay.setMap(null);
     let isClicked = false;
