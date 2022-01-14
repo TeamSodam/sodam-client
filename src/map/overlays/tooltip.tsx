@@ -44,8 +44,8 @@ export const tooltipStyle = css`
 
     &::after {
       border-top: 1rem solid white;
-      border-left: 1rem solid transparent;
-      border-right: 1rem solid transparent;
+      border-left: 0.5rem solid transparent;
+      border-right: 0.5rem solid transparent;
       border-bottom: 0px solid transparent;
       content: '';
       position: absolute;

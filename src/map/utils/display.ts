@@ -1,5 +1,6 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { MarkerInfo } from 'features/map/mapSlice';
+import { getMiniToolTipTemplate } from 'map/overlays/miniTooltip';
 import { getToolTipTemplate } from 'map/overlays/tooltip';
 import { KakaoMap } from 'types/map';
 import { NewShop as Shop } from 'types/shop';
@@ -36,7 +37,9 @@ export const displayMarker = async (
     position: marker.getPosition(),
   });
 
-  customOverlay.setContent(getToolTipTemplate(shopInfo));
+  const currentTooltipFactory = isStaticMarker ? getMiniToolTipTemplate : getToolTipTemplate;
+
+  customOverlay.setContent(currentTooltipFactory(shopInfo));
   if (!isStaticMarker) {
     customOverlay.setMap(null);
     let isClicked = false;
@@ -63,6 +66,8 @@ export const displayMarker = async (
       name: store,
       isClicked,
     });
+  } else {
+    map.setLevel(1);
   }
 
   marker.setMap(map);
