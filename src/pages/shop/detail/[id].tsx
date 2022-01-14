@@ -20,13 +20,13 @@ function Detail() {
   const { data: shopInfo } = useGetShopByShopIdQuery(shopId);
   const initialLocation = shopInfo && shopInfo.length > 0 ? shopInfo[0].landAddress : undefined;
 
-  const { displayMarkerByAddress } = useMap(mapRef, initialLocation);
+  const { displayMarkerByAddress } = useMap(mapRef, initialLocation, true);
 
   useEffect(() => {
     (async () => {
       if (shopInfo && shopInfo.length > 0) {
         const { category, landAddress, store, shopId } = shopInfo[0];
-        await displayMarkerByAddress({ landAddress, store, category, shopId }, true);
+        await displayMarkerByAddress({ landAddress, store, category, shopId });
       }
     })();
   }, [shopInfo, displayMarkerByAddress]);

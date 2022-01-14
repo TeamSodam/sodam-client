@@ -22,16 +22,14 @@ declare global {
 function useMap<T>(
   containerRef?: RefObject<T extends HTMLElement ? T : HTMLElement>,
   initialLocation?: string,
+  isStaticMarker?: boolean,
 ) {
   const map = useAppSelector(selectMap);
   const currentMarkerList = useAppSelector(selectCurrentMarkerList);
   const dispatch = useAppDispatch();
 
   const displayMarkerByAddress = useCallback(
-    async (
-      shopInfo: Pick<Shop, 'store' | 'category' | 'landAddress' | 'shopId'>,
-      isStaticMarker?: boolean,
-    ) => {
+    async (shopInfo: Pick<Shop, 'store' | 'category' | 'landAddress' | 'shopId'>) => {
       const addMarkerToList = (markerInfo: MarkerInfo) => dispatch(addCurrentMarker(markerInfo));
       const changeClickState = (markerInfo: MarkerInfo) =>
         dispatch(setMarkerCilckState(markerInfo));
@@ -39,13 +37,13 @@ function useMap<T>(
       if (map)
         await displayMarker(map, shopInfo, addMarkerToList, changeClickState, isStaticMarker);
     },
-    [map, dispatch],
+    [map, dispatch, isStaticMarker],
   );
 
   const moveByAddress = useCallback(
     (address: string, name: string) => {
       if (map) {
-        searchAndMoveByAddress(map, address);
+        searchAndMoveByAddress(map, address, isStaticMarker);
         const targetMarker = currentMarkerList.find((marker) => marker.name === name);
         if (targetMarker) {
           const clickedMarkers = currentMarkerList.filter((marker) => marker.isClicked === true);
@@ -57,7 +55,7 @@ function useMap<T>(
         }
       }
     },
-    [map, currentMarkerList],
+    [map, currentMarkerList, isStaticMarker],
   );
 
   useEffect(() => {
@@ -78,9 +76,9 @@ function useMap<T>(
     })();
 
     if (map && initialLocation) {
-      searchAndMoveByAddress(map, initialLocation);
+      searchAndMoveByAddress(map, initialLocation, isStaticMarker);
     }
-  }, [containerRef, dispatch, map, initialLocation]);
+  }, [containerRef, dispatch, map, initialLocation, isStaticMarker]);
 
   return { map, displayMarkerByAddress, moveByAddress };
 }

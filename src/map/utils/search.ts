@@ -12,13 +12,17 @@ export const getLocationByAddress = async (address: string): Promise<KakaoLatLng
 };
 
 // address 에 해당하는 위치로 지도의 중심을 이동함.
-export const searchAndMoveByAddress = (map: KakaoMap, address: string) => {
+export const searchAndMoveByAddress = (
+  map: KakaoMap,
+  address: string,
+  isStaticMarker?: boolean,
+) => {
   const geocoder = new window.kakao.maps.services.Geocoder();
   geocoder.addressSearch(address, function (result: xy[], status: StatusText) {
     if (status === window.kakao.maps.services.Status.OK) {
       const coords = new window.kakao.maps.LatLng(result[0].y, result[0].x);
       map.setCenter(coords);
-      map.panBy(-300, 0);
+      if (!isStaticMarker) map.panBy(-300, 0);
     }
   });
 };
