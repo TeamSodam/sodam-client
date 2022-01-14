@@ -24,7 +24,7 @@ function MapWithAreaId() {
 
   const mapRef = useRef<HTMLDivElement>(null);
   const { data: areaShopList } = useGetShopByAreaQuery(SEOUL_ENUM[AREA_ID]);
-  const initialLocation = areaShopList && areaShopList.length > 0 && areaShopList[0].roadAddress;
+  const initialLocation = areaShopList && areaShopList.length > 0 && areaShopList[0].landAddress;
   const { displayMarkerByAddress } = useMap(mapRef, initialLocation || SEOUL_ENUM[AREA_ID]);
   const onClickGoBack = () => {
     dispatch(initMap());
@@ -35,8 +35,8 @@ function MapWithAreaId() {
     if (areaShopList) {
       (() => {
         areaShopList.forEach(async (shopInfo) => {
-          const { category, roadAddress, store, shopId } = shopInfo;
-          await displayMarkerByAddress({ roadAddress, store, category, shopId });
+          const { category, landAddress, store, shopId } = shopInfo;
+          await displayMarkerByAddress({ landAddress, store, category, shopId });
         });
       })();
     }

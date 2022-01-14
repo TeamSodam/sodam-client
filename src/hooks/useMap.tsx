@@ -28,11 +28,16 @@ function useMap<T>(
   const dispatch = useAppDispatch();
 
   const displayMarkerByAddress = useCallback(
-    async (shopInfo: Pick<Shop, 'store' | 'category' | 'roadAddress' | 'shopId'>) => {
+    async (
+      shopInfo: Pick<Shop, 'store' | 'category' | 'landAddress' | 'shopId'>,
+      isStaticMarker?: boolean,
+    ) => {
       const addMarkerToList = (markerInfo: MarkerInfo) => dispatch(addCurrentMarker(markerInfo));
       const changeClickState = (markerInfo: MarkerInfo) =>
         dispatch(setMarkerCilckState(markerInfo));
-      if (map) await displayMarker(map, shopInfo, addMarkerToList, changeClickState);
+
+      if (map)
+        await displayMarker(map, shopInfo, addMarkerToList, changeClickState, isStaticMarker);
     },
     [map, dispatch],
   );
@@ -58,8 +63,8 @@ function useMap<T>(
   useEffect(() => {
     (async () => {
       if (containerRef?.current) {
-        const location = await getLocationByAddress(`서울 ${initialLocation || '마포구'}`);
         if (!map) {
+          const location = await getLocationByAddress(`${initialLocation || '서울 마포구'}`);
           dispatch(
             setMap(
               new window.kakao.maps.Map(containerRef.current, {
@@ -71,6 +76,10 @@ function useMap<T>(
         }
       }
     })();
+
+    if (map && initialLocation) {
+      searchAndMoveByAddress(map, initialLocation);
+    }
   }, [containerRef, dispatch, map, initialLocation]);
 
   return { map, displayMarkerByAddress, moveByAddress };
