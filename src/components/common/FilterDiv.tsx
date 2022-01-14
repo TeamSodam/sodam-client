@@ -53,9 +53,6 @@ const StyledUl = styled.ul`
   gap: 0.8rem;
   &>li: first-child {
     font-weight: bold;
-    font-size: 1.4rem;
-    line-height: 2rem;
-    margin-left: 1.2rem;
     color: ${theme.colors.purpleText};
   }
   & > li {

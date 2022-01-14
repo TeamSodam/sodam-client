@@ -49,10 +49,10 @@ export default DropDownFilter;
 
 const StyledRoot = styled.div`
   display: flex;
+  position: relative;
 `;
 const StyledWrapper = styled.div`
   display: flex;
-  position: relative;
   gap: 0.8rem;
   align-items: center;
   cursor: pointer;
