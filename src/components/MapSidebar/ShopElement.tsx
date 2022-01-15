@@ -15,9 +15,7 @@ function ShopElement({ shopInfo }: { shopInfo: Shop }) {
   const parseCategory = (category: string | string[]) => {
     if (typeof category === 'string') return category;
 
-    if (category.length > 1) return category.join(', ');
-
-    return category[0];
+    return category.join(', ');
   };
 
   return (
