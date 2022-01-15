@@ -14,6 +14,9 @@ export const shopApi = createApi({
     getShopByTheme: builder.query<Shop[], ShopThemeType>({
       query: (theme) => ({ url: `/shop?theme=${theme}`, method: 'GET' }),
     }),
+    getShopByShopId: builder.query<Shop[], number>({
+      query: (shopId) => ({ url: `/shop?shopId=${shopId}`, method: 'GET' }),
+    }),
     getShopByArea: builder.query<Shop[], string>({
       query: (area) => ({ url: `/shop?area=${area}`, method: 'GET' }),
     }),
@@ -28,4 +31,5 @@ export const {
   useGetShopByCategoryQuery,
   useGetShopByThemeQuery,
   useGetShopByAreaQuery,
+  useGetShopByShopIdQuery,
 } = shopApi;

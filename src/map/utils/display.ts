@@ -1,5 +1,6 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { MarkerInfo } from 'features/map/mapSlice';
+import { getMiniToolTipTemplate } from 'map/overlays/miniTooltip';
 import { getToolTipTemplate } from 'map/overlays/tooltip';
 import { KakaoMap } from 'types/map';
 import { NewShop as Shop } from 'types/shop';
@@ -8,13 +9,14 @@ import { getLocationByAddress } from './search';
 
 export const displayMarker = async (
   map: KakaoMap,
-  shopInfo: Pick<Shop, 'store' | 'category' | 'roadAddress' | 'shopId'>,
+  shopInfo: Pick<Shop, 'store' | 'category' | 'landAddress' | 'shopId'>,
   addMarkerToList: (markerInfo: MarkerInfo) => PayloadAction<MarkerInfo>,
   changeClickState: (markerInfo: MarkerInfo) => PayloadAction<MarkerInfo>,
+  isStaticMarker?: boolean,
 ) => {
   const { kakao } = window;
-  const { roadAddress, store } = shopInfo;
-  const markerPosition = await getLocationByAddress(roadAddress);
+  const { landAddress, store } = shopInfo;
+  const markerPosition = await getLocationByAddress(landAddress);
 
   const MARKER_SRC = '/assets/ic_basic_marker.svg';
   const ACTIVE_MARKER_SRC = '/assets/ic_active_marker.svg';
@@ -35,32 +37,38 @@ export const displayMarker = async (
     position: marker.getPosition(),
   });
 
-  customOverlay.setContent(getToolTipTemplate(shopInfo));
-  customOverlay.setMap(null);
+  const currentTooltipFactory = isStaticMarker ? getMiniToolTipTemplate : getToolTipTemplate;
 
-  let isClicked = false;
-  kakao.maps.event.addListener(marker, 'click', () => {
-    const nextMarkerState = {
+  customOverlay.setContent(currentTooltipFactory(shopInfo));
+  if (!isStaticMarker) {
+    customOverlay.setMap(null);
+    let isClicked = false;
+    kakao.maps.event.addListener(marker, 'click', () => {
+      const nextMarkerState = {
+        marker,
+        name: store,
+        isClicked: !isClicked,
+      };
+      if (isClicked) {
+        marker.setImage(markerImage);
+        customOverlay.setMap(null);
+      } else {
+        marker.setImage(activeMarkerImage);
+        customOverlay.setMap(map);
+      }
+
+      changeClickState(nextMarkerState);
+      isClicked = !isClicked;
+    });
+
+    addMarkerToList({
       marker,
       name: store,
-      isClicked: !isClicked,
-    };
-    if (isClicked) {
-      marker.setImage(markerImage);
-      customOverlay.setMap(null);
-    } else {
-      marker.setImage(activeMarkerImage);
-      customOverlay.setMap(map);
-    }
+      isClicked,
+    });
+  } else {
+    map.setLevel(1);
+  }
 
-    changeClickState(nextMarkerState);
-    isClicked = !isClicked;
-  });
-
-  addMarkerToList({
-    marker,
-    name: store,
-    isClicked,
-  });
   marker.setMap(map);
 };

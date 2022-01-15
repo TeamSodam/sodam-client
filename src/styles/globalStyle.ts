@@ -1,3 +1,4 @@
+import { miniTooltipStyle } from 'map/overlays/miniTooltip';
 import { tooltipStyle } from 'map/overlays/tooltip';
 import { createGlobalStyle } from 'styled-components';
 import { reset } from 'styled-reset';
@@ -25,6 +26,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   ${tooltipStyle}
+  ${miniTooltipStyle}
 `;
 
 export default GlobalStyles;

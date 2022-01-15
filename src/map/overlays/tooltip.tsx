@@ -44,8 +44,8 @@ export const tooltipStyle = css`
 
     &::after {
       border-top: 1rem solid white;
-      border-left: 1rem solid transparent;
-      border-right: 1rem solid transparent;
+      border-left: 0.5rem solid transparent;
+      border-right: 0.5rem solid transparent;
       border-bottom: 0px solid transparent;
       content: '';
       position: absolute;
@@ -62,9 +62,9 @@ export const tooltipStyle = css`
 `;
 
 export const getToolTipTemplate = (
-  shopInfo: Pick<Shop, 'store' | 'category' | 'roadAddress' | 'shopId'>,
+  shopInfo: Pick<Shop, 'store' | 'category' | 'landAddress' | 'shopId'>,
 ): string => {
-  const { store, category, roadAddress, shopId } = shopInfo;
+  const { store, category, landAddress, shopId } = shopInfo;
   const parseCategory = (category: string | string[]) => {
     if (typeof category === 'string') return category;
 
@@ -80,7 +80,7 @@ export const getToolTipTemplate = (
         <span class="marker-tooltip__category">${parseCategory(category)}</span>
       </div>
       <p class="marker-tooltip__content">
-        ${roadAddress}
+        ${landAddress}
       </p>
     </a>
   `;
