@@ -21,11 +21,7 @@ function ShopElement({ shopInfo }: { shopInfo: ShopElementProps }) {
   const { moveByAddress } = useMap();
   const { shopName, category, image, address, close, reviewCount } = shopInfo;
 
-  const joinCategory = (category: string[]) => {
-    if (category.length > 1) return category.join(', ');
-
-    return category[0];
-  };
+  const joinCategory = (category: string[]) => category.join(', ');
 
   return (
     <StyledShopElement onClick={() => moveByAddress(address, shopName)}>

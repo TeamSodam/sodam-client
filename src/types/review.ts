@@ -2,7 +2,6 @@ import { User } from 'types/user';
 
 import { PriceList, ShopCategoryType } from './shop';
 
-
 export interface Item {
   category: string;
   price: string;
@@ -11,11 +10,6 @@ export interface Item {
 export interface NewItem {
   itemName: ShopCategoryType;
   price: PriceList;
-}
-
-export interface User {
-  name: string;
-  thumbnail: string;
 }
 
 export interface Review {
