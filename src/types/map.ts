@@ -1,6 +1,11 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type KakaoMap = any;
 
+export interface KakaoMarker {
+  getPosition: () => KakaoLatLng;
+  setImage: (arg: any) => any;
+  setMap: (map: KakaoMap) => any;
+}
 export interface KakaoLatLng {
   La: string;
   Ma: string;
@@ -9,7 +14,7 @@ export interface KakaoLatLng {
 export interface ShopInfoInMarker {
   address: string;
   name: string;
-  category: string;
+  category: string[];
 }
 
 export interface xy {
