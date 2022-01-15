@@ -2,9 +2,10 @@ import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
+import { ShopThemeType } from 'types/shop';
 
 interface StyledELProps {
-  themeType: string;
+  themeType: ShopThemeType;
   isMain: boolean;
   currentTheme: string | undefined;
   isActive?: boolean;
@@ -14,15 +15,15 @@ interface StyledELProps {
 function ThemeElement(props: StyledELProps) {
   const { themeType, isMain, currentTheme } = props;
 
-  interface CategoryType {
-    [key: string]: string;
-  }
+  type CategoryType = {
+    [key in ShopThemeType]: string;
+  };
 
   const Category: CategoryType = {
     아기자기한: 'Cute',
     힙한: 'Hip',
     모던한: 'Modern',
-    빈티지한: 'Vintage',
+    빈티지: 'Vintage',
   };
 
   const getCategoryIcon = (): string => `/assets/ic_theme${Category[themeType]}.png`;

@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
+import { ShopThemeType } from 'types/shop';
 
 import ThemeElement from './ThemeElement';
 
@@ -9,7 +10,7 @@ interface StyledThemeELProps {
 }
 
 function ThemeSelector() {
-  const category: string[] = ['아기자기한', '힙한', '모던한', '빈티지한'];
+  const category: ShopThemeType[] = ['아기자기한', '힙한', '모던한', '빈티지'];
   const router = useRouter();
   const isMain = router.pathname === '/';
   const currentTheme = router.query.type;
