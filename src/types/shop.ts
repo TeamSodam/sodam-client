@@ -31,6 +31,7 @@ export interface NewShop {
   isBookmarked: boolean;
   image: string;
   close: string;
+  reviewCount: number;
 }
 
 export interface ShopCardData extends Pick<Shop, 'id' | 'thumbnail' | 'name' | 'categoryList'> {

@@ -1,19 +1,20 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { MarkerInfo } from 'features/map/mapSlice';
 import { getToolTipTemplate } from 'map/overlays/tooltip';
-import { KakaoMap, ShopInfoInMarker } from 'types/map';
+import { KakaoMap } from 'types/map';
+import { NewShop as Shop } from 'types/shop';
 
 import { getLocationByAddress } from './search';
 
 export const displayMarker = async (
   map: KakaoMap,
-  shopInfo: ShopInfoInMarker,
+  shopInfo: Pick<Shop, 'store' | 'category' | 'roadAddress' | 'shopId'>,
   addMarkerToList: (markerInfo: MarkerInfo) => PayloadAction<MarkerInfo>,
   changeClickState: (markerInfo: MarkerInfo) => PayloadAction<MarkerInfo>,
 ) => {
   const { kakao } = window;
-  const { address, name } = shopInfo;
-  const markerPosition = await getLocationByAddress(address);
+  const { roadAddress, store } = shopInfo;
+  const markerPosition = await getLocationByAddress(roadAddress);
 
   const MARKER_SRC = '/assets/ic_basic_marker.svg';
   const ACTIVE_MARKER_SRC = '/assets/ic_active_marker.svg';
@@ -26,8 +27,7 @@ export const displayMarker = async (
     position: markerPosition,
     image: markerImage,
     clickable: true,
-    title: name,
-    zIndex: 1,
+    title: store,
   });
 
   const customOverlay = new kakao.maps.CustomOverlay({
@@ -42,7 +42,7 @@ export const displayMarker = async (
   kakao.maps.event.addListener(marker, 'click', () => {
     const nextMarkerState = {
       marker,
-      name,
+      name: store,
       isClicked: !isClicked,
     };
     if (isClicked) {
@@ -59,7 +59,7 @@ export const displayMarker = async (
 
   addMarkerToList({
     marker,
-    name,
+    name: store,
     isClicked,
   });
   marker.setMap(map);

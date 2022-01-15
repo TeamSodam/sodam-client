@@ -1,33 +1,46 @@
 import { useAppDispatch } from 'app/hook';
 import MapSidebar from 'components/MapSidebar';
-import { dummyShopList } from 'constants/dummy';
+import SEOUL_ENUM from 'constants/SeoulAreaEnum';
 import { initMap } from 'features/map/mapSlice';
+import { useGetShopByAreaQuery } from 'features/shops/shopApi';
 import useMap from 'hooks/useMap';
 import { useRouter } from 'next/router';
 import LeftArr from 'public/assets/ic_leftArr.svg';
 import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
+const parseAreaId = (areaId: string | string[] | undefined) => {
+  if (!areaId) return 0;
+  if (Array.isArray(areaId)) return +areaId.join('');
+
+  return +areaId;
+};
+
 function MapWithAreaId() {
-  const mapRef = useRef<HTMLDivElement>(null);
-  const { displayMarkerByAddress } = useMap(mapRef);
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { areaId } = router.query;
+  const AREA_ID = parseAreaId(areaId);
 
+  const mapRef = useRef<HTMLDivElement>(null);
+  const { data: areaShopList } = useGetShopByAreaQuery(SEOUL_ENUM[AREA_ID]);
+  const initialLocation = areaShopList && areaShopList.length > 0 && areaShopList[0].roadAddress;
+  const { displayMarkerByAddress } = useMap(mapRef, initialLocation || SEOUL_ENUM[AREA_ID]);
   const onClickGoBack = () => {
     dispatch(initMap());
     router.push('/map');
   };
 
   useEffect(() => {
-    (() => {
-      dummyShopList.forEach(async (dummy) => {
-        const { address, shopName: name, category } = dummy;
-        await displayMarkerByAddress({ address, name, category });
-      });
-    })();
-  }, [displayMarkerByAddress]);
+    if (areaShopList) {
+      (() => {
+        areaShopList.forEach(async (shopInfo) => {
+          const { category, roadAddress, store, shopId } = shopInfo;
+          await displayMarkerByAddress({ roadAddress, store, category, shopId });
+        });
+      })();
+    }
+  }, [displayMarkerByAddress, areaShopList]);
 
   if (!areaId) return <div>something wrong!</div>;
 
@@ -38,7 +51,7 @@ function MapWithAreaId() {
         <span>지역 다시 선택하기</span>
       </StyledGoBack>
       <MapContainer ref={mapRef}>
-        <MapSidebar />
+        {areaShopList && <MapSidebar shopList={areaShopList} />}
       </MapContainer>
     </StyledContainer>
   );
