@@ -5,32 +5,58 @@ import LandAddressIC from 'public/assets/ic_land_address.svg';
 import RoadAddressIC from 'public/assets/ic_road_address.svg';
 import { useState } from 'react';
 import styled from 'styled-components';
-
-interface AddressToggleMap {
-  [key: string]: React.FC<React.SVGProps<SVGSVGElement>>;
-}
-
-const ADDRESS_STATE_MAP: AddressToggleMap = {
-  ROAD: RoadAddressIC,
-  LAND: LandAddressIC,
-};
+import { NewShop as Shop } from 'types/shop';
 
 const ROAD = 'ROAD';
 const LAND = 'LAND';
+interface AddressToggleMap {
+  [key: string]: {
+    addressState: React.FC<React.SVGProps<SVGSVGElement>>;
+    toggleAddress: React.FC<React.SVGProps<SVGSVGElement>>;
+  };
+}
 
-function DetailShopAddress() {
+const ADDRESS_ICON_MAP: AddressToggleMap = {
+  [ROAD]: {
+    addressState: RoadAddressIC,
+    toggleAddress: RoadToggleIC,
+  },
+  [LAND]: {
+    addressState: LandAddressIC,
+    toggleAddress: LandToggleIC,
+  },
+};
+
+type AddressProps = Pick<Shop, 'roadAddress' | 'landAddress'>;
+
+function DetailShopAddress({ roadAddress, landAddress }: AddressProps) {
+  const [currentAddress, setCurrentAddress] = useState(roadAddress);
   const [currentAddressType, setCurrentAddressType] = useState(ROAD);
   const getAddressState = () => {
-    const AddressType = ADDRESS_STATE_MAP[currentAddressType];
+    const AddressType = ADDRESS_ICON_MAP[currentAddressType].addressState;
     return <AddressType />;
   };
+
+  const getAddressStateToggler = () => {
+    const AddressToggler = ADDRESS_ICON_MAP[currentAddressType].toggleAddress;
+    return <AddressToggler />;
+  };
+
+  const toggleAddressType = () => {
+    setCurrentAddress(currentAddressType === ROAD ? landAddress : roadAddress);
+    setCurrentAddressType((prevAddressType) => (prevAddressType === ROAD ? LAND : ROAD));
+  };
+
+  const copyAddressToClipboard = async () => await navigator.clipboard.writeText(currentAddress);
 
   return (
     <Container>
       {getAddressState()}
-      <Address>상세주소 최대 길이 상세주소 최대 길이 상세주소 최대 길이 상세주소 최대 길이</Address>
-      <RoadToggleIC />
-      <CopyIC />
+      <Address>{currentAddress}</Address>
+      <ToggleBtn onClick={toggleAddressType}>{getAddressStateToggler()}</ToggleBtn>
+      <CopyBtn onClick={copyAddressToClipboard}>
+        <CopyIC />
+      </CopyBtn>
     </Container>
   );
 }
@@ -62,4 +88,30 @@ const Address = styled.span`
   color: ${({ theme }) => theme.colors.black1};
 `;
 
+const ToggleBtn = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: transparent;
+  border: none;
+  padding: 0;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const CopyBtn = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: fit-content;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  &:hover {
+    cursor: pointer;
+  }
+`;
 export default DetailShopAddress;

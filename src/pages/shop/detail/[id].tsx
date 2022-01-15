@@ -1,3 +1,4 @@
+import DetailShopAddress from 'components/DetailShopAddress';
 import { useGetShopByShopIdQuery } from 'features/shops/shopApi';
 import useMap from 'hooks/useMap';
 import { useRouter } from 'next/router';
@@ -22,6 +23,12 @@ function Detail() {
 
   const { displayMarkerByAddress } = useMap(mapRef, initialLocation, true);
 
+  const showDetailShopAddress = () => {
+    if (!shopInfo || !shopInfo.length) return null;
+    const { roadAddress, landAddress } = shopInfo[0];
+    return <DetailShopAddress roadAddress={roadAddress} landAddress={landAddress} />;
+  };
+
   useEffect(() => {
     (async () => {
       if (shopInfo && shopInfo.length > 0) {
@@ -33,7 +40,7 @@ function Detail() {
 
   return (
     <StyledContainer>
-      <MapContainer ref={mapRef} />
+      <MapContainer ref={mapRef}>{showDetailShopAddress()}</MapContainer>
     </StyledContainer>
   );
 }
@@ -47,6 +54,8 @@ const StyledContainer = styled.main`
 const MapContainer = styled.div`
   width: 100%;
   height: 32rem;
+
+  position: relative;
 `;
 
 export default Detail;

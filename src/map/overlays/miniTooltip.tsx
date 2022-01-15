@@ -3,11 +3,9 @@ import { NewShop as Shop } from 'types/shop';
 
 export const miniTooltipStyle = css`
   .marker-miniTooltip {
-    width: 24.7rem;
     position: relative;
-
     background-color: white;
-    margin-top: calc(-40%);
+    margin-top: -10rem;
     border-radius: 10px;
     padding: 1.1rem 2.4rem;
     text-align: center;
@@ -30,7 +28,7 @@ export const miniTooltipStyle = css`
       position: absolute;
       bottom: -0.9rem;
       left: 50%;
-      transform: translateX(calc(-50% - 0.5rem));
+      transform: translateX(-50%);
     }
   }
 `;
