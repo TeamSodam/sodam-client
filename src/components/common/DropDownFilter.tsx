@@ -1,3 +1,4 @@
+import { dropDownFilterList } from 'constants/dropdownOptionList';
 import Image from 'next/image';
 import { useState } from 'react';
 import styled from 'styled-components';
@@ -6,34 +7,33 @@ import { theme } from 'styles/theme';
 import FilterDiv from './FilterDiv';
 
 interface StyledDDFProps {
-  pageType: string;
+  pageType: 'detail' | 'theme' | 'collect';
 }
 
 function DropDownFilter(props: StyledDDFProps) {
   const { pageType } = props;
-  interface OptionListType {
-    [key: string]: string[];
-  }
-  const dropDownOptionList: OptionListType = {
-    detail: ['좋아요 많은 순', '스크랩 많은 순', '최신 순'],
-    theme: ['저장 많은 순', '리뷰 많은 순'],
-    collect: ['저장 많은 순', '리뷰 많은 순', '최근 저장한 순'],
-  };
-  const pageOptionList = dropDownOptionList[pageType];
+  const pageOptionList = dropDownFilterList[pageType];
   const [selected, setSelected] = useState(pageOptionList[0]);
   const [unselected, setUnselected] = useState(pageOptionList.filter((el) => el !== selected));
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen((prevIsOpen) => !prevIsOpen);
 
+  const saveSelectedOption = (option: string) => {
+    if (pageOptionList.includes(option)) setSelected(option);
+  };
+
+  const saveUnselectedOption = (option: string) => {
+    setUnselected(pageOptionList.filter((el) => el !== option));
+  };
+
   return (
     <StyledRoot>
       {isOpen && (
         <FilterDiv
-          pageOptionList={pageOptionList}
           selected={selected}
           unselected={unselected}
-          setSelected={setSelected}
-          setUnselected={setUnselected}
+          saveSelectedOption={saveSelectedOption}
+          saveUnselectedOption={saveUnselectedOption}
           toggle={toggle}
         />
       )}

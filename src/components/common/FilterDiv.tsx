@@ -1,24 +1,23 @@
-import { Dispatch, MouseEvent, SetStateAction } from 'react';
+import { MouseEvent } from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
 
 interface StyledFDProps {
   selected: string;
   unselected: string[];
-  setSelected: Dispatch<SetStateAction<string>>;
-  setUnselected: Dispatch<SetStateAction<string[]>>;
-  pageOptionList: string[];
+  saveSelectedOption: (option: string) => void;
+  saveUnselectedOption: (option: string) => void;
   toggle: () => void;
 }
 
 function FilterDiv(props: StyledFDProps) {
-  const { selected, unselected, setSelected, setUnselected, pageOptionList, toggle } = props;
+  const { selected, unselected, saveSelectedOption, saveUnselectedOption, toggle } = props;
 
   const handleClick = (e: MouseEvent) => {
     if (!(e.target instanceof HTMLElement)) return;
     const currentSelected = e.target.innerText;
-    setSelected(currentSelected);
-    setUnselected(pageOptionList.filter((el) => el !== currentSelected));
+    saveSelectedOption(currentSelected);
+    saveUnselectedOption(currentSelected);
     toggle();
   };
 
@@ -51,7 +50,7 @@ const StyledUl = styled.ul`
   background-color: white;
   padding: 1.6rem 0rem;
   gap: 0.8rem;
-  &>li: first-child {
+  & > li:first-child {
     font-weight: bold;
     color: ${theme.colors.purpleText};
   }
