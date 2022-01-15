@@ -10,6 +10,7 @@ interface StyledShopElementProps {
 
 function ShopElement({ shopInfo }: { shopInfo: Shop }) {
   const { moveByAddress } = useMap();
+
   const { store, category, image, landAddress, close, reviewCount } = shopInfo;
 
   const parseCategory = (category: string | string[]) => {

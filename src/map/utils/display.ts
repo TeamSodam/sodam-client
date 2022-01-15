@@ -69,6 +69,6 @@ export const displayMarker = async (
   } else {
     map.setLevel(1);
   }
-
+  
   marker.setMap(map);
 };
