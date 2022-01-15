@@ -106,6 +106,7 @@ const Logo = styled.div`
   width: 5.8rem;
   height: 2.6rem;
   margin-right: 4.3rem;
+  cursor: pointer;
 `;
 
 const MenuList = styled.div`
@@ -124,6 +125,7 @@ const Menu = styled.a<{ isActive: boolean }>`
   margin-right: 3.2rem;
   color: ${(props) => props.isActive && props.theme.colors.purpleMain};
   font-weight: ${(props) => (props.isActive ? '600' : '400')};
+  cursor: pointer;
 `;
 
 const SearchBar = styled.div`
@@ -142,6 +144,7 @@ const SearchIcon = styled.div`
   margin-left: 1.2rem;
   width: 2.1rem;
   height: 2rem;
+  cursor: pointer;
 `;
 
 const SearchText = styled.input`
@@ -161,11 +164,13 @@ const Login = styled.div`
   font-size: 1.6rem;
   margin-right: 2.7rem;
   min-width: fit-content;
+  cursor: pointer;
 `;
 
 const Profile = styled.div`
   width: 3.4rem;
   height: 3.4rem;
+  cursor: pointer;
 `;
 
 export default GlobalNav;
