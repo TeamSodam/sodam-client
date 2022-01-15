@@ -15,8 +15,6 @@ function ThemeSelector() {
   const isMain = router.pathname === '/';
   const currentTheme = router.query.type;
   const isValidCurrentTheme = !currentTheme || typeof currentTheme === 'string';
-
-  console.log(isValidCurrentTheme);
   return (
     <StyledRoot>
       <h4>테마별 소품샵</h4>
