@@ -3,8 +3,8 @@ export type KakaoMap = any;
 
 export interface KakaoMarker {
   getPosition: () => KakaoLatLng;
-  setImage: (arg: any) => any;
-  setMap: (map: KakaoMap) => any;
+  setImage: (arg: any) => void;
+  setMap: (map: KakaoMap) => void;
 }
 export interface KakaoLatLng {
   La: string;
