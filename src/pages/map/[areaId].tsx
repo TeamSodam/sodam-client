@@ -1,16 +1,59 @@
+import { useAppDispatch } from 'app/hook';
+import MapSidebar from 'components/MapSidebar';
 import SEOUL_ENUM from 'constants/SeoulAreaEnum';
+import { initMap } from 'features/map/mapSlice';
+import { useGetShopByAreaQuery } from 'features/shops/shopApi';
+import useMap from 'hooks/useMap';
 import { useRouter } from 'next/router';
+import LeftArr from 'public/assets/ic_leftArr.svg';
+import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
+const parseAreaId = (areaId: string | string[] | undefined) => {
+  if (!areaId) return 0;
+  if (Array.isArray(areaId)) return +areaId.join('');
+
+  return +areaId;
+};
+
 function MapWithAreaId() {
+  const dispatch = useAppDispatch();
   const router = useRouter();
   const { areaId } = router.query;
+  const AREA_ID = parseAreaId(areaId);
+
+  const mapRef = useRef<HTMLDivElement>(null);
+  const { data: areaShopList } = useGetShopByAreaQuery(SEOUL_ENUM[AREA_ID]);
+  const initialLocation = areaShopList && areaShopList.length > 0 && areaShopList[0].landAddress;
+
+  const { displayMarkerByAddress } = useMap(mapRef, initialLocation || SEOUL_ENUM[AREA_ID]);
+  const onClickGoBack = () => {
+    dispatch(initMap());
+    router.push('/map');
+  };
+
+  useEffect(() => {
+    if (areaShopList) {
+      (() => {
+        areaShopList.forEach(async (shopInfo) => {
+          const { category, landAddress, store, shopId } = shopInfo;
+          await displayMarkerByAddress({ landAddress, store, category, shopId });
+        });
+      })();
+    }
+  }, [displayMarkerByAddress, areaShopList]);
 
   if (!areaId) return <div>something wrong!</div>;
 
   return (
     <StyledContainer>
-      <TESTING_HEADER>{`${SEOUL_ENUM[+areaId]} 을 클릭하셨어요!`}</TESTING_HEADER>
+      <StyledGoBack onClick={onClickGoBack}>
+        <LeftArrIC />
+        <span>지역 다시 선택하기</span>
+      </StyledGoBack>
+      <MapContainer ref={mapRef}>
+        {areaShopList && <MapSidebar shopList={areaShopList} />}
+      </MapContainer>
     </StyledContainer>
   );
 }
@@ -21,9 +64,38 @@ const StyledContainer = styled.main`
   margin: 7.2rem 18.75% 0 18.75%;
 `;
 
-const TESTING_HEADER = styled.h1`
-  font-size: 3rem;
-  color: ${({ theme }) => theme.colors.purpleMain};
+const StyledGoBack = styled.button`
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 2.2rem;
+
+  background-color: transparent;
+  border: none;
+  & > span {
+    font-weight: 700;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    color: ${({ theme }) => theme.colors.black2};
+  }
+
+  &:hover {
+    transform: scale(1.1);
+  }
+`;
+
+const LeftArrIC = styled(LeftArr)`
+  height: 2rem;
+  fill: ${({ theme }) => theme.colors.black2};
+`;
+
+const MapContainer = styled.div`
+  width: 100%;
+  height: 82.4rem;
+
+  margin: 3.5rem 0 13.2rem 0;
+
+  position: relative;
 `;
 
 export default MapWithAreaId;

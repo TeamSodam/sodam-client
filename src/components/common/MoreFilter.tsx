@@ -1,21 +1,21 @@
-import { ItemsList } from 'constants/ItemsList';
+import { MoreFilterList } from 'constants/dropdownOptionList';
 import { MouseEvent, useState } from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
 
 interface StyledMFProps {
   option: string;
-  isActive: string;
+  isActive: boolean;
 }
 function MoreFilter() {
   const [isActive, setIsActive] = useState('문구·팬시');
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen((prevIsOpen) => !prevIsOpen);
 
-  const handleClick = (e: MouseEvent) => {
+  const handleClick = (e: MouseEvent, option: string) => {
     if (!(e.target instanceof HTMLElement)) return;
     e.stopPropagation();
-    setIsActive(e.target.innerText);
+    setIsActive(option);
     toggle();
   };
 
@@ -25,8 +25,13 @@ function MoreFilter() {
         <span>더보기</span>
         {isOpen && (
           <StyledUl>
-            {ItemsList.map((option) => (
-              <StyledLi key={option} option={option} isActive={isActive} onClick={handleClick}>
+            {MoreFilterList.map((option) => (
+              <StyledLi
+                key={option}
+                option={option}
+                isActive={isActive === option}
+                onClick={(e) => handleClick(e, option)}
+              >
                 {option}
               </StyledLi>
             ))}
@@ -74,11 +79,10 @@ const StyledUl = styled.ul`
 `;
 
 const StyledLi = styled.li<StyledMFProps>`
-  font-weight: ${({ option, isActive }) => (option === isActive ? 'bold' : '500')};
+  font-weight: ${({ isActive }) => (isActive ? 'bold' : '500')};
   font-size: 1.4rem;
   line-height: 2rem;
   margin-left: 1.2rem;
-  color: ${({ option, isActive }) =>
-    option === isActive ? theme.colors.purpleText : theme.colors.gray1};
+  color: ${({ isActive }) => (isActive ? theme.colors.purpleText : theme.colors.gray1)};
   cursor: pointer;
 `;

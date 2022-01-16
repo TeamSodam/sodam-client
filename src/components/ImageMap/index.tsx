@@ -291,6 +291,7 @@ function ImageMap() {
 }
 
 const StyledImageMap = styled.svg`
+  align-self: center;
   & > g:hover {
     & path:first-child {
       fill: ${({ theme }) => theme.colors.purpleMain};

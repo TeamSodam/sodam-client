@@ -12,5 +12,6 @@ export const theme = {
     gray1: '#8C8C95',
     gray2: '#E9E8EB',
     grayBg: '#F8F8F8',
+    navLine: '#EBE9E8',
   },
 };
