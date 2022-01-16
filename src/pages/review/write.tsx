@@ -9,8 +9,15 @@ function Write() {
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files === null) return;
 
-    const dataList = Array.from(e.target.files);
+    const MAX_NUM = 10;
+
     const tempImageList = [...reviewImageList];
+    const dataList = Array.from(e.target.files);
+
+    if (reviewImageList.length + dataList.length > MAX_NUM) {
+      const restSize = MAX_NUM - reviewImageList.length;
+      dataList.splice(restSize);
+    }
 
     const promiseList: Array<Promise<ReviewImage>> = dataList.map(
       async (data) =>
@@ -32,8 +39,8 @@ function Write() {
     );
 
     const resolvedList = await Promise.all(promiseList);
-    resolvedList.forEach((resolvedData) => {
-      tempImageList.push(resolvedData as ReviewImage);
+    resolvedList.forEach((resolvedData: ReviewImage) => {
+      tempImageList.push(resolvedData);
     });
 
     setReviewImageList(tempImageList);

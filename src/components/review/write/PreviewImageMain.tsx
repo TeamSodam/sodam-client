@@ -10,7 +10,7 @@ import { ReviewImage } from 'types/review';
 
 interface PreviewImageMainProps {
   mainImage: ReviewImage;
-  handleImageUpload: (e: React.ChangeEvent<HTMLInputElement>, index: number) => void;
+  handleImageUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleImageDelete: (index: number) => void;
 }
 
@@ -31,11 +31,7 @@ function PreviewImageMain(props: PreviewImageMainProps) {
             <MainIcon />
             <div>
               <ReplaceIcon />
-              <StyledReplace
-                type="file"
-                accept="image/*"
-                onChange={(e) => handleImageUpload(e, 0)}
-              />
+              <StyledReplace type="file" accept="image/*" onChange={handleImageUpload} />
               <DeleteIcon onClick={() => handleImageDelete(0)} />
             </div>
           </StyledIcons>
@@ -47,12 +43,7 @@ function PreviewImageMain(props: PreviewImageMainProps) {
           <p>(최소 1장, 최대 10장)</p>
         </StyledEmpty>
       )}
-      <StyledInput
-        type="file"
-        accept="image/*"
-        multiple
-        onChange={(e) => handleImageUpload(e, 0)}
-      />
+      <StyledInput type="file" accept="image/*" multiple onChange={handleImageUpload} />
     </StyledRoot>
   );
 }

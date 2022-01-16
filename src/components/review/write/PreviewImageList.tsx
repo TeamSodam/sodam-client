@@ -9,7 +9,7 @@ import { ReviewImage } from 'types/review';
 
 interface PreviewImageListProps {
   reviewImageList: ReviewImage[];
-  handleImageUpload: (e: React.ChangeEvent<HTMLInputElement>, index: number) => void;
+  handleImageUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleImageDelete: (index: number) => void;
   changeMainImage: (index: number) => void;
 }
@@ -18,8 +18,10 @@ function PreviewImageList(props: PreviewImageListProps) {
   const { reviewImageList, handleImageUpload, handleImageDelete, changeMainImage } = props;
 
   const MAX_NUM = 9;
+
   const imageList = [...reviewImageList];
   imageList.splice(0, 1);
+
   const emptyList =
     imageList.length === MAX_NUM ? [] : new Array<null>(MAX_NUM - imageList.length - 1).fill(null);
 
@@ -42,12 +44,7 @@ function PreviewImageList(props: PreviewImageListProps) {
           <StyledEmptyCard>
             <PlusIcon />
           </StyledEmptyCard>
-          <StyledInput
-            type="file"
-            accept="image/*"
-            multiple
-            onChange={(e) => handleImageUpload(e, reviewImageList.length)}
-          />
+          <StyledInput type="file" accept="image/*" multiple onChange={handleImageUpload} />
         </>
       )}
       {emptyList.map(() => (
