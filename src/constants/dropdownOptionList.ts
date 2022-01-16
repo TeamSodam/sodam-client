@@ -14,3 +14,11 @@ export const MoreFilterList: ShopCategoryType[] = [
   '공예품',
   '인형·장난감',
 ];
+
+export const PriceFilterList: string[] = [
+  '~ 2,900',
+  '3,000 - 4,900',
+  '5,000 - 9,900',
+  '10,000 - 14,900',
+  '20,000 ~',
+];
