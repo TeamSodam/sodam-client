@@ -13,7 +13,6 @@ function Write() {
     const tempImageList = [...reviewImageList];
 
     const promiseList: Array<Promise<ReviewImage>> = dataList.map(
-      // eslint-disable-next-line require-await
       async (data) =>
         new Promise((resolve) => {
           const reader = new FileReader();
