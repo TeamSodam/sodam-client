@@ -3,7 +3,7 @@ import CameraIcon from 'public/assets/ic_camera.svg';
 import DeleteIcon from 'public/assets/ic_img_delete.svg';
 import MainIcon from 'public/assets/ic_img_main.svg';
 import ReplaceIcon from 'public/assets/ic_img_replace.svg';
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
 
@@ -11,28 +11,14 @@ interface ReviewImage {
   file: File | null;
   preview: string | null;
 }
+interface PreviewImageMainProps {
+  reviewImage: ReviewImage;
+  handleImageUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleImageDelete: () => void;
+}
 
-function PreviewImageMain() {
-  const [reviewImage, setReviewImage] = useState<ReviewImage>({ file: null, preview: null });
-
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files === null) return;
-    const data: File = e.target.files[0];
-
-    const reader = new FileReader();
-    reader.readAsDataURL(data);
-
-    reader.onloadend = () => {
-      if (reader.result instanceof ArrayBuffer) return;
-      setReviewImage({
-        file: data,
-        preview: reader.result,
-      });
-    };
-  };
-  const handleImageDelete = () => {
-    setReviewImage({ file: null, preview: null });
-  };
+function PreviewImageMain(props: PreviewImageMainProps) {
+  const { reviewImage, handleImageUpload, handleImageDelete } = props;
 
   return (
     <StyledRoot>
