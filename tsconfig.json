@@ -35,6 +35,6 @@
       "assets/*": ["./assets/*"],
     }
   },
-  "include": ["./src/types/styled.d.ts" ,"next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["./src/types/*.d.ts" ,"next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }
