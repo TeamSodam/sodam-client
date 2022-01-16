@@ -8,9 +8,11 @@ import ThemeSelector from 'components/ThemeSelector';
 import { MoreFilterList } from 'constants/dropdownOptionList';
 import { reviewApi } from 'features/reviews/reviewApi';
 import { shopApi } from 'features/shops/shopApi';
+import { selectUserInfo } from 'features/users/userSlice';
 import Head from 'next/head';
 import Link from 'next/link';
 import MainBannerBtn from 'public/assets/main_banner_btn.svg';
+import { useAppSelector } from 'src/app/hook';
 import styled from 'styled-components';
 import { Review } from 'types/review';
 import { Shop } from 'types/shop';
@@ -23,6 +25,7 @@ interface HomePrefetchProps {
 
 function Home(props: HomePrefetchProps) {
   const { randomShopList, reviewList, popularShopList } = props;
+  const { nickname } = useAppSelector(selectUserInfo);
   const randomCategory = MoreFilterList[Math.floor(Math.random() * 6)];
 
   const showRandomShopSlider = () => {
@@ -75,7 +78,7 @@ function Home(props: HomePrefetchProps) {
         <MarginWrapper>
           <LabelContentWrapper>
             <Label>
-              <em>소푸미</em>님, 이 소품샵은 어떠세요?
+              <em>{nickname}</em>님, 이 소품샵은 어떠세요?
             </Label>
             {showRandomShopSlider()}
           </LabelContentWrapper>
