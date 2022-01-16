@@ -13,58 +13,50 @@ import Link from 'next/link';
 import MainBannerBtn from 'public/assets/main_banner_btn.svg';
 import styled from 'styled-components';
 import { Review } from 'types/review';
-import { Shop, ShopCategoryType } from 'types/shop';
+import { Shop } from 'types/shop';
 
 interface HomePrefetchProps {
-  randomShopList: Shop[] | undefined;
-  popularShopList: Shop[] | undefined;
-  reviewList: Review[] | undefined;
-  randomCategory: ShopCategoryType;
+  randomShopList: Shop[];
+  popularShopList: Shop[];
+  reviewList: Review[];
 }
 
 function Home(props: HomePrefetchProps) {
-  const { randomShopList, reviewList, popularShopList, randomCategory } = props;
+  const { randomShopList, reviewList, popularShopList } = props;
+  const randomCategory = MoreFilterList[Math.floor(Math.random() * 6)];
 
   const showRandomShopSlider = () => {
-    if (randomShopList) {
-      const cardList = randomShopList.map((shop) => <ShopCard key={shop.shopId} cardData={shop} />);
+    const cardList = randomShopList.map((shop) => <ShopCard key={shop.shopId} cardData={shop} />);
 
-      return <MainSlider slidesPerView={4} cardList={cardList} />;
-    }
+    return <MainSlider slidesPerView={4} cardList={cardList} />;
   };
 
   const showReviewSlider = () => {
-    if (reviewList) {
-      const reviewCardList = reviewList.map((review) => (
-        <ReviewCard key={review.reviewId} reviewData={review} isHoverAvailable />
-      ));
+    const reviewCardList = reviewList.map((review) => (
+      <ReviewCard key={review.reviewId} reviewData={review} isHoverAvailable />
+    ));
 
-      return <MainSlider slidesPerView={3} cardList={reviewCardList} />;
-    }
+    return <MainSlider slidesPerView={3} cardList={reviewCardList} />;
   };
 
   const showPopularShopSlider = () => {
-    if (popularShopList) {
-      const cardList = popularShopList.map((shop, index) => {
-        if (index <= 2) {
-          return <ShopCardRank key={shop.shopId} cardData={{ ...shop, rank: index + 1 }} />;
-        }
+    const cardList = popularShopList.map((shop, index) => {
+      if (index <= 2) {
+        return <ShopCardRank key={shop.shopId} cardData={{ ...shop, rank: index + 1 }} />;
+      }
 
-        return <ShopCard key={shop.shopId} cardData={shop} />;
-      });
+      return <ShopCard key={shop.shopId} cardData={shop} />;
+    });
 
-      return <MainSlider slidesPerView={4} cardList={cardList} />;
-    }
+    return <MainSlider slidesPerView={4} cardList={cardList} />;
   };
 
   const showRandomCategorySlider = () => {
-    if (randomShopList) {
-      const cardList = randomShopList
-        .filter((shop) => shop.category === randomCategory)
-        .map((shop) => <ShopCard key={shop.shopId} cardData={shop} />);
+    const cardList = randomShopList
+      .filter((shop) => shop.category === randomCategory)
+      .map((shop) => <ShopCard key={shop.shopId} cardData={shop} />);
 
-      return <MainSlider slidesPerView={4} cardList={cardList} />;
-    }
+    return <MainSlider slidesPerView={4} cardList={cardList} />;
   };
 
   return (
@@ -116,14 +108,11 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ()
   const popularShopResult = await dispatch(shopApi.endpoints.getShopInfo.initiate('popular'));
   const reviewResult = await dispatch(reviewApi.endpoints.getReview.initiate());
 
-  const randomCategory = MoreFilterList[Math.floor(Math.random() * 6)];
-
   return {
     props: {
-      randomShopList: randomShopResult.data || null,
-      reviewList: reviewResult.data || null,
-      popularShopList: popularShopResult.data || null,
-      randomCategory,
+      randomShopList: randomShopResult.data || [],
+      reviewList: reviewResult.data || [],
+      popularShopList: popularShopResult.data || [],
     },
   };
 });

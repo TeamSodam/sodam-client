@@ -7,10 +7,10 @@ export const dropDownFilterList = {
 };
 
 export const MoreFilterList: ShopCategoryType[] = [
-  '문구팬시',
+  '문구∙팬시',
   '인테리어소품',
   '주방용품',
   '패션소품',
   '공예품',
-  '인형장난감',
+  '인형∙장난감',
 ];
