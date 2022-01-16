@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
@@ -10,7 +11,7 @@ interface ShopCardProps {
 
 function ShopCard(props: ShopCardProps) {
   const { cardData } = props;
-  const { image, store, category } = cardData;
+  const { image, store, category, shopId } = cardData;
 
   const joinCategory = () => {
     if (typeof category === 'string') return category;
@@ -18,13 +19,15 @@ function ShopCard(props: ShopCardProps) {
   };
 
   return (
-    <StyledRoot>
-      <Image src={image} width={282} height={208} alt="thumbnail" />
-      <StyledTitle>
-        <h3>{store}</h3>
-        <p>{joinCategory()}</p>
-      </StyledTitle>
-    </StyledRoot>
+    <Link href={`/shop/detail/${shopId}`} passHref>
+      <StyledRoot>
+        <Image src={image} width={282} height={208} alt="thumbnail" />
+        <StyledTitle>
+          <h3>{store}</h3>
+          <p>{joinCategory()}</p>
+        </StyledTitle>
+      </StyledRoot>
+    </Link>
   );
 }
 
@@ -35,6 +38,10 @@ const StyledRoot = styled.div`
   height: 27rem;
   img {
     border-radius: 10px;
+  }
+
+  &:hover {
+    cursor: pointer;
   }
 `;
 const StyledTitle = styled.div`
