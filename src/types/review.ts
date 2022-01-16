@@ -20,6 +20,7 @@ export interface Review {
   tag: string[];
   writerThumbnail: string;
   writerName: string;
+  thumbnail: string;
 }
 
 export interface ReviewCardData extends Omit<Review, 'item' | 'tag' | 'image'> {

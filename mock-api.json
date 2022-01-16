@@ -65,7 +65,7 @@
       "phone": "010-1234-5678",
       "homepage": "www.naver.com",
       "store": "롤리포니",
-      "category": "장난감",
+      "category": "인형장난감",
       "theme": "아기자기한",
       "subway": "성신여대입구역",
       "isBookmarked": true,
@@ -224,8 +224,8 @@
   "review": [
     {
       "shopName": "소품샵이지롱",
-      "writerNriterName": "권혁진",
-      "writerTriterThumbnail": "assets/ex-profile.jpg",
+      "writerName": "권혁진",
+      "writerThumbnail": "/assets/ex-profile.jpg",
       "likeCount": 123,
       "scrapCount": 4,
       "date": "22.01.09",
@@ -233,12 +233,16 @@
       "category": ["인테리어소품", "장난감"],
       "tag": ["바보", "배고파", "피자"],
       "shopId": "azgQVd8",
-      "sort": "save"
+      "sort": "save",
+      "area": "강남구",
+      "reviewCount": 21,
+      "type": "popular",
+      "thumbnail": "/assets/dummy/dummy-image.jpg"
     },
     {
       "shopName": "소품샵이지롱",
       "writerName": "권혁진",
-      "writerThumbnail": "assets/ex-profile.jpg",
+      "writerThumbnail": "/assets/ex-profile.jpg",
       "likeCount": 123,
       "scrapCount": 4,
       "date": "22.01.09",
@@ -247,14 +251,15 @@
       "tag": ["바보", "배고파", "피자"],
       "shopId": "oXZerJf",
       "sort": "review",
-      "type": "random",
       "area": "종로구",
-      "reviewCount": 21
+      "reviewCount": 21,
+      "type": "random",
+      "thumbnail": "/assets/dummy/dummy-image.jpg"
     },
     {
       "shopName": "소품샵이지롱",
       "writerName": "권혁진",
-      "writerThumbnail": "assets/ex-profile.jpg",
+      "writerThumbnail": "/assets/ex-profile.jpg",
       "likeCount": 123,
       "scrapCount": 4,
       "date": "22.01.09",
@@ -265,12 +270,13 @@
       "sort": "save",
       "area": "종로구",
       "reviewCount": 21,
-      "type": "random"
+      "type": "random",
+      "thumbnail": "/assets/dummy/dummy-image.jpg"
     },
     {
       "shopName": "소품샵이지롱",
       "writerName": "권혁진",
-      "writerThumbnail": "assets/ex-profile.jpg",
+      "writerThumbnail": "/assets/ex-profile.jpg",
       "likeCount": 123,
       "scrapCount": 4,
       "date": "22.01.09",
@@ -281,12 +287,13 @@
       "sort": "recent",
       "area": "종로구",
       "reviewCount": 21,
-      "type": "random"
+      "type": "random",
+      "thumbnail": "/assets/dummy/dummy-image.jpg"
     },
     {
       "shopName": "소품샵이지롱",
       "writerName": "권혁진",
-      "writerThumbnail": "assets/ex-profile.jpg",
+      "writerThumbnail": "/assets/ex-profile.jpg",
       "likeCount": 123,
       "scrapCount": 4,
       "date": "22.01.09",
@@ -297,12 +304,13 @@
       "sort": "save",
       "area": "종로구",
       "reviewCount": 21,
-      "type": "random"
+      "type": "random",
+      "thumbnail": "/assets/dummy/dummy-image.jpg"
     },
     {
       "shopName": "소품샵이지롱",
       "writerName": "권혁진",
-      "writerThumbnail": "assets/ex-profile.jpg",
+      "writerThumbnail": "/assets/ex-profile.jpg",
       "likeCount": 123,
       "scrapCount": 4,
       "date": "22.01.09",
@@ -313,7 +321,8 @@
       "sort": "review",
       "area": "종로구",
       "reviewCount": 21,
-      "type": "random"
+      "type": "random",
+      "thumbnail": "/assets/dummy/dummy-image.jpg"
     }
   ]
 }
