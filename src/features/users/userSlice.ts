@@ -15,7 +15,7 @@ type UserInfo = Pick<UserState, 'userInfo'>;
 const initialState: UserState = {
   token: 'intial-test-token',
   userInfo: {
-    nickname: 'WEB-VENGERS',
+    nickname: '소푸미',
     email: 'test@test.com',
   },
 };

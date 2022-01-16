@@ -5,7 +5,7 @@ import LandAddressIC from 'public/assets/ic_land_address.svg';
 import RoadAddressIC from 'public/assets/ic_road_address.svg';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { NewShop as Shop } from 'types/shop';
+import { Shop } from 'types/shop';
 
 const ROAD = 'ROAD';
 const LAND = 'LAND';
