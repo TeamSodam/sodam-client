@@ -1,21 +1,45 @@
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
 
 import ItemsListDiv from './ItemsListDiv';
 
-function DropdownItem() {
+interface StyledDDIProps {
+  idx: number;
+  currentOpen: number;
+  onSetCurrentOpen: (idx: number) => void;
+}
+
+function DropdownItem(props: StyledDDIProps) {
+  const { idx, currentOpen, onSetCurrentOpen } = props;
+  const [selectedItem, setSelectedItem] = useState('어떤 소품을 구매하셨나요?(선택)');
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen((prevIsOpen) => !prevIsOpen);
 
+  const onSelectedItem = (item: string) => {
+    setSelectedItem(item);
+    toggle();
+  };
+
+  const handleClick = () => {
+    onSetCurrentOpen(idx);
+    toggle();
+  };
+
+  useEffect(() => {
+    if (idx !== currentOpen && isOpen) {
+      toggle();
+    }
+  }, [currentOpen]);
+
   return (
     <StyledRoot>
-      <StyledWrapper onClick={toggle}>
-        <span>어떤 소품을 구매하셨나요?(선택)</span>
+      <StyledWrapper onClick={handleClick}>
+        <span>{selectedItem}</span>
         <Image src={'/assets/ic_dropdown.svg'} width={14} height={10} alt="dropdown" />
       </StyledWrapper>
-      {isOpen && <ItemsListDiv />}
+      {isOpen && <ItemsListDiv onSelectedItem={onSelectedItem} />}
     </StyledRoot>
   );
 }

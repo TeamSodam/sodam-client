@@ -1,22 +1,46 @@
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
 
 import PriceList from './PriceList';
 
-function DropdownPrice() {
+interface StyledDPProps {
+  idx: number;
+  currentOpen: number;
+  onSetCurrentOpen: (idx: number) => void;
+}
+
+function DropdownPrice(props: StyledDPProps) {
+  const { idx, currentOpen, onSetCurrentOpen } = props;
+  const [selectedPrice, setSelectedPrice] = useState('0');
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen((prevIsOpen) => !prevIsOpen);
 
+  const onSelectedPrice = (price: string) => {
+    setSelectedPrice(price);
+    toggle();
+  };
+
+  const handleClick = () => {
+    onSetCurrentOpen(idx);
+    toggle();
+  };
+
+  useEffect(() => {
+    if (idx !== currentOpen && isOpen) {
+      toggle();
+    }
+  }, [currentOpen]);
+
   return (
     <StyledRoot>
-      <StyledWrapper onClick={toggle}>
-        <span>0</span>
+      <StyledWrapper onClick={handleClick}>
+        <span>{selectedPrice}</span>
         <span>원</span>
         <Image src={'/assets/ic_dropdown.svg'} width={14} height={10} alt="dropdown" />
       </StyledWrapper>
-      {isOpen && <PriceList />}
+      {isOpen && <PriceList onSelectedPrice={onSelectedPrice} />}
     </StyledRoot>
   );
 }

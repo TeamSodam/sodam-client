@@ -2,11 +2,22 @@ import { PriceFilterList } from 'constants/dropdownOptionList';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
 
-function PriceList() {
+interface StyledPLProps {
+  onSelectedPrice: (price: string) => void;
+}
+function PriceList(props: StyledPLProps) {
+  const { onSelectedPrice } = props;
+
+  const handleClick = (price: string) => {
+    onSelectedPrice(price);
+  };
+
   return (
     <StyledUl>
       {PriceFilterList.map((price) => (
-        <li key={price}>{price}</li>
+        <li key={price} onClick={() => handleClick(price)} role="presentation">
+          {price}
+        </li>
       ))}
     </StyledUl>
   );

@@ -2,11 +2,22 @@ import { MoreFilterList } from 'constants/dropdownOptionList';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
 
-function ItemsListDiv() {
+interface StyledILDProps {
+  onSelectedItem: (item: string) => void;
+}
+
+function ItemsListDiv(props: StyledILDProps) {
+  const { onSelectedItem } = props;
+
+  const handleClick = (item: string) => {
+    onSelectedItem(item);
+  };
   return (
     <StyledUl>
       {MoreFilterList.map((item) => (
-        <li key={item}>{item}</li>
+        <li key={item} onClick={() => handleClick(item)} role="presentation">
+          {item}
+        </li>
       ))}
     </StyledUl>
   );

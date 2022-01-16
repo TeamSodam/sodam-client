@@ -3,11 +3,17 @@ import styled from 'styled-components';
 import DropdownItem from './DropdownItem';
 import DropdownPrice from './DropdownPrice';
 
-function BuyList() {
+interface StyledBLProps {
+  idx: number;
+  currentOpen: number;
+  onSetCurrentOpen: (idx: number) => void;
+}
+function BuyList(props: StyledBLProps) {
+  const { idx, currentOpen, onSetCurrentOpen } = props;
   return (
     <StyledRoot>
-      <DropdownItem />
-      <DropdownPrice />
+      <DropdownItem idx={idx} currentOpen={currentOpen} onSetCurrentOpen={onSetCurrentOpen} />
+      <DropdownPrice idx={idx} currentOpen={currentOpen} onSetCurrentOpen={onSetCurrentOpen} />
     </StyledRoot>
   );
 }
