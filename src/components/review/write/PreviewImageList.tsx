@@ -70,7 +70,7 @@ const StyledInput = styled.input`
   width: 7.5rem;
   height: 7.5rem;
   display: block;
-  margin-left: -7.5rem;
+  margin-left: -8.5rem;
   opacity: 0;
   &:hover {
     cursor: pointer;
