@@ -6,23 +6,40 @@ import { ReviewImage } from 'types/review';
 function Write() {
   const [reviewImageList, setReviewImageList] = useState<ReviewImage[]>([]);
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, currentIndex: number) => {
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files === null) return;
 
     const dataList = Array.from(e.target.files);
     const tempImageList = [...reviewImageList];
 
-    dataList.forEach((data, index) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(data);
-      reader.onloadend = () => {
-        if (reader.result instanceof ArrayBuffer) return;
+    const promiseList: Array<Promise<ReviewImage>> = dataList.map(
+      // eslint-disable-next-line require-await
+      async (data) =>
+        new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(data);
+          reader.onloadend = () => {
+            if (reader.result instanceof ArrayBuffer) {
+              resolve({
+                file: null,
+                preview: null,
+              });
 
-        tempImageList[currentIndex + index] = { file: data, preview: reader.result };
-        setReviewImageList(tempImageList);
-      };
+              return;
+            }
+            resolve({ file: data, preview: reader.result });
+          };
+        }),
+    );
+
+    const resolvedList = await Promise.all(promiseList);
+    resolvedList.forEach((resolvedData) => {
+      tempImageList.push(resolvedData as ReviewImage);
     });
+
+    setReviewImageList(tempImageList);
   };
+
   const handleImageDelete = (index: number) => {
     if (reviewImageList.length <= 1) {
       setReviewImageList([]);
