@@ -49,6 +49,7 @@ const StyledRoot = styled.div`
 
 const StyledElWrapper = styled.div<StyledThemeELProps>`
   display: flex;
+  justify-content: center;
   gap: 5.8rem;
   margin-top: ${({ isMain }) => (isMain === true ? '5.4rem' : '5.8rem')};
 
