@@ -18,6 +18,7 @@ export const searchAndMoveByAddress = (map: KakaoMap, address: string) => {
     if (status === window.kakao.maps.services.Status.OK) {
       const coords = new window.kakao.maps.LatLng(result[0].y, result[0].x);
       map.setCenter(coords);
+      map.panBy(-300, 0);
     }
   });
 };
