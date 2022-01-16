@@ -18,7 +18,7 @@ function Home() {
 }
 
 const Container = styled.main`
-  height: 100vh;
+  height: 65vh;
   display: flex;
   flex-direction: column;
   justify-content: center;

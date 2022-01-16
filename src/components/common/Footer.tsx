@@ -1,15 +1,14 @@
 import SodamContact from 'constants/sodamContactList';
 import SodamDoc from 'constants/sodamDocList';
-import Image from 'next/image';
 import Link from 'next/link';
-import logo from 'public/assets/footerLogo.svg';
+import FooterLogoIC from 'public/assets/footerLogo.svg';
 import styled from 'styled-components';
 
 function Footer() {
   return (
     <FooterWrapper>
       <Logo>
-        <Image src={logo} alt="로고" />
+        <FooterLogoIC />
       </Logo>
       <LeftFooterWrapper>
         {SodamContact.map((contact) => (

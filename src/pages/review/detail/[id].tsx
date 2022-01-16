@@ -1,8 +1,19 @@
-import ReviewCard from 'components/common/ReviewCard';
+import ImageSlider from 'components/review/ImageSlider';
 import Image from 'next/image';
 import styled from 'styled-components';
 
 function Detail() {
+  const imageSliderDummyData: string[] = [
+    '/assets/ex_thumbnail.png',
+    '/assets/ex_thumbnail.png',
+    '/assets/ex_thumbnail.png',
+    '/assets/ex_thumbnail.png',
+    '/assets/ex_thumbnail.png',
+    '/assets/ex_thumbnail.png',
+    '/assets/ex_thumbnail.png',
+    '/assets/ex_thumbnail.png',
+  ];
+
   return (
     <StyledContainer>
       <Header>
@@ -12,7 +23,7 @@ function Detail() {
       <ReviewDetailCardContainer>
         <ReviewDetailCardHeader>
           <div className="profile">
-            <Image src={'/assets/profile.jpeg'} alt="profile" width={48} height={48} />
+            <Image src={'/assets/ex_profile.jpg'} alt="profile" width={48} height={48} />
             <ReviewInfo>
               <ReviewWriter>슈슉슈슈슉슈슈발로마</ReviewWriter>
               <ReviewWriteDate>2022년 01월 05일</ReviewWriteDate>
@@ -41,23 +52,7 @@ function Detail() {
             </SaveReview>
           </IconContainer>
         </ReviewDetailCardHeader>
-        <ReviewThumbnail>
-          <Image
-            className="review_thumbnail"
-            src={'/assets/thumbnail.jpeg'}
-            width={788}
-            height={405}
-            alt="thumbnail"
-          />
-        </ReviewThumbnail>
-        <ReviewImageSlider>
-          <Image src={'/assets/profile.jpeg'} alt="image" width={75} height={75} />
-          <Image src={'/assets/profile.jpeg'} alt="image" width={75} height={75} />
-          <Image src={'/assets/profile.jpeg'} alt="image" width={75} height={75} />
-          <Image src={'/assets/profile.jpeg'} alt="image" width={75} height={75} />
-          <Image src={'/assets/profile.jpeg'} alt="image" width={75} height={75} />
-          <Image src={'/assets/profile.jpeg'} alt="image" width={75} height={75} />
-        </ReviewImageSlider>
+        <ImageSlider imageList={imageSliderDummyData} />
         <ReviewTextInfo>
           <ReviewProductInfo>
             <p>인테리어소품</p>
@@ -90,7 +85,6 @@ function Detail() {
           <HeaderTitle>이 소품샵의 다른 리뷰</HeaderTitle>
           <Filter />
         </ReviewListHeader>
-        {/* <ReviewCard /> */}
       </OtherReviewList>
     </StyledContainer>
   );
@@ -156,11 +150,13 @@ const ReviewWriteDate = styled.p`
   line-height: 1.6rem;
   color: ${({ theme }) => theme.colors.gray1};
 `;
+
 const IconContainer = styled.div`
   display: flex;
   font-size: 1.4rem;
   color: ${({ theme }) => theme.colors.purpleMain};
 `;
+
 const LikeReview = styled.div`
   display: flex;
   flex-direction: column;
@@ -171,6 +167,7 @@ const LikeReview = styled.div`
     margin-top: 0.4rem;
   }
 `;
+
 const SaveReview = styled.div`
   display: flex;
   flex-direction: column;
@@ -178,21 +175,6 @@ const SaveReview = styled.div`
 
   & > p {
     margin-top: 0.4rem;
-  }
-`;
-
-const ReviewThumbnail = styled.div`
-  margin-bottom: 3.2rem;
-`;
-
-const ReviewImageSlider = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 50rem;
-  margin: 0 auto 4.1rem auto;
-
-  img {
-    border-radius: 10px;
   }
 `;
 
@@ -204,7 +186,7 @@ const ReviewTextInfo = styled.div`
 const ReviewProductInfo = styled.div`
   display: flex;
   justify-content: center;
-  margin-bottom: 2.1rem;
+  margin: 4.1rem 0 2.1rem 0;
   font-size: 1.4rem;
   font-weight: 400;
   width: 100%;
@@ -227,9 +209,10 @@ const ReviewTagList = styled.div`
 const ReviewTag = styled.span`
   display: inline-block;
   height: 2.4rem;
-  line-height: 1.3rem;
+  line-height: 2rem;
   margin-right: 0.7rem;
-  padding: 0.2rem 1rem;
+  padding: 0 1rem;
+  text-align: center;
   background-color: ${({ theme }) => theme.colors.white};
   border: solid 2px ${({ theme }) => theme.colors.purpleText};
   border-radius: 30px;

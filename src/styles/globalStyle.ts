@@ -2,8 +2,6 @@ import { tooltipStyle } from 'map/overlays/tooltip';
 import { createGlobalStyle } from 'styled-components';
 import { reset } from 'styled-reset';
 
-import { applyMediaQuery } from './mediaQuery';
-
 const GlobalStyles = createGlobalStyle` 
   ${reset}
 
