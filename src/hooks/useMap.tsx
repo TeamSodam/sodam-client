@@ -11,7 +11,7 @@ import { displayMarker } from 'map/utils/display';
 import { getLocationByAddress, searchAndMoveByAddress } from 'map/utils/search';
 import { RefObject, useCallback, useEffect } from 'react';
 import { KakaoMap } from 'types/map';
-import { NewShop as Shop } from 'types/shop';
+import { Shop } from 'types/shop';
 
 declare global {
   interface Window {

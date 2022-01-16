@@ -3,13 +3,11 @@ import 'swiper/swiper.min.css';
 import Image from 'next/image';
 import { ReactElement, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { theme } from 'styles/theme';
 import SwiperCore, { Navigation, Scrollbar } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 interface MainSliderProps {
   cardList: ReactElement[];
-  title: ReactElement;
   slidesPerView: 3 | 4; // 한 번에 보이는 카드 수
 }
 interface StyledButtonProps {
@@ -17,7 +15,7 @@ interface StyledButtonProps {
 }
 
 function MainSlider(props: MainSliderProps) {
-  const { cardList, title, slidesPerView } = props;
+  const { cardList, slidesPerView } = props;
 
   SwiperCore.use([Navigation, Scrollbar]);
 
@@ -52,7 +50,6 @@ function MainSlider(props: MainSliderProps) {
 
   return (
     <StyledRoot>
-      <h2>{title}</h2>
       <StyledSwiper>
         <StyledButton ref={prevRef} isShopCard={isShopCard}>
           <Image src={'/assets/ic_prev.svg'} width={12} height={24} alt="prev" />
@@ -74,16 +71,7 @@ function MainSlider(props: MainSliderProps) {
 
 const StyledRoot = styled.div`
   width: 128.8rem;
-  h2 {
-    font-size: 3rem;
-    font-weight: bold;
-    color: ${theme.colors.black2};
-    margin-bottom: 3.2rem;
-  }
-  em,
-  b {
-    color: ${theme.colors.purpleText};
-  }
+
   button {
     padding: 0;
     background: none;

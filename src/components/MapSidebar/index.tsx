@@ -6,7 +6,7 @@ import LeftArrIC from 'public/assets/ic_leftArr.svg';
 import StarIC from 'public/assets/ic_star.svg';
 import { useState } from 'react';
 import styled, { css } from 'styled-components';
-import { NewShop as Shop } from 'types/shop';
+import { Shop } from 'types/shop';
 
 interface StyledMapProps {
   isOpen?: boolean;
