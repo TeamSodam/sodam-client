@@ -1,21 +1,6 @@
 import SEOUL_ENUM from 'constants/SeoulAreaEnum';
 
 export interface Shop {
-  id: number;
-  thumbnail: string;
-  name: string;
-  categoryList: string[];
-  theme: string;
-  station: string;
-  tel: string;
-  addressRoad: string; // 도로명
-  addressLand: string; // 지번
-  hour: string;
-  website?: string;
-  sns?: string;
-}
-
-export interface NewShop {
   shopId: number;
   phone: string;
   time: string;
@@ -33,8 +18,7 @@ export interface NewShop {
   close: string;
   reviewCount: number;
 }
-
-export interface ShopCardData extends Pick<Shop, 'id' | 'thumbnail' | 'name' | 'categoryList'> {
+export interface ShopCardData extends Pick<Shop, 'shopId' | 'image' | 'store' | 'category'> {
   rank?: number;
 }
 

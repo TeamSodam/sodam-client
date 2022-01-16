@@ -10,16 +10,19 @@ interface ShopCardProps {
 
 function ShopCard(props: ShopCardProps) {
   const { cardData } = props;
-  const { thumbnail, name, categoryList } = cardData;
+  const { image, store, category } = cardData;
 
-  const category = categoryList.join(', ');
+  const joinCategory = () => {
+    if (typeof category === 'string') return category;
+    return category.join(', ');
+  };
 
   return (
     <StyledRoot>
-      <Image src={thumbnail} width={282} height={208} alt="thumbnail" />
+      <Image src={image} width={282} height={208} alt="thumbnail" />
       <StyledTitle>
-        <h3>{name}</h3>
-        <p>{category}</p>
+        <h3>{store}</h3>
+        <p>{joinCategory()}</p>
       </StyledTitle>
     </StyledRoot>
   );

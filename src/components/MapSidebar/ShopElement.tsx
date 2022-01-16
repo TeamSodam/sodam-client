@@ -2,7 +2,7 @@ import useMap from 'hooks/useMap';
 import Image from 'next/image';
 import DelimiterIC from 'public/assets/ic_delimiter.svg';
 import styled from 'styled-components';
-import { NewShop as Shop } from 'types/shop';
+import { Shop } from 'types/shop';
 
 interface StyledShopElementProps {
   isSelected?: boolean;

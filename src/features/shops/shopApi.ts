@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { axiosBaseQuery } from 'libs/api';
-import { NewShop as Shop, ShopCategoryType, ShopRequestType, ShopThemeType } from 'types/shop';
+import { Shop, ShopCategoryType, ShopRequestType, ShopThemeType } from 'types/shop';
 
 export const shopApi = createApi({
   reducerPath: 'shopApi',

@@ -3,7 +3,7 @@ import { MarkerInfo } from 'features/map/mapSlice';
 import { getMiniToolTipTemplate } from 'map/overlays/miniTooltip';
 import { getToolTipTemplate } from 'map/overlays/tooltip';
 import { KakaoMap } from 'types/map';
-import { NewShop as Shop } from 'types/shop';
+import { Shop } from 'types/shop';
 
 import { getLocationByAddress } from './search';
 

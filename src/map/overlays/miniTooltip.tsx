@@ -1,5 +1,5 @@
 import { css } from 'styled-components';
-import { NewShop as Shop } from 'types/shop';
+import { Shop } from 'types/shop';
 
 export const miniTooltipStyle = css`
   .marker-miniTooltip {
