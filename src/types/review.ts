@@ -58,3 +58,8 @@ export interface ReviewShopIdRequestParams {
   shopId: number;
   sortType: ReviewSortType;
 }
+
+export interface ReviewImage {
+  file: File | null;
+  preview: string | null;
+}

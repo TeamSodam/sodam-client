@@ -6,31 +6,37 @@ import ReplaceIcon from 'public/assets/ic_img_replace.svg';
 import React from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
+import { ReviewImage } from 'types/review';
 
-interface ReviewImage {
-  file: File | null;
-  preview: string | null;
-}
 interface PreviewImageMainProps {
-  reviewImage: ReviewImage;
-  handleImageUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleImageDelete: () => void;
+  mainImage: ReviewImage;
+  handleImageUpload: (e: React.ChangeEvent<HTMLInputElement>, index: number) => void;
+  handleImageDelete: (index: number) => void;
 }
 
 function PreviewImageMain(props: PreviewImageMainProps) {
-  const { reviewImage, handleImageUpload, handleImageDelete } = props;
+  const { mainImage, handleImageUpload, handleImageDelete } = props;
 
   return (
     <StyledRoot>
-      {reviewImage.preview ? (
+      {mainImage ? (
         <StyledPreview>
-          <Image src={reviewImage.preview} width={282} height={246} alt="preview" />
+          <Image
+            src={mainImage.preview ? mainImage.preview : ''}
+            width={282}
+            height={246}
+            alt="preview"
+          />
           <StyledIcons>
             <MainIcon />
             <div>
               <ReplaceIcon />
-              <StyledReplace type="file" accept="image/*" onChange={handleImageUpload} />
-              <DeleteIcon onClick={handleImageDelete} />
+              <StyledReplace
+                type="file"
+                accept="image/*"
+                onChange={(e) => handleImageUpload(e, 0)}
+              />
+              <DeleteIcon onClick={() => handleImageDelete(0)} />
             </div>
           </StyledIcons>
         </StyledPreview>
@@ -41,7 +47,7 @@ function PreviewImageMain(props: PreviewImageMainProps) {
           <p>(최소 1장, 최대 10장)</p>
         </StyledEmpty>
       )}
-      <StyledInput type="file" accept="image/*" onChange={handleImageUpload} />
+      <StyledInput type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 0)} />
     </StyledRoot>
   );
 }

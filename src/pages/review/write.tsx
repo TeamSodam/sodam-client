@@ -1,16 +1,12 @@
 import PreviewImageList from 'components/review/write/PreviewImageList';
 import PreviewImageMain from 'components/review/write/PreviewImageMain';
 import { useState } from 'react';
-
-interface ReviewImage {
-  file: File | null;
-  preview: string | null;
-}
+import { ReviewImage } from 'types/review';
 
 function Write() {
-  const [reviewImage, setReviewImage] = useState<ReviewImage>({ file: null, preview: null });
+  const [reviewImageList, setReviewImageList] = useState<ReviewImage[]>([]);
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     if (e.target.files === null) return;
     const data: File = e.target.files[0];
 
@@ -19,24 +15,43 @@ function Write() {
 
     reader.onloadend = () => {
       if (reader.result instanceof ArrayBuffer) return;
-      setReviewImage({
-        file: data,
-        preview: reader.result,
-      });
+      const tempImageList = [...reviewImageList];
+      tempImageList[index] = { file: data, preview: reader.result };
+      setReviewImageList(tempImageList);
     };
   };
-  const handleImageDelete = () => {
-    setReviewImage({ file: null, preview: null });
+  const handleImageDelete = (index: number) => {
+    if (reviewImageList.length <= 1) {
+      setReviewImageList([]);
+      return;
+    }
+    const tempImageList = [...reviewImageList];
+    tempImageList.splice(index, 1);
+    setReviewImageList(tempImageList);
+  };
+  // 기존 대표 이미지와 교체
+  const changeMainImage = (index: number) => {
+    const newMainImage = reviewImageList[index];
+    const prevMainImage = reviewImageList[0];
+    const tempImageList = [...reviewImageList];
+    tempImageList.splice(index, 1, prevMainImage);
+    tempImageList.splice(0, 1, newMainImage);
+    setReviewImageList(tempImageList);
   };
 
   return (
     <>
       <PreviewImageMain
-        reviewImage={reviewImage}
+        mainImage={reviewImageList[0]}
         handleImageUpload={handleImageUpload}
         handleImageDelete={handleImageDelete}
       />
-      <PreviewImageList />
+      <PreviewImageList
+        reviewImageList={reviewImageList}
+        handleImageUpload={handleImageUpload}
+        handleImageDelete={handleImageDelete}
+        changeMainImage={changeMainImage}
+      />
     </>
   );
 }
