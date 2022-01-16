@@ -47,7 +47,12 @@ function PreviewImageMain(props: PreviewImageMainProps) {
           <p>(최소 1장, 최대 10장)</p>
         </StyledEmpty>
       )}
-      <StyledInput type="file" accept="image/*" onChange={(e) => handleImageUpload(e, 0)} />
+      <StyledInput
+        type="file"
+        accept="image/*"
+        multiple
+        onChange={(e) => handleImageUpload(e, 0)}
+      />
     </StyledRoot>
   );
 }

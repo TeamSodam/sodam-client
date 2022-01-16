@@ -45,6 +45,7 @@ function PreviewImageList(props: PreviewImageListProps) {
           <StyledInput
             type="file"
             accept="image/*"
+            multiple
             onChange={(e) => handleImageUpload(e, reviewImageList.length)}
           />
         </>

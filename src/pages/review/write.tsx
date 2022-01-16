@@ -6,19 +6,22 @@ import { ReviewImage } from 'types/review';
 function Write() {
   const [reviewImageList, setReviewImageList] = useState<ReviewImage[]>([]);
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, currentIndex: number) => {
     if (e.target.files === null) return;
-    const data: File = e.target.files[0];
 
-    const reader = new FileReader();
-    reader.readAsDataURL(data);
+    const dataList = Array.from(e.target.files);
+    const tempImageList = [...reviewImageList];
 
-    reader.onloadend = () => {
-      if (reader.result instanceof ArrayBuffer) return;
-      const tempImageList = [...reviewImageList];
-      tempImageList[index] = { file: data, preview: reader.result };
-      setReviewImageList(tempImageList);
-    };
+    dataList.forEach((data, index) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(data);
+      reader.onloadend = () => {
+        if (reader.result instanceof ArrayBuffer) return;
+
+        tempImageList[currentIndex + index] = { file: data, preview: reader.result };
+        setReviewImageList(tempImageList);
+      };
+    });
   };
   const handleImageDelete = (index: number) => {
     if (reviewImageList.length <= 1) {
