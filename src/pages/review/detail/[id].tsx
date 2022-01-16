@@ -1,8 +1,36 @@
+import DropDownFilter from 'components/common/DropDownFilter';
+import ReviewCard from 'components/common/ReviewCard';
 import ImageSlider from 'components/review/ImageSlider';
+import { useGetReviewByShopIdQuery } from 'features/reviews/reviewApi';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import LikeReviewIC from 'public/assets/ic_likeReview.svg';
+import ScrapReviewIC from 'public/assets/ic_scrapReview.svg';
+import { useState } from 'react';
 import styled from 'styled-components';
+import { ReviewCardData } from 'types/review';
+
+const parseShopId = (shopId: string | string[] | undefined) => {
+  if (!shopId) return 1;
+  if (Array.isArray(shopId)) return +shopId.join('');
+
+  return +shopId;
+};
 
 function Detail() {
+  const router = useRouter();
+  const { id } = router.query;
+
+  const SHOP_ID = parseShopId(id);
+
+  const { data: reviewData, isLoading } = useGetReviewByShopIdQuery({
+    shopId: SHOP_ID,
+    sortType: 'save',
+  });
+
+  const [isLikeClicked, setLikeClicked] = useState(true);
+  const [isScrapClicked, setScrapClicked] = useState(true);
+
   const imageSliderDummyData: string[] = [
     '/assets/ex_thumbnail.png',
     '/assets/ex_thumbnail.png',
@@ -13,43 +41,116 @@ function Detail() {
     '/assets/ex_thumbnail.png',
     '/assets/ex_thumbnail.png',
   ];
+  const reviewDummyData: ReviewCardData[] = [
+    {
+      id: 1,
+      thumbnail: '/assets/ex_thumbnail.png',
+      shopName: '소품샵1',
+      shopCategoryList: ['카테고리', '아기자기'],
+      text: '리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미',
+      writer: { name: '권소희', thumbnail: '/assets/ex_profile.jpg' },
+      date: '2022-01-11',
+      liked: 101,
+      saved: 56,
+    },
+    {
+      id: 2,
+      thumbnail: '/assets/ex_thumbnail.png',
+      shopName: '소품샵2',
+      shopCategoryList: ['카테고리', '아기자기'],
+      text: '리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미',
+      writer: { name: '권소희', thumbnail: '/assets/ex_profile.jpg' },
+      date: '2022-01-11',
+      liked: 101,
+      saved: 56,
+    },
+    {
+      id: 3,
+      thumbnail: '/assets/ex_thumbnail.png',
+      shopName: '소품샵3',
+      shopCategoryList: ['카테고리', '아기자기'],
+      text: '리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미',
+      writer: { name: '권소희', thumbnail: '/assets/ex_profile.jpg' },
+      date: '2022-01-11',
+      liked: 101,
+      saved: 56,
+    },
+    {
+      id: 4,
+      thumbnail: '/assets/ex_thumbnail.png',
+      shopName: '소품샵4',
+      shopCategoryList: ['카테고리', '아기자기'],
+      text: '리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미',
+      writer: { name: '권소희', thumbnail: '/assets/ex_profile.jpg' },
+      date: '2022-01-11',
+      liked: 101,
+      saved: 56,
+    },
+    {
+      id: 5,
+      thumbnail: '/assets/ex_thumbnail.png',
+      shopName: '소품샵5',
+      shopCategoryList: ['카테고리', '아기자기'],
+      text: '리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미',
+      writer: { name: '권소희', thumbnail: '/assets/ex_profile.jpg' },
+      date: '2022-01-11',
+      liked: 101,
+      saved: 56,
+    },
+    {
+      id: 6,
+      thumbnail: '/assets/ex_thumbnail.png',
+      shopName: '소품샵6',
+      shopCategoryList: ['카테고리', '아기자기'],
+      text: '리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미',
+      writer: { name: '권소희', thumbnail: '/assets/ex_profile.jpg' },
+      date: '2022-01-11',
+      liked: 101,
+      saved: 56,
+    },
+  ];
+
+  const reviewDataList = reviewDummyData.map((data) => (
+    <ReviewCard key={data.id} reviewData={data} isHoverAvailable />
+  ));
+
+  if (!reviewData && isLoading) return <div>loading</div>;
+  if (!reviewData) return <div>no data!</div>;
+
+  const { shopName, category, writerName, writerThumbnail, date, likeCount, scrapCount, content } =
+    reviewData[0];
+
+  const likedCount = likeCount > 99 ? '99+' : likeCount;
+  const scrapedCount = scrapCount > 99 ? '99+' : scrapCount;
 
   return (
     <StyledContainer>
       <Header>
-        <ShopName>마인띵스</ShopName>
-        <ShopInfo>문구·팬시, 인테리어소품</ShopInfo>
+        <ShopName>{shopName}</ShopName>
+        <ShopInfo>{category}</ShopInfo>
       </Header>
       <ReviewDetailCardContainer>
         <ReviewDetailCardHeader>
           <div className="profile">
-            <Image src={'/assets/ex_profile.jpg'} alt="profile" width={48} height={48} />
+            <Image src={writerThumbnail} alt="profile" width={48} height={48} />
             <ReviewInfo>
-              <ReviewWriter>슈슉슈슈슉슈슈발로마</ReviewWriter>
-              <ReviewWriteDate>2022년 01월 05일</ReviewWriteDate>
+              <ReviewWriter>{writerName}</ReviewWriter>
+              <ReviewWriteDate>{date}</ReviewWriteDate>
             </ReviewInfo>
           </div>
           <IconContainer>
             <LikeReview>
-              <Image
-                className="review_icon"
-                src={'/assets/likeReviewIcon.svg'}
-                width={29}
-                height={26}
-                alt="like"
-              />
-              <p>35</p>
+              <LikeIcon onClick={() => setLikeClicked(!isLikeClicked)} isLike={isLikeClicked}>
+                <LikeReviewIC />
+              </LikeIcon>
+              <p>{likedCount}</p>
             </LikeReview>
-            <SaveReview>
-              <Image
-                className="review_icon"
-                src={'/assets/scrapReviewIcon.svg'}
-                width={22}
-                height={26}
-                alt="save"
-              />
-              <p>102</p>
-            </SaveReview>
+            <ScrapReview>
+              <ScrapIcon onClick={() => setScrapClicked(!isScrapClicked)} isScrap={isScrapClicked}>
+                <ScrapReviewIC />
+              </ScrapIcon>
+              <p>{scrapedCount}</p>
+            </ScrapReview>
           </IconContainer>
         </ReviewDetailCardHeader>
         <ImageSlider imageList={imageSliderDummyData} />
@@ -59,18 +160,7 @@ function Detail() {
             <p> : </p>
             <p>10,000 - 14,990원</p>
           </ReviewProductInfo>
-          <ReviewContent>
-            리뷰용 더미텍스트 500자 리뷰용 더미텍스트 500자 리뷰용 더미텍스트 500자 리뷰용
-            더미텍스트 500자 리뷰용 더미텍스트 500자 리뷰용 더미텍스트 500자 리뷰용 더미텍스트 500자
-            리뷰용 더미텍스트 500자 리뷰용 더미텍스트 500자 리뷰용 더미텍스트 500자 리뷰용
-            더미텍스트 500자 리뷰용 더미텍스트 500자 리뷰용 더미텍스트 500자 리뷰용 더미텍스트 500자
-            리뷰용 더미텍스트 500자 리뷰용 더미텍스트 500자 리뷰용 더미텍스트 500자 리뷰용
-            더미텍스트 500자 리뷰용 더미텍스트 500자 리뷰용 더미텍스트 500자 리뷰용 더미텍스트 500자
-            리뷰용 더미텍스트 500자 리뷰용 더미텍스트 500자 리뷰용 더미텍스트 500자 리뷰용
-            더미텍스트 500자 리뷰용 더미텍스트 500자 리뷰용 더미텍스트 500자 리뷰용 더미텍스트 500자
-            리뷰용 더미텍스트 500자 리뷰용 더미텍스트 500자 리뷰용 더미텍스트 500자 리뷰용
-            더미텍스트 500자 리뷰용 더미텍스트 500자 리뷰용 더
-          </ReviewContent>
+          <ReviewContent>{content}</ReviewContent>
         </ReviewTextInfo>
         <ReviewTagList>
           <ReviewTag>#여덟글자해시태그</ReviewTag>
@@ -80,12 +170,15 @@ function Detail() {
           <ReviewTag>#여덟글자해시태그</ReviewTag>
         </ReviewTagList>
       </ReviewDetailCardContainer>
-      <OtherReviewList>
+      <OtherReviewCardContainer>
         <ReviewListHeader>
           <HeaderTitle>이 소품샵의 다른 리뷰</HeaderTitle>
-          <Filter />
+          <DropDownFilter pageType="detail" />
         </ReviewListHeader>
-      </OtherReviewList>
+        <ReviewListWrapper>
+          <ReviewList>{reviewDataList}</ReviewList>
+        </ReviewListWrapper>
+      </OtherReviewCardContainer>
     </StyledContainer>
   );
 }
@@ -132,6 +225,7 @@ const ReviewDetailCardHeader = styled.div`
     }
   }
 `;
+
 const ReviewInfo = styled.div`
   margin-left: 1.6rem;
 `;
@@ -168,13 +262,37 @@ const LikeReview = styled.div`
   }
 `;
 
-const SaveReview = styled.div`
+const LikeIcon = styled.div<{ isLike: boolean }>`
+  width: 2.9rem;
+  height: 2.6rem;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  & > svg {
+    fill: ${(props) => props.isLike && props.theme.colors.purpleMain};
+  }
+`;
+const ScrapReview = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 
   & > p {
     margin-top: 0.4rem;
+  }
+`;
+
+const ScrapIcon = styled.div<{ isScrap: boolean }>`
+  width: 2.2rem;
+  height: 2.6rem;
+  &:hover {
+    cursor: pointer;
+  }
+
+  & > svg {
+    fill: ${(props) => props.isScrap && props.theme.colors.purpleMain};
   }
 `;
 
@@ -219,9 +337,12 @@ const ReviewTag = styled.span`
   color: ${({ theme }) => theme.colors.purpleText};
   font-size: 1.2rem;
 `;
-const OtherReviewList = styled.div``;
+const OtherReviewCardContainer = styled.div``;
 
-const ReviewListHeader = styled.div``;
+const ReviewListHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 
 const HeaderTitle = styled.h3`
   font-size: 2.4rem;
@@ -229,6 +350,16 @@ const HeaderTitle = styled.h3`
   color: ${({ theme }) => theme.colors.black1};
 `;
 
-const Filter = styled.div``;
+const ReviewListWrapper = styled.div`
+  margin-top: 3.2rem;
+  width: 100%;
+`;
+
+const ReviewList = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  column-gap: 1.6rem;
+  row-gap: 2.4rem;
+`;
 
 export default Detail;

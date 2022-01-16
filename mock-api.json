@@ -156,21 +156,21 @@
   "review": [
     {
       "shopName": "소품샵이지롱",
-      "writerNriterName": "권혁진",
-      "writerTriterThumbnail": "assets/ex-profile.jpg",
+      "writerName": "권혁진",
+      "writerThumbnail": "/assets/ex_profile.jpg",
       "likeCount": 123,
       "scrapCount": 4,
       "date": "22.01.09",
       "content": "something text will be placed. this is not my intend",
       "category": ["인테리어소품", "장난감"],
       "tag": ["바보", "배고파", "피자"],
-      "shopId": "azgQVd8",
+      "shopId": "1",
       "sort": "save"
     },
     {
       "shopName": "소품샵이지롱",
       "writerName": "권혁진",
-      "writerThumbnail": "assets/ex-profile.jpg",
+      "writerThumbnail": "/assets/ex_profile.jpg",
       "likeCount": 123,
       "scrapCount": 4,
       "date": "22.01.09",
@@ -185,7 +185,7 @@
     {
       "shopName": "소품샵이지롱",
       "writerName": "권혁진",
-      "writerThumbnail": "assets/ex-profile.jpg",
+      "writerThumbnail": "/assets/ex_profile.jpg",
       "likeCount": 123,
       "scrapCount": 4,
       "date": "22.01.09",
@@ -200,7 +200,7 @@
     {
       "shopName": "소품샵이지롱",
       "writerName": "권혁진",
-      "writerThumbnail": "assets/ex-profile.jpg",
+      "writerThumbnail": "/assets/ex_profile.jpg",
       "likeCount": 123,
       "scrapCount": 4,
       "date": "22.01.09",
@@ -215,7 +215,7 @@
     {
       "shopName": "소품샵이지롱",
       "writerName": "권혁진",
-      "writerThumbnail": "assets/ex-profile.jpg",
+      "writerThumbnail": "/assets/ex_profile.jpg",
       "likeCount": 123,
       "scrapCount": 4,
       "date": "22.01.09",
@@ -230,7 +230,7 @@
     {
       "shopName": "소품샵이지롱",
       "writerName": "권혁진",
-      "writerThumbnail": "assets/ex-profile.jpg",
+      "writerThumbnail": "/assets/ex_profile.jpg",
       "likeCount": 123,
       "scrapCount": 4,
       "date": "22.01.09",
