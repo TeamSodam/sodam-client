@@ -1,4 +1,7 @@
+import Banner from 'components/common/Banner';
+import ThemeSelector from 'components/ThemeSelector';
 import Head from 'next/head';
+import MainBannerBtn from 'public/assets/main_banner_btn.svg';
 import styled from 'styled-components';
 
 function Home() {
@@ -10,30 +13,36 @@ function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>
-        <h1>소담,</h1>
-        <h2>🎁 소품샵 여정의 이야기를 담다 🎁</h2>
+        <Banner src="/assets/main_banner.svg">
+          <BannerBtn />
+        </Banner>
+        <MarginWrapper>
+          <ThemeSelector />
+        </MarginWrapper>
       </Container>
     </>
   );
 }
 
 const Container = styled.main`
-  height: 65vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 3rem;
-  background-color: #eeeeff;
+  background-color: white;
+`;
 
-  & > h1 {
-    font-size: 5rem;
-    color: #9796fe;
-  }
+const MarginWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 0 18.75%;
+`;
 
-  & > h2 {
-    font-size: 3.5rem;
-    color: #9796fe;
+const BannerBtn = styled(MainBannerBtn)`
+  position: absolute;
+  bottom: 10rem;
+  left: 18.75%;
+
+  &:hover {
+    cursor: pointer;
   }
 `;
 
