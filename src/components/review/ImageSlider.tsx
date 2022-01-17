@@ -48,7 +48,9 @@ function ImageSlider(props: ImageSliderProps) {
 
   return (
     <StyledRoot>
-      <Image src={imageList[currentIndex]} width={788} height={405} alt="review" />
+      <ImageWrapper>
+        <Image src={imageList[currentIndex]} layout="fill" alt="review" />
+      </ImageWrapper>
       {imageList.length > 1 && (
         <StyledSwiper>
           <StyledButton className="button__prev">
@@ -75,6 +77,21 @@ function ImageSlider(props: ImageSliderProps) {
     </StyledRoot>
   );
 }
+
+const ImageWrapper = styled.div`
+  width: 79.2rem;
+  height: 40.5rem;
+
+  position: relative !important;
+
+  & > span {
+    position: unset !important;
+  }
+
+  & img {
+    width: 100% !important;
+  }
+`;
 
 const StyledRoot = styled.div`
   display: flex;

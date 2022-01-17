@@ -1,5 +1,4 @@
 import DropDownFilter from 'components/common/DropDownFilter';
-import ReviewCard from 'components/common/ReviewCard';
 import ImageSlider from 'components/review/ImageSlider';
 import { useGetReviewByShopIdQuery } from 'features/reviews/reviewApi';
 import Image from 'next/image';
@@ -7,8 +6,19 @@ import { useRouter } from 'next/router';
 import LikeReviewIC from 'public/assets/ic_likeReview.svg';
 import ScrapReviewIC from 'public/assets/ic_scrapReview.svg';
 import { useState } from 'react';
+import shortid from 'shortid';
 import styled from 'styled-components';
-import { ReviewCardData } from 'types/review';
+
+const dummyImageList = [
+  '/assets/dummy/dummy-image.jpg',
+  '/assets/dummy/dummy-image.jpg',
+  '/assets/dummy/dummy-image.jpg',
+  '/assets/dummy/dummy-image.jpg',
+  '/assets/dummy/dummy-image.jpg',
+  '/assets/dummy/dummy-image.jpg',
+  '/assets/dummy/dummy-image.jpg',
+  '/assets/dummy/dummy-image.jpg',
+];
 
 const parseShopId = (shopId: string | string[] | undefined) => {
   if (!shopId) return 1;
@@ -31,94 +41,20 @@ function Detail() {
   const [isLikeClicked, setLikeClicked] = useState(true);
   const [isScrapClicked, setScrapClicked] = useState(true);
 
-  const imageSliderDummyData: string[] = [
-    '/assets/ex_thumbnail.png',
-    '/assets/ex_thumbnail.png',
-    '/assets/ex_thumbnail.png',
-    '/assets/ex_thumbnail.png',
-    '/assets/ex_thumbnail.png',
-    '/assets/ex_thumbnail.png',
-    '/assets/ex_thumbnail.png',
-    '/assets/ex_thumbnail.png',
-  ];
-  const reviewDummyData: ReviewCardData[] = [
-    {
-      id: 1,
-      thumbnail: '/assets/ex_thumbnail.png',
-      shopName: '소품샵1',
-      shopCategoryList: ['카테고리', '아기자기'],
-      text: '리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미',
-      writer: { name: '권소희', thumbnail: '/assets/ex_profile.jpg' },
-      date: '2022-01-11',
-      liked: 101,
-      saved: 56,
-    },
-    {
-      id: 2,
-      thumbnail: '/assets/ex_thumbnail.png',
-      shopName: '소품샵2',
-      shopCategoryList: ['카테고리', '아기자기'],
-      text: '리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미',
-      writer: { name: '권소희', thumbnail: '/assets/ex_profile.jpg' },
-      date: '2022-01-11',
-      liked: 101,
-      saved: 56,
-    },
-    {
-      id: 3,
-      thumbnail: '/assets/ex_thumbnail.png',
-      shopName: '소품샵3',
-      shopCategoryList: ['카테고리', '아기자기'],
-      text: '리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미',
-      writer: { name: '권소희', thumbnail: '/assets/ex_profile.jpg' },
-      date: '2022-01-11',
-      liked: 101,
-      saved: 56,
-    },
-    {
-      id: 4,
-      thumbnail: '/assets/ex_thumbnail.png',
-      shopName: '소품샵4',
-      shopCategoryList: ['카테고리', '아기자기'],
-      text: '리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미',
-      writer: { name: '권소희', thumbnail: '/assets/ex_profile.jpg' },
-      date: '2022-01-11',
-      liked: 101,
-      saved: 56,
-    },
-    {
-      id: 5,
-      thumbnail: '/assets/ex_thumbnail.png',
-      shopName: '소품샵5',
-      shopCategoryList: ['카테고리', '아기자기'],
-      text: '리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미',
-      writer: { name: '권소희', thumbnail: '/assets/ex_profile.jpg' },
-      date: '2022-01-11',
-      liked: 101,
-      saved: 56,
-    },
-    {
-      id: 6,
-      thumbnail: '/assets/ex_thumbnail.png',
-      shopName: '소품샵6',
-      shopCategoryList: ['카테고리', '아기자기'],
-      text: '리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미리뷰더미',
-      writer: { name: '권소희', thumbnail: '/assets/ex_profile.jpg' },
-      date: '2022-01-11',
-      liked: 101,
-      saved: 56,
-    },
-  ];
-
-  const reviewDataList = reviewDummyData.map((data) => (
-    <ReviewCard key={data.id} reviewData={data} isHoverAvailable />
-  ));
-
   if (!reviewData && isLoading) return <div>loading</div>;
   if (!reviewData) return <div>no data!</div>;
 
-  const { shopName, category, writerName, writerThumbnail, date, likeCount, scrapCount, content } =
-    reviewData[0];
+  const {
+    shopName,
+    category,
+    writerName,
+    writerThumbnail,
+    date,
+    likeCount,
+    scrapCount,
+    content,
+    tag,
+  } = reviewData[0];
 
   const likedCount = likeCount > 99 ? '99+' : likeCount;
   const scrapedCount = scrapCount > 99 ? '99+' : scrapCount;
@@ -153,7 +89,7 @@ function Detail() {
             </ScrapReview>
           </IconContainer>
         </ReviewDetailCardHeader>
-        <ImageSlider imageList={imageSliderDummyData} />
+        <ImageSlider imageList={dummyImageList} />
         <ReviewTextInfo>
           <ReviewProductInfo>
             <p>인테리어소품</p>
@@ -163,11 +99,9 @@ function Detail() {
           <ReviewContent>{content}</ReviewContent>
         </ReviewTextInfo>
         <ReviewTagList>
-          <ReviewTag>#여덟글자해시태그</ReviewTag>
-          <ReviewTag>#여덟글자해시태그</ReviewTag>
-          <ReviewTag>#여덟글자해시태그</ReviewTag>
-          <ReviewTag>#여덟글자해시태그</ReviewTag>
-          <ReviewTag>#여덟글자해시태그</ReviewTag>
+          {tag.map((eachTag) => (
+            <ReviewTag key={shortid.generate()}>{`${eachTag}`}</ReviewTag>
+          ))}
         </ReviewTagList>
       </ReviewDetailCardContainer>
       <OtherReviewCardContainer>
@@ -175,9 +109,7 @@ function Detail() {
           <HeaderTitle>이 소품샵의 다른 리뷰</HeaderTitle>
           <DropDownFilter pageType="detail" />
         </ReviewListHeader>
-        <ReviewListWrapper>
-          <ReviewList>{reviewDataList}</ReviewList>
-        </ReviewListWrapper>
+        <ReviewListWrapper />
       </OtherReviewCardContainer>
     </StyledContainer>
   );
@@ -355,11 +287,11 @@ const ReviewListWrapper = styled.div`
   width: 100%;
 `;
 
-const ReviewList = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 50%);
-  column-gap: 1.6rem;
-  row-gap: 2.4rem;
-`;
+// const ReviewList = styled.div`
+//   display: grid;
+//   grid-template-columns: repeat(2, 50%);
+//   column-gap: 1.6rem;
+//   row-gap: 2.4rem;
+// `;
 
 export default Detail;
