@@ -9,7 +9,7 @@ import {
 } from 'features/map/mapSlice';
 import { displayMarker } from 'map/utils/display';
 import { getLocationByAddress, searchAndMoveByAddress } from 'map/utils/search';
-import { RefObject, useCallback, useEffect } from 'react';
+import { RefObject, useCallback, useEffect, useState } from 'react';
 import { KakaoMap } from 'types/map';
 import { Shop } from 'types/shop';
 
@@ -25,6 +25,7 @@ function useMap<T>(
   isStaticMarker?: boolean,
 ) {
   const map = useAppSelector(selectMap);
+  const [mapRef, setMapRef] = useState<T extends HTMLElement ? T : HTMLElement>();
   const currentMarkerList = useAppSelector(selectCurrentMarkerList);
   const dispatch = useAppDispatch();
 
@@ -61,6 +62,10 @@ function useMap<T>(
   useEffect(() => {
     (async () => {
       if (containerRef?.current) {
+        if (!mapRef) {
+          setMapRef(containerRef.current);
+          dispatch(setMap(null));
+        }
         if (!map) {
           const location = await getLocationByAddress(`${initialLocation || '서울 마포구'}`);
           dispatch(
@@ -72,13 +77,12 @@ function useMap<T>(
             ),
           );
         }
+        if (map && initialLocation) {
+          searchAndMoveByAddress(map, initialLocation, isStaticMarker);
+        }
       }
     })();
-
-    if (map && initialLocation) {
-      searchAndMoveByAddress(map, initialLocation, isStaticMarker);
-    }
-  }, [containerRef, dispatch, map, initialLocation, isStaticMarker]);
+  }, [containerRef, dispatch, map, initialLocation, isStaticMarker, mapRef]);
 
   return { map, displayMarkerByAddress, moveByAddress };
 }
