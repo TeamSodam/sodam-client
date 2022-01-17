@@ -1,5 +1,5 @@
 import { wrapper } from 'app/store';
-import Banner from 'components/common/Banner';
+import BannerList from 'components/BannerList';
 import MainSlider from 'components/common/MainSlider';
 import ReviewCard from 'components/common/ReviewCard';
 import ShopCard from 'components/common/ShopCard';
@@ -10,8 +10,6 @@ import { reviewApi } from 'features/reviews/reviewApi';
 import { shopApi } from 'features/shops/shopApi';
 import { selectUserInfo } from 'features/users/userSlice';
 import Head from 'next/head';
-import Link from 'next/link';
-import MainBannerBtn from 'public/assets/main_banner_btn.svg';
 import { useAppSelector } from 'src/app/hook';
 import styled from 'styled-components';
 import { Review } from 'types/review';
@@ -70,11 +68,7 @@ function Home(props: HomePrefetchProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Container>
-        <Banner src="/assets/main_banner.svg">
-          <Link href="/shop/theme/아기자기한" passHref>
-            <BannerBtn />
-          </Link>
-        </Banner>
+        <BannerList />
         <MarginWrapper>
           <LabelContentWrapper>
             <Label>
@@ -132,16 +126,6 @@ const MarginWrapper = styled.div`
   margin: 6.5rem 18.75%;
 
   gap: 9rem;
-`;
-
-const BannerBtn = styled(MainBannerBtn)`
-  position: absolute;
-  bottom: 10rem;
-  left: 18.75%;
-
-  &:hover {
-    cursor: pointer;
-  }
 `;
 
 const Label = styled.h2`
