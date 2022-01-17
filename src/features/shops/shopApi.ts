@@ -23,6 +23,9 @@ export const shopApi = createApi({
     getShopInfo: builder.query<Shop[], ShopRequestType>({
       query: (type) => ({ url: `/shop?type=${type}`, method: 'GET' }),
     }),
+    getShopSearchResult: builder.query<Shop[], string>({
+      query: (keyword) => ({ url: `/shop?shopName=${keyword}`, method: 'GET' }),
+    }),
   }),
 });
 
@@ -32,4 +35,5 @@ export const {
   useGetShopByThemeQuery,
   useGetShopByAreaQuery,
   useGetShopByShopIdQuery,
+  useGetShopSearchResultQuery,
 } = shopApi;

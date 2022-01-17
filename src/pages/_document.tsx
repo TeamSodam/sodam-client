@@ -49,6 +49,7 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
             rel="stylesheet"
           />
+          <meta name="description" content="소담, 소품샵 여정의 이야기를 담다" />
         </Head>
         <Main />
         <NextScript />

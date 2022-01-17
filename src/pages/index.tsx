@@ -1,5 +1,5 @@
 import { wrapper } from 'app/store';
-import Banner from 'components/common/Banner';
+import BannerList from 'components/BannerList';
 import MainSlider from 'components/common/MainSlider';
 import ReviewCard from 'components/common/ReviewCard';
 import ShopCard from 'components/common/ShopCard';
@@ -9,9 +9,6 @@ import { MoreFilterList } from 'constants/dropdownOptionList';
 import { reviewApi } from 'features/reviews/reviewApi';
 import { shopApi } from 'features/shops/shopApi';
 import { selectUserInfo } from 'features/users/userSlice';
-import Head from 'next/head';
-import Link from 'next/link';
-import MainBannerBtn from 'public/assets/main_banner_btn.svg';
 import { useAppSelector } from 'src/app/hook';
 import styled from 'styled-components';
 import { Review } from 'types/review';
@@ -63,45 +60,34 @@ function Home(props: HomePrefetchProps) {
   };
 
   return (
-    <>
-      <Head>
-        <title>소담, 소품샵 여정의 이야기를 담다</title>
-        <meta name="description" content="소담, 소품샵 여정의 이야기를 담다" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Container>
-        <Banner src="/assets/main_banner.svg">
-          <Link href="/shop/theme/아기자기한" passHref>
-            <BannerBtn />
-          </Link>
-        </Banner>
-        <MarginWrapper>
-          <LabelContentWrapper>
-            <Label>
-              <em>{nickname}</em>님, 이 소품샵은 어떠세요?
-            </Label>
-            {showRandomShopSlider()}
-          </LabelContentWrapper>
-          <LabelContentWrapper>
-            <Label>오늘의 소품샵 리뷰</Label>
-            {showReviewSlider()}
-          </LabelContentWrapper>
-          <ThemeSelector />
-          <LabelContentWrapper>
-            <Label>
-              주간 <em>HOT</em> 소품샵
-            </Label>
-            {showPopularShopSlider()}
-          </LabelContentWrapper>
-          <LabelContentWrapper>
-            <Label>
-              <em>{randomCategory}</em> 소품샵 리스트
-            </Label>
-            {showRandomCategorySlider()}
-          </LabelContentWrapper>
-        </MarginWrapper>
-      </Container>
-    </>
+    <Container>
+      <BannerList />
+      <MarginWrapper>
+        <LabelContentWrapper>
+          <Label>
+            <em>{nickname}</em>님, 이 소품샵은 어떠세요?
+          </Label>
+          {showRandomShopSlider()}
+        </LabelContentWrapper>
+        <LabelContentWrapper>
+          <Label>오늘의 소품샵 리뷰</Label>
+          {showReviewSlider()}
+        </LabelContentWrapper>
+        <ThemeSelector />
+        <LabelContentWrapper>
+          <Label>
+            주간 <em>HOT</em> 소품샵
+          </Label>
+          {showPopularShopSlider()}
+        </LabelContentWrapper>
+        <LabelContentWrapper>
+          <Label>
+            <em>{randomCategory}</em> 소품샵 리스트
+          </Label>
+          {showRandomCategorySlider()}
+        </LabelContentWrapper>
+      </MarginWrapper>
+    </Container>
   );
 }
 
@@ -132,16 +118,6 @@ const MarginWrapper = styled.div`
   margin: 6.5rem 18.75%;
 
   gap: 9rem;
-`;
-
-const BannerBtn = styled(MainBannerBtn)`
-  position: absolute;
-  bottom: 10rem;
-  left: 18.75%;
-
-  &:hover {
-    cursor: pointer;
-  }
 `;
 
 const Label = styled.h2`
