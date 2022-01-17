@@ -3,18 +3,39 @@ import DropDownFilter from 'components/common/DropDownFilter';
 import ShopCard from 'components/common/ShopCard';
 import ThemeSelector from 'components/ThemeSelector';
 import { shopApi } from 'features/shops/shopApi';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { Shop, ShopThemeType } from 'types/shop';
 
-type ThemePageProps = {
-  [key in ShopThemeType]: Shop[];
+interface ThemePageProps {
+  data: {
+    [key in ShopThemeType]: Shop[];
+  };
+}
+
+const THEME_LIST: ShopThemeType[] = ['아기자기한', '힙한', '모던한', '빈티지'];
+
+const isShopThemeType = (type: string): type is ShopThemeType =>
+  THEME_LIST.some((theme) => theme === type);
+
+const parseThemeType = (themeType: string | string[] | undefined) => {
+  if (Array.isArray(themeType) || !themeType) return false;
+  if (!isShopThemeType(themeType)) return false;
+
+  return themeType;
 };
 
 function ThemePage(props: ThemePageProps) {
-  const { 아기자기한 } = props;
+  const { data } = props;
+  const router = useRouter();
+  const { type } = router.query;
 
-  const showCurrentThemeList = () =>
-    아기자기한.map((shop) => <ShopCard key={shop.shopId} cardData={shop} />);
+  const parsedThemeType = parseThemeType(type);
+
+  const showCurrentThemeList = () => {
+    if (!parsedThemeType) return;
+    return data[parsedThemeType].map((shop) => <ShopCard key={shop.shopId} cardData={shop} />);
+  };
 
   return (
     <Container>
@@ -27,7 +48,6 @@ function ThemePage(props: ThemePageProps) {
       <DropDownWrapper>
         <DropDownFilter pageType="theme" />
       </DropDownWrapper>
-
       <ShopList>{showCurrentThemeList()}</ShopList>
     </Container>
   );
@@ -35,8 +55,6 @@ function ThemePage(props: ThemePageProps) {
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
   const dispatch = store.dispatch;
-
-  const THEME_LIST: ShopThemeType[] = ['아기자기한', '힙한', '모던한', '빈티지'];
   let resultData = {};
 
   for (const theme of THEME_LIST) {
@@ -49,8 +67,6 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ()
       }),
     );
 
-    console.log(result);
-
     resultData = {
       ...resultData,
       [theme]: result.data,
@@ -58,7 +74,9 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ()
   }
 
   return {
-    props: resultData,
+    props: {
+      data: resultData,
+    },
   };
 });
 

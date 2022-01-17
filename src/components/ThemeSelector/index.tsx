@@ -40,6 +40,9 @@ const StyledRoot = styled.div`
   flex-direction: column;
   gap: 5.8rem;
 
+  align-self: center;
+  width: 100%;
+
   & > h4 {
     font-weight: bold;
     font-size: 3rem;
