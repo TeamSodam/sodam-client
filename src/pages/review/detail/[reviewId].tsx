@@ -25,23 +25,30 @@ function Detail() {
     shopId: SHOP_ID,
   });
 
+  console.log(reviewData);
+
   const { data: reviewListData } = useGetReviewByShopIdQuery({
     shopId: SHOP_ID,
     sortType: SORT_TYPE,
   });
 
-  console.log(reviewListData);
+  const getFilteredReviewListData = () => {
+    if (reviewListData && reviewListData.length > 0) {
+      return reviewListData?.filter((review) => review.reviewId !== REVIEW_ID);
+    }
+    return [];
+  };
 
   return (
     <StyledReviewDetailWrapper>
-      {reviewData && <ReviewDetailCard reviewData={reviewData[0]} />}
+      {reviewData && reviewData.length > 0 && <ReviewDetailCard reviewData={reviewData[0]} />}
       <OtherReviewCardWrapper>
         <ReviewListHeader>
           <HeaderTitle>이 소품샵의 다른 리뷰</HeaderTitle>
           <DropDownFilter pageType="detail" />
         </ReviewListHeader>
         <ReviewListContent>
-          {reviewListData && <OtherReviewCard reviewListData={reviewListData} />}
+          {reviewListData && <OtherReviewCard reviewListData={getFilteredReviewListData()} />}
         </ReviewListContent>
       </OtherReviewCardWrapper>
     </StyledReviewDetailWrapper>
