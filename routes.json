@@ -3,5 +3,6 @@
   "/shop/category\\?type=:type": "/shop?category=:type",
   "/shop\\?type=:type": "/shop?type=:type",
   "/shop\\?area=:area": "/shop?area=:area",
-  "/shop\\?shopId=:shopId": "/shop?shopId=:shopId"
+  "/shop\\?shopId=:shopId": "/shop?shopId=:shopId",
+  "/shop\\?theme=:themeType&sort=:sortType&offset=:offset&limit=:limit": "/shop?theme=:themeType"
 }
