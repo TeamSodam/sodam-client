@@ -15,8 +15,6 @@ function ThemeSelector() {
   const isMain = router.pathname === '/';
   const currentTheme = router.query.type;
   const isValidCurrentTheme = !currentTheme || typeof currentTheme === 'string';
-
-  console.log(isValidCurrentTheme);
   return (
     <StyledRoot>
       <h4>테마별 소품샵</h4>
@@ -51,6 +49,7 @@ const StyledRoot = styled.div`
 
 const StyledElWrapper = styled.div<StyledThemeELProps>`
   display: flex;
+  justify-content: center;
   gap: 5.8rem;
   margin-top: ${({ isMain }) => (isMain === true ? '5.4rem' : '5.8rem')};
 

@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { axiosBaseQuery } from 'libs/api';
-import { NewReview as Review, ReviewShopIdRequestParams } from 'types/review';
+import { Review, ReviewShopIdRequestParams } from 'types/review';
 
 export const reviewApi = createApi({
   reducerPath: 'reviewApi',

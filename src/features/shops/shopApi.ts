@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { axiosBaseQuery } from 'libs/api';
-import { SeoulAreaType, Shop, ShopCategoryType, ShopRequestType, ShopThemeType } from 'types/shop';
+import { Shop, ShopCategoryType, ShopRequestType, ShopThemeType } from 'types/shop';
 
 export const shopApi = createApi({
   reducerPath: 'shopApi',
@@ -14,7 +14,10 @@ export const shopApi = createApi({
     getShopByTheme: builder.query<Shop[], ShopThemeType>({
       query: (theme) => ({ url: `/shop?theme=${theme}`, method: 'GET' }),
     }),
-    getShopByArea: builder.query<Shop[], SeoulAreaType>({
+    getShopByShopId: builder.query<Shop[], number>({
+      query: (shopId) => ({ url: `/shop?shopId=${shopId}`, method: 'GET' }),
+    }),
+    getShopByArea: builder.query<Shop[], string>({
       query: (area) => ({ url: `/shop?area=${area}`, method: 'GET' }),
     }),
     getShopInfo: builder.query<Shop[], ShopRequestType>({
@@ -28,4 +31,5 @@ export const {
   useGetShopByCategoryQuery,
   useGetShopByThemeQuery,
   useGetShopByAreaQuery,
+  useGetShopByShopIdQuery,
 } = shopApi;

@@ -26,7 +26,13 @@ export const mapSlice = createSlice({
       state.map = action.payload;
     },
     addCurrentMarker: (state, action: PayloadAction<MarkerInfo>) => {
-      state.currentMarkerList.push(action.payload);
+      const target = state.currentMarkerList.find((marker) => marker.name === action.payload.name);
+      if (target) {
+        target.marker = action.payload.marker;
+        target.isClicked = action.payload.isClicked;
+      } else {
+        state.currentMarkerList.push(action.payload);
+      }
     },
     setMarkerCilckState: (state, action: PayloadAction<MarkerInfo>) => {
       const targetMarker = state.currentMarkerList.find(
