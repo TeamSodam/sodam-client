@@ -46,12 +46,7 @@ function PreviewImageList(props: PreviewImageListProps) {
           <StyledEmptyCard>
             <PlusIcon />
           </StyledEmptyCard>
-          <StyledInput
-            type="file"
-            accept="image/*"
-            multiple
-            onChange={(e) => handleImageUpload(e, reviewImageList.length)}
-          />
+          <StyledInput type="file" accept="image/*" multiple onChange={handleImageUpload} />
         </>
       )}
       {emptyList.map(() => (
@@ -59,6 +54,7 @@ function PreviewImageList(props: PreviewImageListProps) {
       ))}
     </StyledRoot>
   );
+}
 
 const StyledRoot = styled.div`
   width: 75.5rem;
