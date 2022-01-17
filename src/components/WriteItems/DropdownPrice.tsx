@@ -15,11 +15,13 @@ function DropdownPrice(props: StyledDPProps) {
   const { idx, currentOpen, onSetCurrentOpen } = props;
   const [selectedPrice, setSelectedPrice] = useState('0');
   const [isOpen, setIsOpen] = useState(false);
+  const [isSelected, setIsSelected] = useState(false);
   const toggle = () => setIsOpen((prevIsOpen) => !prevIsOpen);
 
   const onSelectedPrice = (price: string) => {
     setSelectedPrice(price);
     toggle();
+    setIsSelected(true);
   };
 
   const handleClick = () => {
@@ -35,7 +37,7 @@ function DropdownPrice(props: StyledDPProps) {
 
   return (
     <StyledRoot>
-      <StyledWrapper onClick={handleClick}>
+      <StyledWrapper onClick={handleClick} isSelected={isSelected}>
         <span>{selectedPrice}</span>
         <span>원</span>
         <Image src={'/assets/ic_dropdown.svg'} width={14} height={10} alt="dropdown" />
@@ -52,7 +54,7 @@ const StyledRoot = styled.div`
   position: relative;
 `;
 
-const StyledWrapper = styled.div`
+const StyledWrapper = styled.div<{ isSelected: boolean }>`
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -64,8 +66,8 @@ const StyledWrapper = styled.div`
   gap: 0.6rem;
   cursor: pointer;
 
-  &>span: first-child {
-    color: ${theme.colors.gray1};
+  & > span:first-child {
+    color: ${({ isSelected }) => (isSelected ? theme.colors.black1 : theme.colors.gray1)};
   }
 
   & > span {

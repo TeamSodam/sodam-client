@@ -15,11 +15,13 @@ function DropdownItem(props: StyledDDIProps) {
   const { idx, currentOpen, onSetCurrentOpen } = props;
   const [selectedItem, setSelectedItem] = useState('어떤 소품을 구매하셨나요?(선택)');
   const [isOpen, setIsOpen] = useState(false);
+  const [isSelected, setIsSelected] = useState(false);
   const toggle = () => setIsOpen((prevIsOpen) => !prevIsOpen);
 
   const onSelectedItem = (item: string) => {
     setSelectedItem(item);
     toggle();
+    setIsSelected(true);
   };
 
   const handleClick = () => {
@@ -35,7 +37,7 @@ function DropdownItem(props: StyledDDIProps) {
 
   return (
     <StyledRoot>
-      <StyledWrapper onClick={handleClick}>
+      <StyledWrapper onClick={handleClick} isSelected={isSelected}>
         <span>{selectedItem}</span>
         <Image src={'/assets/ic_dropdown.svg'} width={14} height={10} alt="dropdown" />
       </StyledWrapper>
@@ -50,7 +52,7 @@ const StyledRoot = styled.div`
   display: flex;
   position: relative;
 `;
-const StyledWrapper = styled.div`
+const StyledWrapper = styled.div<{ isSelected: boolean }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -62,7 +64,7 @@ const StyledWrapper = styled.div`
   cursor: pointer;
 
   & > span {
-    color: ${theme.colors.gray1};
+    color: ${({ isSelected }) => (isSelected ? theme.colors.black1 : theme.colors.gray1)};
     font-weight: 500;
     font-size: 1.4rem;
     line-height: 2rem;
