@@ -1,13 +1,12 @@
-import DropDownFilter from 'components/common/DropDownFilter';
-import ImageSlider from 'components/review/ImageSlider';
-import { useGetReviewByShopIdQuery } from 'features/reviews/reviewApi';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import LikeReviewIC from 'public/assets/ic_likeReview.svg';
 import ScrapReviewIC from 'public/assets/ic_scrapReview.svg';
 import { useState } from 'react';
 import shortid from 'shortid';
 import styled from 'styled-components';
+import { Review } from 'types/review';
+
+import ImageSlider from './ImageSlider';
 
 const dummyImageList = [
   '/assets/dummy/dummy-image.jpg',
@@ -20,29 +19,12 @@ const dummyImageList = [
   '/assets/dummy/dummy-image.jpg',
 ];
 
-const parseShopId = (shopId: string | string[] | undefined) => {
-  if (!shopId) return 1;
-  if (Array.isArray(shopId)) return +shopId.join('');
+interface ReviewDetailCardProps {
+  reviewData: Review;
+}
 
-  return +shopId;
-};
-
-function Detail() {
-  const router = useRouter();
-  const { id } = router.query;
-
-  const SHOP_ID = parseShopId(id);
-
-  const { data: reviewData, isLoading } = useGetReviewByShopIdQuery({
-    shopId: SHOP_ID,
-    sortType: 'save',
-  });
-
-  const [isLikeClicked, setLikeClicked] = useState(true);
-  const [isScrapClicked, setScrapClicked] = useState(true);
-
-  if (!reviewData && isLoading) return <div>loading</div>;
-  if (!reviewData) return <div>no data!</div>;
+function ReviewDetailCard(props: ReviewDetailCardProps) {
+  const { reviewData } = props;
 
   const {
     shopName,
@@ -54,18 +36,21 @@ function Detail() {
     scrapCount,
     content,
     tag,
-  } = reviewData[0];
+  } = reviewData;
+
+  const [isLikeClicked, setLikeClicked] = useState(true);
+  const [isScrapClicked, setScrapClicked] = useState(true);
 
   const likedCount = likeCount > 99 ? '99+' : likeCount;
   const scrapedCount = scrapCount > 99 ? '99+' : scrapCount;
 
   return (
-    <StyledContainer>
+    <StyledReviewDetailCardContainer>
       <Header>
         <ShopName>{shopName}</ShopName>
         <ShopInfo>{category}</ShopInfo>
       </Header>
-      <ReviewDetailCardContainer>
+      <ReviewDetailCardContent>
         <ReviewDetailCardHeader>
           <div className="profile">
             <Image src={writerThumbnail} alt="profile" width={48} height={48} />
@@ -103,21 +88,12 @@ function Detail() {
             <ReviewTag key={shortid.generate()}>{`${eachTag}`}</ReviewTag>
           ))}
         </ReviewTagList>
-      </ReviewDetailCardContainer>
-      <OtherReviewCardContainer>
-        <ReviewListHeader>
-          <HeaderTitle>이 소품샵의 다른 리뷰</HeaderTitle>
-          <DropDownFilter pageType="detail" />
-        </ReviewListHeader>
-        <ReviewListWrapper />
-      </OtherReviewCardContainer>
-    </StyledContainer>
+      </ReviewDetailCardContent>
+    </StyledReviewDetailCardContainer>
   );
 }
-const StyledContainer = styled.div`
-  width: 79.2rem;
-  margin: 7.2rem 56.4rem 8rem 56.4rem;
-`;
+
+const StyledReviewDetailCardContainer = styled.div``;
 
 const Header = styled.header`
   margin-bottom: 4rem;
@@ -136,7 +112,7 @@ const ShopInfo = styled.h3`
   color: ${({ theme }) => theme.colors.gray1};
 `;
 
-const ReviewDetailCardContainer = styled.div`
+const ReviewDetailCardContent = styled.div`
   width: 100%;
   height: 107.7rem;
   border: solid 2px ${({ theme }) => theme.colors.gray2};
@@ -248,12 +224,13 @@ const ReviewContent = styled.p`
   font-weight: 400;
   line-height: 3.2rem;
   width: 100%;
+  height: 28.5rem;
   color: ${({ theme }) => theme.colors.gray1};
 `;
 
 const ReviewTagList = styled.div`
   width: 70.8rem;
-  margin: 0 auto 2.6rem;
+  margin: 2.6rem auto 4.2rem;
 `;
 
 const ReviewTag = styled.span`
@@ -269,29 +246,5 @@ const ReviewTag = styled.span`
   color: ${({ theme }) => theme.colors.purpleText};
   font-size: 1.2rem;
 `;
-const OtherReviewCardContainer = styled.div``;
 
-const ReviewListHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const HeaderTitle = styled.h3`
-  font-size: 2.4rem;
-  font-weight: 600;
-  color: ${({ theme }) => theme.colors.black1};
-`;
-
-const ReviewListWrapper = styled.div`
-  margin-top: 3.2rem;
-  width: 100%;
-`;
-
-// const ReviewList = styled.div`
-//   display: grid;
-//   grid-template-columns: repeat(2, 50%);
-//   column-gap: 1.6rem;
-//   row-gap: 2.4rem;
-// `;
-
-export default Detail;
+export default ReviewDetailCard;
