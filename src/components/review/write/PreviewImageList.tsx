@@ -25,7 +25,9 @@ function PreviewImageList(props: PreviewImageListProps) {
   const emptyList =
     imageList.length === MAX_NUM ? [] : new Array<null>(MAX_NUM - imageList.length - 1).fill(null);
 
-  return reviewImageList.length > 0 ? (
+  if (!reviewImageList.length) return null;
+
+  return (
     <StyledRoot>
       {imageList.map((image, index) => (
         <StyledImageCard key={shortId.generate()}>
@@ -44,18 +46,19 @@ function PreviewImageList(props: PreviewImageListProps) {
           <StyledEmptyCard>
             <PlusIcon />
           </StyledEmptyCard>
-          <StyledInput type="file" accept="image/*" multiple onChange={handleImageUpload} />
+          <StyledInput
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={(e) => handleImageUpload(e, reviewImageList.length)}
+          />
         </>
       )}
       {emptyList.map(() => (
         <StyledEmptyCard key={shortId.generate()} />
       ))}
     </StyledRoot>
-  ) : (
-    // eslint-disable-next-line react/jsx-no-useless-fragment
-    <></>
   );
-}
 
 const StyledRoot = styled.div`
   width: 75.5rem;
