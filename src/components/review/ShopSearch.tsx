@@ -1,7 +1,8 @@
 import { shopApi } from 'features/shops/shopApi';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import searchDelIC from 'public/assets/ic_searchDel.svg';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
 import { Shop } from 'types/shop';
@@ -15,6 +16,8 @@ function ShopSearch() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedShop, setSelectedShop] = useState('');
   const toggle = () => setIsOpen((prevIsOpen) => !prevIsOpen);
+  const router = useRouter();
+  const { shopName } = router.query;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (!(e.target instanceof HTMLInputElement)) return;
@@ -38,6 +41,12 @@ function ShopSearch() {
     setSelectedShop('');
     setInputValue('');
   };
+
+  useEffect(() => {
+    if (shopName !== undefined && typeof shopName === 'string') {
+      setSelectedShop(shopName);
+    }
+  }, [shopName]);
 
   return (
     <StyledRoot>
