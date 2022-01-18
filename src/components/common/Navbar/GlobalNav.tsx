@@ -79,7 +79,10 @@ function GlobalNav() {
 
 const GlobalNavWrapper = styled.div`
   width: 100%;
-  padding: 2.8rem 36rem;
+  height: 8.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-bottom: solid 1px ${({ theme }) => theme.colors.navLine};
 `;
 
