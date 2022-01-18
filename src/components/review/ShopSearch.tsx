@@ -1,5 +1,6 @@
 import { shopApi } from 'features/shops/shopApi';
 import Image from 'next/image';
+import searchDelIC from 'public/assets/ic_searchDel.svg';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
@@ -11,6 +12,10 @@ function ShopSearch() {
   const [inputValue, setInputValue] = useState('');
   const [searchValue, setSearchValue] = useState<Shop[] | undefined>();
   const [trigger] = shopApi.useLazyGetShopSearchResultQuery();
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedShop, setSelectedShop] = useState('');
+  const toggle = () => setIsOpen((prevIsOpen) => !prevIsOpen);
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (!(e.target instanceof HTMLInputElement)) return;
     setInputValue(e.target.value);
@@ -21,22 +26,44 @@ function ShopSearch() {
     e.preventDefault();
     const result = await trigger(inputValue);
     setSearchValue(result.data);
+    toggle();
+  };
+
+  const onSetSelected = (shop: string) => {
+    setInputValue(shop);
+    setSelectedShop(shop);
+  };
+
+  const handleDelete = () => {
+    setSelectedShop('');
+    setInputValue('');
   };
 
   return (
     <StyledRoot>
       <StyledWrapper>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="소품샵명을 입력해주세요 (필수)"
-            value={inputValue}
-            onChange={handleChange}
-          />
-        </form>
-        <Image src={'/assets/searchIcon.svg'} width={27} height={27} alt="search" />
+        {selectedShop !== '' ? (
+          <>
+            <span>{selectedShop}</span>
+            <SearchDelIcon onClick={handleDelete} />
+          </>
+        ) : (
+          <>
+            <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                placeholder="소품샵명을 입력해주세요 (필수)"
+                value={inputValue}
+                onChange={handleChange}
+              />
+            </form>
+            <Image src={'/assets/searchIcon.svg'} width={27} height={27} alt="search" />
+          </>
+        )}
       </StyledWrapper>
-      {searchValue && <ShopSearchList shopList={searchValue} />}
+      {searchValue && isOpen && (
+        <ShopSearchList shopList={searchValue} toggle={toggle} onSetSelected={onSetSelected} />
+      )}
     </StyledRoot>
   );
 }
@@ -58,6 +85,12 @@ const StyledWrapper = styled.div`
   background-color: ${theme.colors.grayBg};
   padding: 0 1.6rem;
 
+  & > span {
+    font-weight: bold;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    color: ${theme.colors.purpleText};
+  }
   & > form {
     width: 100%;
     & > input {
@@ -68,10 +101,18 @@ const StyledWrapper = styled.div`
       background-color: ${theme.colors.grayBg};
       border: 0;
       outline: 0;
-
-      & > ::placeholder {
-        color: ${theme.colors.gray1};
-      }
+    }
+    & > input::placeholder {
+      color: ${theme.colors.gray1};
+      font-weight: 500;
+      font-size: 1.4rem;
+      line-height: 2rem;
     }
   }
+`;
+
+const SearchDelIcon = styled(searchDelIC)`
+  cursor: pointer;
+  width: 1.6rem;
+  height: 1.6rem;
 `;

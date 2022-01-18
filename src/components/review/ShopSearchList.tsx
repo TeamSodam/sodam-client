@@ -4,14 +4,24 @@ import { Shop } from 'types/shop';
 
 interface StyledSSLProps {
   shopList: Shop[] | undefined;
+  toggle: () => void;
+  onSetSelected: (shop: string) => void;
 }
+
 function ShopSearchList(props: StyledSSLProps) {
-  const { shopList } = props;
+  const { shopList, toggle, onSetSelected } = props;
+
+  const handleClick = (value: string) => {
+    toggle();
+    onSetSelected(value);
+  };
 
   return (
     <StyledUl>
       {shopList?.map((item) => (
-        <li key={item.shopId}>{item.store}</li>
+        <li key={item.shopId} onClick={() => handleClick(item.store)} role="presentation">
+          {item.store}
+        </li>
       ))}
     </StyledUl>
   );
