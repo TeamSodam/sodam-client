@@ -1,4 +1,5 @@
 import DetailImageGrid from 'components/ShopDetail/DetailImageGrid';
+import DetailInfo from 'components/ShopDetail/DetailInfo';
 import DetailShopAddress from 'components/ShopDetail/DetailShopAddress';
 import { useGetShopByShopIdQuery } from 'features/shops/shopApi';
 import useMap from 'hooks/useMap';
@@ -33,8 +34,8 @@ function Detail() {
   useEffect(() => {
     (async () => {
       if (shopInfo && shopInfo.length > 0) {
-        const { category, landAddress, store, shopId } = shopInfo[0];
-        await displayMarkerByAddress({ landAddress, store, category, shopId });
+        const { category, landAddress, shopName, shopId } = shopInfo[0];
+        await displayMarkerByAddress({ landAddress, shopName, category, shopId });
       }
     })();
   }, [shopInfo, displayMarkerByAddress]);
@@ -44,6 +45,7 @@ function Detail() {
       <ColoredBackground />
       <Wrapper>
         <DetailImageGrid />
+        {shopInfo && shopInfo.length > 0 && <DetailInfo shopInfo={shopInfo[0]} />}
         <MapContainer ref={mapRef}>{showDetailShopAddress()}</MapContainer>
       </Wrapper>
     </StyledContainer>
