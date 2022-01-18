@@ -30,6 +30,13 @@ function Detail() {
     sortType: SORT_TYPE,
   });
 
+  const getFilteredReviewListData = () => {
+    if (reviewListData && reviewListData.length > 0) {
+      return reviewListData?.filter((review) => review.reviewId !== REVIEW_ID);
+    }
+    return [];
+  };
+
   return (
     <StyledReviewDetailWrapper>
       {reviewData && reviewData.length > 0 && <ReviewDetailCard reviewData={reviewData[0]} />}
@@ -39,7 +46,7 @@ function Detail() {
           <DropDownFilter pageType="detail" />
         </ReviewListHeader>
         <ReviewListContent>
-          {reviewListData && <OtherReviewCard reviewListData={reviewListData} />}
+          {reviewListData && <OtherReviewCard reviewListData={getFilteredReviewListData()} />}
         </ReviewListContent>
       </OtherReviewCardWrapper>
     </StyledReviewDetailWrapper>
