@@ -2,9 +2,14 @@ import writeIC from 'public/assets/ic_writeReview.svg';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
 
-function WriteReviewBtn() {
+interface StyledWRBProps {
+  navigate: () => void;
+}
+function WriteReviewBtn(props: StyledWRBProps) {
+  const { navigate } = props;
+
   return (
-    <StyledWriteBtn>
+    <StyledWriteBtn onClick={navigate}>
       리뷰 작성하기
       <WriteIcon />
     </StyledWriteBtn>
