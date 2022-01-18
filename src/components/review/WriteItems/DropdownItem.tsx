@@ -33,7 +33,7 @@ function DropdownItem(props: StyledDDIProps) {
     if (idx !== currentOpen && isOpen) {
       toggle();
     }
-  }, [currentOpen]);
+  }, [idx, isOpen, currentOpen]);
 
   return (
     <StyledRoot>

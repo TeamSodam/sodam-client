@@ -33,7 +33,7 @@ function DropdownPrice(props: StyledDPProps) {
     if (idx !== currentOpen && isOpen) {
       toggle();
     }
-  }, [currentOpen]);
+  }, [idx, isOpen, currentOpen]);
 
   return (
     <StyledRoot>
