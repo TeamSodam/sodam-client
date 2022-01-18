@@ -25,8 +25,6 @@ function Detail() {
     shopId: SHOP_ID,
   });
 
-  console.log(reviewData);
-
   const { data: reviewListData } = useGetReviewByShopIdQuery({
     shopId: SHOP_ID,
     sortType: SORT_TYPE,
