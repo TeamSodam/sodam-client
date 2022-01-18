@@ -18,11 +18,15 @@ function ShopSearchList(props: StyledSSLProps) {
 
   return (
     <StyledUl>
-      {shopList?.map((item) => (
-        <li key={item.shopId} onClick={() => handleClick(item.store)} role="presentation">
-          {item.store}
-        </li>
-      ))}
+      {shopList?.length === 0 ? (
+        <span>등록된 소품샵이 없습니다.</span>
+      ) : (
+        shopList?.map((item) => (
+          <li key={item.shopId} onClick={() => handleClick(item.store)} role="presentation">
+            {item.store}
+          </li>
+        ))
+      )}
     </StyledUl>
   );
 }
@@ -40,7 +44,13 @@ const StyledUl = styled.ul`
   border-radius: 0.5rem;
   background-color: ${theme.colors.grayBg};
   padding: 0.8rem;
-
+  & > span {
+    height: 3.6rem;
+    line-height: 3.6rem;
+    font-weight: 500;
+    font-size: 1.4rem;
+    color: ${theme.colors.gray1};
+  }
   & > li {
     height: 3.6rem;
     line-height: 3.6rem;

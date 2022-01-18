@@ -29,7 +29,7 @@ function ShopSearch() {
     e.preventDefault();
     const result = await trigger(inputValue);
     setSearchValue(result.data);
-    toggle();
+    setIsOpen(true);
   };
 
   const onSetSelected = (shop: string) => {
@@ -70,7 +70,7 @@ function ShopSearch() {
           </>
         )}
       </StyledWrapper>
-      {searchValue && isOpen && (
+      {isOpen && (
         <ShopSearchList shopList={searchValue} toggle={toggle} onSetSelected={onSetSelected} />
       )}
     </StyledRoot>
