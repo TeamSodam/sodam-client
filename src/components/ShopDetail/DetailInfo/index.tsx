@@ -1,11 +1,14 @@
 import Blog from 'public/assets/ic_blog.svg';
+import StarIC from 'public/assets/ic_empty_star.svg';
 import Instagram from 'public/assets/ic_instagram.svg';
 import Phone from 'public/assets/ic_phone.svg';
+import ShareIC from 'public/assets/ic_share.svg';
 import SmartStore from 'public/assets/ic_smartstore.svg';
 import Sns from 'public/assets/ic_sns.svg';
 import Subway from 'public/assets/ic_subway.svg';
 import Time from 'public/assets/ic_time.svg';
 import Website from 'public/assets/ic_website.svg';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { Shop } from 'types/shop';
 
@@ -23,9 +26,10 @@ function DetailInfo({ shopInfo }: { shopInfo: Shop }) {
     subway,
     store,
     blog,
-    close,
     isBookmarked,
   } = shopInfo;
+
+  const [currentBookmarked, setCurrentBookmarked] = useState(isBookmarked);
 
   const iconContentList: IconContentProps[] = [
     {
@@ -67,7 +71,7 @@ function DetailInfo({ shopInfo }: { shopInfo: Shop }) {
     {
       mainIcon: Time,
       iconName: '영업시간',
-      content: close,
+      content: time,
     },
   ];
 
@@ -81,18 +85,29 @@ function DetailInfo({ shopInfo }: { shopInfo: Shop }) {
       <IconContent key={iconContent.iconName} {...iconContent} />
     ));
 
+  const showTheme = () => {
+    if (typeof theme === 'string') {
+      return <Theme>{theme}</Theme>;
+    }
+    return theme.map((eachTheme) => <Theme key={eachTheme}>{eachTheme}</Theme>);
+  };
+
+  const toggleBookmark = () => setCurrentBookmarked((prevState) => !prevState);
+
   return (
     <Container>
       <LeftWrapper>
         <UpWrapper>
-          {/* <h1>
-            레프트라이트 오브젝트 두줄 레프트라이트 오브젝트 두줄
-            바보바보바보바보바보바보바보바보뒤진다뒤진다
-          </h1> */}
-          <h1>레프트라이트 오브젝트 두줄</h1>
+          <h1>{shopName}</h1>
           <p>{showCategory()}</p>
         </UpWrapper>
-        <DownWrapper />
+        <DownWrapper>
+          <ThemeList>{showTheme()}</ThemeList>
+          <IconWrapper>
+            <BookMarkBtn isBookmarked={currentBookmarked} onClick={toggleBookmark} />
+            <ShareIC />
+          </IconWrapper>
+        </DownWrapper>
       </LeftWrapper>
       <RightWrapper>{showIconContent()}</RightWrapper>
     </Container>
@@ -109,6 +124,7 @@ const LeftWrapper = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
+  gap: 2.4rem;
 
   height: 100%;
 `;
@@ -143,7 +159,11 @@ const UpWrapper = styled.div`
   }
 `;
 
-const DownWrapper = styled.div``;
+const DownWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
 
 const RightWrapper = styled.div`
   flex: 1.7;
@@ -152,6 +172,46 @@ const RightWrapper = styled.div`
   grid-template-rows: repeat(3, 1fr);
   grid-template-columns: repeat(2, 1fr);
   gap: 4rem;
+`;
+
+const ThemeList = styled.ul`
+  display: flex;
+  gap: 0.8rem;
+`;
+
+const Theme = styled.li`
+  display: flex;
+  align-items: center;
+
+  background-color: ${({ theme }) => theme.colors.purpleText};
+  color: white;
+  border-radius: 3rem;
+
+  font-weight: 700;
+  font-size: 1.2rem;
+  line-height: 2rem;
+
+  padding: 0.2rem 1.2rem;
+
+  &:before {
+    content: '#';
+  }
+`;
+
+const IconWrapper = styled.div`
+  display: flex;
+  gap: 2.3rem;
+
+  & svg:hover {
+    cursor: pointer;
+  }
+`;
+
+const BookMarkBtn = styled(StarIC)<{ isBookmarked: boolean }>`
+  background-color: transparent;
+  border: none;
+
+  fill: ${(props) => props.isBookmarked && props.theme.colors.purpleMain};
 `;
 
 export default DetailInfo;
