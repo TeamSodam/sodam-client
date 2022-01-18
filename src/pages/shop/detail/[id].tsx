@@ -1,6 +1,9 @@
+import PageNaviagator from 'components/common/PageNaviagator';
+import ReviewCard from 'components/common/ReviewCard';
 import DetailImageGrid from 'components/ShopDetail/DetailImageGrid';
 import DetailInfo from 'components/ShopDetail/DetailInfo';
 import DetailShopAddress from 'components/ShopDetail/DetailShopAddress';
+import { useGetReviewByShopIdQuery } from 'features/reviews/reviewApi';
 import { useGetShopByShopIdQuery } from 'features/shops/shopApi';
 import useMap from 'hooks/useMap';
 import { useRouter } from 'next/router';
@@ -21,6 +24,11 @@ function Detail() {
 
   const shopId = parseShopId(id);
   const { data: shopInfo } = useGetShopByShopIdQuery(shopId);
+  const { data: reviewList } = useGetReviewByShopIdQuery({
+    shopId,
+    sortType: 'save',
+  });
+
   const initialLocation = shopInfo && shopInfo.length > 0 ? shopInfo[0].landAddress : undefined;
 
   const { displayMarkerByAddress } = useMap(mapRef, initialLocation, true);
@@ -29,6 +37,12 @@ function Detail() {
     if (!shopInfo || !shopInfo.length) return null;
     const { roadAddress, landAddress } = shopInfo[0];
     return <DetailShopAddress roadAddress={roadAddress} landAddress={landAddress} />;
+  };
+
+  const showReviewList = () => {
+    if (reviewList && reviewList.length > 0) {
+      return reviewList.map((review) => <ReviewCard key={review.reviewId} reviewData={review} />);
+    }
   };
 
   useEffect(() => {
@@ -43,10 +57,22 @@ function Detail() {
   return (
     <StyledContainer>
       <ColoredBackground />
-      <Wrapper>
+      <ImageGridWrapper>
         <DetailImageGrid />
         {shopInfo && shopInfo.length > 0 && <DetailInfo shopInfo={shopInfo[0]} />}
         <MapContainer ref={mapRef}>{showDetailShopAddress()}</MapContainer>
+      </ImageGridWrapper>
+      <Wrapper>
+        <LabelContentWrapper>
+          <Label>소품샵 리뷰</Label>
+          <ReviewGrid>{showReviewList()}</ReviewGrid>
+          <PageNaviagator pageNum={3} />
+        </LabelContentWrapper>
+        <LabelContentWrapper>
+          <Label>
+            <em>을지로3가역 주변</em> 가까운 소품샵 리스트
+          </Label>
+        </LabelContentWrapper>
       </Wrapper>
     </StyledContainer>
   );
@@ -57,15 +83,24 @@ const StyledContainer = styled.main`
   display: flex;
   flex-direction: column;
   position: relative;
+  gap: 8rem;
+`;
+
+const ImageGridWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 7.2rem 18.75% 5.6rem 18.75%;
+  z-index: 2;
+  gap: 5.6rem;
 `;
 
 const Wrapper = styled.div`
-  width: 100%;
+  padding: 0 18.75%;
+
   display: flex;
   flex-direction: column;
-  padding: 7.2rem 18.75% 13.4rem 18.75%;
-  z-index: 2;
-  gap: 5.6rem;
+  width: 100%;
+  gap: 9.6rem;
 `;
 
 const MapContainer = styled.div`
@@ -81,6 +116,30 @@ const ColoredBackground = styled.div`
   height: 59rem;
   top: 0;
   background-color: ${({ theme }) => theme.colors.purpleBg};
+`;
+
+const Label = styled.h2`
+  font-size: 3rem;
+  line-height: 4.3rem;
+  font-weight: 700;
+  color: ${({ theme }) => theme.colors.black2};
+
+  & > em {
+    color: ${({ theme }) => theme.colors.purpleText};
+  }
+`;
+
+const LabelContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 5.6rem;
+`;
+
+const ReviewGrid = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4rem 2.4rem;
 `;
 
 export default Detail;
