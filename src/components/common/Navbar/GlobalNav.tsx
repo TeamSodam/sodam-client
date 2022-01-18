@@ -1,9 +1,8 @@
 import LocalNav from 'components/common/Navbar/LocalNav';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
-import logo from 'public/assets/mainLogo.svg';
-import profile from 'public/assets/profile.svg';
-import search from 'public/assets/searchIcon.svg';
+import MainLogoIC from 'public/assets/mainLogo.svg';
+import ProfileIC from 'public/assets/profile.svg';
+import SearchIC from 'public/assets/searchIcon.svg';
 import styled from 'styled-components';
 
 function GlobalNav() {
@@ -44,7 +43,7 @@ function GlobalNav() {
         <GlobalNavBar>
           <LeftNav>
             <Logo onClick={onClickLogo}>
-              <Image src={logo} alt="logo" />
+              <MainLogoIC />
             </Logo>
             <MenuList>
               {menuList.map((menu) => (
@@ -61,13 +60,13 @@ function GlobalNav() {
           <RightNav>
             <SearchBar>
               <SearchIcon>
-                <Image src={search} alt="search" />
+                <SearchIC />
               </SearchIcon>
               <SearchText />
             </SearchBar>
             <Login>로그아웃</Login>
             <Profile>
-              <Image src={profile} alt="profile" />
+              <ProfileIC />
             </Profile>
           </RightNav>
         </GlobalNavBar>
@@ -109,7 +108,12 @@ const Logo = styled.div`
   width: 5.8rem;
   height: 2.6rem;
   margin-right: 4.3rem;
-  cursor: pointer;
+
+
+  &:hover {
+    cursor: pointer;
+  }
+
 `;
 
 const MenuList = styled.div`
@@ -128,7 +132,12 @@ const Menu = styled.a<{ isActive: boolean }>`
   margin-right: 3.2rem;
   color: ${(props) => props.isActive && props.theme.colors.purpleMain};
   font-weight: ${(props) => (props.isActive ? '600' : '400')};
-  cursor: pointer;
+
+
+  &:hover {
+    cursor: pointer;
+  }
+
 `;
 
 const SearchBar = styled.div`

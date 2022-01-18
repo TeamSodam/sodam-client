@@ -15,12 +15,12 @@ type UserInfo = Pick<UserState, 'userInfo'>;
 const initialState: UserState = {
   token: 'intial-test-token',
   userInfo: {
-    nickname: 'WEB-VENGERS',
+    nickname: '소푸미',
     email: 'test@test.com',
   },
 };
 
-export const counterSlice = createSlice({
+export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
@@ -33,10 +33,10 @@ export const counterSlice = createSlice({
   },
 });
 
-export const { setToken, setUser } = counterSlice.actions;
+export const { setToken, setUser } = userSlice.actions;
 
-export const selectUser = (state: RootState) => state.user;
-export const selectUserToken = (state: RootState) => state.user.token;
-export const selectUserInfo = (state: RootState) => state.user.userInfo;
+export const selectUser = (state: RootState) => state.reducer.user;
+export const selectUserToken = (state: RootState) => state.reducer.user.token;
+export const selectUserInfo = (state: RootState) => state.reducer.user.userInfo;
 
-export default counterSlice.reducer;
+export default userSlice.reducer;

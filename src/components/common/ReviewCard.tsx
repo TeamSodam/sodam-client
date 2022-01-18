@@ -14,20 +14,34 @@ interface ReviewCardProps {
 
 function ReviewCard(props: ReviewCardProps) {
   const { reviewData, isHoverAvailable, isMyReview } = props;
-  const { thumbnail, shopName, shopCategoryList, text, writer, date, liked, saved } = reviewData;
+  const {
+    thumbnail,
+    shopName,
+    category,
+    content,
+    writerThumbnail,
+    writerName,
+    date,
+    likeCount,
+    scrapCount,
+  } = reviewData;
 
   const [isHovered, setIsHovered] = useState(false);
 
-  const likedCount = liked > 99 ? '99+' : liked;
-  const savedCount = saved > 99 ? '99+' : saved;
-  const category = shopCategoryList.join(', ');
+  const likedCount = likeCount > 99 ? '99+' : likeCount;
+  const savedCount = scrapCount > 99 ? '99+' : scrapCount;
+
+  const joinCategory = () => {
+    if (typeof category === 'string') return category;
+    return category.join(', ');
+  };
 
   return (
     <StyledRoot onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
       {isHoverAvailable && isHovered && (
         <StyledHover>
           <p>{shopName}</p>
-          <p>{category}</p>
+          <p>{joinCategory()}</p>
         </StyledHover>
       )}
       <ImageDiv
@@ -43,8 +57,8 @@ function ReviewCard(props: ReviewCardProps) {
             <p className="date">{date}</p>
           ) : (
             <div className="profile">
-              <Image src={writer.thumbnail} width={24} height={24} alt="profile" />
-              <p>{writer.name}</p>
+              <Image src={writerThumbnail} width={24} height={24} alt="profile" />
+              <p>{writerName}</p>
             </div>
           )}
           <div className="figure">
@@ -66,7 +80,7 @@ function ReviewCard(props: ReviewCardProps) {
             <p>{savedCount}</p>
           </div>
         </StyledHeader>
-        <p>{text}</p>
+        <p>{content}</p>
       </StyledContents>
     </StyledRoot>
   );

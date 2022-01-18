@@ -1,27 +1,45 @@
+import { PriceList, ShopCategoryType } from './shop';
+
 export interface Item {
-  category: string;
-  price: string;
+  itemName: ShopCategoryType;
+  price: PriceList;
 }
-
-export interface User {
-  name: string;
-  thumbnail: string;
-}
-
 export interface Review {
-  id: number;
-  imageList?: string[];
+  shopId: number;
   shopName: string;
-  shopCategoryList: string[];
-  itemList?: Item[];
-  text: string;
-  tagList?: string[];
-  writer: User;
-  date: string;
-  liked: number;
-  saved: number;
+  category: string[] | string;
+  reviewId: number;
+  date: Date | string;
+  isLiked: boolean;
+  isScraped: boolean;
+  likeCount: number;
+  scrapCount: number;
+  image: string[];
+  item: Item[];
+  content: string;
+  tag: string[];
+  writerThumbnail: string;
+  writerName: string;
+  thumbnail: string;
 }
 
-export interface ReviewCardData extends Omit<Review, 'imageList' | 'itemList' | 'tagList'> {
+export interface ReviewInfoRequestById {
+  reviewId: number;
+  shopId: number;
+}
+
+export interface ReviewCardData extends Omit<Review, 'item' | 'tag' | 'image'> {
   thumbnail: string;
+}
+
+export type ReviewSortType = 'save' | 'review' | 'recent';
+
+export interface ReviewShopIdRequestParams {
+  shopId: number;
+  sortType: ReviewSortType;
+}
+
+export interface ReviewImage {
+  file: File | null;
+  preview: string | null;
 }

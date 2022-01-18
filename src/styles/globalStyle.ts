@@ -1,8 +1,7 @@
+import { miniTooltipStyle } from 'map/overlays/miniTooltip';
 import { tooltipStyle } from 'map/overlays/tooltip';
 import { createGlobalStyle } from 'styled-components';
 import { reset } from 'styled-reset';
-
-import { applyMediaQuery } from './mediaQuery';
 
 const GlobalStyles = createGlobalStyle` 
   ${reset}
@@ -25,6 +24,7 @@ const GlobalStyles = createGlobalStyle`
   }
 
   ${tooltipStyle}
+  ${miniTooltipStyle}
 `;
 
 export default GlobalStyles;

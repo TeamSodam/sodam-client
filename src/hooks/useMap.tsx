@@ -1,7 +1,17 @@
+import { useAppDispatch, useAppSelector } from 'app/hook';
+import {
+  addCurrentMarker,
+  MarkerInfo,
+  selectCurrentMarkerList,
+  selectMap,
+  setMap,
+  setMarkerCilckState,
+} from 'features/map/mapSlice';
 import { displayMarker } from 'map/utils/display';
 import { getLocationByAddress, searchAndMoveByAddress } from 'map/utils/search';
-import { RefObject, useEffect, useState } from 'react';
-import { KakaoMap, ShopInfoInMarker } from 'types/map';
+import { RefObject, useCallback, useEffect, useState } from 'react';
+import { KakaoMap } from 'types/map';
+import { Shop } from 'types/shop';
 
 declare global {
   interface Window {
@@ -9,31 +19,70 @@ declare global {
   }
 }
 
-const dummyShopInfo = {
-  address: '서울 서초구 방배중앙로29길 7',
-  name: '이티비티샵',
-  category: '패션소품',
-};
+function useMap<T>(
+  containerRef?: RefObject<T extends HTMLElement ? T : HTMLElement>,
+  initialLocation?: string,
+  isStaticMarker?: boolean,
+) {
+  const map = useAppSelector(selectMap);
+  const [mapRef, setMapRef] = useState<T extends HTMLElement ? T : HTMLElement>();
+  const currentMarkerList = useAppSelector(selectCurrentMarkerList);
+  const dispatch = useAppDispatch();
 
-function useMap<T>(containerRef: RefObject<T extends HTMLElement ? T : HTMLElement>) {
-  const [map, setMap] = useState();
+  const displayMarkerByAddress = useCallback(
+    async (shopInfo: Pick<Shop, 'store' | 'category' | 'landAddress' | 'shopId'>) => {
+      const addMarkerToList = (markerInfo: MarkerInfo) => dispatch(addCurrentMarker(markerInfo));
+      const changeClickState = (markerInfo: MarkerInfo) =>
+        dispatch(setMarkerCilckState(markerInfo));
 
-  const displayMarkerByAddress = async (shopInfo: ShopInfoInMarker = dummyShopInfo) => {
-    if (map) await displayMarker(map, shopInfo);
-  };
+      if (map)
+        await displayMarker(map, shopInfo, addMarkerToList, changeClickState, isStaticMarker);
+    },
+    [map, dispatch, isStaticMarker],
+  );
 
-  const moveByAddress = (address: string) => {
-    if (map) searchAndMoveByAddress(map, address);
-  };
+  const moveByAddress = useCallback(
+    (address: string, name: string) => {
+      if (map) {
+        searchAndMoveByAddress(map, address, isStaticMarker);
+        const targetMarker = currentMarkerList.find((marker) => marker.name === name);
+        if (targetMarker) {
+          const clickedMarkers = currentMarkerList.filter((marker) => marker.isClicked === true);
+          clickedMarkers.forEach((marker) => {
+            window.kakao.maps.event.trigger(marker.marker, 'click');
+          });
+
+          window.kakao.maps.event.trigger(targetMarker.marker, 'click');
+        }
+      }
+    },
+    [map, currentMarkerList, isStaticMarker],
+  );
 
   useEffect(() => {
     (async () => {
-      if (containerRef.current) {
-        const defaultLocation = await getLocationByAddress('서울 서초구 방배천로18길 28');
-        setMap(new window.kakao.maps.Map(containerRef.current, { center: defaultLocation }));
+      if (containerRef?.current) {
+        if (!mapRef) {
+          setMapRef(containerRef.current);
+          dispatch(setMap(null));
+        }
+        if (!map) {
+          const location = await getLocationByAddress(`${initialLocation || '서울 마포구'}`);
+          dispatch(
+            setMap(
+              new window.kakao.maps.Map(containerRef.current, {
+                center: location,
+                level: 4,
+              }),
+            ),
+          );
+        }
+        if (map && initialLocation) {
+          searchAndMoveByAddress(map, initialLocation, isStaticMarker);
+        }
       }
     })();
-  }, [containerRef]);
+  }, [containerRef, dispatch, map, initialLocation, isStaticMarker, mapRef]);
 
   return { map, displayMarkerByAddress, moveByAddress };
 }

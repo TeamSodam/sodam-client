@@ -13,7 +13,6 @@ function LocalNav() {
   ];
 
   const router = useRouter();
-  console.log(router.pathname);
   const onClickMenu = (menu: MenuList) => {
     router.push(menu.menuURL);
   };
@@ -63,5 +62,9 @@ const ReviewMenu = styled.a<{ isActive: boolean }>`
   color: ${(props) => props.isActive && props.theme.colors.purpleMain};
   font-weight: ${(props) => (props.isActive ? '600' : '400')};
   border-bottom: ${(props) => props.isActive && ('solid 2px' || props.theme.colors.purpleMain)};
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 export default LocalNav;
