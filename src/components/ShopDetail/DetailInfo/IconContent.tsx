@@ -1,5 +1,5 @@
 import shortid from 'shortid';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export interface IconContentProps {
   mainIcon: React.FC<React.SVGProps<SVGSVGElement>>;
@@ -17,7 +17,18 @@ function IconContent(props: IconContentProps) {
   const { mainIcon: MainIcon, iconName, content } = props;
 
   const showContent = () => {
-    if (typeof content === 'string') return content;
+    if (typeof content === 'string') {
+      if (iconName === '홈페이지') {
+        console.log(content);
+        return (
+          <a target="_blank" rel="noopener noreferrer" href={content}>
+            공식 홈페이지 바로가기
+          </a>
+        );
+      }
+
+      return content;
+    }
 
     return content.map((contentEl) => {
       const { icon: Icon, isFilled, link } = contentEl;
@@ -72,25 +83,28 @@ const ContentWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  gap: 2.4rem;
 
   font-weight: 500;
   font-size: 1.8rem;
   line-height: 2rem;
 
   color: ${({ theme }) => theme.colors.black1};
+
+  & a {
+    color: ${({ theme }) => theme.colors.black1};
+  }
 `;
 
 const FillableIcon = styled.button<{ isFilled: boolean }>`
-  ${(props) =>
-    !props.isFilled &&
-    css`
-      &:hover {
-        cursor: default;
-      }
-    `};
+  &:hover {
+    cursor: ${(props) => (props.isFilled ? 'pointer' : 'default')};
+  }
+
+  padding: 0;
   background-color: transparent;
   border: none;
-  & > svg {
+  & circle {
     fill: ${(props) => props.isFilled && props.theme.colors.purpleMain};
   }
 `;

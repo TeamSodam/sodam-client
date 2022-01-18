@@ -6,7 +6,7 @@ function DetailImageGrid() {
     <Container>
       <ImageDiv
         className="detail-image"
-        src="/assets/dummy/dummy-shop.png"
+        src="/assets/dummy/shop_detail.png"
         layout="fill"
         alt="main-img"
       />

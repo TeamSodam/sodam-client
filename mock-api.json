@@ -3,7 +3,7 @@
     {
       "shopId": 1,
       "phone": "010-1234-5678",
-      "homepage": "www.naver.com",
+      "homepage": "https://www.naver.com",
       "store": "",
       "shopName": "오구오구",
       "category": "인테리어소품",
@@ -24,7 +24,7 @@
     {
       "shopId": 2,
       "phone": "010-1234-5678",
-      "homepage": "www.naver.com",
+      "homepage": "https://www.naver.com",
       "store": "",
       "shopName": "공감도",
       "category": "공예품",
@@ -45,7 +45,7 @@
     {
       "shopId": 3,
       "phone": "010-1234-5678",
-      "homepage": "www.naver.com",
+      "homepage": "https://www.naver.com",
       "store": "",
       "shopName": "부커웨이",
       "category": "문구·팬시",
@@ -66,7 +66,7 @@
     {
       "shopId": 4,
       "phone": "010-1234-5678",
-      "homepage": "www.naver.com",
+      "homepage": "https://www.naver.com",
       "store": "",
       "shopName": "롤리포니",
       "category": "인형·장난감",
@@ -87,7 +87,7 @@
     {
       "shopId": 5,
       "phone": "010-1234-5678",
-      "homepage": "www.naver.com",
+      "homepage": "https://www.naver.com",
       "store": "",
       "shopName": "세리룸",
       "category": "인테리어소품",
@@ -108,7 +108,7 @@
     {
       "shopId": 6,
       "phone": "010-1234-5678",
-      "homepage": "www.naver.com",
+      "homepage": "https://www.naver.com",
       "store": "",
       "shopName": "홈리학",
       "category": "인테리어소품",
@@ -129,7 +129,7 @@
     {
       "shopId": 7,
       "phone": "010-1234-5678",
-      "homepage": "www.naver.com",
+      "homepage": "https://www.naver.com",
       "store": "",
       "shopName": "문득그가게",
       "category": "주방용품",
@@ -150,7 +150,7 @@
     {
       "shopId": 8,
       "phone": "010-1234-5678",
-      "homepage": "www.naver.com",
+      "homepage": "https://www.naver.com",
       "store": "",
       "shopName": "이티비티샵",
       "category": "공예품",
@@ -171,7 +171,7 @@
     {
       "shopId": 9,
       "phone": "010-1234-5678",
-      "homepage": "www.naver.com",
+      "homepage": "https://www.naver.com",
       "store": " 수유점",
       "shopName": "핑크바케스 수유점",
       "category": "문구·팬시",
@@ -192,7 +192,7 @@
     {
       "shopId": 10,
       "phone": "010-1234-5678",
-      "homepage": "www.naver.com",
+      "homepage": "https://www.naver.com",
       "store": "",
       "shopName": "문어가든",
       "category": "패션소품",
@@ -213,7 +213,7 @@
     {
       "shopId": 11,
       "phone": "010-1234-5678",
-      "homepage": "www.naver.com",
+      "homepage": "https://www.naver.com",
       "store": "",
       "shopName": "일랑애랑",
       "category": "인테리어소품",
@@ -234,7 +234,7 @@
     {
       "shopId": 12,
       "phone": "010-1234-5678",
-      "homepage": "www.naver.com",
+      "homepage": "https://www.naver.com",
       "store": "",
       "shopName": "일랑애랑",
       "category": "주방용품",
@@ -255,7 +255,7 @@
     {
       "shopId": 13,
       "phone": "010-1234-5678",
-      "homepage": "www.naver.com",
+      "homepage": "https://www.naver.com",
       "store": "",
       "shopName": "일랑애랑",
       "category": "주방용품",
