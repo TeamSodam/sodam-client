@@ -38,6 +38,10 @@ export default ThemeSelector;
 const StyledRoot = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 5.8rem;
+
+  align-self: center;
+  width: 100%;
 
   & > h4 {
     font-weight: bold;
@@ -51,12 +55,12 @@ const StyledElWrapper = styled.div<StyledThemeELProps>`
   display: flex;
   justify-content: center;
   gap: 5.8rem;
-  margin-top: ${({ isMain }) => (isMain === true ? '5.4rem' : '5.8rem')};
+  margin-top: ${({ isMain }) => (isMain ? '5.4rem' : 0)};
 
   & > h4 {
     font-weight: bold;
-    font-size: 30px;
-    line-height: 43px;
+    font-size: 3rem;
+    line-height: 4.3rem;
     color: ${theme.colors.black2};
   }
 `;

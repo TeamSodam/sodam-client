@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { axiosBaseQuery } from 'libs/api';
-import { Shop, ShopCategoryType, ShopRequestType, ShopThemeType } from 'types/shop';
+import { Shop, ShopCategoryType, ShopMainSortType, ShopThemeRequestType } from 'types/shop';
 
 export const shopApi = createApi({
   reducerPath: 'shopApi',
@@ -11,8 +11,17 @@ export const shopApi = createApi({
     getShopByCategory: builder.query<Shop[], ShopCategoryType>({
       query: (categoryType) => ({ url: `/shop/category?type=${categoryType}`, method: 'GET' }),
     }),
-    getShopByTheme: builder.query<Shop[], ShopThemeType>({
-      query: (theme) => ({ url: `/shop?theme=${theme}`, method: 'GET' }),
+    getShopByTheme: builder.query<Shop[], ShopThemeRequestType>({
+      query: ({ theme, sortType, offset, limit }) => ({
+        url: '/shop',
+        params: {
+          theme,
+          sort: sortType,
+          offset,
+          limit,
+        },
+        method: 'GET',
+      }),
     }),
     getShopByShopId: builder.query<Shop[], number>({
       query: (shopId) => ({ url: `/shop?shopId=${shopId}`, method: 'GET' }),
@@ -20,7 +29,7 @@ export const shopApi = createApi({
     getShopByArea: builder.query<Shop[], string>({
       query: (area) => ({ url: `/shop?area=${area}`, method: 'GET' }),
     }),
-    getShopInfo: builder.query<Shop[], ShopRequestType>({
+    getShopInfo: builder.query<Shop[], ShopMainSortType>({
       query: (type) => ({ url: `/shop?type=${type}`, method: 'GET' }),
     }),
     getShopSearchResult: builder.query<Shop[], string>({

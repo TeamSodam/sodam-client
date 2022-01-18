@@ -1,18 +1,29 @@
-import { PriceFilterList } from 'constants/dropdownOptionList';
+import { MoreFilterList } from 'constants/dropdownOptionList';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
 
-function PriceList() {
+interface StyledILDProps {
+  onSelectedItem: (item: string) => void;
+}
+
+function ItemsListDiv(props: StyledILDProps) {
+  const { onSelectedItem } = props;
+
+  const handleClick = (item: string) => {
+    onSelectedItem(item);
+  };
   return (
     <StyledUl>
-      {PriceFilterList.map((price) => (
-        <li key={price}>{price}</li>
+      {MoreFilterList.map((item) => (
+        <li key={item} onClick={() => handleClick(item)} role="presentation">
+          {item}
+        </li>
       ))}
     </StyledUl>
   );
 }
 
-export default PriceList;
+export default ItemsListDiv;
 
 const StyledUl = styled.ul`
   display: flex;
@@ -21,7 +32,7 @@ const StyledUl = styled.ul`
   top: 5.6rem;
   left: 0;
   flex-direction: column;
-  width: 17.3rem;
+  width: 29.7rem;
   box-shadow: 0px 3px 8px rgba(87, 82, 76, 0.15);
   border-radius: 0.5rem;
   background-color: ${theme.colors.grayBg};

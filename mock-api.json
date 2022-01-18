@@ -154,7 +154,7 @@
       "store": "이티비티샵",
       "shopName": "이티비티샵",
       "category": "공예품",
-      "theme": "힙함",
+      "theme": "힙한",
       "subway": "합정역",
       "isBookmarked": true,
       "roadAddress": "서울 관악구 관악로14길 52 1층 3호 ",
@@ -272,20 +272,91 @@
       "type": "random",
       "area": "강북구",
       "reviewCount": 21
+    },
+    {
+      "shopId": 14,
+      "phone": "010-1234-5678",
+      "homepage": "www.naver.com",
+      "store": "모던할랭ㅋ",
+      "category": "주방용품",
+      "theme": "모던한",
+      "subway": "수유역",
+      "isBookmarked": true,
+      "roadAddress": "서울 강북구 한천로139가길 72 1층",
+      "landAddress": "서울 강북구 수유동 188-10 1층",
+      "time": "12:00 ~ 21:00",
+      "close": "일요일",
+      "blog": "https://nukw0n-dev.tistory.com",
+      "instagram": "instargram",
+      "image": "/assets/dummy/dummy-shop.png",
+      "type": "random",
+      "area": "강북구",
+      "reviewCount": 21
+    },
+    {
+      "shopId": 15,
+      "phone": "010-1234-5678",
+      "homepage": "www.naver.com",
+      "store": "힙해용ㅋ",
+      "category": "주방용품",
+      "theme": "힙한",
+      "subway": "수유역",
+      "isBookmarked": true,
+      "roadAddress": "서울 강북구 한천로139가길 72 1층",
+      "landAddress": "서울 강북구 수유동 188-10 1층",
+      "time": "12:00 ~ 21:00",
+      "close": "일요일",
+      "blog": "https://nukw0n-dev.tistory.com",
+      "instagram": "instargram",
+      "image": "/assets/dummy/dummy-shop.png",
+      "type": "random",
+      "area": "강북구",
+      "reviewCount": 21
+    },
+    {
+      "shopId": 16,
+      "phone": "010-1234-5678",
+      "homepage": "www.naver.com",
+      "store": "모던해용ㅋ",
+      "category": "주방용품",
+      "theme": "모던한",
+      "subway": "수유역",
+      "isBookmarked": true,
+      "roadAddress": "서울 강북구 한천로139가길 72 1층",
+      "landAddress": "서울 강북구 수유동 188-10 1층",
+      "time": "12:00 ~ 21:00",
+      "close": "일요일",
+      "blog": "https://nukw0n-dev.tistory.com",
+      "instagram": "instargram",
+      "image": "/assets/dummy/dummy-shop.png",
+      "type": "random",
+      "area": "강북구",
+      "reviewCount": 21
     }
   ],
   "review": [
     {
+      "reviewId": 1,
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ],
       "shopName": "소품샵이지롱",
       "writerName": "권혁진",
       "writerThumbnail": "/assets/ex_profile.jpg",
-      "likeCount": 123,
+      "likeCount": 100,
       "scrapCount": 4,
       "date": "22.01.09",
       "content": "something text will be placed. this is not my intend",
       "category": ["인테리어소품", "인형·장난감"],
       "tag": ["바보", "배고파", "피자"],
-      "shopId": "azgQVd8",
+      "shopId": 2,
       "sort": "save",
       "area": "강남구",
       "reviewCount": 21,
@@ -293,16 +364,27 @@
       "thumbnail": "/assets/dummy/dummy-image.jpg"
     },
     {
+      "reviewId": 2,
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ],
       "shopName": "소품샵이지롱",
-      "writerName": "권혁진",
+      "writerName": "황주희",
       "writerThumbnail": "/assets/ex_profile.jpg",
       "likeCount": 123,
       "scrapCount": 4,
       "date": "22.01.09",
-      "content": "something text will be placed. this is not my intend",
+      "content": "여기는 텍스트가 입력되는 공간입니다. 지금 시간은 새벽 5시반, 전 내일 출근 예정. something text will be placed. this is not my intend",
       "category": ["인테리어소품", "인형·장난감"],
       "tag": ["바보", "배고파", "피자"],
-      "shopId": "oXZerJf",
+      "shopId": 2,
       "sort": "review",
       "area": "종로구",
       "reviewCount": 21,
@@ -310,6 +392,17 @@
       "thumbnail": "/assets/dummy/dummy-image.jpg"
     },
     {
+      "reviewId": 3,
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ],
       "shopName": "소품샵이지롱",
       "writerName": "권혁진",
       "writerThumbnail": "/assets/ex_profile.jpg",
@@ -319,7 +412,7 @@
       "content": "something text will be placed. this is not my intend",
       "category": ["인테리어소품", "인형·장난감"],
       "tag": ["바보", "배고파", "피자"],
-      "shopId": "qELlJzW",
+      "shopId": 1,
       "sort": "save",
       "area": "종로구",
       "reviewCount": 21,
@@ -327,6 +420,17 @@
       "thumbnail": "/assets/dummy/dummy-image.jpg"
     },
     {
+      "reviewId": 4,
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ],
       "shopName": "소품샵이지롱",
       "writerName": "권혁진",
       "writerThumbnail": "/assets/ex_profile.jpg",
@@ -344,6 +448,17 @@
       "thumbnail": "/assets/dummy/dummy-image.jpg"
     },
     {
+      "reviewId": 5,
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ],
       "shopName": "소품샵이지롱",
       "writerName": "권혁진",
       "writerThumbnail": "/assets/ex_profile.jpg",
@@ -353,7 +468,7 @@
       "content": "something text will be placed. this is not my intend",
       "category": ["인테리어소품", "인형·장난감"],
       "tag": ["바보", "배고파", "피자"],
-      "shopId": "8Lz8N2m",
+      "shopId": 6,
       "sort": "save",
       "area": "종로구",
       "reviewCount": 21,
@@ -361,6 +476,17 @@
       "thumbnail": "/assets/dummy/dummy-image.jpg"
     },
     {
+      "reviewId": 6,
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ],
       "shopName": "소품샵이지롱",
       "writerName": "권혁진",
       "writerThumbnail": "/assets/ex_profile.jpg",
