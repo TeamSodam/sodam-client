@@ -19,7 +19,6 @@ function IconContent(props: IconContentProps) {
   const showContent = () => {
     if (typeof content === 'string') {
       if (iconName === '홈페이지') {
-        console.log(content);
         return (
           <a target="_blank" rel="noopener noreferrer" href={content}>
             공식 홈페이지 바로가기

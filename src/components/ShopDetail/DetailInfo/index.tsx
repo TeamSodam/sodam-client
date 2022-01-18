@@ -27,8 +27,6 @@ function DetailInfo({ shopInfo }: { shopInfo: Shop }) {
     isBookmarked,
   } = shopInfo;
 
-  console.log(instagram, blog, store);
-
   const iconContentList: IconContentProps[] = [
     {
       mainIcon: Subway,
@@ -87,7 +85,11 @@ function DetailInfo({ shopInfo }: { shopInfo: Shop }) {
     <Container>
       <LeftWrapper>
         <UpWrapper>
-          <h1>레프트라이트 오브젝트 두줄 레프트라이트 오브젝트 두줄</h1>
+          {/* <h1>
+            레프트라이트 오브젝트 두줄 레프트라이트 오브젝트 두줄
+            바보바보바보바보바보바보바보바보뒤진다뒤진다
+          </h1> */}
+          <h1>레프트라이트 오브젝트 두줄</h1>
           <p>{showCategory()}</p>
         </UpWrapper>
         <DownWrapper />
@@ -105,20 +107,32 @@ const Container = styled.div`
 
 const LeftWrapper = styled.div`
   flex: 1;
-  display: grid;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
+
+  height: 100%;
 `;
 
 const UpWrapper = styled.div`
-  grid-row: 1 / 4;
+  max-height: 75%;
+
+  padding-bottom: 3.2rem;
   border-bottom: 1px solid ${({ theme }) => theme.colors.purpleText};
 
   & > h1 {
+    width: 95%;
     font-size: 3rem;
     line-height: 4.4rem;
     color: ${({ theme }) => theme.colors.black2};
     font-weight: 700;
+    margin-bottom: 0.8rem;
+
+    display: -webkit-box;
+    white-space: normal;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   & > p {
@@ -129,10 +143,7 @@ const UpWrapper = styled.div`
   }
 `;
 
-const DownWrapper = styled.div`
-  grid-row: 2 / 3;
-  /* background-color: blue; */
-`;
+const DownWrapper = styled.div``;
 
 const RightWrapper = styled.div`
   flex: 1.7;
@@ -141,10 +152,6 @@ const RightWrapper = styled.div`
   grid-template-rows: repeat(3, 1fr);
   grid-template-columns: repeat(2, 1fr);
   gap: 4rem;
-`;
-
-const IconWrapper = styled.div`
-  background-color: purple;
 `;
 
 export default DetailInfo;
