@@ -41,9 +41,21 @@ function ReviewDetailCard(props: ReviewDetailCardProps) {
 
   const [isLikeClicked, setLikeClicked] = useState(true);
   const [isScrapClicked, setScrapClicked] = useState(true);
+  const [currentLikeCount, setCurrentLikeCount] = useState(likeCount);
+  const [currentScrapCount, setCurrentScrapCount] = useState(scrapCount);
 
-  const likedCount = likeCount > 99 ? '99+' : likeCount;
-  const scrapedCount = scrapCount > 99 ? '99+' : scrapCount;
+  const likedCount = currentLikeCount > 99 ? '99+' : currentLikeCount;
+  const scrapedCount = currentScrapCount > 99 ? '99+' : currentScrapCount;
+
+  const getOnClickHandlerByType = (type: 'scrap' | 'like') => {
+    const setter = type === 'scrap' ? setCurrentScrapCount : setCurrentLikeCount;
+    const isClicked = type === 'scrap' ? isScrapClicked : isLikeClicked;
+    const setIsClicked = type === 'scrap' ? setScrapClicked : setLikeClicked;
+    const value = isClicked ? -1 : 1;
+
+    setter((prevState) => prevState + value);
+    setIsClicked((prevClickState) => !prevClickState);
+  };
 
   return (
     <StyledReviewDetailCardContainer>
@@ -62,13 +74,13 @@ function ReviewDetailCard(props: ReviewDetailCardProps) {
           </div>
           <IconContainer>
             <LikeReview>
-              <LikeIcon onClick={() => setLikeClicked(!isLikeClicked)} isLike={isLikeClicked}>
+              <LikeIcon onClick={() => getOnClickHandlerByType('like')} isLike={isLikeClicked}>
                 <LikeReviewIC />
               </LikeIcon>
               <p>{likedCount}</p>
             </LikeReview>
             <ScrapReview>
-              <ScrapIcon onClick={() => setScrapClicked(!isScrapClicked)} isScrap={isScrapClicked}>
+              <ScrapIcon onClick={() => getOnClickHandlerByType('scrap')} isScrap={isScrapClicked}>
                 <ScrapReviewIC />
               </ScrapIcon>
               <p>{scrapedCount}</p>

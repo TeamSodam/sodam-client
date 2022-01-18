@@ -5,7 +5,6 @@ import { Review } from 'types/review';
 interface OtherReviewCardProps {
   reviewListData: Review[];
 }
-
 function OtherReviewCard(props: OtherReviewCardProps) {
   const { reviewListData } = props;
 
