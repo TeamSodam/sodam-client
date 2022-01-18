@@ -264,6 +264,16 @@
   "review": [
     {
       "reviewId": 1,
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ],
       "shopName": "소품샵이지롱",
       "writerName": "권혁진",
       "writerThumbnail": "/assets/ex_profile.jpg",
@@ -282,6 +292,16 @@
     },
     {
       "reviewId": 2,
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ],
       "shopName": "소품샵이지롱",
       "writerName": "권혁진",
       "writerThumbnail": "/assets/ex_profile.jpg",
@@ -300,6 +320,16 @@
     },
     {
       "reviewId": 3,
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ],
       "shopName": "소품샵이지롱",
       "writerName": "권혁진",
       "writerThumbnail": "/assets/ex_profile.jpg",
@@ -318,6 +348,16 @@
     },
     {
       "reviewId": 4,
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ],
       "shopName": "소품샵이지롱",
       "writerName": "권혁진",
       "writerThumbnail": "/assets/ex_profile.jpg",
@@ -336,6 +376,16 @@
     },
     {
       "reviewId": 5,
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ],
       "shopName": "소품샵이지롱",
       "writerName": "권혁진",
       "writerThumbnail": "/assets/ex_profile.jpg",
@@ -354,6 +404,16 @@
     },
     {
       "reviewId": 6,
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ],
       "shopName": "소품샵이지롱",
       "writerName": "권혁진",
       "writerThumbnail": "/assets/ex_profile.jpg",

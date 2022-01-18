@@ -36,6 +36,7 @@ function ReviewDetailCard(props: ReviewDetailCardProps) {
     scrapCount,
     content,
     tag,
+    item,
   } = reviewData;
 
   const [isLikeClicked, setLikeClicked] = useState(true);
@@ -77,15 +78,15 @@ function ReviewDetailCard(props: ReviewDetailCardProps) {
         <ImageSlider imageList={dummyImageList} />
         <ReviewTextInfo>
           <ReviewProductInfo>
-            <p>인테리어소품</p>
-            <p> : </p>
-            <p>10,000 - 14,990원</p>
+            {item.map((itemElement) => (
+              <p key={shortid.generate()}>{`${itemElement.itemName} : ${itemElement.price}`}</p>
+            ))}
           </ReviewProductInfo>
           <ReviewContent>{content}</ReviewContent>
         </ReviewTextInfo>
         <ReviewTagList>
           {tag.map((eachTag) => (
-            <ReviewTag key={shortid.generate()}>{`${eachTag}`}</ReviewTag>
+            <ReviewTag key={shortid.generate()}>{`#${eachTag}`}</ReviewTag>
           ))}
         </ReviewTagList>
       </ReviewDetailCardContent>
@@ -217,6 +218,16 @@ const ReviewProductInfo = styled.div`
   font-weight: 400;
   width: 100%;
   color: ${({ theme }) => theme.colors.purpleText};
+  gap: 0.8rem;
+
+  & > p:after {
+    content: '|';
+    margin-left: 0.8rem;
+    color: ${({ theme }) => theme.colors.purpleText};
+  }
+  & > p:last-child:after {
+    content: unset;
+  }
 `;
 
 const ReviewContent = styled.p`

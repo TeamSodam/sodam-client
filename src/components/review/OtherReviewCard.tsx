@@ -10,7 +10,7 @@ function OtherReviewCard(props: OtherReviewCardProps) {
   const { reviewListData } = props;
 
   const reviewDataList = reviewListData.map((data) => (
-    <ReviewCard key={data.shopId} reviewData={data} isHoverAvailable />
+    <ReviewCard key={data.shopId} reviewData={data} />
   ));
   return <ReviewList>{reviewDataList}</ReviewList>;
 }

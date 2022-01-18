@@ -1,6 +1,6 @@
 import DropDownFilter from 'components/common/DropDownFilter';
-import OtherReviewCard from 'components/Review/OtherReviewCard';
-import ReviewDetailCard from 'components/Review/ReviewDetailCard';
+import OtherReviewCard from 'components/review/OtherReviewCard';
+import ReviewDetailCard from 'components/review/ReviewDetailCard';
 import { useGetReviewByShopIdQuery, useGetShopReviewByIdQuery } from 'features/reviews/reviewApi';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
@@ -30,11 +30,9 @@ function Detail() {
     sortType: SORT_TYPE,
   });
 
-  console.log(reviewListData);
-
   return (
     <StyledReviewDetailWrapper>
-      {reviewData && <ReviewDetailCard reviewData={reviewData[0]} />}
+      {reviewData && reviewData.length > 0 && <ReviewDetailCard reviewData={reviewData[0]} />}
       <OtherReviewCardWrapper>
         <ReviewListHeader>
           <HeaderTitle>이 소품샵의 다른 리뷰</HeaderTitle>
