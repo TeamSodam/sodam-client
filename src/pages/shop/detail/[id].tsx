@@ -1,10 +1,12 @@
+import MainSlider from 'components/common/MainSlider';
 import PageNaviagator from 'components/common/PageNaviagator';
 import ReviewCard from 'components/common/ReviewCard';
+import ShopCard from 'components/common/ShopCard';
 import DetailImageGrid from 'components/ShopDetail/DetailImageGrid';
 import DetailInfo from 'components/ShopDetail/DetailInfo';
 import DetailShopAddress from 'components/ShopDetail/DetailShopAddress';
 import { useGetReviewByShopIdQuery } from 'features/reviews/reviewApi';
-import { useGetShopByShopIdQuery } from 'features/shops/shopApi';
+import { useGetShopByShopIdQuery, useGetShopBySubwayQuery } from 'features/shops/shopApi';
 import useMap from 'hooks/useMap';
 import { useRouter } from 'next/router';
 import { useEffect, useRef } from 'react';
@@ -28,6 +30,7 @@ function Detail() {
     shopId,
     sortType: 'save',
   });
+  const { data: shopListSubway } = useGetShopBySubwayQuery(shopId);
 
   const initialLocation = shopInfo && shopInfo.length > 0 ? shopInfo[0].landAddress : undefined;
 
@@ -42,6 +45,14 @@ function Detail() {
   const showReviewList = () => {
     if (reviewList && reviewList.length > 0) {
       return reviewList.map((review) => <ReviewCard key={review.reviewId} reviewData={review} />);
+    }
+  };
+
+  const showSubwayShopList = () => {
+    if (shopListSubway && shopListSubway.length > 0) {
+      const cardList = shopListSubway.map((shop) => <ShopCard key={shop.shopId} cardData={shop} />);
+
+      return <MainSlider slidesPerView={4} cardList={cardList} />;
     }
   };
 
@@ -72,6 +83,7 @@ function Detail() {
           <Label>
             <em>을지로3가역 주변</em> 가까운 소품샵 리스트
           </Label>
+          {showSubwayShopList()}
         </LabelContentWrapper>
       </Wrapper>
     </StyledContainer>
@@ -84,6 +96,8 @@ const StyledContainer = styled.main`
   flex-direction: column;
   position: relative;
   gap: 8rem;
+
+  padding-bottom: 8rem;
 `;
 
 const ImageGridWrapper = styled.div`
