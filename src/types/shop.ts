@@ -15,9 +15,40 @@ export interface Shop {
   subway: string;
   blog: string;
   isBookmarked: boolean;
-  image: string;
+  image: string | string[];
   close: string;
+  area: SeoulAreaType;
   reviewCount: number;
+  bookmarkCount: number;
+}
+
+export interface ShopResponse {
+  shopId: number;
+  shopName: string;
+  category: string[];
+  image: string;
+}
+
+export interface ShopAreaResponse extends ShopResponse {
+  roadAddress: string;
+  landAddress: string;
+  reviewCount: number;
+  time: string;
+}
+
+export interface ShopSearchResponse extends ShopResponse {
+  theme: string[];
+}
+
+export interface ShopSubwayResponse {
+  subway: string;
+  shopList: ShopResponse[];
+}
+
+export type ShopThemeType = '아기자기한' | '힙한' | '모던한' | '빈티지';
+export interface ShopThemeRequestType extends ShopPaginationType {
+  sortType: ShopThemeSortType;
+  theme: ShopThemeType;
 }
 export interface ShopCardData extends Pick<Shop, 'shopId' | 'image' | 'shopName' | 'category'> {
   rank?: number;
@@ -30,11 +61,14 @@ export interface ShopPaginationType {
   limit: number;
 }
 
-export type ShopThemeType = '아기자기한' | '힙한' | '모던한' | '빈티지';
-export interface ShopThemeRequestType extends ShopPaginationType {
-  sortType: ShopThemeSortType;
-  theme: ShopThemeType;
-}
+export type ShopRequestCategoryType =
+  | '문구팬시'
+  | '인테리어소품'
+  | '주방용품'
+  | '패션소품'
+  | '공예품'
+  | '인형장난감'
+  | 'random';
 
 export type ShopCategoryType =
   | '문구·팬시'
