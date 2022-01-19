@@ -1,6 +1,13 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { axiosBaseQuery } from 'libs/api';
-import { Review, ReviewInfoRequestById, ReviewShopIdRequestParams } from 'types/review';
+import { SodamResponse } from 'types/api';
+import {
+  Review,
+  ReviewByShopIdResponse,
+  ReviewInfoRequestById,
+  ReviewRecentResponse,
+  ReviewShopIdRequestParams,
+} from 'types/review';
 
 export const reviewApi = createApi({
   reducerPath: 'reviewApi',
@@ -8,8 +15,8 @@ export const reviewApi = createApi({
   refetchOnFocus: true,
   endpoints: (builder) => ({
     // builder.query<T, U>() --> T는 쿼리의 반환값 타입, U는 쿼리 파라미터의 타입.
-    getReview: builder.query<Review[], void>({
-      query: () => ({ url: 'http://localhost:4000/review', method: 'GET' }),
+    getReviewRecent: builder.query<SodamResponse<ReviewRecentResponse[]>, void>({
+      query: () => ({ url: 'https://server.sodam.me/review/recent', method: 'GET' }),
     }),
     getMyWriteReview: builder.query<Review[], void>({
       query: () => ({ url: 'http://localhost:4000/my/review/write', method: 'GET' }),
@@ -17,18 +24,20 @@ export const reviewApi = createApi({
     getMyScrapReview: builder.query<Review[], void>({
       query: () => ({ url: 'http://localhost:4000/my/review/scrap', method: 'GET' }),
     }),
-    getReviewByShopId: builder.query<Review[], ReviewShopIdRequestParams>({
+    getReviewByShopId: builder.query<ReviewByShopIdResponse[], ReviewShopIdRequestParams>({
       query: (shopInfo: ReviewShopIdRequestParams) => {
-        const { shopId, sortType, page } = shopInfo;
+        const { shopId, sortType, offset, limit } = shopInfo;
         return {
-          url: `http://localhost:4000/review/${shopId}`,
+          url: `https://server.sodam.me/review/${shopId}`,
           method: 'GET',
           params: {
             sort: sortType,
-            page,
+            offset,
+            limit,
           },
         };
       },
+      transformResponse: (response: SodamResponse<ReviewByShopIdResponse[]>) => response.data,
     }),
     getShopReviewById: builder.query<Review[], ReviewInfoRequestById>({
       query: ({ reviewId, shopId }) => ({
@@ -50,7 +59,7 @@ export const reviewApi = createApi({
 });
 
 export const {
-  useGetReviewQuery,
+  useGetReviewRecentQuery,
   useGetMyWriteReviewQuery,
   useGetMyScrapReviewQuery,
   useGetReviewByShopIdQuery,

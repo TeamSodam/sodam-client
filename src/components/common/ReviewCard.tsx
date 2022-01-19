@@ -15,7 +15,7 @@ interface ReviewCardProps {
 function ReviewCard(props: ReviewCardProps) {
   const { reviewData, isHoverAvailable, isMyReview } = props;
   const {
-    thumbnail,
+    image,
     shopName,
     category,
     content,
@@ -33,7 +33,7 @@ function ReviewCard(props: ReviewCardProps) {
 
   const joinCategory = () => {
     if (typeof category === 'string') return category;
-    return category.join(', ');
+    return category?.join(', ');
   };
 
   return (
@@ -46,7 +46,7 @@ function ReviewCard(props: ReviewCardProps) {
       )}
       <ImageDiv
         className="thumbnail__image"
-        src={thumbnail}
+        src={image[0]}
         width={384}
         height={208}
         alt="thumbnail"

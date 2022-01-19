@@ -28,6 +28,8 @@ function Detail() {
   const { data: reviewListData } = useGetReviewByShopIdQuery({
     shopId: SHOP_ID,
     sortType: SORT_TYPE,
+    offset: 1,
+    limit: 9,
   });
 
   const getFilteredReviewListData = () => {
