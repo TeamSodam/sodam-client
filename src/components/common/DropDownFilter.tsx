@@ -50,6 +50,7 @@ export default DropDownFilter;
 const StyledRoot = styled.div`
   display: flex;
   position: relative;
+  align-items: flex-end;
 `;
 const StyledWrapper = styled.div`
   display: flex;
