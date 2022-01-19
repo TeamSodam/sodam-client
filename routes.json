@@ -1,5 +1,5 @@
 {
-  "/review/:shopId\\?sort=:sort": "/review?shopId=:shopId&sort=:sort",
+  "/review/:shopId\\?sort=:sort?page=:page": "/review?shopId=:shopId&sort=:sort&_page=:page&_limit=9",
   "/shop/category\\?type=:type": "/shop?category=:type",
   "/shop\\?type=:type": "/shop?type=:type",
   "/shop\\?area=:area": "/shop?area=:area",

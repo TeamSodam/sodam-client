@@ -1,23 +1,23 @@
 import LeftArrow from 'public/assets/ic_leftArrow.svg';
 import RightArrow from 'public/assets/ic_rightArrow.svg';
-import { useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import shortid from 'shortid';
 import styled, { css } from 'styled-components';
 
 interface PageNaviagatorProps {
-  pageNum: number;
-  pageFetchFunc?: () => void;
+  pageLimit: number;
+  currentPage: number;
+  setCurrentPage: Dispatch<SetStateAction<number>>;
 }
 
 const PREV = 'PREV';
 const NEXT = 'NEXT';
 
 function PageNaviagator(props: PageNaviagatorProps) {
-  const { pageNum } = props;
-  const [currentPage, setCurrentPage] = useState(1);
+  const { pageLimit, currentPage, setCurrentPage } = props;
 
   const showPages = () =>
-    [...Array(pageNum)].map((_, index) => {
+    [...Array(pageLimit)].map((_, index) => {
       const isCurrent = index + 1 === currentPage;
       return (
         <Page
@@ -32,7 +32,7 @@ function PageNaviagator(props: PageNaviagatorProps) {
 
   const naviagtePage = (dir: typeof PREV | typeof NEXT) => {
     const value = dir === PREV ? -1 : 1;
-    if (currentPage + value < 1 || currentPage + value > pageNum) return;
+    if (currentPage + value < 1 || currentPage + value > pageLimit) return;
     setCurrentPage((prevPage) => prevPage + value);
   };
 

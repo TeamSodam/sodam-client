@@ -19,10 +19,14 @@ export const reviewApi = createApi({
     }),
     getReviewByShopId: builder.query<Review[], ReviewShopIdRequestParams>({
       query: (shopInfo: ReviewShopIdRequestParams) => {
-        const { shopId, sortType } = shopInfo;
+        const { shopId, sortType, page } = shopInfo;
         return {
-          url: `/review/${shopId}?sort=${sortType}`,
+          url: `/review/${shopId}`,
           method: 'GET',
+          params: {
+            sort: sortType,
+            page,
+          },
         };
       },
     }),

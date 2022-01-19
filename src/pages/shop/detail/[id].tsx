@@ -9,7 +9,7 @@ import { useGetReviewByShopIdQuery } from 'features/reviews/reviewApi';
 import { useGetShopByShopIdQuery, useGetShopBySubwayQuery } from 'features/shops/shopApi';
 import useMap from 'hooks/useMap';
 import { useRouter } from 'next/router';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 const parseShopId = (shopID: string | string[] | undefined) => {
@@ -22,13 +22,17 @@ const parseShopId = (shopID: string | string[] | undefined) => {
 function Detail() {
   const mapRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+
+  const [currentPage, setCurrentPage] = useState(1);
+
   const { id } = router.query;
 
   const shopId = parseShopId(id);
   const { data: shopInfo } = useGetShopByShopIdQuery(shopId);
   const { data: reviewList } = useGetReviewByShopIdQuery({
     shopId,
-    sortType: 'save',
+    sortType: 'review',
+    page: currentPage,
   });
   const { data: shopListSubway } = useGetShopBySubwayQuery(shopId);
 
@@ -56,6 +60,18 @@ function Detail() {
     }
   };
 
+  const calcPageNum = () => {
+    if (!reviewList || !reviewList.length) return 1;
+
+    // 리뷰카운트 계산을 위해 임의로 이렇게 작업
+    const { reviewCount } = reviewList[0];
+
+    const isElementRest = reviewCount % 9 > 0;
+    const page = Math.floor(reviewCount / 9);
+
+    return isElementRest ? page + 1 : page;
+  };
+
   useEffect(() => {
     (async () => {
       if (shopInfo && shopInfo.length > 0) {
@@ -77,7 +93,11 @@ function Detail() {
         <LabelContentWrapper>
           <Label>소품샵 리뷰</Label>
           <ReviewGrid>{showReviewList()}</ReviewGrid>
-          <PageNaviagator pageNum={3} />
+          <PageNaviagator
+            pageLimit={calcPageNum()}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
         </LabelContentWrapper>
         <LabelContentWrapper>
           <Label>
