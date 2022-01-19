@@ -11,7 +11,7 @@ interface ShopCardProps {
 
 function ShopCard(props: ShopCardProps) {
   const { cardData } = props;
-  const { image, store, category, shopId } = cardData;
+  const { image, shopName, category, shopId } = cardData;
 
   const joinCategory = () => {
     if (typeof category === 'string') return category;
@@ -23,7 +23,7 @@ function ShopCard(props: ShopCardProps) {
       <StyledRoot>
         <Image src={image} width={282} height={208} alt="thumbnail" />
         <StyledTitle>
-          <h3>{store}</h3>
+          <h3>{shopName}</h3>
           <p>{joinCategory()}</p>
         </StyledTitle>
       </StyledRoot>

@@ -3,8 +3,8 @@
     {
       "shopId": 1,
       "phone": "010-1234-5678",
-      "homepage": "www.naver.com",
-      "store": "오구오구",
+      "homepage": "https://www.naver.com",
+      "store": "",
       "shopName": "오구오구",
       "category": "인테리어소품",
       "theme": "아기자기한",
@@ -24,8 +24,8 @@
     {
       "shopId": 2,
       "phone": "010-1234-5678",
-      "homepage": "www.naver.com",
-      "store": "공감도",
+      "homepage": "https://www.naver.com",
+      "store": "",
       "shopName": "공감도",
       "category": "공예품",
       "theme": "빈티지",
@@ -45,8 +45,8 @@
     {
       "shopId": 3,
       "phone": "010-1234-5678",
-      "homepage": "www.naver.com",
-      "store": "부커웨이",
+      "homepage": "https://www.naver.com",
+      "store": "",
       "shopName": "부커웨이",
       "category": "문구·팬시",
       "theme": "아기자기한",
@@ -66,8 +66,8 @@
     {
       "shopId": 4,
       "phone": "010-1234-5678",
-      "homepage": "www.naver.com",
-      "store": "롤리포니",
+      "homepage": "https://www.naver.com",
+      "store": "",
       "shopName": "롤리포니",
       "category": "인형·장난감",
       "theme": "아기자기한",
@@ -87,8 +87,8 @@
     {
       "shopId": 5,
       "phone": "010-1234-5678",
-      "homepage": "www.naver.com",
-      "store": "세리룸",
+      "homepage": "https://www.naver.com",
+      "store": "",
       "shopName": "세리룸",
       "category": "인테리어소품",
       "theme": "빈티지",
@@ -108,8 +108,8 @@
     {
       "shopId": 6,
       "phone": "010-1234-5678",
-      "homepage": "www.naver.com",
-      "store": "홈리학",
+      "homepage": "https://www.naver.com",
+      "store": "",
       "shopName": "홈리학",
       "category": "인테리어소품",
       "theme": "빈티지",
@@ -129,8 +129,8 @@
     {
       "shopId": 7,
       "phone": "010-1234-5678",
-      "homepage": "www.naver.com",
-      "store": "문득그가게",
+      "homepage": "https://www.naver.com",
+      "store": "",
       "shopName": "문득그가게",
       "category": "주방용품",
       "theme": "아기자기한",
@@ -150,8 +150,8 @@
     {
       "shopId": 8,
       "phone": "010-1234-5678",
-      "homepage": "www.naver.com",
-      "store": "이티비티샵",
+      "homepage": "https://www.naver.com",
+      "store": "",
       "shopName": "이티비티샵",
       "category": "공예품",
       "theme": "힙한",
@@ -171,8 +171,8 @@
     {
       "shopId": 9,
       "phone": "010-1234-5678",
-      "homepage": "www.naver.com",
-      "store": "핑크바케스 수유점",
+      "homepage": "https://www.naver.com",
+      "store": " 수유점",
       "shopName": "핑크바케스 수유점",
       "category": "문구·팬시",
       "theme": "아기자기한",
@@ -192,8 +192,8 @@
     {
       "shopId": 10,
       "phone": "010-1234-5678",
-      "homepage": "www.naver.com",
-      "store": "문어가든",
+      "homepage": "https://www.naver.com",
+      "store": "",
       "shopName": "문어가든",
       "category": "패션소품",
       "theme": "아기자기한",
@@ -213,8 +213,8 @@
     {
       "shopId": 11,
       "phone": "010-1234-5678",
-      "homepage": "www.naver.com",
-      "store": "일랑애랑",
+      "homepage": "https://www.naver.com",
+      "store": "",
       "shopName": "일랑애랑",
       "category": "인테리어소품",
       "theme": "아기자기한",
@@ -234,8 +234,8 @@
     {
       "shopId": 12,
       "phone": "010-1234-5678",
-      "homepage": "www.naver.com",
-      "store": "일랑애랑",
+      "homepage": "https://www.naver.com",
+      "store": "",
       "shopName": "일랑애랑",
       "category": "주방용품",
       "theme": "아기자기한",
@@ -255,8 +255,8 @@
     {
       "shopId": 13,
       "phone": "010-1234-5678",
-      "homepage": "www.naver.com",
-      "store": "일랑애랑",
+      "homepage": "https://www.naver.com",
+      "store": "",
       "shopName": "일랑애랑",
       "category": "주방용품",
       "theme": "아기자기한",
@@ -477,6 +477,174 @@
     },
     {
       "reviewId": 6,
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ],
+      "shopName": "소품샵이지롱",
+      "writerName": "권혁진",
+      "writerThumbnail": "/assets/ex_profile.jpg",
+      "likeCount": 123,
+      "scrapCount": 4,
+      "date": "22.01.09",
+      "content": "something text will be placed. this is not my intend",
+      "category": ["인테리어소품", "인형·장난감"],
+      "tag": ["바보", "배고파", "피자"],
+      "shopId": "h7iGMOW",
+      "sort": "review",
+      "area": "종로구",
+      "reviewCount": 21,
+      "type": "random",
+      "thumbnail": "/assets/dummy/dummy-image.jpg"
+    },
+    {
+      "reviewId": 7,
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ],
+      "shopName": "소품샵이지롱",
+      "writerName": "권혁진",
+      "writerThumbnail": "/assets/ex_profile.jpg",
+      "likeCount": 123,
+      "scrapCount": 4,
+      "date": "22.01.09",
+      "content": "something text will be placed. this is not my intend",
+      "category": ["인테리어소품", "인형·장난감"],
+      "tag": ["바보", "배고파", "피자"],
+      "shopId": 2,
+      "sort": "save",
+      "area": "강남구",
+      "reviewCount": 21,
+      "type": "popular",
+      "thumbnail": "/assets/dummy/dummy-image.jpg"
+    },
+    {
+      "reviewId": 8,
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ],
+      "shopName": "소품샵이지롱",
+      "writerName": "권혁진",
+      "writerThumbnail": "/assets/ex_profile.jpg",
+      "likeCount": 123,
+      "scrapCount": 4,
+      "date": "22.01.09",
+      "content": "something text will be placed. this is not my intend",
+      "category": ["인테리어소품", "인형·장난감"],
+      "tag": ["바보", "배고파", "피자"],
+      "shopId": 2,
+      "sort": "review",
+      "area": "종로구",
+      "reviewCount": 21,
+      "type": "random",
+      "thumbnail": "/assets/dummy/dummy-image.jpg"
+    },
+    {
+      "reviewId": 9,
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ],
+      "shopName": "소품샵이지롱",
+      "writerName": "권혁진",
+      "writerThumbnail": "/assets/ex_profile.jpg",
+      "likeCount": 123,
+      "scrapCount": 4,
+      "date": "22.01.09",
+      "content": "something text will be placed. this is not my intend",
+      "category": ["인테리어소품", "인형·장난감"],
+      "tag": ["바보", "배고파", "피자"],
+      "shopId": 1,
+      "sort": "save",
+      "area": "종로구",
+      "reviewCount": 21,
+      "type": "random",
+      "thumbnail": "/assets/dummy/dummy-image.jpg"
+    },
+    {
+      "reviewId": 10,
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ],
+      "shopName": "소품샵이지롱",
+      "writerName": "권혁진",
+      "writerThumbnail": "/assets/ex_profile.jpg",
+      "likeCount": 123,
+      "scrapCount": 4,
+      "date": "22.01.09",
+      "content": "something text will be placed. this is not my intend",
+      "category": ["인테리어소품", "인형·장난감"],
+      "tag": ["바보", "배고파", "피자"],
+      "shopId": "za0kpL-",
+      "sort": "recent",
+      "area": "종로구",
+      "reviewCount": 21,
+      "type": "random",
+      "thumbnail": "/assets/dummy/dummy-image.jpg"
+    },
+    {
+      "reviewId": 11,
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ],
+      "shopName": "소품샵이지롱",
+      "writerName": "권혁진",
+      "writerThumbnail": "/assets/ex_profile.jpg",
+      "likeCount": 123,
+      "scrapCount": 4,
+      "date": "22.01.09",
+      "content": "something text will be placed. this is not my intend",
+      "category": ["인테리어소품", "인형·장난감"],
+      "tag": ["바보", "배고파", "피자"],
+      "shopId": 6,
+      "sort": "save",
+      "area": "종로구",
+      "reviewCount": 21,
+      "type": "random",
+      "thumbnail": "/assets/dummy/dummy-image.jpg"
+    },
+    {
+      "reviewId": 12,
       "item": [
         {
           "itemName": "주방용품",

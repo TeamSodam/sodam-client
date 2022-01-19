@@ -33,12 +33,12 @@ export const miniTooltipStyle = css`
   }
 `;
 
-export const getMiniToolTipTemplate = (shopInfo: Pick<Shop, 'store'>): string => {
-  const { store } = shopInfo;
+export const getMiniToolTipTemplate = (shopInfo: Pick<Shop, 'shopName'>): string => {
+  const { shopName } = shopInfo;
 
   const tooltipTemplate = `
     <div class="marker-miniTooltip">
-      <span class="marker-miniTooltip__title">${store}</span>
+      <span class="marker-miniTooltip__title">${shopName}</span>
     </div>
   `;
 

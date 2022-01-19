@@ -9,13 +9,13 @@ import { getLocationByAddress } from './search';
 
 export const displayMarker = async (
   map: KakaoMap,
-  shopInfo: Pick<Shop, 'store' | 'category' | 'landAddress' | 'shopId'>,
+  shopInfo: Pick<Shop, 'shopName' | 'category' | 'landAddress' | 'shopId'>,
   addMarkerToList: (markerInfo: MarkerInfo) => PayloadAction<MarkerInfo>,
   changeClickState: (markerInfo: MarkerInfo) => PayloadAction<MarkerInfo>,
   isStaticMarker?: boolean,
 ) => {
   const { kakao } = window;
-  const { landAddress, store } = shopInfo;
+  const { landAddress, shopName } = shopInfo;
   const markerPosition = await getLocationByAddress(landAddress);
 
   const MARKER_SRC = '/assets/ic_basic_marker.svg';
@@ -29,7 +29,7 @@ export const displayMarker = async (
     position: markerPosition,
     image: markerImage,
     clickable: true,
-    title: store,
+    title: shopName,
   });
 
   const customOverlay = new kakao.maps.CustomOverlay({
@@ -46,7 +46,7 @@ export const displayMarker = async (
     kakao.maps.event.addListener(marker, 'click', () => {
       const nextMarkerState = {
         marker,
-        name: store,
+        name: shopName,
         isClicked: !isClicked,
       };
       if (isClicked) {
@@ -63,7 +63,7 @@ export const displayMarker = async (
 
     addMarkerToList({
       marker,
-      name: store,
+      name: shopName,
       isClicked,
     });
   } else {
