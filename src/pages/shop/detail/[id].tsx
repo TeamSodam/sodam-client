@@ -50,8 +50,6 @@ function Detail() {
   };
 
   const showReviewList = () => {
-    console.log(reviewList);
-
     if (reviewList && reviewList.length > 0) {
       return reviewList.map((review) => <ReviewCard key={review.reviewId} reviewData={review} />);
     }

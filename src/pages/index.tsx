@@ -125,7 +125,6 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ()
     const axiosResult = reviewResult.data;
     if (axiosResult.status === 200) {
       resultProps.reviewList = axiosResult.data.filter((data) => data.image[0] !== null);
-      console.log(axiosResult.data);
     }
   }
 
