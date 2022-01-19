@@ -23,9 +23,18 @@ export interface ShopCardData extends Pick<Shop, 'shopId' | 'image' | 'shopName'
   rank?: number;
 }
 
-export type ShopRequestType = 'random' | 'popular';
+export type ShopMainSortType = 'random' | 'popular';
+export type ShopThemeSortType = 'popular' | 'review';
+export interface ShopPaginationType {
+  offset: number;
+  limit: number;
+}
 
 export type ShopThemeType = '아기자기한' | '힙한' | '모던한' | '빈티지';
+export interface ShopThemeRequestType extends ShopPaginationType {
+  sortType: ShopThemeSortType;
+  theme: ShopThemeType;
+}
 
 export type ShopCategoryType =
   | '문구·팬시'

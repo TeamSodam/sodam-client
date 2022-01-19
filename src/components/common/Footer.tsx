@@ -33,8 +33,10 @@ function Footer() {
 
 const FooterWrapper = styled.div`
   display: flex;
+  justify-content: center;
   width: 100%;
-  padding: 5.5rem 0 5.5rem 36rem;
+  height: 23.6rem;
+  padding-top: 5.4rem;
   background-color: ${({ theme }) => theme.colors.grayBg};
   color: ${({ theme }) => theme.colors.black2};
 `;

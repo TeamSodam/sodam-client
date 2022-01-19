@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { axiosBaseQuery } from 'libs/api';
-import { Review, ReviewShopIdRequestParams } from 'types/review';
+import { Review, ReviewInfoRequestById, ReviewShopIdRequestParams } from 'types/review';
 
 export const reviewApi = createApi({
   reducerPath: 'reviewApi',
@@ -30,6 +30,12 @@ export const reviewApi = createApi({
         };
       },
     }),
+    getShopReviewById: builder.query<Review[], ReviewInfoRequestById>({
+      query: ({ reviewId, shopId }) => ({
+        url: `/shop/${shopId}/review/${reviewId}`,
+        method: 'GET',
+      }),
+    }),
     postReview: builder.mutation<Review, { token: string; reviewInfo: Required<Review> }>({
       query: ({ token, reviewInfo }) => ({
         url: '/review',
@@ -49,4 +55,5 @@ export const {
   useGetMyScrapReviewQuery,
   useGetReviewByShopIdQuery,
   usePostReviewMutation,
+  useGetShopReviewByIdQuery,
 } = reviewApi;

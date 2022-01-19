@@ -24,6 +24,11 @@ export interface Review {
   reviewCount: number;
 }
 
+export interface ReviewInfoRequestById {
+  reviewId: number;
+  shopId: number;
+}
+
 export interface ReviewCardData extends Omit<Review, 'item' | 'tag' | 'image'> {
   thumbnail: string;
 }

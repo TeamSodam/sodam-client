@@ -41,10 +41,10 @@ const StyledUl = styled.ul`
   display: flex;
   position: absolute;
   flex-direction: column;
-  z-index: 1;
+  z-index: 3;
   width: 11.5rem;
   top: 0;
-  left: 0;
+  right: 0;
   box-shadow: 0px 3px 8px rgba(87, 82, 76, 0.15);
   border-radius: 0.5rem;
   background-color: white;

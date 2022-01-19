@@ -1,8 +1,11 @@
 {
   "/review/:shopId\\?sort=:sort?page=:page": "/review?shopId=:shopId&sort=:sort&_page=:page&_limit=9",
+  "/review/:shopId\\?sort=:sort": "/review?shopId=:shopId",
   "/shop/category\\?type=:type": "/shop?category=:type",
   "/shop\\?type=:type": "/shop?type=:type",
   "/shop\\?area=:area": "/shop?area=:area",
   "/shop\\?shopId=:shopId": "/shop?shopId=:shopId",
   "/shop/:shopId/location": "/shop?subway=수유역"
+  "/shop\\?theme=:themeType&sort=:sortType&offset=:offset&limit=:limit": "/shop?theme=:themeType",
+  "/shop/:shopId/review/:reviewId": "/review?shopId=:shopId&reviewId=:reviewId"
 }
