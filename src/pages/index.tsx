@@ -6,7 +6,7 @@ import ShopCard from 'components/common/ShopCard';
 import ShopCardRank from 'components/common/ShopCardRank';
 import ThemeSelector from 'components/ThemeSelector';
 import { MoreFilterList } from 'constants/dropdownOptionList';
-// import { reviewApi } from 'features/reviews/reviewApi';
+import { reviewApi } from 'features/reviews/reviewApi';
 import { shopApi } from 'features/shops/shopApi';
 import { selectUserInfo } from 'features/users/userSlice';
 import { useAppSelector } from 'src/app/hook';
@@ -95,15 +95,15 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ()
   const dispatch = store.dispatch;
   const randomShopResult = await dispatch(shopApi.endpoints.getShopInfo.initiate('random'));
   const popularShopResult = await dispatch(shopApi.endpoints.getShopInfo.initiate('popular'));
-  // const reviewResult = await dispatch(reviewApi.endpoints.getReview.initiate());
+  const reviewResult = await dispatch(reviewApi.endpoints.getReview.initiate());
 
   const resultProps: {
     randomShopList: ShopResponse[];
-    reviewList: ShopResponse[];
+    reviewList: Review[];
     popularShopList: ShopResponse[];
   } = {
     randomShopList: [],
-    reviewList: [],
+    reviewList: reviewResult.data || [],
     popularShopList: [],
   };
 
