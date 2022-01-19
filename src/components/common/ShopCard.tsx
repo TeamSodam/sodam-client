@@ -21,7 +21,7 @@ function ShopCard(props: ShopCardProps) {
   return (
     <Link href={`/shop/detail/${shopId}`} passHref>
       <StyledRoot>
-        <Image src={image} width={282} height={208} alt="thumbnail" />
+        <Image src={image[0]} width={282} height={208} alt="thumbnail" />
         <StyledTitle>
           <h3>{shopName}</h3>
           <p>{joinCategory()}</p>

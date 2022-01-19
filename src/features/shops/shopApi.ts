@@ -1,6 +1,14 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { axiosBaseQuery } from 'libs/api';
-import { Shop, ShopCategoryType, ShopMainSortType, ShopThemeRequestType } from 'types/shop';
+import { SodamResponse } from 'types/api';
+import {
+  Shop,
+  ShopBookmarkRequestType,
+  ShopCategoryType,
+  ShopMainSortType,
+  ShopResponse,
+  ShopThemeRequestType,
+} from 'types/shop';
 
 export const shopApi = createApi({
   reducerPath: 'shopApi',
@@ -14,9 +22,9 @@ export const shopApi = createApi({
         method: 'GET',
       }),
     }),
-    getShopByTheme: builder.query<Shop[], ShopThemeRequestType>({
+    getShopByTheme: builder.query<SodamResponse<ShopResponse[]>, ShopThemeRequestType>({
       query: ({ theme, sortType, offset, limit }) => ({
-        url: 'http://localhost:4000/shop',
+        url: 'https://server.sodam.me/shop',
         params: {
           theme,
           sort: sortType,
@@ -44,6 +52,12 @@ export const shopApi = createApi({
     getShopBySubway: builder.query<Shop[], number>({
       query: (shopId) => ({ url: `http://localhost:4000/shop/${shopId}/location`, method: 'GET' }),
     }),
+    getShopByBookmark: builder.query<SodamResponse<ShopResponse[]>, ShopBookmarkRequestType>({
+      query: ({ sort, offset, limit }) => ({
+        url: `https://server.sodam.me/shop/bookmark?sort=${sort}&offset=${offset}&limit=${limit}`,
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
@@ -55,4 +69,5 @@ export const {
   useGetShopByShopIdQuery,
   useGetShopSearchResultQuery,
   useGetShopBySubwayQuery,
+  useGetShopByBookmarkQuery,
 } = shopApi;

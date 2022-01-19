@@ -1,8 +1,8 @@
-interface WrappedResponse<T> {
+interface WrappeResponse<T> {
   data: T;
   status: number;
   success: boolean;
   message: string;
 }
 
-export type SodamResponse<T> = WrappedResponse<T>;
+export type SodamResponse<T> = WrapperResponse<T>;
