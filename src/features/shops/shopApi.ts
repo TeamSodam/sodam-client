@@ -34,6 +34,8 @@ export const shopApi = createApi({
     }),
     getShopSearchResult: builder.query<Shop[], string>({
       query: (keyword) => ({ url: `/shop?shopName=${keyword}`, method: 'GET' }),
+    getShopBySubway: builder.query<Shop[], number>({
+      query: (shopId) => ({ url: `/shop/${shopId}/location`, method: 'GET' }),
     }),
   }),
 });
@@ -45,4 +47,5 @@ export const {
   useGetShopByAreaQuery,
   useGetShopByShopIdQuery,
   useGetShopSearchResultQuery,
+  useGetShopBySubwayQuery,
 } = shopApi;

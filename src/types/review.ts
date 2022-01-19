@@ -21,6 +21,7 @@ export interface Review {
   writerThumbnail: string;
   writerName: string;
   thumbnail: string;
+  reviewCount: number;
 }
 
 export interface ReviewInfoRequestById {
@@ -37,6 +38,7 @@ export type ReviewSortType = 'save' | 'review' | 'recent';
 export interface ReviewShopIdRequestParams {
   shopId: number;
   sortType: ReviewSortType;
+  page?: number;
 }
 
 export interface ReviewImage {

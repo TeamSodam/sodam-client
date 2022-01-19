@@ -278,6 +278,7 @@
       "phone": "010-1234-5678",
       "homepage": "www.naver.com",
       "store": "모던할랭ㅋ",
+      "shopName": "알랑방구",
       "category": "주방용품",
       "theme": "모던한",
       "subway": "수유역",
@@ -298,6 +299,7 @@
       "phone": "010-1234-5678",
       "homepage": "www.naver.com",
       "store": "힙해용ㅋ",
+      "shopName": "아오어엌",
       "category": "주방용품",
       "theme": "힙한",
       "subway": "수유역",
@@ -318,6 +320,7 @@
       "phone": "010-1234-5678",
       "homepage": "www.naver.com",
       "store": "모던해용ㅋ",
+      "shopName": "우린삽가능",
       "category": "주방용품",
       "theme": "모던한",
       "subway": "수유역",
@@ -337,6 +340,21 @@
   "review": [
     {
       "reviewId": 1,
+      "shopName": "소품샵이지롱",
+      "writerName": "권혁진",
+      "writerThumbnail": "/assets/ex_profile.jpg",
+      "likeCount": 123,
+      "scrapCount": 4,
+      "date": "22.01.09",
+      "content": "구분 되나요?",
+      "category": ["인테리어소품", "인형·장난감"],
+      "tag": ["바보", "배고파", "피자"],
+      "shopId": "9",
+      "sort": "save",
+      "area": "강남구",
+      "reviewCount": 21,
+      "type": "popular",
+      "thumbnail": "/assets/dummy/dummy-image.jpg",
       "item": [
         {
           "itemName": "주방용품",
@@ -346,25 +364,25 @@
           "itemName": "인테리어소품",
           "price": "10,000원 ~ 14,900원"
         }
-      ],
-      "shopName": "소품샵이지롱",
-      "writerName": "권혁진",
-      "writerThumbnail": "/assets/ex_profile.jpg",
-      "likeCount": 100,
-      "scrapCount": 4,
-      "date": "22.01.09",
-      "content": "something text will be placed. this is not my intend",
-      "category": ["인테리어소품", "인형·장난감"],
-      "tag": ["바보", "배고파", "피자"],
-      "shopId": 2,
-      "sort": "save",
-      "area": "강남구",
-      "reviewCount": 21,
-      "type": "popular",
-      "thumbnail": "/assets/dummy/dummy-image.jpg"
+      ]
     },
     {
       "reviewId": 2,
+      "shopName": "소품샵이지롱",
+      "writerName": "권혁진",
+      "writerThumbnail": "/assets/ex_profile.jpg",
+      "likeCount": 123,
+      "scrapCount": 4,
+      "date": "22.01.09",
+      "content": "치즈 뺐나요?",
+      "category": ["인테리어소품", "인형·장난감"],
+      "tag": ["바보", "배고파", "피자"],
+      "shopId": "9",
+      "sort": "review",
+      "area": "종로구",
+      "reviewCount": 21,
+      "type": "random",
+      "thumbnail": "/assets/dummy/dummy-image.jpg",
       "item": [
         {
           "itemName": "주방용품",
@@ -374,25 +392,25 @@
           "itemName": "인테리어소품",
           "price": "10,000원 ~ 14,900원"
         }
-      ],
-      "shopName": "소품샵이지롱",
-      "writerName": "황주희",
-      "writerThumbnail": "/assets/ex_profile.jpg",
-      "likeCount": 123,
-      "scrapCount": 4,
-      "date": "22.01.09",
-      "content": "여기는 텍스트가 입력되는 공간입니다. 지금 시간은 새벽 5시반, 전 내일 출근 예정. something text will be placed. this is not my intend",
-      "category": ["인테리어소품", "인형·장난감"],
-      "tag": ["바보", "배고파", "피자"],
-      "shopId": 2,
-      "sort": "review",
-      "area": "종로구",
-      "reviewCount": 21,
-      "type": "random",
-      "thumbnail": "/assets/dummy/dummy-image.jpg"
+      ]
     },
     {
       "reviewId": 3,
+      "shopName": "소품샵이지롱",
+      "writerName": "권혁진",
+      "writerThumbnail": "/assets/ex_profile.jpg",
+      "likeCount": 123,
+      "scrapCount": 4,
+      "date": "22.01.09",
+      "content": "아니 안뺀거같은데요",
+      "category": ["인테리어소품", "인형·장난감"],
+      "tag": ["바보", "배고파", "피자"],
+      "shopId": "9",
+      "sort": "review",
+      "area": "종로구",
+      "reviewCount": 21,
+      "type": "random",
+      "thumbnail": "/assets/dummy/dummy-image.jpg",
       "item": [
         {
           "itemName": "주방용품",
@@ -402,25 +420,25 @@
           "itemName": "인테리어소품",
           "price": "10,000원 ~ 14,900원"
         }
-      ],
-      "shopName": "소품샵이지롱",
-      "writerName": "권혁진",
-      "writerThumbnail": "/assets/ex_profile.jpg",
-      "likeCount": 123,
-      "scrapCount": 4,
-      "date": "22.01.09",
-      "content": "something text will be placed. this is not my intend",
-      "category": ["인테리어소품", "인형·장난감"],
-      "tag": ["바보", "배고파", "피자"],
-      "shopId": 1,
-      "sort": "save",
-      "area": "종로구",
-      "reviewCount": 21,
-      "type": "random",
-      "thumbnail": "/assets/dummy/dummy-image.jpg"
+      ]
     },
     {
       "reviewId": 4,
+      "shopName": "소품샵이지롱",
+      "writerName": "권혁진",
+      "writerThumbnail": "/assets/ex_profile.jpg",
+      "likeCount": 123,
+      "scrapCount": 4,
+      "date": "22.01.09",
+      "content": "에그드랍 맛있나요?",
+      "category": ["인테리어소품", "인형·장난감"],
+      "tag": ["바보", "배고파", "피자"],
+      "shopId": "9",
+      "sort": "review",
+      "area": "종로구",
+      "reviewCount": 21,
+      "type": "random",
+      "thumbnail": "/assets/dummy/dummy-image.jpg",
       "item": [
         {
           "itemName": "주방용품",
@@ -430,25 +448,25 @@
           "itemName": "인테리어소품",
           "price": "10,000원 ~ 14,900원"
         }
-      ],
-      "shopName": "소품샵이지롱",
-      "writerName": "권혁진",
-      "writerThumbnail": "/assets/ex_profile.jpg",
-      "likeCount": 123,
-      "scrapCount": 4,
-      "date": "22.01.09",
-      "content": "something text will be placed. this is not my intend",
-      "category": ["인테리어소품", "인형·장난감"],
-      "tag": ["바보", "배고파", "피자"],
-      "shopId": "za0kpL-",
-      "sort": "recent",
-      "area": "종로구",
-      "reviewCount": 21,
-      "type": "random",
-      "thumbnail": "/assets/dummy/dummy-image.jpg"
+      ]
     },
     {
       "reviewId": 5,
+      "shopName": "소품샵이지롱",
+      "writerName": "권혁진",
+      "writerThumbnail": "/assets/ex_profile.jpg",
+      "likeCount": 123,
+      "scrapCount": 4,
+      "date": "22.01.09",
+      "content": "로렘은 맛있어요",
+      "category": ["인테리어소품", "인형·장난감"],
+      "tag": ["바보", "배고파", "피자"],
+      "shopId": "9",
+      "sort": "review",
+      "area": "종로구",
+      "reviewCount": 21,
+      "type": "random",
+      "thumbnail": "/assets/dummy/dummy-image.jpg",
       "item": [
         {
           "itemName": "주방용품",
@@ -458,25 +476,25 @@
           "itemName": "인테리어소품",
           "price": "10,000원 ~ 14,900원"
         }
-      ],
-      "shopName": "소품샵이지롱",
-      "writerName": "권혁진",
-      "writerThumbnail": "/assets/ex_profile.jpg",
-      "likeCount": 123,
-      "scrapCount": 4,
-      "date": "22.01.09",
-      "content": "something text will be placed. this is not my intend",
-      "category": ["인테리어소품", "인형·장난감"],
-      "tag": ["바보", "배고파", "피자"],
-      "shopId": 6,
-      "sort": "save",
-      "area": "종로구",
-      "reviewCount": 21,
-      "type": "random",
-      "thumbnail": "/assets/dummy/dummy-image.jpg"
+      ]
     },
     {
       "reviewId": 6,
+      "shopName": "소품샵이지롱",
+      "writerName": "권혁진",
+      "writerThumbnail": "/assets/ex_profile.jpg",
+      "likeCount": 123,
+      "scrapCount": 4,
+      "date": "22.01.09",
+      "content": "배가 고픈걸까요?",
+      "category": ["인테리어소품", "인형·장난감"],
+      "tag": ["바보", "배고파", "피자"],
+      "shopId": "9",
+      "sort": "review",
+      "area": "종로구",
+      "reviewCount": 21,
+      "type": "random",
+      "thumbnail": "/assets/dummy/dummy-image.jpg",
       "item": [
         {
           "itemName": "주방용품",
@@ -486,25 +504,25 @@
           "itemName": "인테리어소품",
           "price": "10,000원 ~ 14,900원"
         }
-      ],
-      "shopName": "소품샵이지롱",
-      "writerName": "권혁진",
-      "writerThumbnail": "/assets/ex_profile.jpg",
-      "likeCount": 123,
-      "scrapCount": 4,
-      "date": "22.01.09",
-      "content": "something text will be placed. this is not my intend",
-      "category": ["인테리어소품", "인형·장난감"],
-      "tag": ["바보", "배고파", "피자"],
-      "shopId": "h7iGMOW",
-      "sort": "review",
-      "area": "종로구",
-      "reviewCount": 21,
-      "type": "random",
-      "thumbnail": "/assets/dummy/dummy-image.jpg"
+      ]
     },
     {
       "reviewId": 7,
+      "shopName": "소품샵이지롱",
+      "writerName": "권혁진",
+      "writerThumbnail": "/assets/ex_profile.jpg",
+      "likeCount": 123,
+      "scrapCount": 4,
+      "date": "22.01.09",
+      "content": "냄새가 좋네요",
+      "category": ["인테리어소품", "인형·장난감"],
+      "tag": ["바보", "배고파", "피자"],
+      "shopId": "9",
+      "sort": "review",
+      "area": "종로구",
+      "reviewCount": 21,
+      "type": "random",
+      "thumbnail": "/assets/dummy/dummy-shop.png",
       "item": [
         {
           "itemName": "주방용품",
@@ -514,25 +532,25 @@
           "itemName": "인테리어소품",
           "price": "10,000원 ~ 14,900원"
         }
-      ],
-      "shopName": "소품샵이지롱",
-      "writerName": "권혁진",
-      "writerThumbnail": "/assets/ex_profile.jpg",
-      "likeCount": 123,
-      "scrapCount": 4,
-      "date": "22.01.09",
-      "content": "something text will be placed. this is not my intend",
-      "category": ["인테리어소품", "인형·장난감"],
-      "tag": ["바보", "배고파", "피자"],
-      "shopId": 2,
-      "sort": "save",
-      "area": "강남구",
-      "reviewCount": 21,
-      "type": "popular",
-      "thumbnail": "/assets/dummy/dummy-image.jpg"
+      ]
     },
     {
       "reviewId": 8,
+      "shopName": "소품샵이지롱",
+      "writerName": "권혁진",
+      "writerThumbnail": "/assets/ex_profile.jpg",
+      "likeCount": 123,
+      "scrapCount": 4,
+      "date": "22.01.09",
+      "content": "님덜~ 나는 쓰레기야~~",
+      "category": ["인테리어소품", "인형·장난감"],
+      "tag": ["바보", "배고파", "피자"],
+      "shopId": "9",
+      "sort": "review",
+      "area": "종로구",
+      "reviewCount": 21,
+      "type": "random",
+      "thumbnail": "/assets/dummy/dummy-shop.png",
       "item": [
         {
           "itemName": "주방용품",
@@ -542,134 +560,399 @@
           "itemName": "인테리어소품",
           "price": "10,000원 ~ 14,900원"
         }
-      ],
-      "shopName": "소품샵이지롱",
-      "writerName": "권혁진",
-      "writerThumbnail": "/assets/ex_profile.jpg",
-      "likeCount": 123,
-      "scrapCount": 4,
-      "date": "22.01.09",
-      "content": "something text will be placed. this is not my intend",
-      "category": ["인테리어소품", "인형·장난감"],
-      "tag": ["바보", "배고파", "피자"],
-      "shopId": 2,
-      "sort": "review",
-      "area": "종로구",
-      "reviewCount": 21,
-      "type": "random",
-      "thumbnail": "/assets/dummy/dummy-image.jpg"
+      ]
     },
     {
       "reviewId": 9,
-      "item": [
-        {
-          "itemName": "주방용품",
-          "price": "10,000원 ~ 14,900원"
-        },
-        {
-          "itemName": "인테리어소품",
-          "price": "10,000원 ~ 14,900원"
-        }
-      ],
       "shopName": "소품샵이지롱",
       "writerName": "권혁진",
       "writerThumbnail": "/assets/ex_profile.jpg",
       "likeCount": 123,
       "scrapCount": 4,
       "date": "22.01.09",
-      "content": "something text will be placed. this is not my intend",
+      "content": "안돼 안돼 안돼 ",
       "category": ["인테리어소품", "인형·장난감"],
       "tag": ["바보", "배고파", "피자"],
-      "shopId": 1,
-      "sort": "save",
-      "area": "종로구",
-      "reviewCount": 21,
-      "type": "random",
-      "thumbnail": "/assets/dummy/dummy-image.jpg"
-    },
-    {
-      "reviewId": 10,
-      "item": [
-        {
-          "itemName": "주방용품",
-          "price": "10,000원 ~ 14,900원"
-        },
-        {
-          "itemName": "인테리어소품",
-          "price": "10,000원 ~ 14,900원"
-        }
-      ],
-      "shopName": "소품샵이지롱",
-      "writerName": "권혁진",
-      "writerThumbnail": "/assets/ex_profile.jpg",
-      "likeCount": 123,
-      "scrapCount": 4,
-      "date": "22.01.09",
-      "content": "something text will be placed. this is not my intend",
-      "category": ["인테리어소품", "인형·장난감"],
-      "tag": ["바보", "배고파", "피자"],
-      "shopId": "za0kpL-",
-      "sort": "recent",
-      "area": "종로구",
-      "reviewCount": 21,
-      "type": "random",
-      "thumbnail": "/assets/dummy/dummy-image.jpg"
-    },
-    {
-      "reviewId": 11,
-      "item": [
-        {
-          "itemName": "주방용품",
-          "price": "10,000원 ~ 14,900원"
-        },
-        {
-          "itemName": "인테리어소품",
-          "price": "10,000원 ~ 14,900원"
-        }
-      ],
-      "shopName": "소품샵이지롱",
-      "writerName": "권혁진",
-      "writerThumbnail": "/assets/ex_profile.jpg",
-      "likeCount": 123,
-      "scrapCount": 4,
-      "date": "22.01.09",
-      "content": "something text will be placed. this is not my intend",
-      "category": ["인테리어소품", "인형·장난감"],
-      "tag": ["바보", "배고파", "피자"],
-      "shopId": 6,
-      "sort": "save",
-      "area": "종로구",
-      "reviewCount": 21,
-      "type": "random",
-      "thumbnail": "/assets/dummy/dummy-image.jpg"
-    },
-    {
-      "reviewId": 12,
-      "item": [
-        {
-          "itemName": "주방용품",
-          "price": "10,000원 ~ 14,900원"
-        },
-        {
-          "itemName": "인테리어소품",
-          "price": "10,000원 ~ 14,900원"
-        }
-      ],
-      "shopName": "소품샵이지롱",
-      "writerName": "권혁진",
-      "writerThumbnail": "/assets/ex_profile.jpg",
-      "likeCount": 123,
-      "scrapCount": 4,
-      "date": "22.01.09",
-      "content": "something text will be placed. this is not my intend",
-      "category": ["인테리어소품", "인형·장난감"],
-      "tag": ["바보", "배고파", "피자"],
-      "shopId": "h7iGMOW",
+      "shopId": "9",
       "sort": "review",
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/dummy-image.jpg"
+      "thumbnail": "/assets/dummy/dummy-shop.png",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
+    },
+    {
+      "reviewId": 10,
+      "shopName": "소품샵이지롱",
+      "writerName": "권혁진",
+      "writerThumbnail": "/assets/ex_profile.jpg",
+      "likeCount": 123,
+      "scrapCount": 4,
+      "date": "22.01.09",
+      "content": "인생은 실수의 연속이라구",
+      "category": ["인테리어소품", "인형·장난감"],
+      "tag": ["바보", "배고파", "피자"],
+      "shopId": "9",
+      "sort": "review",
+      "area": "종로구",
+      "reviewCount": 21,
+      "type": "random",
+      "thumbnail": "/assets/dummy/dummy-shop.png",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
+    },
+    {
+      "reviewId": 11,
+      "shopName": "소품샵이지롱",
+      "writerName": "권혁진",
+      "writerThumbnail": "/assets/ex_profile.jpg",
+      "likeCount": 123,
+      "scrapCount": 4,
+      "date": "22.01.09",
+      "content": "땡큐 땡큐 땡큐!",
+      "category": ["인테리어소품", "인형·장난감"],
+      "tag": ["바보", "배고파", "피자"],
+      "shopId": "9",
+      "sort": "review",
+      "area": "종로구",
+      "reviewCount": 21,
+      "type": "random",
+      "thumbnail": "/assets/dummy/dummy-shop.png",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
+    },
+    {
+      "reviewId": 12,
+      "shopName": "소품샵이지롱",
+      "writerName": "권혁진",
+      "writerThumbnail": "/assets/ex_profile.jpg",
+      "likeCount": 123,
+      "scrapCount": 4,
+      "date": "22.01.09",
+      "content": "something text will be placed. this is not my intend",
+      "category": ["인테리어소품", "인형·장난감"],
+      "tag": ["바보", "배고파", "피자"],
+      "shopId": "9",
+      "sort": "review",
+      "area": "종로구",
+      "reviewCount": 21,
+      "type": "random",
+      "thumbnail": "/assets/dummy/dummy-shop.png",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
+    },
+    {
+      "reviewId": 13,
+      "shopName": "소품샵이지롱",
+      "writerName": "권혁진",
+      "writerThumbnail": "/assets/ex_profile.jpg",
+      "likeCount": 123,
+      "scrapCount": 4,
+      "date": "22.01.09",
+      "content": "머리아프지마라 히서나",
+      "category": ["인테리어소품", "인형·장난감"],
+      "tag": ["바보", "배고파", "피자"],
+      "shopId": "9",
+      "sort": "review",
+      "area": "종로구",
+      "reviewCount": 21,
+      "type": "random",
+      "thumbnail": "/assets/dummy/shop_detail.png",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
+    },
+    {
+      "reviewId": 14,
+      "shopName": "소품샵이지롱",
+      "writerName": "권혁진",
+      "writerThumbnail": "/assets/ex_profile.jpg",
+      "likeCount": 123,
+      "scrapCount": 4,
+      "date": "22.01.09",
+      "content": "갈릭베이컨 마시따",
+      "category": ["인테리어소품", "인형·장난감"],
+      "tag": ["바보", "배고파", "피자"],
+      "shopId": "9",
+      "sort": "review",
+      "area": "종로구",
+      "reviewCount": 21,
+      "type": "random",
+      "thumbnail": "/assets/dummy/shop_detail.png",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
+    },
+    {
+      "reviewId": 15,
+      "shopName": "소품샵이지롱",
+      "writerName": "권혁진",
+      "writerThumbnail": "/assets/ex_profile.jpg",
+      "likeCount": 123,
+      "scrapCount": 4,
+      "date": "22.01.09",
+      "content": "떡메도 빨리 열려야되는데",
+      "category": ["인테리어소품", "인형·장난감"],
+      "tag": ["바보", "배고파", "피자"],
+      "shopId": "9",
+      "sort": "review",
+      "area": "종로구",
+      "reviewCount": 21,
+      "type": "random",
+      "thumbnail": "/assets/dummy/shop_detail.png",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
+    },
+    {
+      "reviewId": 16,
+      "shopName": "소품샵이지롱",
+      "writerName": "권혁진",
+      "writerThumbnail": "/assets/ex_profile.jpg",
+      "likeCount": 123,
+      "scrapCount": 4,
+      "date": "22.01.09",
+      "content": "나랑 별~~보로가지않을래~",
+      "category": ["인테리어소품", "인형·장난감"],
+      "tag": ["바보", "배고파", "피자"],
+      "shopId": "9",
+      "sort": "review",
+      "area": "종로구",
+      "reviewCount": 21,
+      "type": "random",
+      "thumbnail": "/assets/dummy/shop_detail.png",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
+    },
+    {
+      "reviewId": 17,
+      "shopName": "소품샵이지롱",
+      "writerName": "권혁진",
+      "writerThumbnail": "/assets/ex_profile.jpg",
+      "likeCount": 123,
+      "scrapCount": 4,
+      "date": "22.01.09",
+      "content": "에그드랍와따",
+      "category": ["인테리어소품", "인형·장난감"],
+      "tag": ["바보", "배고파", "피자"],
+      "shopId": "9",
+      "sort": "review",
+      "area": "종로구",
+      "reviewCount": 21,
+      "type": "random",
+      "thumbnail": "/assets/dummy/shop_detail.png",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
+    },
+    {
+      "reviewId": 18,
+      "shopName": "소품샵이지롱",
+      "writerName": "권혁진",
+      "writerThumbnail": "/assets/ex_profile.jpg",
+      "likeCount": 123,
+      "scrapCount": 4,
+      "date": "22.01.09",
+      "content": "이게 바뀌어야 페이지네이션이 되는걸 볼 수 있어서 그래요.",
+      "category": ["인테리어소품", "인형·장난감"],
+      "tag": ["바보", "배고파", "피자"],
+      "shopId": "9",
+      "sort": "review",
+      "area": "종로구",
+      "reviewCount": 21,
+      "type": "random",
+      "thumbnail": "/assets/dummy/shop_detail.png",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
+    },
+    {
+      "reviewId": 19,
+      "shopName": "소품샵이지롱",
+      "writerName": "권혁진",
+      "writerThumbnail": "/assets/ex_profile.jpg",
+      "likeCount": 123,
+      "scrapCount": 4,
+      "date": "22.01.09",
+      "content": "치즈를 빼는 황주희 ㅋ ㅋ",
+      "category": ["인테리어소품", "인형·장난감"],
+      "tag": ["바보", "배고파", "피자"],
+      "shopId": "9",
+      "sort": "review",
+      "area": "종로구",
+      "reviewCount": 21,
+      "type": "random",
+      "thumbnail": "/assets/dummy/dummy-image.jpg",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
+    },
+    {
+      "reviewId": 20,
+      "shopName": "소품샵이지롱",
+      "writerName": "권혁진",
+      "writerThumbnail": "/assets/ex_profile.jpg",
+      "likeCount": 123,
+      "scrapCount": 4,
+      "date": "22.01.09",
+      "content": "주희는 치즈를 빼지 않아서 화가 났어요",
+      "category": ["인테리어소품", "인형·장난감"],
+      "tag": ["바보", "배고파", "피자"],
+      "shopId": "9",
+      "sort": "review",
+      "area": "종로구",
+      "reviewCount": 21,
+      "type": "random",
+      "thumbnail": "/assets/dummy/dummy-image.jpg",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
+    },
+    {
+      "reviewId": 21,
+      "shopName": "소품샵이지롱",
+      "writerName": "권혁진",
+      "writerThumbnail": "/assets/ex_profile.jpg",
+      "likeCount": 123,
+      "scrapCount": 4,
+      "date": "22.01.09",
+      "content": "아야아야아야아야",
+      "category": ["인테리어소품", "인형·장난감"],
+      "tag": ["바보", "배고파", "피자"],
+      "shopId": "9",
+      "sort": "review",
+      "area": "종로구",
+      "reviewCount": 21,
+      "type": "random",
+      "thumbnail": "/assets/dummy/dummy-image.jpg",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
+    },
+    {
+      "reviewId": 22,
+      "shopName": "소품샵이지롱",
+      "writerName": "권혁진",
+      "writerThumbnail": "/assets/ex_profile.jpg",
+      "likeCount": 123,
+      "scrapCount": 4,
+      "date": "22.01.09",
+      "content": "쓸말이없당쓸말이없당 히히 히 힣 ㅣㅎ ㅣ",
+      "category": ["인테리어소품", "인형·장난감"],
+      "tag": ["바보", "배고파", "피자"],
+      "shopId": "9",
+      "sort": "review",
+      "area": "종로구",
+      "reviewCount": 21,
+      "type": "random",
+      "thumbnail": "/assets/dummy/dummy-image.jpg",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
     }
   ]
 }
