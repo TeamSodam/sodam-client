@@ -1,10 +1,8 @@
-import { AxiosResponse } from 'axios';
-
-export interface SodamResponse<T> extends AxiosResponse {
-  data: {
-    data: T;
-    status: number;
-    success: boolean;
-    message: string;
-  };
+interface WrappedResponse<T> {
+  data: T;
+  status: number;
+  success: boolean;
+  message: string;
 }
+
+export type SodamResponse<T> = WrappedResponse<T>;
