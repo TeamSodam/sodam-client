@@ -1,4 +1,4 @@
-interface WrappeResponse<T> {
+interface WrapperResponse<T> {
   data: T;
   status: number;
   success: boolean;

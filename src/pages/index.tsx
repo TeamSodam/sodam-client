@@ -6,17 +6,17 @@ import ShopCard from 'components/common/ShopCard';
 import ShopCardRank from 'components/common/ShopCardRank';
 import ThemeSelector from 'components/ThemeSelector';
 import { MoreFilterList } from 'constants/dropdownOptionList';
-import { reviewApi } from 'features/reviews/reviewApi';
+// import { reviewApi } from 'features/reviews/reviewApi';
 import { shopApi } from 'features/shops/shopApi';
 import { selectUserInfo } from 'features/users/userSlice';
 import { useAppSelector } from 'src/app/hook';
 import styled from 'styled-components';
 import { Review } from 'types/review';
-import { Shop } from 'types/shop';
+import { ShopResponse } from 'types/shop';
 
 interface HomePrefetchProps {
-  randomShopList: Shop[];
-  popularShopList: Shop[];
+  randomShopList: ShopResponse[];
+  popularShopList: ShopResponse[];
   reviewList: Review[];
 }
 
@@ -53,7 +53,7 @@ function Home(props: HomePrefetchProps) {
 
   const showRandomCategorySlider = () => {
     const cardList = randomShopList
-      .filter((shop) => shop.category === randomCategory)
+      .filter((shop) => shop.category.includes(randomCategory))
       .map((shop) => <ShopCard key={shop.shopId} cardData={shop} />);
 
     return <MainSlider slidesPerView={4} cardList={cardList} />;
@@ -95,14 +95,34 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ()
   const dispatch = store.dispatch;
   const randomShopResult = await dispatch(shopApi.endpoints.getShopInfo.initiate('random'));
   const popularShopResult = await dispatch(shopApi.endpoints.getShopInfo.initiate('popular'));
-  const reviewResult = await dispatch(reviewApi.endpoints.getReview.initiate());
+  // const reviewResult = await dispatch(reviewApi.endpoints.getReview.initiate());
+
+  const resultProps: {
+    randomShopList: ShopResponse[];
+    reviewList: ShopResponse[];
+    popularShopList: ShopResponse[];
+  } = {
+    randomShopList: [],
+    reviewList: [],
+    popularShopList: [],
+  };
+
+  if (randomShopResult.isSuccess) {
+    const axiosResult = randomShopResult.data;
+    if (axiosResult.status === 200) {
+      resultProps.randomShopList = axiosResult.data;
+    }
+  }
+
+  if (popularShopResult.isSuccess) {
+    const axiosResult = popularShopResult.data;
+    if (axiosResult.status === 200) {
+      resultProps.popularShopList = axiosResult.data;
+    }
+  }
 
   return {
-    props: {
-      randomShopList: randomShopResult.data || [],
-      reviewList: reviewResult.data || [],
-      popularShopList: popularShopResult.data || [],
-    },
+    props: resultProps,
   };
 });
 
