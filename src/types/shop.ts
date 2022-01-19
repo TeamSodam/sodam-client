@@ -45,6 +45,12 @@ export interface ShopSubwayResponse {
   shopList: ShopResponse[];
 }
 
+export interface ShopBookmarkRequestType {
+  sort: string;
+  offset: number;
+  limit: number;
+}
+
 export type ShopThemeType = '아기자기한' | '힙한' | '모던한' | '빈티지';
 export interface ShopThemeRequestType extends ShopPaginationType {
   sortType: ShopThemeSortType;

@@ -5,11 +5,11 @@ import ThemeSelector from 'components/ThemeSelector';
 import { shopApi } from 'features/shops/shopApi';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
-import { Shop, ShopThemeType } from 'types/shop';
+import { ShopResponse, ShopThemeType } from 'types/shop';
 
 interface ThemePageProps {
   data: {
-    [key in ShopThemeType]: Shop[];
+    [key in ShopThemeType]: ShopResponse[];
   };
 }
 
@@ -27,6 +27,7 @@ const parseThemeType = (themeType: string | string[] | undefined) => {
 
 function ThemePage(props: ThemePageProps) {
   const { data } = props;
+
   const router = useRouter();
   const { type } = router.query;
 
@@ -61,16 +62,21 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ()
     const result = await dispatch(
       shopApi.endpoints.getShopByTheme.initiate({
         theme,
-        sortType: 'popular',
-        offset: 9,
-        limit: 1,
+        sortType: 'review',
+        offset: 1,
+        limit: 16,
       }),
     );
 
-    resultData = {
-      ...resultData,
-      [theme]: result.data,
-    };
+    if (result.isSuccess) {
+      const axiosResult = result.data;
+      if (axiosResult.status === 200) {
+        resultData = {
+          ...resultData,
+          [theme]: axiosResult.data || [],
+        };
+      }
+    }
   }
 
   return {
