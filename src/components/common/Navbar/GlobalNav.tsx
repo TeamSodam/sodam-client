@@ -5,18 +5,18 @@ import ProfileIC from 'public/assets/profile.svg';
 import SearchIC from 'public/assets/searchIcon.svg';
 import styled from 'styled-components';
 
+interface MenuList {
+  menuName: string;
+  menuURL: string | string[];
+}
+
 function GlobalNav() {
   const menuList = [
     { menuName: '소품샵 지도', menuURL: '/map' },
     { menuName: '테마별 소품샵', menuURL: '/shop/theme/list' },
-    { menuName: '저장한 소품샵', menuURL: '/shop/collect' },
+    { menuName: '저장한 소품샵', menuURL: ['/shop/collect', '/shop/empty'] },
     { menuName: 'My Review', menuURL: '/review/my' },
   ];
-
-  interface MenuList {
-    menuName: string;
-    menuURL: string;
-  }
 
   const router = useRouter();
 
@@ -25,16 +25,19 @@ function GlobalNav() {
   };
 
   const onClickMenu = (menu: MenuList) => {
-    menu.menuName === 'My Review' ? router.push('/review/my/write') : router.push(menu.menuURL);
+    menu.menuName === 'My Review' ? router.push('/review/my/write') : router.push(menu.menuURL[0]);
   };
 
   const isCurrentPathIncludesMyReview = () => router.asPath.includes('/review/my');
 
   const getIsActive = (menu: MenuList) => {
-    if (menu.menuName === 'My Review') {
-      return isCurrentPathIncludesMyReview();
+    if (typeof menu.menuURL === 'string') {
+      if (menu.menuName === 'My Review') {
+        return isCurrentPathIncludesMyReview();
+      }
+      return menu.menuURL === router.asPath;
     }
-    return menu.menuURL === router.asPath;
+    return menu.menuURL.some((url) => url === router.asPath);
   };
 
   return (
@@ -109,11 +112,9 @@ const Logo = styled.div`
   height: 2.6rem;
   margin-right: 4.3rem;
 
-
   &:hover {
     cursor: pointer;
   }
-
 `;
 
 const MenuList = styled.div`
@@ -133,11 +134,9 @@ const Menu = styled.a<{ isActive: boolean }>`
   color: ${(props) => props.isActive && props.theme.colors.purpleMain};
   font-weight: ${(props) => (props.isActive ? '600' : '400')};
 
-
   &:hover {
     cursor: pointer;
   }
-
 `;
 
 const SearchBar = styled.div`
