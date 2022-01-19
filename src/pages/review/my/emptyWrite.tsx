@@ -1,7 +1,7 @@
-import NoContent from 'components/common/NoContent';
+import NoContent from 'components/common/EmptyContent';
 import styled from 'styled-components';
 
-const noContentData = {
+const emptyContentData = {
   title: '내가 작성한 리뷰',
   src: '/assets/img_writeNoContent.png',
   label: '아직 작성한 리뷰가 없어요',
@@ -10,16 +10,15 @@ const noContentData = {
   buttonUrl: '/review/my/write',
 };
 
-function noContent() {
+function emptyWrite() {
   return (
     <Container>
-      <NoContent noContentData={noContentData} />
+      <NoContent emptyContentData={emptyContentData} />
     </Container>
   );
 }
 const Container = styled.main`
   width: 100%;
-  height: calc(100vh - 8.2rem - 23.7rem);
 `;
 
-export default noContent;
+export default emptyWrite;

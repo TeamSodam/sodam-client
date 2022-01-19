@@ -1,7 +1,7 @@
-import NoContent from 'components/common/NoContent';
+import NoContent from 'components/common/EmptyContent';
 import styled from 'styled-components';
 
-const noContentData = {
+const emptyContentData = {
   title: '저장한 소품샵',
   src: '/assets/img_shopNoContent.png',
   label: '아직 저장한 소품샵이 없어요',
@@ -10,16 +10,15 @@ const noContentData = {
   buttonUrl: '/shop/theme/아기자기한',
 };
 
-function noContent() {
+function empty() {
   return (
     <Container>
-      <NoContent noContentData={noContentData} />
+      <NoContent emptyContentData={emptyContentData} />
     </Container>
   );
 }
 const Container = styled.main`
   width: 100%;
-  height: calc(100vh - 8.2rem - 23.7rem);
 `;
 
-export default noContent;
+export default empty;

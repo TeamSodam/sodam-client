@@ -3,8 +3,8 @@ import styled from 'styled-components';
 
 import ImageDiv from './ImageDiv';
 
-interface NoContentProps {
-  noContentData: {
+interface EmptyContentProps {
+  emptyContentData: {
     title: string;
     src: string;
     label: string;
@@ -14,13 +14,13 @@ interface NoContentProps {
   };
 }
 
-function NoContent(props: NoContentProps) {
-  const { noContentData } = props;
+function EmptyContent(props: EmptyContentProps) {
+  const { emptyContentData } = props;
 
-  const { title, src, label, subLabel, button, buttonUrl } = noContentData;
+  const { title, src, label, subLabel, button, buttonUrl } = emptyContentData;
 
   return (
-    <Container>
+    <StyledContainer>
       <Header>{title}</Header>
       <ContentWrapper>
         <ImageDiv className="shop_image" width={282} height={281} src={src} alt="shop_image" />
@@ -30,11 +30,11 @@ function NoContent(props: NoContentProps) {
           <Button>{button}</Button>
         </Link>
       </ContentWrapper>
-    </Container>
+    </StyledContainer>
   );
 }
 
-const Container = styled.main`
+const StyledContainer = styled.div`
   width: 100%;
   height: calc(100vh - 8.2rem - 23.7rem);
   padding: 7.2rem 36.1rem 14.8rem;
@@ -81,4 +81,4 @@ const Button = styled.button`
   border-radius: 5px;
 `;
 
-export default NoContent;
+export default EmptyContent;
