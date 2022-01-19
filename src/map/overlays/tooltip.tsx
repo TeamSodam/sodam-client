@@ -62,9 +62,9 @@ export const tooltipStyle = css`
 `;
 
 export const getToolTipTemplate = (
-  shopInfo: Pick<Shop, 'store' | 'category' | 'landAddress' | 'shopId'>,
+  shopInfo: Pick<Shop, 'shopName' | 'category' | 'landAddress' | 'shopId'>,
 ): string => {
-  const { store, category, landAddress, shopId } = shopInfo;
+  const { shopName, category, landAddress, shopId } = shopInfo;
   const parseCategory = (category: string | string[]) => {
     if (typeof category === 'string') return category;
 
@@ -76,7 +76,7 @@ export const getToolTipTemplate = (
   const tooltipTemplate = `
     <a class="marker-tooltip" href="/shop/detail/${shopId}">
       <div class="marker-tooltip__header">
-        <span class="marker-tooltip__title">${store}</span>
+        <span class="marker-tooltip__title">${shopName}</span>
         <span class="marker-tooltip__category">${parseCategory(category)}</span>
       </div>
       <p class="marker-tooltip__content">

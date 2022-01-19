@@ -1,4 +1,6 @@
-import DetailShopAddress from 'components/DetailShopAddress';
+import DetailImageGrid from 'components/ShopDetail/DetailImageGrid';
+import DetailInfo from 'components/ShopDetail/DetailInfo';
+import DetailShopAddress from 'components/ShopDetail/DetailShopAddress';
 import { useGetShopByShopIdQuery } from 'features/shops/shopApi';
 import useMap from 'hooks/useMap';
 import { useRouter } from 'next/router';
@@ -32,23 +34,38 @@ function Detail() {
   useEffect(() => {
     (async () => {
       if (shopInfo && shopInfo.length > 0) {
-        const { category, landAddress, store, shopId } = shopInfo[0];
-        await displayMarkerByAddress({ landAddress, store, category, shopId });
+        const { category, landAddress, shopName, shopId } = shopInfo[0];
+        await displayMarkerByAddress({ landAddress, shopName, category, shopId });
       }
     })();
   }, [shopInfo, displayMarkerByAddress]);
 
   return (
     <StyledContainer>
-      <MapContainer ref={mapRef}>{showDetailShopAddress()}</MapContainer>
+      <ColoredBackground />
+      <Wrapper>
+        <DetailImageGrid />
+        {shopInfo && shopInfo.length > 0 && <DetailInfo shopInfo={shopInfo[0]} />}
+        <MapContainer ref={mapRef}>{showDetailShopAddress()}</MapContainer>
+      </Wrapper>
     </StyledContainer>
   );
 }
 
 const StyledContainer = styled.main`
+  width: 100%;
   display: flex;
   flex-direction: column;
-  margin: 7.2rem 18.75% 13.4rem 18.75%;
+  position: relative;
+`;
+
+const Wrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 7.2rem 18.75% 13.4rem 18.75%;
+  z-index: 2;
+  gap: 5.6rem;
 `;
 
 const MapContainer = styled.div`
@@ -56,6 +73,14 @@ const MapContainer = styled.div`
   height: 32rem;
 
   position: relative;
+`;
+
+const ColoredBackground = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 59rem;
+  top: 0;
+  background-color: ${({ theme }) => theme.colors.purpleBg};
 `;
 
 export default Detail;

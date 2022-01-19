@@ -36,8 +36,8 @@ function MapWithAreaId() {
     if (areaShopList) {
       (() => {
         areaShopList.forEach(async (shopInfo) => {
-          const { category, landAddress, store, shopId } = shopInfo;
-          await displayMarkerByAddress({ landAddress, store, category, shopId });
+          const { category, landAddress, shopName, shopId } = shopInfo;
+          await displayMarkerByAddress({ landAddress, shopName, category, shopId });
         });
       })();
     }
