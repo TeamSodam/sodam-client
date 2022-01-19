@@ -5,7 +5,7 @@ import ProfileIC from 'public/assets/profile.svg';
 import SearchIC from 'public/assets/searchIcon.svg';
 import styled from 'styled-components';
 
-interface MenuList {
+interface MenuListType {
   menuName: string;
   menuURL: string | string[];
 }
@@ -24,13 +24,13 @@ function GlobalNav() {
     router.push('/');
   };
 
-  const onClickMenu = (menu: MenuList) => {
+  const onClickMenu = (menu: MenuListType) => {
     menu.menuName === 'My Review' ? router.push('/review/my/write') : router.push(menu.menuURL[0]);
   };
 
   const isCurrentPathIncludesMyReview = () => router.asPath.includes('/review/my');
 
-  const getIsActive = (menu: MenuList) => {
+  const getIsActive = (menu: MenuListType) => {
     if (typeof menu.menuURL === 'string') {
       if (menu.menuName === 'My Review') {
         return isCurrentPathIncludesMyReview();
