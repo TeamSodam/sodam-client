@@ -1,6 +1,7 @@
 import PreviewImageList from 'components/review/write/PreviewImageList';
 import PreviewImageMain from 'components/review/write/PreviewImageMain';
 import ReviewText from 'components/review/write/ReviewText';
+import SubmitButton from 'components/review/write/SubmitButton';
 import TagList from 'components/review/write/TagList';
 import { useEffect, useState } from 'react';
 import { ReviewImage } from 'types/review';
@@ -18,8 +19,10 @@ function Write() {
   useEffect(() => {
     if (reviewImageList.length > 0 && reviewData.text.length >= 35) {
       setIsSubmitAvailable(true);
+    } else {
+      setIsSubmitAvailable(false);
     }
-  }, [reviewImageList, reviewData]);
+  }, [reviewImageList, reviewData.text]);
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files === null) return;
@@ -103,6 +106,12 @@ function Write() {
     setReviewData(tempData);
   };
 
+  const handleFormSubmit = async () => {
+    if (isSubmitAvailable) {
+      console.log(reviewImageList, reviewData);
+    }
+  };
+
   return (
     <>
       <PreviewImageMain
@@ -122,6 +131,7 @@ function Write() {
         handleTagSubmit={handleTagSubmit}
         handleTagDelete={handleTagDelete}
       />
+      <SubmitButton isSubmitAvailable={isSubmitAvailable} handleFormSubmit={handleFormSubmit} />
     </>
   );
 }
