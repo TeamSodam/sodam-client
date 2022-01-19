@@ -4,14 +4,14 @@ import ShopCard from 'components/common/ShopCard';
 import { shopApi } from 'features/shops/shopApi';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
-import { Shop } from 'types/shop';
+import { ShopResponse } from 'types/shop';
 
 interface CollectPrefetchProps {
-  randomShopList: Shop[];
+  collectShopList: ShopResponse[];
 }
 
 function collect(props: CollectPrefetchProps) {
-  const { randomShopList } = props;
+  const { collectShopList } = props;
 
   return (
     <StyledContainer>
@@ -20,7 +20,7 @@ function collect(props: CollectPrefetchProps) {
         <DropDownFilter pageType="collect" />
       </StyledFilterWrapper>
       <StyledCardWrapper>
-        {randomShopList.map((shop) => (
+        {collectShopList.map((shop) => (
           <ShopCard key={shop.shopId} cardData={shop} />
         ))}
       </StyledCardWrapper>
@@ -32,11 +32,21 @@ export default collect;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
   const dispatch = store.dispatch;
-  const randomShopResult = await dispatch(shopApi.endpoints.getShopInfo.initiate('random'));
+  const collectShopResult = await dispatch(
+    shopApi.endpoints.getShopByBookmark.initiate({ sort: 'save', offset: 1, limit: 12 }),
+  );
+  let responseData: ShopResponse[] = [];
+
+  if (collectShopResult.isSuccess) {
+    const axiosResult = collectShopResult.data;
+    if (axiosResult.status === 200) {
+      responseData = axiosResult.data;
+    }
+  }
 
   return {
     props: {
-      randomShopList: randomShopResult.data || [],
+      collectShopList: responseData,
     },
   };
 });

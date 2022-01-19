@@ -3,6 +3,7 @@ import { axiosBaseQuery } from 'libs/api';
 import { SodamResponse } from 'types/api';
 import {
   Shop,
+  ShopBookmarkRequestType,
   ShopCategoryType,
   ShopMainSortType,
   ShopResponse,
@@ -51,6 +52,12 @@ export const shopApi = createApi({
     getShopBySubway: builder.query<Shop[], number>({
       query: (shopId) => ({ url: `http://localhost:4000/shop/${shopId}/location`, method: 'GET' }),
     }),
+    getShopByBookmark: builder.query<SodamResponse<ShopResponse[]>, ShopBookmarkRequestType>({
+      query: ({ sort, offset, limit }) => ({
+        url: `https://server.sodam.me/shop/bookmark?sort=${sort}&offset=${offset}&limit=${limit}`,
+        method: 'GET',
+      }),
+    }),
   }),
 });
 
@@ -62,4 +69,5 @@ export const {
   useGetShopByShopIdQuery,
   useGetShopSearchResultQuery,
   useGetShopBySubwayQuery,
+  useGetShopByBookmarkQuery,
 } = shopApi;

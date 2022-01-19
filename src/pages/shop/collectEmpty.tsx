@@ -10,7 +10,7 @@ const emptyContentData = {
   buttonUrl: '/shop/theme/아기자기한',
 };
 
-function empty() {
+function collectEmpty() {
   return (
     <Container>
       <NoContent emptyContentData={emptyContentData} />
@@ -21,4 +21,4 @@ const Container = styled.main`
   width: 100%;
 `;
 
-export default empty;
+export default collectEmpty;
