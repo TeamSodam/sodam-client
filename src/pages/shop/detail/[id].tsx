@@ -1,7 +1,9 @@
+import DropDownFilter from 'components/common/DropDownFilter';
 import MainSlider from 'components/common/MainSlider';
 import PageNaviagator from 'components/common/PageNaviagator';
 import ReviewCard from 'components/common/ReviewCard';
 import ShopCard from 'components/common/ShopCard';
+import WriteReviewBtn from 'components/common/WriteReviewBtn';
 import DetailImageGrid from 'components/ShopDetail/DetailImageGrid';
 import DetailInfo from 'components/ShopDetail/DetailInfo';
 import DetailShopAddress from 'components/ShopDetail/DetailShopAddress';
@@ -91,7 +93,17 @@ function Detail() {
       </ImageGridWrapper>
       <Wrapper>
         <LabelContentWrapper>
-          <Label>소품샵 리뷰</Label>
+          <LabelWithOptions>
+            <LabelWrapper>
+              <Label>소품샵 리뷰</Label>
+              <WriteReviewBtn
+                navigate={() => {
+                  router.push(`/review/write?shopId=${shopId}`);
+                }}
+              />
+            </LabelWrapper>
+            <DropDownFilter pageType="detail" />
+          </LabelWithOptions>
           <ReviewGrid>{showReviewList()}</ReviewGrid>
           <PageNaviagator
             pageLimit={calcPageNum()}
@@ -174,6 +186,18 @@ const ReviewGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 4rem 2.4rem;
+`;
+
+const LabelWithOptions = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const LabelWrapper = styled.div`
+  display: flex;
+  gap: 2.4rem;
+  align-items: center;
 `;
 
 export default Detail;
