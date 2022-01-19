@@ -9,11 +9,14 @@ export const shopApi = createApi({
   endpoints: (builder) => ({
     // builder.query<T, U>() --> T는 쿼리의 반환값 타입, U는 쿼리 파라미터의 타입.
     getShopByCategory: builder.query<Shop[], ShopCategoryType>({
-      query: (categoryType) => ({ url: `/shop/category?type=${categoryType}`, method: 'GET' }),
+      query: (categoryType) => ({
+        url: `http://localhost:4000/shop/category?type=${categoryType}`,
+        method: 'GET',
+      }),
     }),
     getShopByTheme: builder.query<Shop[], ShopThemeRequestType>({
       query: ({ theme, sortType, offset, limit }) => ({
-        url: '/shop',
+        url: 'http://localhost:4000/shop',
         params: {
           theme,
           sort: sortType,
@@ -24,19 +27,22 @@ export const shopApi = createApi({
       }),
     }),
     getShopByShopId: builder.query<Shop[], number>({
-      query: (shopId) => ({ url: `/shop?shopId=${shopId}`, method: 'GET' }),
+      query: (shopId) => ({ url: `http://localhost:4000/shop?shopId=${shopId}`, method: 'GET' }),
     }),
     getShopByArea: builder.query<Shop[], string>({
-      query: (area) => ({ url: `/shop?area=${area}`, method: 'GET' }),
+      query: (area) => ({ url: `http://localhost:4000/shop?area=${area}`, method: 'GET' }),
     }),
     getShopInfo: builder.query<Shop[], ShopMainSortType>({
-      query: (type) => ({ url: `/shop?type=${type}`, method: 'GET' }),
+      query: (type) => ({ url: `http://localhost:4000/shop?type=${type}`, method: 'GET' }),
     }),
     getShopSearchResult: builder.query<Shop[], string>({
-      query: (keyword) => ({ url: `/shop?shopName=${keyword}`, method: 'GET' }),
+      query: (keyword) => ({
+        url: `http://localhost:4000/shop?shopName=${keyword}`,
+        method: 'GET',
+      }),
     }),
     getShopBySubway: builder.query<Shop[], number>({
-      query: (shopId) => ({ url: `/shop/${shopId}/location`, method: 'GET' }),
+      query: (shopId) => ({ url: `http://localhost:4000/shop/${shopId}/location`, method: 'GET' }),
     }),
   }),
 });

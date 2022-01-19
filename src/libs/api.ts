@@ -7,7 +7,7 @@ export const axiosBaseQuery =
   (): BaseQueryFn<Partial<AxiosRequestConfig>, unknown, unknown> =>
   async ({ url, method, ...args }) => {
     try {
-      const result = await axios({ url: DEV_BASE_URL + url, method, ...args });
+      const result = await axios({ url, method, ...args });
       return { data: result.data };
     } catch (error) {
       if (axios.isAxiosError(error)) {
