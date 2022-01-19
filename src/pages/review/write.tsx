@@ -1,6 +1,7 @@
 import PreviewImageList from 'components/review/write/PreviewImageList';
 import PreviewImageMain from 'components/review/write/PreviewImageMain';
 import ReviewText from 'components/review/write/ReviewText';
+import TagList from 'components/review/write/TagList';
 import { useEffect, useState } from 'react';
 import { ReviewImage } from 'types/review';
 
@@ -116,6 +117,11 @@ function Write() {
         changeMainImage={changeMainImage}
       />
       <ReviewText text={reviewData.text} handleTextChange={handleTextChange} />
+      <TagList
+        tags={reviewData.tags}
+        handleTagSubmit={handleTagSubmit}
+        handleTagDelete={handleTagDelete}
+      />
     </>
   );
 }
