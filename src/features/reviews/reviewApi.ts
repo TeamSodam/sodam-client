@@ -39,11 +39,12 @@ export const reviewApi = createApi({
       },
       transformResponse: (response: SodamResponse<ReviewByShopIdResponse[]>) => response.data,
     }),
-    getShopReviewById: builder.query<Review[], ReviewInfoRequestById>({
+    getShopReviewById: builder.query<Review, ReviewInfoRequestById>({
       query: ({ reviewId, shopId }) => ({
-        url: `http://localhost:4000/shop/${shopId}/review/${reviewId}`,
+        url: `https://server.sodam.me/shop/${shopId}/review/${reviewId}`,
         method: 'GET',
       }),
+      transformResponse: (response: SodamResponse<Review>) => response.data,
     }),
     postReview: builder.mutation<Review, { token: string; reviewInfo: Required<Review> }>({
       query: ({ token, reviewInfo }) => ({

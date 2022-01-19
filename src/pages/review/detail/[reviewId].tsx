@@ -41,14 +41,16 @@ function Detail() {
 
   return (
     <StyledReviewDetailWrapper>
-      {reviewData && reviewData.length > 0 && <ReviewDetailCard reviewData={reviewData[0]} />}
+      {reviewData && <ReviewDetailCard reviewData={reviewData} />}
       <OtherReviewCardWrapper>
         <ReviewListHeader>
           <HeaderTitle>이 소품샵의 다른 리뷰</HeaderTitle>
           <DropDownFilter pageType="detail" />
         </ReviewListHeader>
         <ReviewListContent>
-          {reviewListData && <OtherReviewCard reviewListData={getFilteredReviewListData()} />}
+          {reviewListData && reviewListData.length > 0 && (
+            <OtherReviewCard reviewListData={getFilteredReviewListData()} />
+          )}
         </ReviewListContent>
       </OtherReviewCardWrapper>
     </StyledReviewDetailWrapper>
