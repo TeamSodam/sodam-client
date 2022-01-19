@@ -33,10 +33,11 @@ function Detail() {
   const { data: shopInfo } = useGetShopByShopIdQuery(shopId);
   const { data: reviewList } = useGetReviewByShopIdQuery({
     shopId,
-    sortType: 'review',
-    page: currentPage,
+    sortType: 'recent',
+    offset: currentPage,
+    limit: 9,
   });
-  const { data: shopListSubway } = useGetShopBySubwayQuery(shopId);
+  const { data: subwayInfo } = useGetShopBySubwayQuery(shopId);
 
   const initialLocation = shopInfo && shopInfo.landAddress;
 
@@ -55,8 +56,10 @@ function Detail() {
   };
 
   const showSubwayShopList = () => {
-    if (shopListSubway && shopListSubway.length > 0) {
-      const cardList = shopListSubway.map((shop) => <ShopCard key={shop.shopId} cardData={shop} />);
+    if (subwayInfo) {
+      const { shopList } = subwayInfo;
+
+      const cardList = shopList.map((shop) => <ShopCard key={shop.shopId} cardData={shop} />);
 
       return <MainSlider slidesPerView={4} cardList={cardList} />;
     }
@@ -113,7 +116,7 @@ function Detail() {
         </LabelContentWrapper>
         <LabelContentWrapper>
           <Label>
-            <em>을지로3가역 주변</em> 가까운 소품샵 리스트
+            <em>{subwayInfo && subwayInfo.subway} 주변</em> 가까운 소품샵 리스트
           </Label>
           {showSubwayShopList()}
         </LabelContentWrapper>

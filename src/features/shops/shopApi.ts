@@ -1,7 +1,13 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { axiosBaseQuery } from 'libs/api';
 import { SodamResponse } from 'types/api';
-import { Shop, ShopCategoryType, ShopMainSortType, ShopThemeRequestType } from 'types/shop';
+import {
+  Shop,
+  ShopCategoryType,
+  ShopMainSortType,
+  ShopSubwayResponse,
+  ShopThemeRequestType,
+} from 'types/shop';
 
 export const shopApi = createApi({
   reducerPath: 'shopApi',
@@ -46,8 +52,12 @@ export const shopApi = createApi({
         method: 'GET',
       }),
     }),
-    getShopBySubway: builder.query<Shop[], number>({
-      query: (shopId) => ({ url: `http://localhost:4000/shop/${shopId}/location`, method: 'GET' }),
+    getShopBySubway: builder.query<ShopSubwayResponse, number>({
+      query: (shopId) => ({
+        url: `https://server.sodam.me/shop/${shopId}/location`,
+        method: 'GET',
+      }),
+      transformResponse: (response: SodamResponse<ShopSubwayResponse>) => response.data,
     }),
   }),
 });
