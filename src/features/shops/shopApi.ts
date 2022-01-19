@@ -3,13 +3,11 @@ import { axiosBaseQuery } from 'libs/api';
 import { SodamResponse } from 'types/api';
 import {
   Shop,
-  ShopCategoryType,
-  ShopMainSortType,
-  ShopSubwayResponse,
   ShopBookmarkRequestType,
   ShopCategoryType,
   ShopMainSortType,
   ShopResponse,
+  ShopSubwayResponse,
   ShopThemeRequestType,
 } from 'types/shop';
 
