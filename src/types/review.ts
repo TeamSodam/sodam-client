@@ -38,7 +38,7 @@ export type ReviewSortType = 'save' | 'review' | 'recent';
 export interface ReviewShopIdRequestParams {
   shopId: number;
   sortType: ReviewSortType;
-  page: number;
+  page?: number;
 }
 
 export interface ReviewImage {

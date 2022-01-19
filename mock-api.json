@@ -278,6 +278,7 @@
       "phone": "010-1234-5678",
       "homepage": "www.naver.com",
       "store": "모던할랭ㅋ",
+      "shopName": "알랑방구",
       "category": "주방용품",
       "theme": "모던한",
       "subway": "수유역",
@@ -298,6 +299,7 @@
       "phone": "010-1234-5678",
       "homepage": "www.naver.com",
       "store": "힙해용ㅋ",
+      "shopName": "아오어엌",
       "category": "주방용품",
       "theme": "힙한",
       "subway": "수유역",
@@ -318,6 +320,7 @@
       "phone": "010-1234-5678",
       "homepage": "www.naver.com",
       "store": "모던해용ㅋ",
+      "shopName": "우린삽가능",
       "category": "주방용품",
       "theme": "모던한",
       "subway": "수유역",
@@ -351,7 +354,17 @@
       "area": "강남구",
       "reviewCount": 21,
       "type": "popular",
-      "thumbnail": "/assets/dummy/dummy-image.jpg"
+      "thumbnail": "/assets/dummy/dummy-image.jpg",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
     },
     {
       "reviewId": 2,
@@ -369,7 +382,17 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/dummy-image.jpg"
+      "thumbnail": "/assets/dummy/dummy-image.jpg",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
     },
     {
       "reviewId": 3,
@@ -387,7 +410,17 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/dummy-image.jpg"
+      "thumbnail": "/assets/dummy/dummy-image.jpg",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
     },
     {
       "reviewId": 4,
@@ -405,7 +438,17 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/dummy-image.jpg"
+      "thumbnail": "/assets/dummy/dummy-image.jpg",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
     },
     {
       "reviewId": 5,
@@ -423,7 +466,17 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/dummy-image.jpg"
+      "thumbnail": "/assets/dummy/dummy-image.jpg",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
     },
     {
       "reviewId": 6,
@@ -441,7 +494,17 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/dummy-image.jpg"
+      "thumbnail": "/assets/dummy/dummy-image.jpg",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
     },
     {
       "reviewId": 7,
@@ -459,7 +522,17 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/dummy-shop.png"
+      "thumbnail": "/assets/dummy/dummy-shop.png",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
     },
     {
       "reviewId": 8,
@@ -477,7 +550,17 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/dummy-shop.png"
+      "thumbnail": "/assets/dummy/dummy-shop.png",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
     },
     {
       "reviewId": 9,
@@ -495,7 +578,17 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/dummy-shop.png"
+      "thumbnail": "/assets/dummy/dummy-shop.png",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
     },
     {
       "reviewId": 10,
@@ -513,7 +606,17 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/dummy-shop.png"
+      "thumbnail": "/assets/dummy/dummy-shop.png",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
     },
     {
       "reviewId": 11,
@@ -531,7 +634,17 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/dummy-shop.png"
+      "thumbnail": "/assets/dummy/dummy-shop.png",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
     },
     {
       "reviewId": 12,
@@ -549,7 +662,17 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/dummy-shop.png"
+      "thumbnail": "/assets/dummy/dummy-shop.png",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
     },
     {
       "reviewId": 13,
@@ -567,7 +690,17 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/shop_detail.png"
+      "thumbnail": "/assets/dummy/shop_detail.png",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
     },
     {
       "reviewId": 14,
@@ -585,7 +718,17 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/shop_detail.png"
+      "thumbnail": "/assets/dummy/shop_detail.png",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
     },
     {
       "reviewId": 15,
@@ -603,7 +746,17 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/shop_detail.png"
+      "thumbnail": "/assets/dummy/shop_detail.png",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
     },
     {
       "reviewId": 16,
@@ -621,7 +774,17 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/shop_detail.png"
+      "thumbnail": "/assets/dummy/shop_detail.png",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
     },
     {
       "reviewId": 17,
@@ -639,7 +802,17 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/shop_detail.png"
+      "thumbnail": "/assets/dummy/shop_detail.png",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
     },
     {
       "reviewId": 18,
@@ -657,7 +830,17 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/shop_detail.png"
+      "thumbnail": "/assets/dummy/shop_detail.png",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
     },
     {
       "reviewId": 19,
@@ -675,7 +858,17 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/dummy-image.jpg"
+      "thumbnail": "/assets/dummy/dummy-image.jpg",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
     },
     {
       "reviewId": 20,
@@ -693,7 +886,17 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/dummy-image.jpg"
+      "thumbnail": "/assets/dummy/dummy-image.jpg",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
     },
     {
       "reviewId": 21,
@@ -711,7 +914,17 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/dummy-image.jpg"
+      "thumbnail": "/assets/dummy/dummy-image.jpg",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
     },
     {
       "reviewId": 22,
@@ -729,7 +942,17 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/dummy-image.jpg"
+      "thumbnail": "/assets/dummy/dummy-image.jpg",
+      "item": [
+        {
+          "itemName": "주방용품",
+          "price": "10,000원 ~ 14,900원"
+        },
+        {
+          "itemName": "인테리어소품",
+          "price": "10,000원 ~ 14,900원"
+        }
+      ]
     }
   ]
 }
