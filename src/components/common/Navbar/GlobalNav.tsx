@@ -11,7 +11,7 @@ interface MenuListType {
 }
 
 function GlobalNav() {
-  const menuList = [
+  const menuList: MenuListType[] = [
     { menuName: '소품샵 지도', menuURL: '/map' },
     { menuName: '테마별 소품샵', menuURL: '/shop/theme/list' },
     { menuName: '저장한 소품샵', menuURL: ['/shop/collect', '/shop/empty'] },
@@ -25,7 +25,11 @@ function GlobalNav() {
   };
 
   const onClickMenu = (menu: MenuListType) => {
-    menu.menuName === 'My Review' ? router.push('/review/my/write') : router.push(menu.menuURL[0]);
+    if (typeof menu.menuURL === 'string') {
+      menu.menuName === 'My Review' ? router.push('/review/my/write') : router.push(menu.menuURL);
+    } else {
+      router.push(menu.menuURL[0]);
+    }
   };
 
   const isCurrentPathIncludesMyReview = () => router.asPath.includes('/review/my');
