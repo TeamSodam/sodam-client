@@ -7,14 +7,14 @@ import styled from 'styled-components';
 
 interface MenuListType {
   menuName: string;
-  menuURL: string | string[];
+  menuURL: string;
 }
 
 function GlobalNav() {
   const menuList: MenuListType[] = [
     { menuName: '소품샵 지도', menuURL: '/map' },
-    { menuName: '테마별 소품샵', menuURL: '/shop/theme/list' },
-    { menuName: '저장한 소품샵', menuURL: ['/shop/collect', '/shop/empty'] },
+    { menuName: '테마별 소품샵', menuURL: '/shop/theme' },
+    { menuName: '저장한 소품샵', menuURL: '/shop/collect' },
     { menuName: 'My Review', menuURL: '/review/my' },
   ];
 
@@ -26,7 +26,13 @@ function GlobalNav() {
 
   const onClickMenu = (menu: MenuListType) => {
     if (typeof menu.menuURL === 'string') {
-      menu.menuName === 'My Review' ? router.push('/review/my/write') : router.push(menu.menuURL);
+      if (menu.menuName === 'My Review') {
+        router.push('/review/my/write');
+      } else if (menu.menuName === '테마별 소품샵') {
+        return router.push('/shop/theme/아기자기한');
+      } else {
+        router.push(menu.menuURL);
+      }
     } else {
       router.push(menu.menuURL[0]);
     }
@@ -34,15 +40,7 @@ function GlobalNav() {
 
   const isCurrentPathIncludesMyReview = () => router.asPath.includes('/review/my');
 
-  const getIsActive = (menu: MenuListType) => {
-    if (typeof menu.menuURL === 'string') {
-      if (menu.menuName === 'My Review') {
-        return isCurrentPathIncludesMyReview();
-      }
-      return menu.menuURL === router.asPath;
-    }
-    return menu.menuURL.some((url) => url === router.asPath);
-  };
+  const getIsActive = (menu: MenuListType) => router.asPath.includes(menu.menuURL);
 
   return (
     <>
