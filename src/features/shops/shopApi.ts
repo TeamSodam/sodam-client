@@ -22,9 +22,9 @@ export const shopApi = createApi({
         method: 'GET',
       }),
     }),
-    getShopByTheme: builder.query<Shop[], ShopThemeRequestType>({
+    getShopByTheme: builder.query<SodamResponse<ShopResponse[]>, ShopThemeRequestType>({
       query: ({ theme, sortType, offset, limit }) => ({
-        url: 'http://localhost:4000/shop',
+        url: 'https://server.sodam.me/shop',
         params: {
           theme,
           sort: sortType,

@@ -16,7 +16,7 @@
       "close": "일요일",
       "blog": "https://nukw0n-dev.tistory.com",
       "instagram": "instargram",
-      "image": "/assets/dummy/dummy-shop.png",
+      "image": ["/assets/dummy/dummy-shop.png"],
       "type": "random",
       "area": "종로구",
       "reviewCount": 21
@@ -37,7 +37,7 @@
       "close": "일요일",
       "blog": "https://nukw0n-dev.tistory.com",
       "instagram": "instargram",
-      "image": "/assets/dummy/dummy-shop.png",
+      "image": ["/assets/dummy/dummy-shop.png"],
       "type": "random",
       "area": "종로구",
       "reviewCount": 21
@@ -58,7 +58,7 @@
       "close": "일요일",
       "blog": "https://nukw0n-dev.tistory.com",
       "instagram": "instargram",
-      "image": "/assets/dummy/dummy-shop.png",
+      "image": ["/assets/dummy/dummy-shop.png"],
       "type": "random",
       "area": "강동구",
       "reviewCount": 21
@@ -79,7 +79,7 @@
       "close": "일요일",
       "blog": "https://nukw0n-dev.tistory.com",
       "instagram": "instargram",
-      "image": "/assets/dummy/dummy-shop.png",
+      "image": ["/assets/dummy/dummy-shop.png"],
       "type": "random",
       "area": "성북구",
       "reviewCount": 21
@@ -100,7 +100,7 @@
       "close": "일요일",
       "blog": "https://nukw0n-dev.tistory.com",
       "instagram": "instargram",
-      "image": "/assets/dummy/dummy-shop.png",
+      "image": ["/assets/dummy/dummy-shop.png"],
       "type": "random",
       "area": "광진구",
       "reviewCount": 21
@@ -121,7 +121,7 @@
       "close": "일요일",
       "blog": "https://nukw0n-dev.tistory.com",
       "instagram": "instargram",
-      "image": "/assets/dummy/dummy-shop.png",
+      "image": ["/assets/dummy/dummy-shop.png"],
       "type": "popular",
       "area": "송파구",
       "reviewCount": 21
@@ -142,7 +142,7 @@
       "close": "일요일",
       "blog": "https://nukw0n-dev.tistory.com",
       "instagram": "instargram",
-      "image": "/assets/dummy/dummy-shop.png",
+      "image": ["/assets/dummy/dummy-shop.png"],
       "type": "popular",
       "area": "노원구",
       "reviewCount": 21
@@ -163,7 +163,7 @@
       "close": "일요일",
       "blog": "https://nukw0n-dev.tistory.com",
       "instagram": "instargram",
-      "image": "/assets/dummy/dummy-shop.png",
+      "image": ["/assets/dummy/dummy-shop.png"],
       "type": "popular",
       "area": "관악구",
       "reviewCount": 21
@@ -184,7 +184,7 @@
       "close": "일요일",
       "blog": "https://nukw0n-dev.tistory.com",
       "instagram": "instargram",
-      "image": "/assets/dummy/dummy-shop.png",
+      "image": ["/assets/dummy/dummy-shop.png"],
       "type": "popular",
       "area": "강북구",
       "reviewCount": 21
@@ -205,7 +205,7 @@
       "close": "일요일",
       "blog": "https://nukw0n-dev.tistory.com",
       "instagram": "instargram",
-      "image": "/assets/dummy/dummy-shop.png",
+      "image": ["/assets/dummy/dummy-shop.png"],
       "type": "popular",
       "area": "강북구",
       "reviewCount": 21
@@ -226,7 +226,7 @@
       "close": "일요일",
       "blog": "https://nukw0n-dev.tistory.com",
       "instagram": "instargram",
-      "image": "/assets/dummy/dummy-shop.png",
+      "image": ["/assets/dummy/dummy-shop.png"],
       "type": "popular",
       "area": "강북구",
       "reviewCount": 21
@@ -247,7 +247,7 @@
       "close": "일요일",
       "blog": "https://nukw0n-dev.tistory.com",
       "instagram": "instargram",
-      "image": "/assets/dummy/dummy-shop.png",
+      "image": ["/assets/dummy/dummy-shop.png"],
       "type": "random",
       "area": "강북구",
       "reviewCount": 21
@@ -268,7 +268,7 @@
       "close": "일요일",
       "blog": "https://nukw0n-dev.tistory.com",
       "instagram": "instargram",
-      "image": "/assets/dummy/dummy-shop.png",
+      "image": ["/assets/dummy/dummy-shop.png"],
       "type": "random",
       "area": "강북구",
       "reviewCount": 21
@@ -289,7 +289,7 @@
       "close": "일요일",
       "blog": "https://nukw0n-dev.tistory.com",
       "instagram": "instargram",
-      "image": "/assets/dummy/dummy-shop.png",
+      "image": ["/assets/dummy/dummy-shop.png"],
       "type": "random",
       "area": "강북구",
       "reviewCount": 21
@@ -310,7 +310,7 @@
       "close": "일요일",
       "blog": "https://nukw0n-dev.tistory.com",
       "instagram": "instargram",
-      "image": "/assets/dummy/dummy-shop.png",
+      "image": ["/assets/dummy/dummy-shop.png"],
       "type": "random",
       "area": "강북구",
       "reviewCount": 21
@@ -331,7 +331,7 @@
       "close": "일요일",
       "blog": "https://nukw0n-dev.tistory.com",
       "instagram": "instargram",
-      "image": "/assets/dummy/dummy-shop.png",
+      "image": ["/assets/dummy/dummy-shop.png"],
       "type": "random",
       "area": "강북구",
       "reviewCount": 21
