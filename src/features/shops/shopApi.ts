@@ -7,6 +7,7 @@ import {
   ShopCategoryType,
   ShopMainSortType,
   ShopResponse,
+  ShopSearchResponse,
   ShopSubwayResponse,
   ShopThemeRequestType,
 } from 'types/shop';
@@ -51,11 +52,12 @@ export const shopApi = createApi({
         method: 'GET',
       }),
     }),
-    getShopSearchResult: builder.query<Shop[], string>({
+    getShopSearchResult: builder.query<ShopSearchResponse[], string>({
       query: (keyword) => ({
-        url: `http://localhost:4000/shop?shopName=${keyword}`,
+        url: `https://server.sodam.me/shop/search?keyword=${keyword}`,
         method: 'GET',
       }),
+      transformResponse: (response: SodamResponse<ShopSearchResponse[]>) => response.data,
     }),
     getShopBySubway: builder.query<ShopSubwayResponse, number>({
       query: (shopId) => ({
