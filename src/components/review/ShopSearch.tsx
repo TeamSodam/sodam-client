@@ -24,12 +24,16 @@ function ShopSearch() {
     setInputValue(e.target.value);
   };
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    if (!(e.target instanceof HTMLFormElement)) return;
-    e.preventDefault();
+  const requestSearch = async () => {
     const result = await trigger(inputValue);
     setSearchValue(result.data);
     setIsOpen(true);
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    if (!(e.target instanceof HTMLFormElement)) return;
+    e.preventDefault();
+    await requestSearch();
   };
 
   const onSetSelected = (shop: string) => {
@@ -66,7 +70,13 @@ function ShopSearch() {
                 onChange={handleChange}
               />
             </form>
-            <Image src={'/assets/searchIcon.svg'} width={27} height={27} alt="search" />
+            <Image
+              src={'/assets/searchIcon.svg'}
+              width={27}
+              height={27}
+              alt="search"
+              onClick={requestSearch}
+            />
           </>
         )}
       </StyledWrapper>
