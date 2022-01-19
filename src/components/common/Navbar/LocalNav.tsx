@@ -4,17 +4,17 @@ import styled from 'styled-components';
 function LocalNav() {
   interface MenuList {
     menuName: string;
-    menuURL: string;
+    menuURL: string[];
   }
 
   const reviewMenuList = [
-    { menuName: '내가 작성한 리뷰', menuURL: '/review/my/write' },
-    { menuName: '스크랩한 리뷰', menuURL: '/review/my/scrap' },
+    { menuName: '내가 작성한 리뷰', menuURL: ['/review/my/write', '/review/my/emptyWrite'] },
+    { menuName: '스크랩한 리뷰', menuURL: ['/review/my/scrap', '/review/my/emptyScrap'] },
   ];
 
   const router = useRouter();
   const onClickMenu = (menu: MenuList) => {
-    router.push(menu.menuURL);
+    router.push(menu.menuURL[0]);
   };
 
   return (
@@ -24,7 +24,7 @@ function LocalNav() {
           <ReviewMenu
             key={menu.menuName}
             onClick={() => onClickMenu(menu)}
-            isActive={menu.menuURL === router.asPath}
+            isActive={menu.menuURL.some((url) => url === router.asPath)}
           >
             {menu.menuName}
           </ReviewMenu>
