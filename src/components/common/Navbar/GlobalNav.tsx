@@ -8,14 +8,15 @@ import styled from 'styled-components';
 interface MenuListType {
   menuName: string;
   menuURL: string;
+  routeTo?: string;
 }
 
 function GlobalNav() {
   const menuList: MenuListType[] = [
     { menuName: '소품샵 지도', menuURL: '/map' },
-    { menuName: '테마별 소품샵', menuURL: '/shop/theme' },
+    { menuName: '테마별 소품샵', menuURL: '/shop/theme', routeTo: '/shop/theme/아기자기한' },
     { menuName: '저장한 소품샵', menuURL: '/shop/collect' },
-    { menuName: 'My Review', menuURL: '/review/my' },
+    { menuName: 'My Review', menuURL: '/review/my', routeTo: '/review/my/write' },
   ];
 
   const router = useRouter();
@@ -25,17 +26,8 @@ function GlobalNav() {
   };
 
   const onClickMenu = (menu: MenuListType) => {
-    if (typeof menu.menuURL === 'string') {
-      if (menu.menuName === 'My Review') {
-        router.push('/review/my/write');
-      } else if (menu.menuName === '테마별 소품샵') {
-        return router.push('/shop/theme/아기자기한');
-      } else {
-        router.push(menu.menuURL);
-      }
-    } else {
-      router.push(menu.menuURL[0]);
-    }
+    if (menu.routeTo) router.push(menu.routeTo);
+    else router.push(menu.menuURL);
   };
 
   const isCurrentPathIncludesMyReview = () => router.asPath.includes('/review/my');
