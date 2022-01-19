@@ -30,7 +30,7 @@ function useMap<T>(
   const dispatch = useAppDispatch();
 
   const displayMarkerByAddress = useCallback(
-    async (shopInfo: Pick<Shop, 'store' | 'category' | 'landAddress' | 'shopId'>) => {
+    async (shopInfo: Pick<Shop, 'shopName' | 'category' | 'landAddress' | 'shopId'>) => {
       const addMarkerToList = (markerInfo: MarkerInfo) => dispatch(addCurrentMarker(markerInfo));
       const changeClickState = (markerInfo: MarkerInfo) =>
         dispatch(setMarkerCilckState(markerInfo));

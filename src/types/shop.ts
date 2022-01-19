@@ -1,6 +1,7 @@
 import SEOUL_ENUM from 'constants/SeoulAreaEnum';
 
 export interface Shop {
+  shopName: string;
   shopId: number;
   phone: string;
   time: string;
@@ -18,21 +19,30 @@ export interface Shop {
   close: string;
   reviewCount: number;
 }
-export interface ShopCardData extends Pick<Shop, 'shopId' | 'image' | 'store' | 'category'> {
+export interface ShopCardData extends Pick<Shop, 'shopId' | 'image' | 'shopName' | 'category'> {
   rank?: number;
 }
 
-export type ShopRequestType = 'random' | 'popular';
+export type ShopMainSortType = 'random' | 'popular';
+export type ShopThemeSortType = 'popular' | 'review';
+export interface ShopPaginationType {
+  offset: number;
+  limit: number;
+}
 
 export type ShopThemeType = '아기자기한' | '힙한' | '모던한' | '빈티지';
+export interface ShopThemeRequestType extends ShopPaginationType {
+  sortType: ShopThemeSortType;
+  theme: ShopThemeType;
+}
 
 export type ShopCategoryType =
-  | '문구∙팬시'
+  | '문구·팬시'
   | '인테리어소품'
   | '주방용품'
   | '패션소품'
   | '공예품'
-  | '인형∙장난감';
+  | '인형·장난감';
 
 export type PriceList =
   | '2,900원 이하'

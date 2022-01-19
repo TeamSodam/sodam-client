@@ -78,7 +78,10 @@ function GlobalNav() {
 
 const GlobalNavWrapper = styled.div`
   width: 100%;
-  padding: 2.8rem 36rem;
+  height: 8.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-bottom: solid 1px ${({ theme }) => theme.colors.navLine};
 `;
 
@@ -106,9 +109,11 @@ const Logo = styled.div`
   height: 2.6rem;
   margin-right: 4.3rem;
 
+
   &:hover {
     cursor: pointer;
   }
+
 `;
 
 const MenuList = styled.div`
@@ -128,9 +133,11 @@ const Menu = styled.a<{ isActive: boolean }>`
   color: ${(props) => props.isActive && props.theme.colors.purpleMain};
   font-weight: ${(props) => (props.isActive ? '600' : '400')};
 
+
   &:hover {
     cursor: pointer;
   }
+
 `;
 
 const SearchBar = styled.div`
@@ -149,6 +156,7 @@ const SearchIcon = styled.div`
   margin-left: 1.2rem;
   width: 2.1rem;
   height: 2rem;
+  cursor: pointer;
 `;
 
 const SearchText = styled.input`
@@ -168,11 +176,13 @@ const Login = styled.div`
   font-size: 1.6rem;
   margin-right: 2.7rem;
   min-width: fit-content;
+  cursor: pointer;
 `;
 
 const Profile = styled.div`
   width: 3.4rem;
   height: 3.4rem;
+  cursor: pointer;
 `;
 
 export default GlobalNav;

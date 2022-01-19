@@ -11,7 +11,7 @@ interface StyledShopElementProps {
 function ShopElement({ shopInfo }: { shopInfo: Shop }) {
   const { moveByAddress } = useMap();
 
-  const { store, category, image, landAddress, close, reviewCount } = shopInfo;
+  const { shopName, category, image, landAddress, close, reviewCount } = shopInfo;
 
   const parseCategory = (category: string | string[]) => {
     if (typeof category === 'string') return category;
@@ -20,10 +20,10 @@ function ShopElement({ shopInfo }: { shopInfo: Shop }) {
   };
 
   return (
-    <StyledShopElement onClick={() => moveByAddress(landAddress, store)}>
+    <StyledShopElement onClick={() => moveByAddress(landAddress, shopName)}>
       <ShopLeftWrapper>
         <ShopMainInfo>
-          <h2>{store}</h2>
+          <h2>{shopName}</h2>
           <span>{parseCategory(category)}</span>
           <ShopAddress>{landAddress}</ShopAddress>
         </ShopMainInfo>

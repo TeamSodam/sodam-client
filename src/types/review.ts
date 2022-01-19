@@ -23,6 +23,11 @@ export interface Review {
   thumbnail: string;
 }
 
+export interface ReviewInfoRequestById {
+  reviewId: number;
+  shopId: number;
+}
+
 export interface ReviewCardData extends Omit<Review, 'item' | 'tag' | 'image'> {
   thumbnail: string;
 }
@@ -32,4 +37,9 @@ export type ReviewSortType = 'save' | 'review' | 'recent';
 export interface ReviewShopIdRequestParams {
   shopId: number;
   sortType: ReviewSortType;
+}
+
+export interface ReviewImage {
+  file: File | null;
+  preview: string | null;
 }
