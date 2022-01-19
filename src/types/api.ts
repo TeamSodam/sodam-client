@@ -1,4 +1,4 @@
-export interface WrapperResponse<T> {
+interface WrappeResponse<T> {
   data: T;
   status: number;
   success: boolean;
