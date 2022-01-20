@@ -99,11 +99,7 @@ function DetailInfo({ shopInfo }: { shopInfo: Shop }) {
 
   const handleClick = () => {
     toggleBookmark();
-    let isTrue = true;
-    if (currentBookmarked) {
-      isTrue = false;
-    }
-    bookmarkPost({ shopId, isBookmarked: isTrue });
+    bookmarkPost({ shopId, isBookmarked: !currentBookmarked });
   };
 
   return (
