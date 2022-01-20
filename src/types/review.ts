@@ -108,3 +108,12 @@ export interface ReviewImage {
   file: File | null;
   preview: string | null;
 }
+
+export interface ReviewWriteRequest {
+  shopId: number;
+  shopName: string;
+  image: File[];
+  item: Item[];
+  content: string;
+  tag: string[];
+}

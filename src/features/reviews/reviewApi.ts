@@ -9,6 +9,7 @@ import {
   ReviewMyScrapResponse,
   ReviewRecentResponse,
   ReviewShopIdRequestParams,
+  ReviewWriteRequest,
 } from 'types/review';
 
 export const reviewApi = createApi({
@@ -50,15 +51,25 @@ export const reviewApi = createApi({
       }),
       transformResponse: (response: SodamResponse<Review>) => response.data,
     }),
-    postReview: builder.mutation<Review, { token: string; reviewInfo: Required<Review> }>({
-      query: ({ token, reviewInfo }) => ({
-        url: 'http://localhost:4000/review',
-        method: 'POST',
-        data: reviewInfo,
-        headers: {
-          'Access-token': token,
-        },
-      }),
+    postReview: builder.mutation<Review, ReviewWriteRequest>({
+      query: (reviewInput) => {
+        const formData = new FormData();
+        Object.entries(reviewInput).forEach(([key, val]) => {
+          if (Array.isArray(val)) {
+            if (val.every((v) => v instanceof File)) {
+              val.forEach((file) => formData.append('image', file));
+            } else {
+              formData.append(key, JSON.stringify(val));
+            }
+          } else formData.append(key, val);
+        });
+        return {
+          url: 'https://server.sodam.me/review',
+          method: 'POST',
+          data: formData,
+        };
+      },
+      transformResponse: (response: SodamResponse<Review>) => response.data,
     }),
   }),
 });
