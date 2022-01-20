@@ -8,7 +8,7 @@ import FilterDiv from './FilterDiv';
 
 interface StyledDDFProps {
   pageType: 'detail' | 'theme' | 'collect';
-  filterProps: filterPropsType[];
+  filterProps?: filterPropsType[];
 }
 
 export interface filterPropsType {

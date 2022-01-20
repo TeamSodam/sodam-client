@@ -10,7 +10,7 @@ interface StyledFDProps {
   saveSelectedOption: (option: string) => void;
   saveUnselectedOption: (option: string) => void;
   toggle: () => void;
-  filterProps: filterPropsType[];
+  filterProps?: filterPropsType[];
 }
 
 function FilterDiv(props: StyledFDProps) {
@@ -23,7 +23,7 @@ function FilterDiv(props: StyledFDProps) {
     saveSelectedOption(currentSelected);
     saveUnselectedOption(currentSelected);
     toggle();
-    const targetFilter = filterProps.find(
+    const targetFilter = filterProps?.find(
       (filterInfo) => filterInfo.filterName === currentSelected,
     );
     targetFilter?.onClick();
