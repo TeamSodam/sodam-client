@@ -19,6 +19,11 @@ function ShopElement({ shopInfo }: { shopInfo: Shop }) {
     return category.join(', ');
   };
 
+  const getSrc = (src: string | string[]) => {
+    if (typeof src === 'string') return src;
+    return src[0];
+  };
+
   return (
     <StyledShopElement onClick={() => moveByAddress(landAddress, shopName)}>
       <ShopLeftWrapper>
@@ -33,7 +38,7 @@ function ShopElement({ shopInfo }: { shopInfo: Shop }) {
           <ReviewInfo>{`리뷰 ${reviewCount}개`}</ReviewInfo>
         </ShopSubInfo>
       </ShopLeftWrapper>
-      <Image width={100} height={100} src={image} alt="shop-image" />
+      <Image width={100} height={100} src={getSrc(image)} alt="shop-image" />
     </StyledShopElement>
   );
 }
