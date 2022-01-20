@@ -27,7 +27,7 @@ function Write(props: MyreviewPrefetchProps) {
       </StyledBtnWrapper>
       <StyledCardWrapper>
         {reviewList.map((review) => (
-          <ReviewCard key={review.reviewId} reviewData={review} isHoverAvailable />
+          <ReviewCard key={review.reviewId} reviewData={review} isHoverAvailable isMyReview />
         ))}
       </StyledCardWrapper>
     </StyledContainer>
@@ -38,9 +38,6 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ()
   const dispatch = store.dispatch;
   const reviewMyWriteResult = await dispatch(reviewApi.endpoints.getMyWriteReview.initiate());
 
-  console.log('★★★★★★★★★★★★★');
-  console.log(reviewMyWriteResult.data);
-  console.log('★★★★★★★★★★★★★');
   return {
     props: {
       reviewList: reviewMyWriteResult.data || [],

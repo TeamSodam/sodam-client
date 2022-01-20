@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import { parseDate } from 'src/utils/parseDate';
+// import { parseDate } from 'src/utils/parseDate';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
 import { ReviewCardData } from 'types/review';
@@ -30,7 +32,6 @@ function ReviewCard(props: ReviewCardProps) {
     writerName,
   } = reviewData;
   const [isHovered, setIsHovered] = useState(false);
-
   const likedCount = likeCount > 99 ? '99+' : likeCount;
   const savedCount = scrapCount > 99 ? '99+' : scrapCount;
 
@@ -65,7 +66,7 @@ function ReviewCard(props: ReviewCardProps) {
       <StyledContents>
         <StyledHeader>
           {isMyReview ? (
-            <p className="date">{date}</p>
+            <p className="date">{parseDate(date)}</p>
           ) : (
             writerThumbnail !== undefined && (
               <div className="profile">
