@@ -95,11 +95,9 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ()
   const randomShopResult = await dispatch(shopApi.endpoints.getShopInfo.initiate('random'));
   const popularShopResult = await dispatch(shopApi.endpoints.getShopInfo.initiate('popular'));
   const reviewResult = await dispatch(reviewApi.endpoints.getReviewRecent.initiate());
-  const categoryShopResult = await dispatch(shopApi.endpoints.getShopByCategory.initiate('공예품'));
-
-  console.log('❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤');
-  console.log(categoryShopResult);
-  console.log('❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤');
+  const categoryShopResult = await dispatch(
+    shopApi.endpoints.getShopByCategory.initiate(randomCategory.replace('·', '')),
+  );
 
   const resultProps: {
     randomShopList: ShopResponse[];
