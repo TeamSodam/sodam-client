@@ -117,3 +117,13 @@ export interface ReviewWriteRequest {
   content: string;
   tag: string[];
 }
+
+export interface ReviewLikeRequest {
+  isLiked: boolean;
+  reviewId: number;
+}
+
+export interface ReviewLikeResponse {
+  isLiked: boolean;
+  likeCount: number;
+}

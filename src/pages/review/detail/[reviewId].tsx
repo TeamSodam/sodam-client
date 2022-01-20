@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
 const parseShopId = (shopId: string | string[] | undefined) => {
-  if (!shopId) return 1;
+  if (!shopId) return 0;
   if (Array.isArray(shopId)) return +shopId.join('');
 
   return +shopId;
