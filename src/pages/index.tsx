@@ -18,12 +18,14 @@ interface HomePrefetchProps {
   randomShopList: ShopResponse[];
   popularShopList: ShopResponse[];
   reviewList: ReviewRecentResponse[];
+  categoryShopList: ShopResponse[];
 }
 
+const randomCategory = MoreFilterList[Math.floor(Math.random() * 6)];
+
 function Home(props: HomePrefetchProps) {
-  const { randomShopList, reviewList, popularShopList } = props;
+  const { randomShopList, reviewList, popularShopList, categoryShopList } = props;
   const { nickname } = useAppSelector(selectUserInfo);
-  const randomCategory = MoreFilterList[Math.floor(Math.random() * 6)];
 
   const showRandomShopSlider = () => {
     const cardList = randomShopList.map((shop) => <ShopCard key={shop.shopId} cardData={shop} />);
@@ -52,10 +54,7 @@ function Home(props: HomePrefetchProps) {
   };
 
   const showRandomCategorySlider = () => {
-    const cardList = randomShopList
-      .filter((shop) => shop.category.includes(randomCategory))
-      .map((shop) => <ShopCard key={shop.shopId} cardData={shop} />);
-
+    const cardList = categoryShopList.map((shop) => <ShopCard key={shop.shopId} cardData={shop} />);
     return <MainSlider slidesPerView={4} cardList={cardList} />;
   };
 
@@ -96,15 +95,22 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ()
   const randomShopResult = await dispatch(shopApi.endpoints.getShopInfo.initiate('random'));
   const popularShopResult = await dispatch(shopApi.endpoints.getShopInfo.initiate('popular'));
   const reviewResult = await dispatch(reviewApi.endpoints.getReviewRecent.initiate());
+  const categoryShopResult = await dispatch(shopApi.endpoints.getShopByCategory.initiate('공예품'));
+
+  console.log('❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤');
+  console.log(categoryShopResult);
+  console.log('❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤❤');
 
   const resultProps: {
     randomShopList: ShopResponse[];
     reviewList: ReviewRecentResponse[];
     popularShopList: ShopResponse[];
+    categoryShopList: ShopResponse[];
   } = {
     randomShopList: [],
     reviewList: [],
     popularShopList: [],
+    categoryShopList: [],
   };
 
   if (randomShopResult.isSuccess) {
@@ -125,6 +131,13 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ()
     const axiosResult = reviewResult.data;
     if (axiosResult.status === 200) {
       resultProps.reviewList = axiosResult.data.filter((data) => data.image[0] !== null);
+    }
+  }
+
+  if (categoryShopResult.isSuccess) {
+    const axiosResult = categoryShopResult.data;
+    if (axiosResult.status === 200) {
+      resultProps.categoryShopList = axiosResult.data;
     }
   }
 
