@@ -3,6 +3,7 @@ import LikeReviewIC from 'public/assets/ic_likeReview.svg';
 import ScrapReviewIC from 'public/assets/ic_scrapReview.svg';
 import { useState } from 'react';
 import shortid from 'shortid';
+import { parseDate } from 'src/utils/parseDate';
 import styled from 'styled-components';
 import { Review } from 'types/review';
 
@@ -37,10 +38,14 @@ function ReviewDetailCard(props: ReviewDetailCardProps) {
     content,
     tag,
     item,
+    isLiked,
+    isScraped,
   } = reviewData;
 
   const [isLikeClicked, setLikeClicked] = useState(true);
-  const [isScrapClicked, setScrapClicked] = useState(true);
+
+  const [isLikeClicked, setLikeClicked] = useState(isLiked);
+  const [isScrapClicked, setScrapClicked] = useState(isScraped);
   const [currentLikeCount, setCurrentLikeCount] = useState(likeCount);
   const [currentScrapCount, setCurrentScrapCount] = useState(scrapCount);
 
@@ -69,7 +74,7 @@ function ReviewDetailCard(props: ReviewDetailCardProps) {
             <Image src={writerThumbnail} alt="profile" width={48} height={48} />
             <ReviewInfo>
               <ReviewWriter>{writerName}</ReviewWriter>
-              <ReviewWriteDate>{date}</ReviewWriteDate>
+              <ReviewWriteDate>{parseDate(date)}</ReviewWriteDate>
             </ReviewInfo>
           </div>
           <IconContainer>

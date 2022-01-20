@@ -41,8 +41,8 @@ export interface ReviewByShopIdData {
   reviewId: number;
   shopId: number;
   image: string[];
-  writerName: string;
-  writerThumbnail: string;
+  writerName?: string;
+  writerThumbnail?: string;
   likeCount: number;
   scrapCount: number;
   content: string;
