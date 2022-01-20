@@ -42,8 +42,6 @@ function ReviewDetailCard(props: ReviewDetailCardProps) {
     isScraped,
   } = reviewData;
 
-  const [isLikeClicked, setLikeClicked] = useState(true);
-
   const [isLikeClicked, setLikeClicked] = useState(isLiked);
   const [isScrapClicked, setScrapClicked] = useState(isScraped);
   const [currentLikeCount, setCurrentLikeCount] = useState(likeCount);
