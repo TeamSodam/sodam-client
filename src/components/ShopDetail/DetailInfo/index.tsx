@@ -1,3 +1,4 @@
+import { usePostBookmarkMutation } from 'features/shops/shopApi';
 import Blog from 'public/assets/ic_blog.svg';
 import StarIC from 'public/assets/ic_empty_star.svg';
 import Instagram from 'public/assets/ic_instagram.svg';
@@ -27,9 +28,11 @@ function DetailInfo({ shopInfo }: { shopInfo: Shop }) {
     store,
     blog,
     isBookmarked,
+    shopId,
   } = shopInfo;
 
   const [currentBookmarked, setCurrentBookmarked] = useState(isBookmarked);
+  const [bookmarkPost] = usePostBookmarkMutation();
 
   const iconContentList: IconContentProps[] = [
     {
@@ -94,6 +97,15 @@ function DetailInfo({ shopInfo }: { shopInfo: Shop }) {
 
   const toggleBookmark = () => setCurrentBookmarked((prevState) => !prevState);
 
+  const handleClick = () => {
+    toggleBookmark();
+    let isTrue = true;
+    if (currentBookmarked) {
+      isTrue = false;
+    }
+    bookmarkPost({ shopId, isBookmarked: isTrue });
+  };
+
   return (
     <Container>
       <LeftWrapper>
@@ -104,7 +116,7 @@ function DetailInfo({ shopInfo }: { shopInfo: Shop }) {
         <DownWrapper>
           <ThemeList>{showTheme()}</ThemeList>
           <IconWrapper>
-            <BookMarkBtn isBookmarked={currentBookmarked} onClick={toggleBookmark} />
+            <BookMarkBtn isBookmarked={currentBookmarked} onClick={handleClick} />
             <ShareIC />
           </IconWrapper>
         </DownWrapper>
