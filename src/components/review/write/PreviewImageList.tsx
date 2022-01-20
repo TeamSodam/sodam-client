@@ -62,6 +62,7 @@ const StyledRoot = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-bottom: 0.9rem;
 `;
 const StyledInput = styled.input`
   width: 7.5rem;

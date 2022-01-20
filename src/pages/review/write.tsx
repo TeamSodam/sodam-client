@@ -1,17 +1,26 @@
+import ShopSearch from 'components/review/ShopSearch';
 import PreviewImageList from 'components/review/write/PreviewImageList';
 import PreviewImageMain from 'components/review/write/PreviewImageMain';
 import ReviewText from 'components/review/write/ReviewText';
 import SubmitButton from 'components/review/write/SubmitButton';
 import TagList from 'components/review/write/TagList';
+import Title from 'components/review/write/Title';
+import WriteItems from 'components/review/WriteItems/index';
 import { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import { ReviewImage } from 'types/review';
 
 interface ReviewData {
   text: string;
   tags: string[];
 }
+interface WriteProps {
+  userName: string;
+}
 
-function Write() {
+function Write(props: WriteProps) {
+  const { userName = '소푸미' } = props;
+
   const [isSubmitAvailable, setIsSubmitAvailable] = useState(false);
   const [reviewImageList, setReviewImageList] = useState<ReviewImage[]>([]);
   const [reviewData, setReviewData] = useState<ReviewData>({ text: '', tags: [] });
@@ -113,12 +122,19 @@ function Write() {
   };
 
   return (
-    <>
-      <PreviewImageMain
-        mainImage={reviewImageList[0]}
-        handleImageUpload={handleImageUpload}
-        handleImageDelete={handleImageDelete}
-      />
+    <StyledRoot>
+      <Title name={userName} />
+      <StyledTop>
+        <PreviewImageMain
+          mainImage={reviewImageList[0]}
+          handleImageUpload={handleImageUpload}
+          handleImageDelete={handleImageDelete}
+        />
+        <StyledTopRight>
+          <ShopSearch />
+          <WriteItems />
+        </StyledTopRight>
+      </StyledTop>
       <PreviewImageList
         reviewImageList={reviewImageList}
         handleImageUpload={handleImageUpload}
@@ -132,8 +148,24 @@ function Write() {
         handleTagDelete={handleTagDelete}
       />
       <SubmitButton isSubmitAvailable={isSubmitAvailable} handleFormSubmit={handleFormSubmit} />
-    </>
+    </StyledRoot>
   );
 }
+
+const StyledRoot = styled.div`
+  width: 79.2rem;
+  margin: 0 auto;
+`;
+const StyledTop = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding-top: 3.2rem;
+  padding-bottom: 2rem;
+`;
+const StyledTopRight = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
 
 export default Write;

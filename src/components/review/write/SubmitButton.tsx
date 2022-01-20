@@ -28,6 +28,8 @@ const StyledButton = styled.button<StyledProps>`
   font-size: 1.8rem;
   font-weight: bold;
   color: white;
+  margin-top: 7.2rem;
+  margin-bottom: 8rem;
   background-color: ${(props) =>
     props.isSubmitAvailable ? theme.colors.purpleMain : theme.colors.gray2};
   &:hover {

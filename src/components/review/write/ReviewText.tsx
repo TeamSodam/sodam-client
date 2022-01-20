@@ -27,6 +27,8 @@ const StyledRoot = styled.div`
   height: 26rem;
   background-color: ${theme.colors.grayBg};
   padding: 1.7rem 0.8rem;
+  margin-top: 1.2rem;
+  margin-bottom: 1.6rem;
   p {
     font-size: 1.4rem;
     font-weight: 500;
