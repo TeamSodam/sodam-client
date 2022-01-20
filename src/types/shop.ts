@@ -106,3 +106,12 @@ export interface ShopAreaRequestType {
   area: string;
   sort: ShopAreaSortType;
 }
+
+export interface BookmarkResquestType {
+  shopId: number;
+  isBookmarked: boolean;
+}
+
+export interface BookmarkResponseType {
+  bookmarkCount: number;
+}
