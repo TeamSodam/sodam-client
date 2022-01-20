@@ -92,6 +92,10 @@ const StyledTag = styled.div`
     background-color: ${theme.colors.purpleText};
     color: white;
   }
+
+  &:before {
+    content: '#';
+  }
 `;
 
 export default TagList;
