@@ -5,14 +5,14 @@ import { reviewApi } from 'features/reviews/reviewApi';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
-import { Review } from 'types/review';
+import { ReviewMyWriteResponse } from 'types/review';
 
 interface MyreviewPrefetchProps {
-  reviewList: Review[];
+  reviewMyWriteList: ReviewMyWriteResponse[];
 }
 
 function Write(props: MyreviewPrefetchProps) {
-  const { reviewList } = props;
+  const { reviewMyWriteList } = props;
   const router = useRouter();
 
   const navigate = () => {
@@ -26,8 +26,8 @@ function Write(props: MyreviewPrefetchProps) {
         <WriteReviewBtn navigate={navigate} />
       </StyledBtnWrapper>
       <StyledCardWrapper>
-        {reviewList.map((review) => (
-          <ReviewCard key={review.reviewId} reviewData={review} isHoverAvailable />
+        {reviewMyWriteList.map((review) => (
+          <ReviewCard key={review.reviewId} reviewData={review} isHoverAvailable isMyReview />
         ))}
       </StyledCardWrapper>
     </StyledContainer>
@@ -36,11 +36,11 @@ function Write(props: MyreviewPrefetchProps) {
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
   const dispatch = store.dispatch;
-  const reviewResult = await dispatch(reviewApi.endpoints.getReviewRecent.initiate());
+  const reviewMyWriteResult = await dispatch(reviewApi.endpoints.getMyWriteReview.initiate());
 
   return {
     props: {
-      reviewList: reviewResult.data || [],
+      reviewMyWriteList: reviewMyWriteResult.data || [],
     },
   };
 });

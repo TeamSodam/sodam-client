@@ -9,7 +9,7 @@ export interface Review {
   shopName: string;
   category: string[];
   reviewId: number;
-  date: Date;
+  date: string;
   likeCount: number;
   scrapCount: number;
   isLiked: boolean;
@@ -50,20 +50,27 @@ export interface ReviewByShopIdResponse {
 
 export interface ReviewMyWriteResponse {
   reviewId: number;
+  shopId: number;
+  shopName: string;
+  category: string[];
   likeCount: number;
   scrapCount: number;
   content: string;
   image: string[];
-  date: Date;
+  date: string;
 }
 
 export interface ReviewMyScrapResponse {
-  writerName: string;
-  content: string;
-  scrapCount: number;
-  likeCount: number;
+  category: string[];
   shopName: string;
-  category: string;
+  reviewId: number;
+  shopId: number;
+  image: string[];
+  writerName: string;
+  writerThumbnail: string;
+  likeCount: number;
+  scrapCount: number;
+  content: string;
 }
 
 export interface ReviewInfoRequestById {
@@ -75,12 +82,12 @@ export interface ReviewCardData {
   reviewId: number;
   shopId: number;
   image: string[];
-  writerThumbnail: string;
-  writerName: string;
+  writerThumbnail?: string;
+  writerName?: string;
   likeCount: number;
   scrapCount: number;
   content: string;
-  date?: Date;
+  date?: string;
   shopName?: string;
   category?: string[];
 }

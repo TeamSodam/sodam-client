@@ -3,18 +3,18 @@ import ReviewCard from 'components/common/ReviewCard';
 import { reviewApi } from 'features/reviews/reviewApi';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
-import { Review } from 'types/review';
+import { ReviewMyScrapResponse } from 'types/review';
 
 interface MyreviewPrefetchProps {
-  reviewList: Review[];
+  reviewMyScrapList: ReviewMyScrapResponse[];
 }
 function Scrap(props: MyreviewPrefetchProps) {
-  const { reviewList } = props;
+  const { reviewMyScrapList } = props;
   return (
     <StyledContainer>
       <h2>스크랩한 리뷰</h2>
       <StyledCardWrapper>
-        {reviewList.map((review) => (
+        {reviewMyScrapList.map((review) => (
           <ReviewCard key={review.reviewId} reviewData={review} isHoverAvailable />
         ))}
       </StyledCardWrapper>
@@ -26,11 +26,11 @@ export default Scrap;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
   const dispatch = store.dispatch;
-  const reviewResult = await dispatch(reviewApi.endpoints.getReviewRecent.initiate());
+  const reviewMyScrapResult = await dispatch(reviewApi.endpoints.getMyScrapReview.initiate());
 
   return {
     props: {
-      reviewList: reviewResult.data || [],
+      reviewMyScrapList: reviewMyScrapResult.data || [],
     },
   };
 });

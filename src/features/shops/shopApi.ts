@@ -6,7 +6,6 @@ import {
   ShopAreaRequestType,
   ShopAreaResponse,
   ShopBookmarkRequestType,
-  ShopCategoryType,
   ShopMainSortType,
   ShopResponse,
   ShopSearchResponse,
@@ -20,10 +19,13 @@ export const shopApi = createApi({
   refetchOnFocus: true,
   endpoints: (builder) => ({
     // builder.query<T, U>() --> T는 쿼리의 반환값 타입, U는 쿼리 파라미터의 타입.
-    getShopByCategory: builder.query<Shop[], ShopCategoryType>({
-      query: (categoryType) => ({
-        url: `http://localhost:4000/shop/category?type=${categoryType}`,
+    getShopByCategory: builder.query<SodamResponse<ShopResponse[]>, string>({
+      query: (type) => ({
+        url: 'https://server.sodam.me/shop/category',
         method: 'GET',
+        params: {
+          type,
+        },
       }),
     }),
     getShopByTheme: builder.query<SodamResponse<ShopResponse[]>, ShopThemeRequestType>({
