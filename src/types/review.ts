@@ -25,23 +25,24 @@ export interface Review {
 }
 
 export interface ReviewRecentResponse {
+  category: string[];
+  shopName: string;
   reviewId: number;
+  shopId: number;
+  image: string[];
   writerName: string;
-  content: string;
+  writerThumbnail: string;
   likeCount: number;
   scrapCount: number;
-  image: string;
-  shopName: string;
-  category: string[];
-  writerThumbnail: string;
+  content: string;
 }
 
 export interface ReviewByShopIdResponse {
   reviewId: number;
   shopId: number;
   image: string[];
-  userImage: string;
-  nickname: string;
+  writerName: string;
+  writerThumbnail: string;
   likeCount: number;
   scrapCount: number;
   content: string;
@@ -52,7 +53,7 @@ export interface ReviewMyWriteResponse {
   likeCount: number;
   scrapCount: number;
   content: string;
-  image: string;
+  image: string[];
   date: Date;
 }
 
@@ -70,16 +71,30 @@ export interface ReviewInfoRequestById {
   shopId: number;
 }
 
-export interface ReviewCardData extends Omit<Review, 'item' | 'tag' | 'image'> {
-  thumbnail: string;
+export interface ReviewCardData {
+  reviewId: number;
+  shopId: number;
+  image: string[];
+  writerThumbnail: string;
+  writerName: string;
+  likeCount: number;
+  scrapCount: number;
+  content: string;
+  date?: Date;
+  shopName?: string;
+  category?: string[];
 }
 
-export type ReviewSortType = 'save' | 'review' | 'recent';
+export type ReviewSortType = 'like' | 'save' | 'recent';
 
-export interface ReviewShopIdRequestParams {
+export interface ReviewPaginationType {
+  offset: number;
+  limit: number;
+}
+
+export interface ReviewShopIdRequestParams extends ReviewPaginationType {
   shopId: number;
   sortType: ReviewSortType;
-  page?: number;
 }
 
 export interface ReviewImage {

@@ -11,13 +11,13 @@ import { shopApi } from 'features/shops/shopApi';
 import { selectUserInfo } from 'features/users/userSlice';
 import { useAppSelector } from 'src/app/hook';
 import styled from 'styled-components';
-import { Review } from 'types/review';
+import { ReviewRecentResponse } from 'types/review';
 import { ShopResponse } from 'types/shop';
 
 interface HomePrefetchProps {
   randomShopList: ShopResponse[];
   popularShopList: ShopResponse[];
-  reviewList: Review[];
+  reviewList: ReviewRecentResponse[];
 }
 
 function Home(props: HomePrefetchProps) {
@@ -95,15 +95,15 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ()
   const dispatch = store.dispatch;
   const randomShopResult = await dispatch(shopApi.endpoints.getShopInfo.initiate('random'));
   const popularShopResult = await dispatch(shopApi.endpoints.getShopInfo.initiate('popular'));
-  const reviewResult = await dispatch(reviewApi.endpoints.getReview.initiate());
+  const reviewResult = await dispatch(reviewApi.endpoints.getReviewRecent.initiate());
 
   const resultProps: {
     randomShopList: ShopResponse[];
-    reviewList: Review[];
+    reviewList: ReviewRecentResponse[];
     popularShopList: ShopResponse[];
   } = {
     randomShopList: [],
-    reviewList: reviewResult.data || [],
+    reviewList: [],
     popularShopList: [],
   };
 
@@ -118,6 +118,13 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ()
     const axiosResult = popularShopResult.data;
     if (axiosResult.status === 200) {
       resultProps.popularShopList = axiosResult.data;
+    }
+  }
+
+  if (reviewResult.isSuccess) {
+    const axiosResult = reviewResult.data;
+    if (axiosResult.status === 200) {
+      resultProps.reviewList = axiosResult.data.filter((data) => data.image[0] !== null);
     }
   }
 

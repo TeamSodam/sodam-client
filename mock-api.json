@@ -354,7 +354,7 @@
       "area": "강남구",
       "reviewCount": 21,
       "type": "popular",
-      "thumbnail": "/assets/dummy/dummy-image.jpg",
+      "image": ["/assets/dummy/dummy-image.jpg"],
       "item": [
         {
           "itemName": "주방용품",
@@ -382,7 +382,7 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/dummy-image.jpg",
+      "image": ["/assets/dummy/dummy-image.jpg"],
       "item": [
         {
           "itemName": "주방용품",
@@ -410,7 +410,7 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/dummy-image.jpg",
+      "image": ["/assets/dummy/dummy-image.jpg"],
       "item": [
         {
           "itemName": "주방용품",
@@ -438,7 +438,7 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/dummy-image.jpg",
+      "image": ["/assets/dummy/dummy-image.jpg"],
       "item": [
         {
           "itemName": "주방용품",
@@ -466,7 +466,7 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/dummy-image.jpg",
+      "image": ["/assets/dummy/dummy-image.jpg"],
       "item": [
         {
           "itemName": "주방용품",
@@ -494,7 +494,7 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/dummy-image.jpg",
+      "image": ["/assets/dummy/dummy-image.jpg"],
       "item": [
         {
           "itemName": "주방용품",
@@ -522,7 +522,7 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/dummy-shop.png",
+      "image": ["/assets/dummy/dummy-shop.png"],
       "item": [
         {
           "itemName": "주방용품",
@@ -550,7 +550,7 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/dummy-shop.png",
+      "image": ["/assets/dummy/dummy-shop.png"],
       "item": [
         {
           "itemName": "주방용품",
@@ -578,7 +578,7 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/dummy-shop.png",
+      "image": ["/assets/dummy/dummy-shop.png"],
       "item": [
         {
           "itemName": "주방용품",
@@ -606,7 +606,7 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/dummy-shop.png",
+      "image": ["/assets/dummy/dummy-shop.png"],
       "item": [
         {
           "itemName": "주방용품",
@@ -634,7 +634,7 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/dummy-shop.png",
+      "image": ["/assets/dummy/dummy-shop.png"],
       "item": [
         {
           "itemName": "주방용품",
@@ -662,7 +662,7 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/dummy-shop.png",
+      "image": ["/assets/dummy/dummy-shop.png"],
       "item": [
         {
           "itemName": "주방용품",
@@ -690,7 +690,7 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/shop_detail.png",
+      "image": ["/assets/dummy/shop_detail.png"],
       "item": [
         {
           "itemName": "주방용품",
@@ -718,7 +718,7 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/shop_detail.png",
+      "image": ["/assets/dummy/shop_detail.png"],
       "item": [
         {
           "itemName": "주방용품",
@@ -746,7 +746,7 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/shop_detail.png",
+      "image": ["/assets/dummy/shop_detail.png"],
       "item": [
         {
           "itemName": "주방용품",
@@ -774,7 +774,7 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/shop_detail.png",
+      "image": ["/assets/dummy/shop_detail.png"],
       "item": [
         {
           "itemName": "주방용품",
@@ -802,7 +802,7 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/shop_detail.png",
+      "image": ["/assets/dummy/shop_detail.png"],
       "item": [
         {
           "itemName": "주방용품",
@@ -830,7 +830,7 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/shop_detail.png",
+      "image": ["/assets/dummy/shop_detail.png"],
       "item": [
         {
           "itemName": "주방용품",
@@ -858,7 +858,7 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/dummy-image.jpg",
+      "image": ["/assets/dummy/dummy-image.jpg"],
       "item": [
         {
           "itemName": "주방용품",
@@ -886,7 +886,7 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/dummy-image.jpg",
+      "image": ["/assets/dummy/dummy-image.jpg"],
       "item": [
         {
           "itemName": "주방용품",
@@ -914,7 +914,7 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/dummy-image.jpg",
+      "image": ["/assets/dummy/dummy-image.jpg"],
       "item": [
         {
           "itemName": "주방용품",
@@ -942,7 +942,7 @@
       "area": "종로구",
       "reviewCount": 21,
       "type": "random",
-      "thumbnail": "/assets/dummy/dummy-image.jpg",
+      "image": ["/assets/dummy/dummy-image.jpg"],
       "item": [
         {
           "itemName": "주방용품",

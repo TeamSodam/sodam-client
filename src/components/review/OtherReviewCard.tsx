@@ -1,9 +1,9 @@
 import ReviewCard from 'components/common/ReviewCard';
 import styled from 'styled-components';
-import { Review } from 'types/review';
+import { ReviewCardData } from 'types/review';
 
 interface OtherReviewCardProps {
-  reviewListData: Review[];
+  reviewListData: ReviewCardData[];
 }
 function OtherReviewCard(props: OtherReviewCardProps) {
   const { reviewListData } = props;

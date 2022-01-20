@@ -69,7 +69,8 @@ function Detail() {
     if (!reviewList || !reviewList.length) return 1;
 
     // 리뷰카운트 계산을 위해 임의로 이렇게 작업
-    const { reviewCount } = reviewList[0];
+    // 서버에서 reviewCount 값 받아야함.
+    const reviewCount = 9;
 
     const isElementRest = reviewCount % 9 > 0;
     const page = Math.floor(reviewCount / 9);
