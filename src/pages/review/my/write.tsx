@@ -8,11 +8,11 @@ import { theme } from 'styles/theme';
 import { ReviewMyWriteResponse } from 'types/review';
 
 interface MyreviewPrefetchProps {
-  reviewList: ReviewMyWriteResponse[];
+  reviwMyWriteList: ReviewMyWriteResponse[];
 }
 
 function Write(props: MyreviewPrefetchProps) {
-  const { reviewList } = props;
+  const { reviwMyWriteList } = props;
   const router = useRouter();
 
   const navigate = () => {
@@ -26,7 +26,7 @@ function Write(props: MyreviewPrefetchProps) {
         <WriteReviewBtn navigate={navigate} />
       </StyledBtnWrapper>
       <StyledCardWrapper>
-        {reviewList.map((review) => (
+        {reviwMyWriteList.map((review) => (
           <ReviewCard key={review.reviewId} reviewData={review} isHoverAvailable isMyReview />
         ))}
       </StyledCardWrapper>
@@ -40,7 +40,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ()
 
   return {
     props: {
-      reviewList: reviewMyWriteResult.data || [],
+      reviwMyWriteList: reviewMyWriteResult.data || [],
     },
   };
 });
