@@ -118,12 +118,14 @@ export interface ReviewWriteRequest {
   tag: string[];
 }
 
-export interface ReviewLikeRequest {
-  isLiked: boolean;
+export interface ReviewLikeScrapRequest {
+  isLiked?: boolean;
+  isScraped?: boolean;
   reviewId: number;
 }
 
-export interface ReviewLikeResponse {
-  isLiked: boolean;
+export interface ReviewLikeScrapResponse {
+  isLiked?: boolean;
+  isScraped?: boolean;
   likeCount: number;
 }
