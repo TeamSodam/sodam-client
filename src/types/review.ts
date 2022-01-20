@@ -9,7 +9,7 @@ export interface Review {
   shopName: string;
   category: string[];
   reviewId: number;
-  date: Date;
+  date: string;
   likeCount: number;
   scrapCount: number;
   isLiked: boolean;
@@ -57,7 +57,7 @@ export interface ReviewMyWriteResponse {
   scrapCount: number;
   content: string;
   image: string[];
-  date: Date;
+  date: string;
 }
 
 export interface ReviewMyScrapResponse {
@@ -83,7 +83,7 @@ export interface ReviewCardData {
   likeCount: number;
   scrapCount: number;
   content: string;
-  date?: Date;
+  date?: string;
   shopName?: string;
   category?: string[];
 }
