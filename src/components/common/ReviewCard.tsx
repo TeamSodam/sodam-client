@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
@@ -14,8 +15,9 @@ interface ReviewCardProps {
 
 function ReviewCard(props: ReviewCardProps) {
   const { reviewData, isHoverAvailable, isMyReview } = props;
+  const router = useRouter();
   const {
-    thumbnail,
+    image,
     shopName,
     category,
     content,
@@ -24,6 +26,8 @@ function ReviewCard(props: ReviewCardProps) {
     date,
     likeCount,
     scrapCount,
+    shopId,
+    reviewId,
   } = reviewData;
 
   const [isHovered, setIsHovered] = useState(false);
@@ -33,11 +37,19 @@ function ReviewCard(props: ReviewCardProps) {
 
   const joinCategory = () => {
     if (typeof category === 'string') return category;
-    return category.join(', ');
+    return category?.join(', ');
+  };
+
+  const navigateToDetail = () => {
+    if (shopId) router.push(`/review/detail/${reviewId}?shopId=${shopId}`);
   };
 
   return (
-    <StyledRoot onMouseOver={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}>
+    <StyledRoot
+      onClick={navigateToDetail}
+      onMouseOver={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       {isHoverAvailable && isHovered && (
         <StyledHover>
           <p>{shopName}</p>
@@ -46,7 +58,7 @@ function ReviewCard(props: ReviewCardProps) {
       )}
       <ImageDiv
         className="thumbnail__image"
-        src={thumbnail}
+        src={typeof image === 'string' ? image : image[0]}
         width={384}
         height={208}
         alt="thumbnail"

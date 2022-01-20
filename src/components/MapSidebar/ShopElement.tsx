@@ -19,6 +19,11 @@ function ShopElement({ shopInfo }: { shopInfo: ShopAreaResponse }) {
     return category.join(', ');
   };
 
+  const getSrc = (src: string | string[]) => {
+    if (typeof src === 'string') return src;
+    return src[0];
+  };
+
   return (
     <StyledShopElement onClick={() => moveByAddress(landAddress, shopName)}>
       <ShopLeftWrapper>
