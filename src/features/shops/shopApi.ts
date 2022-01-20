@@ -3,6 +3,8 @@ import { axiosBaseQuery } from 'libs/api';
 import { SodamResponse } from 'types/api';
 import {
   Shop,
+  ShopAreaRequestType,
+  ShopAreaResponse,
   ShopBookmarkRequestType,
   ShopCategoryType,
   ShopMainSortType,
@@ -42,8 +44,12 @@ export const shopApi = createApi({
       }),
       transformResponse: (response: SodamResponse<Shop>) => response.data,
     }),
-    getShopByArea: builder.query<Shop[], string>({
-      query: (area) => ({ url: `http://localhost:4000/shop?area=${area}`, method: 'GET' }),
+    getShopByArea: builder.query<ShopAreaResponse[], ShopAreaRequestType>({
+      query: ({ area, sort }) => ({
+        url: `https://server.sodam.me/shop?area=${area}&sort=${sort}`,
+        method: 'GET',
+      }),
+      transformResponse: (response: SodamResponse<ShopAreaResponse[]>) => response.data,
     }),
     getShopInfo: builder.query<SodamResponse<ShopResponse[]>, ShopMainSortType>({
       query: (type) => ({

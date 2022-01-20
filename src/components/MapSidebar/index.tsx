@@ -6,7 +6,7 @@ import LeftArrIC from 'public/assets/ic_leftArr.svg';
 import StarIC from 'public/assets/ic_star.svg';
 import { useState } from 'react';
 import styled, { css } from 'styled-components';
-import { Shop } from 'types/shop';
+import { ShopAreaResponse } from 'types/shop';
 
 interface StyledMapProps {
   isOpen?: boolean;
@@ -19,7 +19,7 @@ interface OptionInfo {
   label: OptionLabel;
 }
 
-function MapSidebar({ shopList }: { shopList: Shop[] }) {
+function MapSidebar({ shopList }: { shopList: ShopAreaResponse[] }) {
   const [isOpen, setIsOpen] = useState(true);
   const [currentOption, setCurrentOption] = useState<OptionLabel>('인기 순');
   const toggle = () => setIsOpen((prevState) => !prevState);

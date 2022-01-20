@@ -2,26 +2,21 @@ import useMap from 'hooks/useMap';
 import Image from 'next/image';
 import DelimiterIC from 'public/assets/ic_delimiter.svg';
 import styled from 'styled-components';
-import { Shop } from 'types/shop';
+import { ShopAreaResponse } from 'types/shop';
 
 interface StyledShopElementProps {
   isSelected?: boolean;
 }
 
-function ShopElement({ shopInfo }: { shopInfo: Shop }) {
+function ShopElement({ shopInfo }: { shopInfo: ShopAreaResponse }) {
   const { moveByAddress } = useMap();
 
-  const { shopName, category, image, landAddress, close, reviewCount } = shopInfo;
+  const { shopName, category, image, landAddress, time, reviewCount } = shopInfo;
 
   const parseCategory = (category: string | string[]) => {
     if (typeof category === 'string') return category;
 
     return category.join(', ');
-  };
-
-  const getSrc = (src: string | string[]) => {
-    if (typeof src === 'string') return src;
-    return src[0];
   };
 
   return (
@@ -33,12 +28,12 @@ function ShopElement({ shopInfo }: { shopInfo: Shop }) {
           <ShopAddress>{landAddress}</ShopAddress>
         </ShopMainInfo>
         <ShopSubInfo>
-          <WorkHour>{close}</WorkHour>
+          <WorkHour>{time}</WorkHour>
           <DelimiterIC />
           <ReviewInfo>{`리뷰 ${reviewCount}개`}</ReviewInfo>
         </ShopSubInfo>
       </ShopLeftWrapper>
-      <Image width={100} height={100} src={getSrc(image)} alt="shop-image" />
+      <Image width={100} height={100} src={image[0]} alt="shop-image" />
     </StyledShopElement>
   );
 }
