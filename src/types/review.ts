@@ -50,6 +50,9 @@ export interface ReviewByShopIdResponse {
 
 export interface ReviewMyWriteResponse {
   reviewId: number;
+  shopId: number;
+  shopName: string;
+  category: string[];
   likeCount: number;
   scrapCount: number;
   content: string;
@@ -75,8 +78,8 @@ export interface ReviewCardData {
   reviewId: number;
   shopId: number;
   image: string[];
-  writerThumbnail: string;
-  writerName: string;
+  writerThumbnail?: string;
+  writerName?: string;
   likeCount: number;
   scrapCount: number;
   content: string;

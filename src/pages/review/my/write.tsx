@@ -5,10 +5,10 @@ import { reviewApi } from 'features/reviews/reviewApi';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
-import { Review } from 'types/review';
+import { ReviewMyWriteResponse } from 'types/review';
 
 interface MyreviewPrefetchProps {
-  reviewList: Review[];
+  reviewList: ReviewMyWriteResponse[];
 }
 
 function Write(props: MyreviewPrefetchProps) {
@@ -36,11 +36,14 @@ function Write(props: MyreviewPrefetchProps) {
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
   const dispatch = store.dispatch;
-  const reviewResult = await dispatch(reviewApi.endpoints.getReview.initiate());
+  const reviewMyWriteResult = await dispatch(reviewApi.endpoints.getMyWriteReview.initiate());
 
+  console.log('★★★★★★★★★★★★★');
+  console.log(reviewMyWriteResult.data);
+  console.log('★★★★★★★★★★★★★');
   return {
     props: {
-      reviewList: reviewResult.data || [],
+      reviewList: reviewMyWriteResult.data || [],
     },
   };
 });

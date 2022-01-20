@@ -5,6 +5,7 @@ import {
   Review,
   ReviewByShopIdResponse,
   ReviewInfoRequestById,
+  ReviewMyWriteResponse,
   ReviewRecentResponse,
   ReviewShopIdRequestParams,
 } from 'types/review';
@@ -18,8 +19,9 @@ export const reviewApi = createApi({
     getReviewRecent: builder.query<SodamResponse<ReviewRecentResponse[]>, void>({
       query: () => ({ url: 'https://server.sodam.me/review/recent', method: 'GET' }),
     }),
-    getMyWriteReview: builder.query<Review[], void>({
-      query: () => ({ url: 'http://localhost:4000/my/review/write', method: 'GET' }),
+    getMyWriteReview: builder.query<ReviewMyWriteResponse[], void>({
+      query: () => ({ url: 'https://server.sodam.me/my/review/write', method: 'GET' }),
+      transformResponse: (response: SodamResponse<ReviewMyWriteResponse[]>) => response.data,
     }),
     getMyScrapReview: builder.query<Review[], void>({
       query: () => ({ url: 'http://localhost:4000/my/review/scrap', method: 'GET' }),

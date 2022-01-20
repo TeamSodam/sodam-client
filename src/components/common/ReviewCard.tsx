@@ -21,15 +21,14 @@ function ReviewCard(props: ReviewCardProps) {
     shopName,
     category,
     content,
-    writerThumbnail,
-    writerName,
     date,
     likeCount,
     scrapCount,
     shopId,
     reviewId,
+    writerThumbnail,
+    writerName,
   } = reviewData;
-
   const [isHovered, setIsHovered] = useState(false);
 
   const likedCount = likeCount > 99 ? '99+' : likeCount;
@@ -68,10 +67,12 @@ function ReviewCard(props: ReviewCardProps) {
           {isMyReview ? (
             <p className="date">{date}</p>
           ) : (
-            <div className="profile">
-              <Image src={writerThumbnail} width={24} height={24} alt="profile" />
-              <p>{writerName}</p>
-            </div>
+            writerThumbnail !== undefined && (
+              <div className="profile">
+                <Image src={writerThumbnail} width={24} height={24} alt="profile" />
+                <p>{writerName}</p>
+              </div>
+            )
           )}
           <div className="figure">
             <ImageDiv
