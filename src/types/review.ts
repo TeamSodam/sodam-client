@@ -61,12 +61,16 @@ export interface ReviewMyWriteResponse {
 }
 
 export interface ReviewMyScrapResponse {
-  writerName: string;
-  content: string;
-  scrapCount: number;
-  likeCount: number;
+  category: string[];
   shopName: string;
-  category: string;
+  reviewId: number;
+  shopId: number;
+  image: string[];
+  writerName: string;
+  writerThumbnail: string;
+  likeCount: number;
+  scrapCount: number;
+  content: string;
 }
 
 export interface ReviewInfoRequestById {
