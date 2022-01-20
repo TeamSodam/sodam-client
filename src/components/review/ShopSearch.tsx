@@ -5,13 +5,13 @@ import searchDelIC from 'public/assets/ic_searchDel.svg';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
-import { Shop } from 'types/shop';
+import { ShopSearchResponse } from 'types/shop';
 
 import ShopSearchList from './ShopSearchList';
 
 function ShopSearch() {
   const [inputValue, setInputValue] = useState('');
-  const [searchValue, setSearchValue] = useState<Shop[] | undefined>();
+  const [searchValue, setSearchValue] = useState<ShopSearchResponse[] | undefined>();
   const [trigger] = shopApi.useLazyGetShopSearchResultQuery();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedShop, setSelectedShop] = useState('');

@@ -26,7 +26,7 @@ export interface ShopResponse {
   shopId: number;
   shopName: string;
   category: string[];
-  image: string;
+  image: string[];
 }
 
 export interface ShopAreaResponse extends ShopResponse {
@@ -100,3 +100,9 @@ export type PriceList =
   | '100,000원 이상';
 
 export type SeoulAreaType = keyof typeof SEOUL_ENUM;
+export type ShopAreaSortType = 'popular' | 'mysave';
+
+export interface ShopAreaRequestType {
+  area: string;
+  sort: ShopAreaSortType;
+}

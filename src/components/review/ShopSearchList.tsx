@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
-import { Shop } from 'types/shop';
+import { ShopSearchResponse } from 'types/shop';
 
 interface StyledSSLProps {
-  shopList: Shop[] | undefined;
+  shopList: ShopSearchResponse[] | undefined;
   toggle: () => void;
   onSetSelected: (shop: string) => void;
 }
@@ -22,8 +22,8 @@ function ShopSearchList(props: StyledSSLProps) {
         <span>등록된 소품샵이 없습니다.</span>
       ) : (
         shopList?.map((item) => (
-          <li key={item.shopId} onClick={() => handleClick(item.store)} role="presentation">
-            {item.store}
+          <li key={item.shopId} onClick={() => handleClick(item.shopName)} role="presentation">
+            {item.shopName}
           </li>
         ))
       )}
