@@ -17,6 +17,7 @@ export const displayMarker = async (
   const { kakao } = window;
   const { landAddress, shopName } = shopInfo;
   const markerPosition = await getLocationByAddress(landAddress);
+  if (!markerPosition) return;
 
   const MARKER_SRC = '/assets/ic_basic_marker.svg';
   const ACTIVE_MARKER_SRC = '/assets/ic_active_marker.svg';

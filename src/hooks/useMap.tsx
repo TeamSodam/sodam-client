@@ -68,6 +68,7 @@ function useMap<T>(
         }
         if (!map) {
           const location = await getLocationByAddress(`${initialLocation || '서울 마포구'}`);
+          if (!location) return;
           dispatch(
             setMap(
               new window.kakao.maps.Map(containerRef.current, {
