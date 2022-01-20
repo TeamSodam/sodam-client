@@ -2,6 +2,7 @@ import { createApi } from '@reduxjs/toolkit/query/react';
 import { axiosBaseQuery } from 'libs/api';
 import { SodamResponse } from 'types/api';
 import {
+  BookmarkResponseType,
   BookmarkResquestType,
   Shop,
   ShopAreaRequestType,
@@ -81,7 +82,7 @@ export const shopApi = createApi({
         method: 'GET',
       }),
     }),
-    postBookmark: builder.mutation<number, BookmarkResquestType>({
+    postBookmark: builder.mutation<SodamResponse<BookmarkResponseType>, BookmarkResquestType>({
       query: ({ shopId, isBookmarked }) => ({
         url: 'https://server.sodam.me/shop/bookmark',
         method: 'POST',
