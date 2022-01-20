@@ -3,10 +3,12 @@ import { axiosBaseQuery } from 'libs/api';
 import { SodamResponse } from 'types/api';
 import {
   Shop,
+  ShopAreaRequestType,
+  ShopAreaResponse,
   ShopBookmarkRequestType,
-  ShopCategoryType,
   ShopMainSortType,
   ShopResponse,
+  ShopSearchResponse,
   ShopSubwayResponse,
   ShopThemeRequestType,
 } from 'types/shop';
@@ -17,10 +19,13 @@ export const shopApi = createApi({
   refetchOnFocus: true,
   endpoints: (builder) => ({
     // builder.query<T, U>() --> T는 쿼리의 반환값 타입, U는 쿼리 파라미터의 타입.
-    getShopByCategory: builder.query<Shop[], ShopCategoryType>({
-      query: (categoryType) => ({
-        url: `http://localhost:4000/shop/category?type=${categoryType}`,
+    getShopByCategory: builder.query<SodamResponse<ShopResponse[]>, string>({
+      query: (type) => ({
+        url: 'https://server.sodam.me/shop/category',
         method: 'GET',
+        params: {
+          type,
+        },
       }),
     }),
     getShopByTheme: builder.query<SodamResponse<ShopResponse[]>, ShopThemeRequestType>({
@@ -42,8 +47,12 @@ export const shopApi = createApi({
       }),
       transformResponse: (response: SodamResponse<Shop>) => response.data,
     }),
-    getShopByArea: builder.query<Shop[], string>({
-      query: (area) => ({ url: `http://localhost:4000/shop?area=${area}`, method: 'GET' }),
+    getShopByArea: builder.query<ShopAreaResponse[], ShopAreaRequestType>({
+      query: ({ area, sort }) => ({
+        url: `https://server.sodam.me/shop?area=${area}&sort=${sort}`,
+        method: 'GET',
+      }),
+      transformResponse: (response: SodamResponse<ShopAreaResponse[]>) => response.data,
     }),
     getShopInfo: builder.query<SodamResponse<ShopResponse[]>, ShopMainSortType>({
       query: (type) => ({
@@ -51,11 +60,12 @@ export const shopApi = createApi({
         method: 'GET',
       }),
     }),
-    getShopSearchResult: builder.query<Shop[], string>({
+    getShopSearchResult: builder.query<ShopSearchResponse[], string>({
       query: (keyword) => ({
-        url: `http://localhost:4000/shop?shopName=${keyword}`,
+        url: `https://server.sodam.me/shop/search?keyword=${keyword}`,
         method: 'GET',
       }),
+      transformResponse: (response: SodamResponse<ShopSearchResponse[]>) => response.data,
     }),
     getShopBySubway: builder.query<ShopSubwayResponse, number>({
       query: (shopId) => ({

@@ -26,7 +26,7 @@ export default Scrap;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
   const dispatch = store.dispatch;
-  const reviewResult = await dispatch(reviewApi.endpoints.getReview.initiate());
+  const reviewResult = await dispatch(reviewApi.endpoints.getReviewRecent.initiate());
 
   return {
     props: {
