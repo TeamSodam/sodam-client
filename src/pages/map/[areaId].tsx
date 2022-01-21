@@ -1,13 +1,21 @@
 import { useAppDispatch } from 'app/hook';
-import MapSidebar from 'components/MapSidebar';
+import { wrapper } from 'app/store';
+import MapSidebar, { OptionLabel } from 'components/MapSidebar';
 import SEOUL_ENUM from 'constants/SeoulAreaEnum';
 import { initMap } from 'features/map/mapSlice';
-import { useGetShopByAreaQuery } from 'features/shops/shopApi';
+import { shopApi } from 'features/shops/shopApi';
 import useMap from 'hooks/useMap';
 import { useRouter } from 'next/router';
 import LeftArr from 'public/assets/ic_leftArr.svg';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import { ShopAreaResponse } from 'types/shop';
+
+interface AreaMapProps {
+  popularAreaList: ShopAreaResponse[];
+  saveAreaList: ShopAreaResponse[];
+  areaId: number;
+}
 
 const parseAreaId = (areaId: string | string[] | undefined) => {
   if (!areaId) return 0;
@@ -16,18 +24,19 @@ const parseAreaId = (areaId: string | string[] | undefined) => {
   return +areaId;
 };
 
-function MapWithAreaId() {
+function MapWithAreaId(props: AreaMapProps) {
+  const { popularAreaList, saveAreaList, areaId: AREA_ID } = props;
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const { areaId } = router.query;
-  const AREA_ID = parseAreaId(areaId);
+
+  const [currentList, setCurrentList] = useState(popularAreaList);
+  const [currentOption, setCurrentOption] = useState<OptionLabel>('인기 순');
+
+  const toggleOption = (option: OptionLabel) => setCurrentOption(option);
 
   const mapRef = useRef<HTMLDivElement>(null);
-  const { data: areaShopList } = useGetShopByAreaQuery({
-    area: SEOUL_ENUM[AREA_ID],
-    sort: 'popular',
-  });
-  const initialLocation = areaShopList && areaShopList.length > 0 && areaShopList[0].landAddress;
+
+  const initialLocation = currentList && currentList.length > 0 && currentList[0].landAddress;
 
   const { displayMarkerByAddress } = useMap(mapRef, initialLocation || SEOUL_ENUM[AREA_ID]);
   const onClickGoBack = () => {
@@ -36,17 +45,21 @@ function MapWithAreaId() {
   };
 
   useEffect(() => {
-    if (areaShopList) {
+    if (currentOption === '인기 순') {
+      setCurrentList(popularAreaList);
+    } else setCurrentList(saveAreaList);
+  }, [currentOption, popularAreaList, saveAreaList]);
+
+  useEffect(() => {
+    if (currentList) {
       (() => {
-        areaShopList.forEach(async (shopInfo) => {
+        currentList.forEach(async (shopInfo) => {
           const { category, landAddress, shopName, shopId } = shopInfo;
           await displayMarkerByAddress({ landAddress, shopName, category, shopId });
         });
       })();
     }
-  }, [displayMarkerByAddress, areaShopList]);
-
-  if (!areaId) return <div>something wrong!</div>;
+  }, [displayMarkerByAddress, currentList]);
 
   return (
     <StyledContainer>
@@ -55,11 +68,53 @@ function MapWithAreaId() {
         <span>지역 다시 선택하기</span>
       </StyledGoBack>
       <MapContainer ref={mapRef}>
-        {areaShopList && <MapSidebar shopList={areaShopList} />}
+        {currentList && (
+          <MapSidebar
+            shopList={currentList}
+            currentOption={currentOption}
+            toggleOption={toggleOption}
+          />
+        )}
       </MapContainer>
     </StyledContainer>
   );
 }
+
+export const getServerSideProps = wrapper.getServerSideProps((store) => async (context) => {
+  if (!context.params) {
+    return {
+      props: {
+        popularAreaList: [],
+        saveAreaList: [],
+        areaId: 1,
+      },
+    };
+  }
+
+  const AREA_ID = parseAreaId(context.params.areaId);
+  const dispatch = store.dispatch;
+
+  const popularResult = await dispatch(
+    shopApi.endpoints.getShopByArea.initiate({
+      area: SEOUL_ENUM[AREA_ID],
+      sort: 'popular',
+    }),
+  );
+  const mySaveResult = await dispatch(
+    shopApi.endpoints.getShopByArea.initiate({
+      area: SEOUL_ENUM[AREA_ID],
+      sort: 'mysave',
+    }),
+  );
+
+  return {
+    props: {
+      areaId: AREA_ID,
+      popularAreaList: popularResult.data || [],
+      saveAreaList: mySaveResult.data || [],
+    },
+  };
+});
 
 const StyledContainer = styled.main`
   display: flex;
