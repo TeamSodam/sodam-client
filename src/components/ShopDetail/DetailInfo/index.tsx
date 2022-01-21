@@ -150,6 +150,7 @@ const UpWrapper = styled.div`
     color: ${({ theme }) => theme.colors.black2};
     font-weight: 700;
     margin-bottom: 0.8rem;
+    margin-top: -1rem;
 
     display: -webkit-box;
     white-space: normal;

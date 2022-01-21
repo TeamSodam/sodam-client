@@ -67,7 +67,7 @@ const StyledUl = styled.ul`
   display: flex;
   position: absolute;
   flex-direction: column;
-  z-index: 1;
+  z-index: 5;
   width: 11.5rem;
   top: 0;
   left: 0;

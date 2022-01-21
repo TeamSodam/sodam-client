@@ -54,14 +54,17 @@ const LeftFooter = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 1.5rem;
+  gap: 2.4rem;
 `;
 
 const ContactTitle = styled.div`
+  width: 7.7rem;
   font-weight: 600;
   font-size: 1.4rem;
 `;
 
 const ContactContent = styled.li`
+  flex: 1;
   list-style: none;
   font-weight: 400;
   font-size: 1.4rem;

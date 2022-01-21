@@ -15,7 +15,7 @@ const BANNER_SRC_LIST = [
     Button: null,
   },
   {
-    src: '/assets/banner/banner_03.svg',
+    src: '/assets/banner/banner_03.png',
     Button: ThirdBannerBtn,
   },
 ];
