@@ -1,6 +1,7 @@
 import { wrapper } from 'app/store';
 import BannerList from 'components/BannerList';
 import MainSlider from 'components/common/MainSlider';
+import MoreFilter from 'components/common/MoreFilter';
 import ReviewCard from 'components/common/ReviewCard';
 import ShopCard from 'components/common/ShopCard';
 import ShopCardRank from 'components/common/ShopCardRank';
@@ -9,10 +10,11 @@ import { MoreFilterList } from 'constants/dropdownOptionList';
 import { reviewApi } from 'features/reviews/reviewApi';
 import { shopApi } from 'features/shops/shopApi';
 import { selectUserInfo } from 'features/users/userSlice';
+import { useState } from 'react';
 import { useAppSelector } from 'src/app/hook';
 import styled from 'styled-components';
 import { ReviewRecentResponse } from 'types/review';
-import { ShopResponse } from 'types/shop';
+import { ShopCategoryType, ShopResponse } from 'types/shop';
 
 interface HomePrefetchProps {
   randomShopList: ShopResponse[];
@@ -26,6 +28,15 @@ const randomCategory = MoreFilterList[Math.floor(Math.random() * 6)];
 function Home(props: HomePrefetchProps) {
   const { randomShopList, reviewList, popularShopList, categoryShopList } = props;
   const { nickname } = useAppSelector(selectUserInfo);
+  const [currentCategoryList, setCurrentCategoryList] = useState(categoryShopList);
+  const [currentCategory, setCurrentCategory] = useState(randomCategory);
+  const [getListByCategory] = shopApi.useLazyGetShopByCategoryQuery();
+
+  const updateListByCategory = async (nextCategory: ShopCategoryType) => {
+    setCurrentCategory(nextCategory);
+    const updatedList = await getListByCategory(nextCategory.replace('·', ''));
+    if (updatedList.data) setCurrentCategoryList(updatedList.data);
+  };
 
   const showRandomShopSlider = () => {
     const cardList = randomShopList.map((shop) => <ShopCard key={shop.shopId} cardData={shop} />);
@@ -54,7 +65,9 @@ function Home(props: HomePrefetchProps) {
   };
 
   const showRandomCategorySlider = () => {
-    const cardList = categoryShopList.map((shop) => <ShopCard key={shop.shopId} cardData={shop} />);
+    const cardList = currentCategoryList.map((shop) => (
+      <ShopCard key={shop.shopId} cardData={shop} />
+    ));
     return <MainSlider slidesPerView={4} cardList={cardList} />;
   };
 
@@ -80,9 +93,12 @@ function Home(props: HomePrefetchProps) {
           {showPopularShopSlider()}
         </LabelContentWrapper>
         <LabelContentWrapper>
-          <Label>
-            <em>{randomCategory}</em> 소품샵 리스트
-          </Label>
+          <LabelFilterWrapper>
+            <Label>
+              <em>{currentCategory}</em> 소품샵 리스트
+            </Label>
+            <MoreFilter currentCategory={currentCategory} updateList={updateListByCategory} />
+          </LabelFilterWrapper>
           {showRandomCategorySlider()}
         </LabelContentWrapper>
       </MarginWrapper>
@@ -108,7 +124,7 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ()
     randomShopList: [],
     reviewList: [],
     popularShopList: [],
-    categoryShopList: [],
+    categoryShopList: categoryShopResult.data || [],
   };
 
   if (randomShopResult.isSuccess) {
@@ -129,13 +145,6 @@ export const getServerSideProps = wrapper.getServerSideProps((store) => async ()
     const axiosResult = reviewResult.data;
     if (axiosResult.status === 200) {
       resultProps.reviewList = axiosResult.data.filter((data) => data.image[0] !== null);
-    }
-  }
-
-  if (categoryShopResult.isSuccess) {
-    const axiosResult = categoryShopResult.data;
-    if (axiosResult.status === 200) {
-      resultProps.categoryShopList = axiosResult.data;
     }
   }
 
@@ -173,6 +182,16 @@ const LabelContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3.2rem;
+`;
+
+const LabelFilterWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  & > div :nth-child(2) {
+    align-self: center;
+  }
 `;
 
 export default Home;

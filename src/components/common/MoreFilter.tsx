@@ -2,20 +2,27 @@ import { MoreFilterList } from 'constants/dropdownOptionList';
 import { MouseEvent, useState } from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
+import { ShopCategoryType } from 'types/shop';
 
 interface StyledMFProps {
   option: string;
   isActive: boolean;
 }
-function MoreFilter() {
-  const [isActive, setIsActive] = useState('문구·팬시');
+
+interface MoreFilterProps {
+  currentCategory: string;
+  updateList: (nextCategory: ShopCategoryType) => void;
+}
+
+function MoreFilter(props: MoreFilterProps) {
+  const { currentCategory, updateList } = props;
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen((prevIsOpen) => !prevIsOpen);
 
-  const handleClick = (e: MouseEvent, option: string) => {
+  const handleClick = (e: MouseEvent, option: ShopCategoryType) => {
     if (!(e.target instanceof HTMLElement)) return;
     e.stopPropagation();
-    setIsActive(option);
+    updateList(option);
     toggle();
   };
 
@@ -29,7 +36,7 @@ function MoreFilter() {
               <StyledLi
                 key={option}
                 option={option}
-                isActive={isActive === option}
+                isActive={currentCategory === option}
                 onClick={(e) => handleClick(e, option)}
               >
                 {option}
@@ -67,10 +74,10 @@ const StyledUl = styled.ul`
   display: flex;
   position: absolute;
   flex-direction: column;
-  z-index: 1;
+  z-index: 5;
   width: 11.5rem;
   top: 0;
-  left: 0;
+  right: 0;
   box-shadow: 0px 3px 8px rgba(87, 82, 76, 0.15);
   border-radius: 0.5rem;
   background-color: white;
