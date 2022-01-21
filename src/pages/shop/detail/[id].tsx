@@ -105,7 +105,6 @@ function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQu
       offset: 1,
       limit: 9,
     });
-    console.log(result);
     setCurrentList(result?.data?.data);
   };
 

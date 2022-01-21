@@ -53,8 +53,12 @@ export const shopApi = createApi({
     }),
     getShopByArea: builder.query<ShopAreaResponse[], ShopAreaRequestType>({
       query: ({ area, sort }) => ({
-        url: `https://server.sodam.me/shop?area=${area}&sort=${sort}`,
+        url: 'https://server.sodam.me/shop',
         method: 'GET',
+        params: {
+          area,
+          sort,
+        },
       }),
       transformResponse: (response: SodamResponse<ShopAreaResponse[]>) => response.data,
     }),

@@ -1,9 +1,9 @@
 import ShopElement from 'components/MapSidebar/ShopElement';
 import ActivePinIC from 'public/assets/ic_active_marker.svg';
 import InActivePinIC from 'public/assets/ic_basic_marker.svg';
-import EmptyStarIC from 'public/assets/ic_empty_star.svg';
 import LeftArrIC from 'public/assets/ic_leftArr.svg';
 import StarIC from 'public/assets/ic_star.svg';
+import EmptyStarIC from 'public/assets/ic_white_star.svg';
 import { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { ShopAreaResponse } from 'types/shop';
@@ -13,15 +13,21 @@ interface StyledMapProps {
   isActive?: boolean;
 }
 
-type OptionLabel = '인기 순' | '내가 저장한';
+interface MapSidebarProps {
+  currentOption: string;
+  toggleOption: (option: OptionLabel) => void;
+  shopList: ShopAreaResponse[];
+}
+
+export type OptionLabel = '인기 순' | '내가 저장한';
 interface OptionInfo {
   icon: Array<React.FC<React.SVGProps<SVGSVGElement>>>;
   label: OptionLabel;
 }
 
-function MapSidebar({ shopList }: { shopList: ShopAreaResponse[] }) {
+function MapSidebar(props: MapSidebarProps) {
+  const { currentOption, toggleOption, shopList } = props;
   const [isOpen, setIsOpen] = useState(true);
-  const [currentOption, setCurrentOption] = useState<OptionLabel>('인기 순');
   const toggle = () => setIsOpen((prevState) => !prevState);
 
   const optionList: OptionInfo[] = [
@@ -41,11 +47,7 @@ function MapSidebar({ shopList }: { shopList: ShopAreaResponse[] }) {
       const isActive = currentOption === option.label;
       const CurrentIcon = isActive ? ActiveIcon : InActiveIcon;
       return (
-        <Option
-          key={option.label}
-          onClick={() => setCurrentOption(option.label)}
-          isActive={isActive}
-        >
+        <Option key={option.label} onClick={() => toggleOption(option.label)} isActive={isActive}>
           <CurrentIcon />
           <span>{option.label}</span>
         </Option>
