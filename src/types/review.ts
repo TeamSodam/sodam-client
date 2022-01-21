@@ -16,7 +16,7 @@ export interface Review {
   isScraped: boolean;
   writerThumbnail: string;
   writerName: string;
-  image: File[];
+  image: string[];
   item: Item[];
   content: string;
   tag: string[];
