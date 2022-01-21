@@ -1,3 +1,4 @@
+import { usePostLikeMutation, usePostScrapMutation } from 'features/reviews/reviewApi';
 import Image from 'next/image';
 import LikeReviewIC from 'public/assets/ic_likeReview.svg';
 import ScrapReviewIC from 'public/assets/ic_scrapReview.svg';
@@ -37,13 +38,17 @@ function ReviewDetailCard(props: ReviewDetailCardProps) {
     content,
     tag,
     item,
+    reviewId,
+    isLiked,
+    isScraped,
   } = reviewData;
 
-  const [isLikeClicked, setLikeClicked] = useState(true);
-  const [isScrapClicked, setScrapClicked] = useState(true);
+  const [likePost] = usePostLikeMutation();
+  const [scrapPost] = usePostScrapMutation();
+  const [isLikeClicked, setLikeClicked] = useState(isLiked);
+  const [isScrapClicked, setScrapClicked] = useState(isScraped);
   const [currentLikeCount, setCurrentLikeCount] = useState(likeCount);
   const [currentScrapCount, setCurrentScrapCount] = useState(scrapCount);
-
   const likedCount = currentLikeCount > 99 ? '99+' : currentLikeCount;
   const scrapedCount = currentScrapCount > 99 ? '99+' : currentScrapCount;
 
@@ -51,10 +56,12 @@ function ReviewDetailCard(props: ReviewDetailCardProps) {
     const setter = type === 'scrap' ? setCurrentScrapCount : setCurrentLikeCount;
     const isClicked = type === 'scrap' ? isScrapClicked : isLikeClicked;
     const setIsClicked = type === 'scrap' ? setScrapClicked : setLikeClicked;
+    const postApiFunc = type === 'scrap' ? scrapPost : likePost;
     const value = isClicked ? -1 : 1;
 
     setter((prevState) => prevState + value);
     setIsClicked((prevClickState) => !prevClickState);
+    postApiFunc({ reviewId, isLiked: !isClicked, isScraped: !isClicked });
   };
 
   return (
@@ -183,7 +190,7 @@ const LikeReview = styled.div`
   }
 `;
 
-const LikeIcon = styled.div<{ isLike: boolean }>`
+const LikeIcon = styled.div<{ isLike: boolean | undefined }>`
   width: 2.9rem;
   height: 2.6rem;
 
@@ -205,7 +212,7 @@ const ScrapReview = styled.div`
   }
 `;
 
-const ScrapIcon = styled.div<{ isScrap: boolean }>`
+const ScrapIcon = styled.div<{ isScrap: boolean | undefined }>`
   width: 2.2rem;
   height: 2.6rem;
   &:hover {

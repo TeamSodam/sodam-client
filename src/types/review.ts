@@ -128,4 +128,5 @@ export interface ReviewLikeScrapResponse {
   isLiked?: boolean;
   isScraped?: boolean;
   likeCount: number;
+  scrapCount: number;
 }
