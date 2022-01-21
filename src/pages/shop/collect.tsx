@@ -1,38 +1,31 @@
-import { wrapper } from 'app/store';
 import DropDownFilter from 'components/common/DropDownFilter';
 import ShopCard from 'components/common/ShopCard';
-import { shopApi } from 'features/shops/shopApi';
+import { useGetShopByBookmarkQuery } from 'features/shops/shopApi';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
-import { ShopResponse } from 'types/shop';
+import { ShopBookMarkRequestType } from 'types/shop';
 
-interface CollectPrefetchProps {
-  collectShopList: ShopResponse[];
-}
-
-function Collect(props: CollectPrefetchProps) {
-  const { collectShopList } = props;
-  const [trigger] = shopApi.useLazyGetShopByBookmarkQuery();
-  const [currentList, setCurrentList] = useState<ShopResponse[] | undefined>(collectShopList);
-
-  const updateList = async (sortType: string) => {
-    const result = await trigger({ sort: sortType, offset: 1, limit: 12 });
-    setCurrentList(result.data);
-  };
+function Collect() {
+  const [currentSort, setCurrentSort] = useState<ShopBookMarkRequestType>('save');
+  const { data: collectShopList } = useGetShopByBookmarkQuery({
+    sort: currentSort,
+    offset: 1,
+    limit: 12,
+  });
 
   const filterProps = [
     {
       filterName: '저장 많은 순',
-      onClick: async () => updateList('save'),
+      onClick: () => setCurrentSort('save'),
     },
     {
       filterName: '리뷰 많은 순',
-      onClick: async () => updateList('review'),
+      onClick: () => setCurrentSort('review'),
     },
     {
       filterName: '최근 저장한 순',
-      onClick: async () => updateList('recent'),
+      onClick: () => setCurrentSort('recent'),
     },
   ];
 
@@ -43,29 +36,14 @@ function Collect(props: CollectPrefetchProps) {
         <DropDownFilter pageType="collect" filterProps={filterProps} />
       </StyledFilterWrapper>
       <StyledCardWrapper>
-        {currentList?.map((shop) => (
-          <ShopCard key={shop.shopId} cardData={shop} />
-        ))}
+        {collectShopList &&
+          collectShopList.map((shop) => <ShopCard key={shop.shopId} cardData={shop} />)}
       </StyledCardWrapper>
     </StyledContainer>
   );
 }
 
 export default Collect;
-
-export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
-  const dispatch = store.dispatch;
-  const collectShopResult = await dispatch(
-    shopApi.endpoints.getShopByBookmark.initiate({ sort: 'save', offset: 1, limit: 12 }),
-  );
-
-  return {
-    props: {
-      collectShopList: collectShopResult.data || [],
-    },
-  };
-});
-
 const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;

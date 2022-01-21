@@ -51,6 +51,8 @@ export interface ShopBookmarkRequestType {
   limit: number;
 }
 
+export type ShopBookMarkRequestType = 'save' | 'review' | 'recent';
+
 export type ShopThemeType = '아기자기한' | '힙한' | '모던한' | '빈티지';
 export interface ShopThemeRequestType extends ShopPaginationType {
   sortType: ShopThemeSortType;
