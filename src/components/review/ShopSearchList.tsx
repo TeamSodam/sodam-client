@@ -59,6 +59,7 @@ const StyledUl = styled.ul`
     line-height: 3.6rem;
     font-weight: 500;
     font-size: 1.4rem;
+    padding-left: 0.8rem;
     color: ${theme.colors.black2};
     cursor: pointer;
   }
