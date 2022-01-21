@@ -188,10 +188,6 @@ const LabelFilterWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-
-  & > div :nth-child(2) {
-    align-self: center;
-  }
 `;
 
 export default Home;
