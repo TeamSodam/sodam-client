@@ -154,14 +154,18 @@ function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQu
                 />
               )}
             </LabelWrapper>
-            <DropDownFilter pageType="detail" filterProps={filterProps} />
+            {currentList && currentList.length > 0 && (
+              <DropDownFilter pageType="detail" filterProps={filterProps} />
+            )}
           </LabelWithOptions>
           <ReviewGrid>{showReviewList()}</ReviewGrid>
-          <PageNaviagator
-            pageLimit={calcPageNum()}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          />
+          {currentList && currentList.length > 0 && (
+            <PageNaviagator
+              pageLimit={calcPageNum()}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+          )}
         </LabelContentWrapper>
         <LabelContentWrapper>
           <Label>
