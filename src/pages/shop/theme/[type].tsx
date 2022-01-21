@@ -40,8 +40,8 @@ function ThemePage(props: ThemePageProps) {
   const [currentSortType, setCurrentSortType] = useState<ShopThemeSortType>('popular');
 
   const filterProps = [
-    { filterName: '리뷰 많은 순', onClick: () => setCurrentSortType('popular') },
-    { filterName: '저장 많은 순', onClick: () => setCurrentSortType('review') },
+    { filterName: '리뷰 많은 순', onClick: () => setCurrentSortType('review') },
+    { filterName: '저장 많은 순', onClick: () => setCurrentSortType('popular') },
   ];
 
   const showCurrentThemeList = () => {
