@@ -5,7 +5,7 @@ import Banner from 'components/common/Banner';
 import Link from 'next/link';
 import FirstBannerBtn from 'public/assets/banner/banner_01_btn.svg';
 import ThirdBannerBtn from 'public/assets/banner/banner_03_btn.svg';
-import { useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import SwiperCore, { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -25,15 +25,26 @@ const BANNER_SRC_LIST = [
   },
 ];
 
-SwiperCore.use([Navigation]);
-
 function BannerList() {
-  const BANNER_LIST = useMemo(
-    () =>
-      BANNER_SRC_LIST.map((bannerSrc) => {
+  SwiperCore.use([Navigation]);
+  const [swiperSetting, setSwiperSetting] = useState<Swiper | null>(null);
+
+  useEffect(() => {
+    if (!swiperSetting) {
+      setSwiperSetting({
+        spaceBetween: 24, // px
+        scrollbar: { draggable: true, el: null },
+        slidesPerView: 1,
+      });
+    }
+  }, [swiperSetting]);
+
+  const BANNER_LIST = (
+    <Swiper navigation autoplay={{ delay: 5000 }} className="mySlider">
+      {BANNER_SRC_LIST.map((bannerSrc) => {
         const { src, Button } = bannerSrc;
         return (
-          <SwiperSlide className="mySlider" key={src}>
+          <SwiperSlide key={src}>
             <Banner src={src}>
               {Button && (
                 <Link href="/shop/theme/아기자기한" passHref>
@@ -45,15 +56,11 @@ function BannerList() {
             </Banner>
           </SwiperSlide>
         );
-      }),
-    [],
+      })}
+    </Swiper>
   );
 
-  return (
-    <Container>
-      <Swiper navigation>{BANNER_LIST}</Swiper>
-    </Container>
-  );
+  return <Container>{BANNER_LIST}</Container>;
 }
 
 const Container = styled.div`
@@ -71,11 +78,17 @@ const Container = styled.div`
     }
   }
 
-  .swiper-button-prev {
+  .mySlider .swiper-button-prev {
+    width: fit-content;
+    height: fit-content;
+    top: 50%;
     left: 30px;
     color: white;
   }
-  .swiper-button-next {
+  .mySlider .swiper-button-next {
+    width: fit-content;
+    height: fit-content;
+    top: 50%;
     right: 30px;
     color: white;
   }
