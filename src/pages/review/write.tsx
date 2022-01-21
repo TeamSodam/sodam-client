@@ -6,9 +6,12 @@ import SubmitButton from 'components/review/write/SubmitButton';
 import TagList from 'components/review/write/TagList';
 import Title from 'components/review/write/Title';
 import WriteItems from 'components/review/WriteItems/index';
+import { usePostReviewMutation } from 'features/reviews/reviewApi';
+import { useRouter } from 'next/router';
+import { parseShopId } from 'pages/review/detail/[reviewId]';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Item, ReviewImage, ReviewWrite, ReviewWriteKey } from 'types/review';
+import { Item, ReviewImage, ReviewWriteKey, ReviewWriteRequest } from 'types/review';
 import { PriceOptionList, ShopCategoryType } from 'types/shop';
 
 interface WriteProps {
@@ -18,16 +21,23 @@ interface WriteProps {
 function Write(props: WriteProps) {
   const { userName = '소푸미' } = props;
 
+  const router = useRouter();
+  const { shopId, shopName } = router.query;
+  // const SHOP_ID = parseShopId(shopId);
+  // const SHOP_NAME = JSON.parse(JSON.stringify(shopName));
+
   const [isSubmitAvailable, setIsSubmitAvailable] = useState(false);
   const [reviewImageList, setReviewImageList] = useState<ReviewImage[]>([]);
-  const [reviewData, setReviewData] = useState<ReviewWrite>({
-    shopName: '',
+  const [reviewData, setReviewData] = useState<ReviewWriteRequest>({
+    shopId: 155,
+    shopName: '마인띵스',
     image: [],
     content: '',
     tag: [],
     item: [],
   });
 
+  const [postReview] = usePostReviewMutation();
   useEffect(() => {
     if (
       reviewImageList.length > 0 &&
@@ -109,7 +119,7 @@ function Write(props: WriteProps) {
     if (data.length > 500) {
       data = data.slice(0, 500);
     }
-    const tempData: ReviewWrite = { ...reviewData };
+    const tempData: ReviewWriteRequest = { ...reviewData };
     tempData[key] = data;
     setReviewData(tempData);
   };
@@ -119,19 +129,19 @@ function Write(props: WriteProps) {
     index: number,
     type: keyof Item,
   ) => {
-    const tempData: ReviewWrite = { ...reviewData };
+    const tempData: ReviewWriteRequest = { ...reviewData };
     tempData.item[index] = { ...tempData.item[index], [type]: data };
     setReviewData(tempData);
   };
 
   const handleTagSubmit = (data: string) => {
-    const tempData: ReviewWrite = { ...reviewData };
+    const tempData: ReviewWriteRequest = { ...reviewData };
     tempData.tag.push(data);
     setReviewData(tempData);
   };
 
   const handleTagDelete = (data: string) => {
-    const tempData: ReviewWrite = { ...reviewData };
+    const tempData: ReviewWriteRequest = { ...reviewData };
     tempData.tag = tempData.tag.filter((item) => item !== data);
     setReviewData(tempData);
   };
@@ -139,12 +149,15 @@ function Write(props: WriteProps) {
   // 최종 제출
   const handleFormSubmit = async () => {
     if (isSubmitAvailable) {
-      const tempData: ReviewWrite = { ...reviewData };
+      const tempData: ReviewWriteRequest = { ...reviewData };
       tempData.item.shift();
       reviewImageList.forEach((reviewImage) => {
         reviewImage.file && tempData.image.push(reviewImage.file);
       });
-      console.log(tempData);
+      const response = await postReview(tempData);
+      if (response) {
+        console.log(response);
+      }
     }
   };
 

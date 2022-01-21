@@ -5,7 +5,7 @@ import { useGetReviewByShopIdQuery, useGetShopReviewByIdQuery } from 'features/r
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 
-const parseShopId = (shopId: string | string[] | undefined) => {
+export const parseShopId = (shopId: string | string[] | undefined) => {
   if (!shopId) return 1;
   if (Array.isArray(shopId)) return +shopId.join('');
 
