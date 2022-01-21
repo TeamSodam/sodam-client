@@ -1,3 +1,4 @@
+import { wrapper } from 'app/store';
 import DropDownFilter from 'components/common/DropDownFilter';
 import OtherReviewCard from 'components/review/OtherReviewCard';
 import ReviewDetailCard from 'components/review/ReviewDetailCard';
@@ -6,25 +7,23 @@ import {
   useGetReviewByShopIdQuery,
   useGetShopReviewByIdQuery,
 } from 'features/reviews/reviewApi';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { NextParsedUrlQuery } from 'next/dist/server/request-meta';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { ReviewByShopIdResponse, ReviewSortType } from 'types/review';
 
 const parseShopId = (shopId: string | string[] | undefined) => {
-  if (!shopId) return 1;
+  if (!shopId) return 0;
   if (Array.isArray(shopId)) return +shopId.join('');
 
   return +shopId;
 };
 
-function Detail() {
-  const router = useRouter();
-  const { reviewId, shopId } = router.query;
+function Detail({ params, query }: { params: NextParsedUrlQuery; query: NextParsedUrlQuery }) {
   const [trigger] = reviewApi.useLazyGetReviewByShopIdQuery();
 
-  const REVIEW_ID = parseShopId(reviewId);
-  const SHOP_ID = parseShopId(shopId);
+  const REVIEW_ID = parseShopId(params.reviewId);
+  const SHOP_ID = parseShopId(query.shopId);
   const SORT_TYPE = 'save';
 
   const { data: reviewData } = useGetShopReviewByIdQuery({
@@ -38,9 +37,16 @@ function Detail() {
     offset: 1,
     limit: 9,
   });
+
   const [currentList, setCurrentList] = useState<ReviewByShopIdResponse | undefined>(
     reviewResponse,
   );
+
+  useEffect(() => {
+    if (reviewResponse) {
+      setCurrentList(reviewResponse);
+    }
+  }, [reviewResponse]);
 
   const getFilteredReviewListData = () => {
     if (!currentList) return [];
@@ -58,11 +64,16 @@ function Detail() {
       offset: 1,
       limit: 9,
     });
-    console.log(result.data);
     setCurrentList(result.data);
   };
 
   const filterProps = [
+    {
+      filterName: '스크랩 많은 순',
+      onClick: () => {
+        updateList('save');
+      },
+    },
     {
       filterName: '좋아요 많은 순',
       onClick: () => {
@@ -70,14 +81,8 @@ function Detail() {
       },
     },
     {
-      filterName: '스크랩 많은 순',
-      onClick: async () => {
-        updateList('save');
-      },
-    },
-    {
       filterName: '최신 순',
-      onClick: async () => {
+      onClick: () => {
         updateList('recent');
       },
     },
@@ -98,6 +103,13 @@ function Detail() {
     </StyledReviewDetailWrapper>
   );
 }
+
+export const getServerSideProps = wrapper.getServerSideProps(() => async (context) => ({
+  props: {
+    params: context.params,
+    query: context.query,
+  },
+}));
 
 const StyledReviewDetailWrapper = styled.div`
   width: 79.2rem;
