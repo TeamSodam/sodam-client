@@ -1,23 +1,27 @@
 import { shopApi } from 'features/shops/shopApi';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import searchDelIC from 'public/assets/ic_searchDel.svg';
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
+import { ReviewWriteKey } from 'types/review';
 import { ShopSearchResponse } from 'types/shop';
 
 import ShopSearchList from './ShopSearchList';
 
-function ShopSearch() {
+interface ShopSearchProps {
+  selectedShop: string;
+  handleDataChange: (data: string, key: Extract<ReviewWriteKey, 'content' | 'shopName'>) => void;
+}
+
+function ShopSearch(props: ShopSearchProps) {
+  const { selectedShop, handleDataChange } = props;
+
   const [inputValue, setInputValue] = useState('');
   const [searchValue, setSearchValue] = useState<ShopSearchResponse[] | undefined>();
   const [trigger] = shopApi.useLazyGetShopSearchResultQuery();
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedShop, setSelectedShop] = useState('');
   const toggle = () => setIsOpen((prevIsOpen) => !prevIsOpen);
-  const router = useRouter();
-  const { shopName } = router.query;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (!(e.target instanceof HTMLInputElement)) return;
@@ -38,19 +42,13 @@ function ShopSearch() {
 
   const onSetSelected = (shop: string) => {
     setInputValue(shop);
-    setSelectedShop(shop);
+    handleDataChange(shop, 'shopName');
   };
 
   const handleDelete = () => {
-    setSelectedShop('');
+    handleDataChange('', 'shopName');
     setInputValue('');
   };
-
-  useEffect(() => {
-    if (shopName !== undefined && typeof shopName === 'string') {
-      setSelectedShop(shopName);
-    }
-  }, [shopName]);
 
   return (
     <StyledRoot>
@@ -126,6 +124,7 @@ const StyledWrapper = styled.div`
       font-weight: 500;
       font-size: 1.4rem;
       line-height: 2rem;
+      font-family: 'Noto Sans KR';
     }
   }
 `;

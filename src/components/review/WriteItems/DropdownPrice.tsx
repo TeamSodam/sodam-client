@@ -2,6 +2,8 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
+import { Item } from 'types/review';
+import { PriceOptionList, ShopCategoryType } from 'types/shop';
 
 import PriceList from './PriceList';
 
@@ -9,17 +11,23 @@ interface StyledDPProps {
   idx: number;
   currentOpen: number;
   onSetCurrentOpen: (idx: number) => void;
+  selectedItem: PriceOptionList | undefined;
+  handleItemSubmit: (
+    data: ShopCategoryType | PriceOptionList,
+    index: number,
+    type: keyof Item,
+  ) => void;
 }
 
 function DropdownPrice(props: StyledDPProps) {
-  const { idx, currentOpen, onSetCurrentOpen } = props;
-  const [selectedPrice, setSelectedPrice] = useState('0');
+  const { idx, currentOpen, onSetCurrentOpen, selectedItem = '0', handleItemSubmit } = props;
+
   const [isOpen, setIsOpen] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
   const toggle = () => setIsOpen((prevIsOpen) => !prevIsOpen);
 
-  const onSelectedPrice = (price: string) => {
-    setSelectedPrice(price);
+  const onSelectedPrice = (price: PriceOptionList) => {
+    handleItemSubmit(price, idx, 'price');
     toggle();
     setIsSelected(true);
   };
@@ -38,7 +46,7 @@ function DropdownPrice(props: StyledDPProps) {
   return (
     <StyledRoot>
       <StyledWrapper onClick={handleClick} isSelected={isSelected}>
-        <span>{selectedPrice}</span>
+        <span>{selectedItem}</span>
         <span>원</span>
         <Image src={'/assets/ic_dropdown.svg'} width={14} height={10} alt="dropdown" />
       </StyledWrapper>

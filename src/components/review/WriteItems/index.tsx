@@ -1,9 +1,22 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { Item } from 'types/review';
+import { PriceOptionList, ShopCategoryType } from 'types/shop';
 
 import BuyList from './BuyList';
 
-function WriteItems() {
+interface WriteItemsProps {
+  selectedItemList: Item[];
+  handleItemSubmit: (
+    data: ShopCategoryType | PriceOptionList,
+    index: number,
+    type: keyof Item,
+  ) => void;
+}
+
+function WriteItems(props: WriteItemsProps) {
+  const { selectedItemList, handleItemSubmit } = props;
+
   const listIdx = [1, 2, 3];
   const [currentOpen, setCurrentOpen] = useState(0);
 
@@ -19,6 +32,8 @@ function WriteItems() {
           idx={idx}
           currentOpen={currentOpen}
           onSetCurrentOpen={onSetCurrentOpen}
+          selectedItemList={selectedItemList}
+          handleItemSubmit={handleItemSubmit}
         />
       ))}
     </StyledRoot>

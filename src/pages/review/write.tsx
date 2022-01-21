@@ -1,28 +1,54 @@
+import { wrapper } from 'app/store';
+import ShopSearch from 'components/review/ShopSearch';
 import PreviewImageList from 'components/review/write/PreviewImageList';
 import PreviewImageMain from 'components/review/write/PreviewImageMain';
 import ReviewText from 'components/review/write/ReviewText';
 import SubmitButton from 'components/review/write/SubmitButton';
 import TagList from 'components/review/write/TagList';
+import Title from 'components/review/write/Title';
+import WriteItems from 'components/review/WriteItems/index';
+import { usePostReviewMutation } from 'features/reviews/reviewApi';
+import { NextParsedUrlQuery } from 'next/dist/server/request-meta';
+import { useRouter } from 'next/router';
+import { parseShopId, parseShopName } from 'pages/review/detail/[reviewId]';
 import { useEffect, useState } from 'react';
-import { ReviewImage } from 'types/review';
+import styled from 'styled-components';
+import { Item, ReviewImage, ReviewWriteKey, ReviewWriteRequest } from 'types/review';
+import { PriceOptionList, ShopCategoryType } from 'types/shop';
 
-interface ReviewData {
-  text: string;
-  tags: string[];
+interface WriteProps {
+  userName: string;
+  query: NextParsedUrlQuery;
 }
 
-function Write() {
+function Write(props: WriteProps) {
+  const { userName = '소푸미', query } = props;
+  const router = useRouter();
+
   const [isSubmitAvailable, setIsSubmitAvailable] = useState(false);
   const [reviewImageList, setReviewImageList] = useState<ReviewImage[]>([]);
-  const [reviewData, setReviewData] = useState<ReviewData>({ text: '', tags: [] });
+  const [reviewData, setReviewData] = useState<ReviewWriteRequest>({
+    shopId: parseShopId(query.shopId),
+    shopName: parseShopName(query.shopName),
+    image: [],
+    content: '',
+    tag: [],
+    item: [],
+  });
+
+  const [postReview] = usePostReviewMutation();
 
   useEffect(() => {
-    if (reviewImageList.length > 0 && reviewData.text.length >= 35) {
+    if (
+      reviewImageList.length > 0 &&
+      reviewData.content.length >= 35 &&
+      reviewData.shopName.length > 0
+    ) {
       setIsSubmitAvailable(true);
     } else {
       setIsSubmitAvailable(false);
     }
-  }, [reviewImageList, reviewData.text]);
+  }, [reviewImageList, reviewData.content, reviewData.shopName]);
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files === null) return;
@@ -84,56 +110,101 @@ function Write() {
     setReviewImageList(tempImageList);
   };
 
-  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    let data = e.target.value;
+  const handleDataChange = (data: string, key: Extract<ReviewWriteKey, 'content' | 'shopName'>) => {
     if (data.length > 500) {
       data = data.slice(0, 500);
     }
-    const tempData: ReviewData = { ...reviewData };
-    tempData.text = data;
+    const tempData: ReviewWriteRequest = { ...reviewData };
+    tempData[key] = data;
+    setReviewData(tempData);
+  };
+
+  const handleItemSubmit = (
+    data: ShopCategoryType | PriceOptionList,
+    index: number,
+    type: keyof Item,
+  ) => {
+    const tempData: ReviewWriteRequest = { ...reviewData };
+    tempData.item[index] = { ...tempData.item[index], [type]: data };
     setReviewData(tempData);
   };
 
   const handleTagSubmit = (data: string) => {
-    const tempData: ReviewData = { ...reviewData };
-    tempData.tags.push(data);
+    const tempData: ReviewWriteRequest = { ...reviewData };
+    tempData.tag.push(data);
     setReviewData(tempData);
   };
 
   const handleTagDelete = (data: string) => {
-    const tempData: ReviewData = { ...reviewData };
-    tempData.tags = tempData.tags.filter((tag) => tag !== data);
+    const tempData: ReviewWriteRequest = { ...reviewData };
+    tempData.tag = tempData.tag.filter((item) => item !== data);
     setReviewData(tempData);
   };
 
+  // 최종 제출
   const handleFormSubmit = async () => {
     if (isSubmitAvailable) {
-      console.log(reviewImageList, reviewData);
+      const tempData: ReviewWriteRequest = { ...reviewData };
+      tempData.item.shift();
+      reviewImageList.forEach((reviewImage) => {
+        reviewImage.file && tempData.image.push(reviewImage.file);
+      });
+      await postReview(tempData);
+      router.back();
     }
   };
 
   return (
-    <>
-      <PreviewImageMain
-        mainImage={reviewImageList[0]}
-        handleImageUpload={handleImageUpload}
-        handleImageDelete={handleImageDelete}
-      />
+    <StyledRoot>
+      <Title name={userName} />
+      <StyledTop>
+        <PreviewImageMain
+          mainImage={reviewImageList[0]}
+          handleImageUpload={handleImageUpload}
+          handleImageDelete={handleImageDelete}
+        />
+        <StyledTopRight>
+          <ShopSearch selectedShop={reviewData.shopName} handleDataChange={handleDataChange} />
+          <WriteItems selectedItemList={reviewData.item} handleItemSubmit={handleItemSubmit} />
+        </StyledTopRight>
+      </StyledTop>
       <PreviewImageList
         reviewImageList={reviewImageList}
         handleImageUpload={handleImageUpload}
         handleImageDelete={handleImageDelete}
         changeMainImage={changeMainImage}
       />
-      <ReviewText text={reviewData.text} handleTextChange={handleTextChange} />
+      <ReviewText content={reviewData.content} handleDataChange={handleDataChange} />
       <TagList
-        tags={reviewData.tags}
+        tag={reviewData.tag}
         handleTagSubmit={handleTagSubmit}
         handleTagDelete={handleTagDelete}
       />
       <SubmitButton isSubmitAvailable={isSubmitAvailable} handleFormSubmit={handleFormSubmit} />
-    </>
+    </StyledRoot>
   );
 }
+
+export const getServerSideProps = wrapper.getServerSideProps(() => async (context) => ({
+  props: {
+    query: context.query,
+  },
+}));
+
+const StyledRoot = styled.div`
+  width: 79.2rem;
+  margin: 0 auto;
+`;
+const StyledTop = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding-top: 3.2rem;
+  padding-bottom: 2rem;
+`;
+const StyledTopRight = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
 
 export default Write;

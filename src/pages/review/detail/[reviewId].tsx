@@ -12,11 +12,15 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { ReviewByShopIdResponse, ReviewSortType } from 'types/review';
 
-const parseShopId = (shopId: string | string[] | undefined) => {
+export const parseShopId = (shopId: string | string[] | undefined) => {
   if (!shopId) return 0;
   if (Array.isArray(shopId)) return +shopId.join('');
 
   return +shopId;
+};
+export const parseShopName = (shopName: string | string[] | undefined) => {
+  if (!shopName) return '';
+  if (typeof shopName === 'string') return JSON.parse(JSON.stringify(shopName));
 };
 
 function Detail({ params, query }: { params: NextParsedUrlQuery; query: NextParsedUrlQuery }) {

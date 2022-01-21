@@ -1,4 +1,4 @@
-import { ShopCategoryType } from 'types/shop';
+import { PriceOptionList, ShopCategoryType } from 'types/shop';
 
 export const dropDownFilterList = {
   detail: ['스크랩 많은 순', '좋아요 많은 순', '최신 순'],
@@ -15,7 +15,7 @@ export const MoreFilterList: ShopCategoryType[] = [
   '인형·장난감',
 ];
 
-export const PriceFilterList: string[] = [
+export const PriceFilterList: PriceOptionList[] = [
   '~ 2,900',
   '3,000 - 4,900',
   '5,000 - 9,900',

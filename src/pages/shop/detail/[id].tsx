@@ -109,11 +109,13 @@ function Detail() {
           <LabelWithOptions>
             <LabelWrapper>
               <Label>소품샵 리뷰</Label>
-              <WriteReviewBtn
-                navigate={() => {
-                  router.push(`/review/write?shopId=${shopId}`);
-                }}
-              />
+              {shopInfo && (
+                <WriteReviewBtn
+                  navigate={() => {
+                    router.push(`/review/write?shopId=${shopId}&shopName=${shopInfo.shopName}`);
+                  }}
+                />
+              )}
             </LabelWrapper>
             <DropDownFilter pageType="detail" />
           </LabelWithOptions>
