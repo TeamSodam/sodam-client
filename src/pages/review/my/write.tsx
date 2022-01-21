@@ -1,19 +1,14 @@
-import { wrapper } from 'app/store';
 import ReviewCard from 'components/common/ReviewCard';
 import WriteReviewBtn from 'components/common/WriteReviewBtn';
-import { reviewApi } from 'features/reviews/reviewApi';
+import { useGetMyWriteReviewQuery } from 'features/reviews/reviewApi';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
-import { ReviewMyWriteResponse } from 'types/review';
 
-interface MyreviewPrefetchProps {
-  reviewMyWriteList: ReviewMyWriteResponse[];
-}
-
-function Write(props: MyreviewPrefetchProps) {
-  const { reviewMyWriteList } = props;
+function Write() {
   const router = useRouter();
+
+  const { data: reviewMyWriteList } = useGetMyWriteReviewQuery();
 
   const navigate = () => {
     router.push('/review/write');
@@ -26,24 +21,14 @@ function Write(props: MyreviewPrefetchProps) {
         <WriteReviewBtn navigate={navigate} />
       </StyledBtnWrapper>
       <StyledCardWrapper>
-        {reviewMyWriteList.map((review) => (
-          <ReviewCard key={review.reviewId} reviewData={review} isHoverAvailable isMyReview />
-        ))}
+        {reviewMyWriteList &&
+          reviewMyWriteList.map((review) => (
+            <ReviewCard key={review.reviewId} reviewData={review} isHoverAvailable isMyReview />
+          ))}
       </StyledCardWrapper>
     </StyledContainer>
   );
 }
-
-export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
-  const dispatch = store.dispatch;
-  const reviewMyWriteResult = await dispatch(reviewApi.endpoints.getMyWriteReview.initiate());
-
-  return {
-    props: {
-      reviewMyWriteList: reviewMyWriteResult.data || [],
-    },
-  };
-});
 
 export default Write;
 
