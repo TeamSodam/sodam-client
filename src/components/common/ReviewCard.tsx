@@ -39,8 +39,17 @@ function ReviewCard(props: ReviewCardProps) {
     return category?.join(', ');
   };
 
+  const getCurrentActivePage = () => {
+    if (router.asPath.includes('/my/write')) return 'myWrite';
+    if (router.asPath.includes('/my/scrap')) return 'myScrap';
+    return 'shop';
+  };
+
   const navigateToDetail = () => {
-    if (shopId) router.push(`/review/detail/${reviewId}?shopId=${shopId}`);
+    if (shopId)
+      router.push(
+        `/review/detail/${reviewId}?shopId=${shopId}&reviewType=${getCurrentActivePage()}`,
+      );
   };
 
   const toggleHeaderByIsMyReview = () => {

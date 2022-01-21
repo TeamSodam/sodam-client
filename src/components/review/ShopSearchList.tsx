@@ -5,15 +5,16 @@ import { ShopSearchResponse } from 'types/shop';
 interface StyledSSLProps {
   shopList: ShopSearchResponse[] | undefined;
   toggle: () => void;
-  onSetSelected: (shop: string) => void;
+  onSetSelected: (shopName: string, shopId: number) => void;
 }
 
 function ShopSearchList(props: StyledSSLProps) {
   const { shopList, toggle, onSetSelected } = props;
 
-  const handleClick = (value: string) => {
+  const handleClick = (item: ShopSearchResponse) => {
+    const { shopId, shopName } = item;
     toggle();
-    onSetSelected(value);
+    onSetSelected(shopName, shopId);
   };
 
   return (
@@ -22,7 +23,7 @@ function ShopSearchList(props: StyledSSLProps) {
         <span>등록된 소품샵이 없습니다.</span>
       ) : (
         shopList?.map((item) => (
-          <li key={item.shopId} onClick={() => handleClick(item.shopName)} role="presentation">
+          <li key={item.shopId} onClick={() => handleClick(item)} role="presentation">
             {item.shopName}
           </li>
         ))
@@ -61,7 +62,7 @@ const StyledUl = styled.ul`
     color: ${theme.colors.black2};
     cursor: pointer;
   }
-  &>li: hover {
+  & > li:hover {
     background-color: ${theme.colors.purpleBg};
   }
 `;

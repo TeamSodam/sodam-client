@@ -12,10 +12,11 @@ import ShopSearchList from './ShopSearchList';
 interface ShopSearchProps {
   selectedShop: string;
   handleDataChange: (data: string, key: Extract<ReviewWriteKey, 'content' | 'shopName'>) => void;
+  handleResultSelect: (shopId: number) => void;
 }
 
 function ShopSearch(props: ShopSearchProps) {
-  const { selectedShop, handleDataChange } = props;
+  const { selectedShop, handleDataChange, handleResultSelect } = props;
 
   const [inputValue, setInputValue] = useState('');
   const [searchValue, setSearchValue] = useState<ShopSearchResponse[] | undefined>();
@@ -30,6 +31,7 @@ function ShopSearch(props: ShopSearchProps) {
 
   const requestSearch = async () => {
     const result = await trigger(inputValue);
+    console.log('r검색결과: ', result);
     setSearchValue(result.data);
     setIsOpen(true);
   };
@@ -40,9 +42,10 @@ function ShopSearch(props: ShopSearchProps) {
     await requestSearch();
   };
 
-  const onSetSelected = (shop: string) => {
+  const onSetSelected = (shop: string, shopId: number) => {
     setInputValue(shop);
     handleDataChange(shop, 'shopName');
+    handleResultSelect(shopId);
   };
 
   const handleDelete = () => {
