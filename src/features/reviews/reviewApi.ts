@@ -66,7 +66,7 @@ export const reviewApi = createApi({
           } else formData.append(key, val);
         });
         return {
-          url: '/review',
+          url: 'https://server.sodam.me/review',
           method: 'POST',
           data: formData,
         };

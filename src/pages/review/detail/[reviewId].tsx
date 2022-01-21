@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { ReviewByShopIdResponse, ReviewSortType } from 'types/review';
 
-const parseShopId = (shopId: string | string[] | undefined) => {
+export const parseShopId = (shopId: string | string[] | undefined) => {
   if (!shopId) return 0;
   if (Array.isArray(shopId)) return +shopId.join('');
 

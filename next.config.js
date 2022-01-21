@@ -31,12 +31,4 @@ module.exports = {
 
     return config;
   },
-  async rewrites() {
-    return [
-      {
-        source: '/review/:path*',
-        destination: `https://server.sodam.me/review/:path*`,
-      },
-    ];
-  },
 };

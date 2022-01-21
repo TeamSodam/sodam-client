@@ -1,3 +1,4 @@
+import { wrapper } from 'app/store';
 import ShopSearch from 'components/review/ShopSearch';
 import PreviewImageList from 'components/review/write/PreviewImageList';
 import PreviewImageMain from 'components/review/write/PreviewImageMain';
@@ -7,7 +8,7 @@ import TagList from 'components/review/write/TagList';
 import Title from 'components/review/write/Title';
 import WriteItems from 'components/review/WriteItems/index';
 import { usePostReviewMutation } from 'features/reviews/reviewApi';
-import { route } from 'next/dist/server/router';
+import { NextParsedUrlQuery } from 'next/dist/server/request-meta';
 import { useRouter } from 'next/router';
 import { parseShopId, parseShopName } from 'pages/review/detail/[reviewId]';
 import { useEffect, useState } from 'react';
@@ -17,19 +18,18 @@ import { PriceOptionList, ShopCategoryType } from 'types/shop';
 
 interface WriteProps {
   userName: string;
+  query: NextParsedUrlQuery;
 }
 
 function Write(props: WriteProps) {
-  const { userName = '소푸미' } = props;
-
+  const { userName = '소푸미', query } = props;
   const router = useRouter();
-  const { shopId, shopName } = router.query;
 
   const [isSubmitAvailable, setIsSubmitAvailable] = useState(false);
   const [reviewImageList, setReviewImageList] = useState<ReviewImage[]>([]);
   const [reviewData, setReviewData] = useState<ReviewWriteRequest>({
-    shopId: parseShopId(shopId),
-    shopName: parseShopName(shopName),
+    shopId: parseShopId(query.shopId),
+    shopName: parseShopName(query.shopName),
     image: [],
     content: '',
     tag: [],
@@ -37,15 +37,6 @@ function Write(props: WriteProps) {
   });
 
   const [postReview] = usePostReviewMutation();
-
-  useEffect(() => {
-    const { shopId, shopName } = router.query;
-    const tempData = { ...reviewData };
-
-    tempData.shopId = parseShopId(shopId);
-    tempData.shopName = parseShopName(shopName);
-    setReviewData(tempData);
-  }, [router]);
 
   useEffect(() => {
     if (
@@ -198,6 +189,12 @@ function Write(props: WriteProps) {
     </StyledRoot>
   );
 }
+
+export const getServerSideProps = wrapper.getServerSideProps(() => async (context) => ({
+  props: {
+    query: context.query,
+  },
+}));
 
 const StyledRoot = styled.div`
   width: 79.2rem;
