@@ -36,8 +36,59 @@
 <br>
 
 
-## 🧑🏻‍💻 웹푸미들 
-<p align="center"><img width=600px src="https://user-images.githubusercontent.com/33420714/150501910-b521cd49-5466-41d1-a2f4-51bbd9f2cccb.png"></p>
+## 🧑🏻‍💻 웹푸미들
+<p align="center"><img width=600px src="https://user-images.githubusercontent.com/33420714/150514760-23db2204-159d-4716-9fa3-f645da5f3b46.png"></p>
+<table align="center">
+    <tr align="center" >
+        <td style="min-width: 150px;">
+            <a href="https://github.com/KimKwon">
+              <img src="https://user-images.githubusercontent.com/33420714/150513460-e7f22aa8-bf59-4ac0-9e6a-eb1c63ed743e.JPG" width="100">
+              <br />
+              <b>jjinny</b>
+            </a>
+        </td>
+        <td style="min-width: 150px;">
+            <a href="https://github.com/sohee-K">
+              <img src="https://user-images.githubusercontent.com/33420714/150513210-5e94917e-462b-487b-8799-f20c11052a9c.JPG" width="100">
+              <br />
+              <b>sohee-K</b>
+            </a>
+        </td>
+        <td style="min-width: 150px;" background-color="white">
+            <a href="https://github.com/huiseon37">
+              <img src="https://user-images.githubusercontent.com/33420714/150513392-b90fcdb7-d134-40cf-b71a-b54e1057c471.JPG" width="100">
+              <br />
+              <b>huiseon37</b>
+            </a> 
+        </td>
+        <td style="min-width: 150px;" background-color="white">
+            <a href="https://github.com/Juhee-Hwang">
+              <img src="https://user-images.githubusercontent.com/33420714/150513329-3600fde2-0969-4efa-88c2-f8aa060d0182.JPG" width="100">
+              <br />
+              <b>Juhee-Hwang</b>
+            </a> 
+        </td>
+    </tr>
+    <tr align="center">
+        <td>
+            찐 <br/>
+            Web FE
+        </td>
+        <td>
+            쏘 <br />
+            Web FE
+        </td>
+        <td>
+            썬 <br />
+            Web FE
+        </td>
+        <td>
+            쮜 <br />
+            Web FE
+        </td>
+    </tr>
+</table>
+
 
 <br>
 
