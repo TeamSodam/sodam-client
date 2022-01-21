@@ -24,21 +24,15 @@ function Collect(props: CollectPrefetchProps) {
   const filterProps = [
     {
       filterName: '저장 많은 순',
-      onClick: () => {
-        updateList('save');
-      },
+      onClick: async () => updateList('save'),
     },
     {
       filterName: '리뷰 많은 순',
-      onClick: async () => {
-        updateList('review');
-      },
+      onClick: async () => updateList('review'),
     },
     {
       filterName: '최근 저장한 순',
-      onClick: async () => {
-        updateList('recent');
-      },
+      onClick: async () => updateList('recent'),
     },
   ];
 
