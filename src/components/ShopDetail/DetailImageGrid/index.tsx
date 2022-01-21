@@ -1,28 +1,19 @@
 import ImageDiv from 'components/common/ImageDiv';
+import shortid from 'shortid';
 import styled from 'styled-components';
 
 function DetailImageGrid({ imageList }: { imageList: string[] }) {
   return (
     <Container>
-      <ImageDiv className="detail-image" src={imageList[0]} layout="fill" alt="main-img" />
-      <ImageDiv
-        className="detail-image"
-        src="/assets/dummy/dummy-shop.png"
-        layout="fill"
-        alt="sub-img"
-      />
-      <ImageDiv
-        className="detail-image"
-        src="/assets/dummy/dummy-shop.png"
-        layout="fill"
-        alt="sub-img"
-      />
-      <ImageDiv
-        className="detail-image"
-        src="/assets/dummy/dummy-shop.png"
-        layout="fill"
-        alt="sub-img"
-      />
+      {imageList.map((imageSrc) => (
+        <ImageDiv
+          key={shortid.generate()}
+          className="detail-image"
+          src={imageSrc}
+          layout="fill"
+          alt="main-img"
+        />
+      ))}
     </Container>
   );
 }
