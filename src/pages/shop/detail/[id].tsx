@@ -1,3 +1,4 @@
+import { wrapper } from 'app/store';
 import DropDownFilter from 'components/common/DropDownFilter';
 import MainSlider from 'components/common/MainSlider';
 import PageNaviagator from 'components/common/PageNaviagator';
@@ -7,12 +8,14 @@ import WriteReviewBtn from 'components/common/WriteReviewBtn';
 import DetailImageGrid from 'components/ShopDetail/DetailImageGrid';
 import DetailInfo from 'components/ShopDetail/DetailInfo';
 import DetailShopAddress from 'components/ShopDetail/DetailShopAddress';
-import { useGetReviewByShopIdQuery } from 'features/reviews/reviewApi';
+import { reviewApi, useGetReviewByShopIdQuery } from 'features/reviews/reviewApi';
 import { useGetShopByShopIdQuery, useGetShopBySubwayQuery } from 'features/shops/shopApi';
 import useMap from 'hooks/useMap';
+import { NextParsedUrlQuery } from 'next/dist/server/request-meta';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import { ReviewByShopIdData, ReviewSortType } from 'types/review';
 
 const parseShopId = (shopID: string | string[] | undefined) => {
   if (!shopID) return 0;
@@ -21,24 +24,26 @@ const parseShopId = (shopID: string | string[] | undefined) => {
   return +shopID;
 };
 
-function Detail() {
+function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQuery }) {
+  const [trigger] = reviewApi.useLazyGetReviewByShopIdQuery();
+
+  const SHOP_ID = parseShopId(params.id);
+  const SORT_TYPE = 'like';
+
   const mapRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
   const [currentPage, setCurrentPage] = useState(1);
-
-  const { id } = router.query;
-
-  const shopId = parseShopId(id);
-  const { data: shopInfo } = useGetShopByShopIdQuery(shopId);
+  const { data: shopInfo } = useGetShopByShopIdQuery(SHOP_ID);
   const { data: reviewInfo } = useGetReviewByShopIdQuery({
-    shopId,
-    sortType: 'recent',
+    shopId: SHOP_ID,
+    sortType: SORT_TYPE,
     offset: currentPage,
     limit: 9,
   });
+  const { data: subwayInfo } = useGetShopBySubwayQuery(SHOP_ID);
 
-  const { data: subwayInfo } = useGetShopBySubwayQuery(shopId);
+  const [currentList, setCurrentList] = useState<ReviewByShopIdData[]>();
 
   const initialLocation = shopInfo && shopInfo.landAddress;
 
@@ -51,13 +56,10 @@ function Detail() {
   };
 
   const showReviewList = () => {
-    if (reviewInfo) {
-      const { data: reviewList } = reviewInfo;
-      if (reviewList.length > 0) {
-        return reviewList.map((review) => <ReviewCard key={review.reviewId} reviewData={review} />);
-      }
+    if (!currentList) return [];
+    if (currentList && currentList.length > 0) {
+      return currentList.map((review) => <ReviewCard key={review.reviewId} reviewData={review} />);
     }
-
     return [];
   };
 
@@ -84,6 +86,10 @@ function Detail() {
   };
 
   useEffect(() => {
+    if (reviewInfo) setCurrentList(reviewInfo.data);
+  }, [reviewInfo]);
+
+  useEffect(() => {
     (async () => {
       if (shopInfo) {
         const { category, landAddress, shopName, shopId } = shopInfo;
@@ -91,6 +97,38 @@ function Detail() {
       }
     })();
   }, [shopInfo, displayMarkerByAddress]);
+
+  const updateList = async (sortType: ReviewSortType) => {
+    const result = await trigger({
+      shopId: SHOP_ID,
+      sortType,
+      offset: 1,
+      limit: 9,
+    });
+    console.log(result);
+    setCurrentList(result?.data?.data);
+  };
+
+  const filterProps = [
+    {
+      filterName: '스크랩 많은 순',
+      onClick: () => {
+        updateList('save');
+      },
+    },
+    {
+      filterName: '좋아요 많은 순',
+      onClick: () => {
+        updateList('like');
+      },
+    },
+    {
+      filterName: '최신 순',
+      onClick: () => {
+        updateList('recent');
+      },
+    },
+  ];
 
   return (
     <StyledContainer>
@@ -112,12 +150,12 @@ function Detail() {
               {shopInfo && (
                 <WriteReviewBtn
                   navigate={() => {
-                    router.push(`/review/write?shopId=${shopId}&shopName=${shopInfo.shopName}`);
+                    router.push(`/review/write?shopId=${SHOP_ID}&shopName=${shopInfo.shopName}`);
                   }}
                 />
               )}
             </LabelWrapper>
-            <DropDownFilter pageType="detail" />
+            <DropDownFilter pageType="detail" filterProps={filterProps} />
           </LabelWithOptions>
           <ReviewGrid>{showReviewList()}</ReviewGrid>
           <PageNaviagator
@@ -136,6 +174,13 @@ function Detail() {
     </StyledContainer>
   );
 }
+
+export const getServerSideProps = wrapper.getServerSideProps(() => async (context) => ({
+  props: {
+    params: context.params,
+    query: context.query,
+  },
+}));
 
 const StyledContainer = styled.main`
   width: 100%;
