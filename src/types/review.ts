@@ -40,15 +40,18 @@ export interface ReviewRecentResponse {
   content: string;
 }
 
-export interface ReviewByShopIdData {
+export interface ReviewSomething {
   reviewId: number;
-  shopId: number;
-  image: string[];
-  writerName?: string;
-  writerThumbnail?: string;
   likeCount: number;
   scrapCount: number;
   content: string;
+  shopId: number;
+  image: string[];
+}
+
+export interface ReviewByShopIdData extends ReviewSomething {
+  writerName?: string;
+  writerThumbnail?: string;
 }
 
 export interface ReviewByShopIdResponse {
@@ -56,29 +59,17 @@ export interface ReviewByShopIdResponse {
   data: ReviewByShopIdData[];
 }
 
-export interface ReviewMyWriteResponse {
-  reviewId: number;
-  shopId: number;
+export interface ReviewMyWriteResponse extends ReviewSomething {
   shopName: string;
   category: string[];
-  likeCount: number;
-  scrapCount: number;
-  content: string;
-  image: string[];
   date: string;
 }
 
-export interface ReviewMyScrapResponse {
+export interface ReviewMyScrapResponse extends ReviewSomething {
   category: string[];
   shopName: string;
-  reviewId: number;
-  shopId: number;
-  image: string[];
   writerName: string;
   writerThumbnail: string;
-  likeCount: number;
-  scrapCount: number;
-  content: string;
 }
 
 export interface ReviewInfoRequestById {

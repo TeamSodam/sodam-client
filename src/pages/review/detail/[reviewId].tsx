@@ -5,13 +5,20 @@ import ReviewDetailCard from 'components/review/ReviewDetailCard';
 import { REVIEW_MAP } from 'constants/reviewActiveMap';
 import {
   reviewApi,
+  useGetMyScrapReviewQuery,
+  useGetMyWriteReviewQuery,
   useGetReviewByShopIdQuery,
   useGetShopReviewByIdQuery,
 } from 'features/reviews/reviewApi';
 import { NextParsedUrlQuery } from 'next/dist/server/request-meta';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { ReviewByShopIdResponse, ReviewSortType } from 'types/review';
+import {
+  ReviewByShopIdData,
+  ReviewMyScrapResponse,
+  ReviewMyWriteResponse,
+  ReviewSortType,
+} from 'types/review';
 
 export const parseShopId = (shopId: string | string[] | undefined) => {
   if (!shopId) return 0;
@@ -44,23 +51,21 @@ function Detail({ params, query }: { params: NextParsedUrlQuery; query: NextPars
     limit: 9,
   });
 
-  const [currentList, setCurrentList] = useState<ReviewByShopIdResponse | undefined>(
-    reviewResponse,
-  );
+  const { data: myWriteResponse } = useGetMyWriteReviewQuery();
+  const { data: myScrapResponse } = useGetMyScrapReviewQuery();
 
-  useEffect(() => {
-    if (reviewResponse) {
-      setCurrentList(reviewResponse);
-    }
-  }, [reviewResponse]);
+  const [currentList, setCurrentList] = useState<
+    ReviewByShopIdData[] | ReviewMyScrapResponse[] | ReviewMyWriteResponse[] | undefined
+  >();
 
   const getFilteredReviewListData = () => {
     if (!currentList) return [];
-    const { data: reviewList } = currentList;
-    if (reviewList && reviewList.length > 0) {
-      return reviewList?.filter((review) => review.reviewId !== REVIEW_ID);
-    }
-    return [];
+    let tmpList = currentList as ReviewByShopIdData[];
+
+    if (REVIEW_TYPE === 'myWrite') tmpList = currentList as ReviewMyWriteResponse[];
+    if (REVIEW_TYPE === 'myScrap') tmpList = currentList as ReviewMyScrapResponse[];
+
+    return tmpList.filter(({ reviewId }) => reviewId !== REVIEW_ID);
   };
 
   const updateList = async (sortType: ReviewSortType) => {
@@ -71,7 +76,8 @@ function Detail({ params, query }: { params: NextParsedUrlQuery; query: NextPars
       offset: 1,
       limit: 9,
     });
-    setCurrentList(result.data);
+
+    if (result.data) setCurrentList(result.data.data);
   };
 
   const filterProps = [
@@ -95,13 +101,25 @@ function Detail({ params, query }: { params: NextParsedUrlQuery; query: NextPars
     },
   ];
 
+  useEffect(() => {
+    if (reviewResponse && myWriteResponse && myScrapResponse) {
+      if (REVIEW_TYPE === 'myWrite') {
+        setCurrentList(myWriteResponse);
+      } else if (REVIEW_TYPE === 'myScrap') {
+        setCurrentList(myScrapResponse);
+      } else {
+        setCurrentList(reviewResponse.data);
+      }
+    }
+  }, [reviewResponse, myWriteResponse, myScrapResponse, REVIEW_TYPE]);
+
   return (
     <StyledReviewDetailWrapper>
       {reviewData && <ReviewDetailCard reviewData={reviewData} />}
       <OtherReviewCardWrapper>
         <ReviewListHeader>
           <HeaderTitle>{REVIEW_MAP[REVIEW_TYPE]}</HeaderTitle>
-          <DropDownFilter pageType="detail" filterProps={filterProps} />
+          {REVIEW_TYPE === 'shop' && <DropDownFilter pageType="detail" filterProps={filterProps} />}
         </ReviewListHeader>
         <ReviewListContent>
           {currentList && <OtherReviewCard reviewListData={getFilteredReviewListData()} />}
