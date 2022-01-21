@@ -5,11 +5,11 @@ import Banner from 'components/common/Banner';
 import Link from 'next/link';
 import FirstBannerBtn from 'public/assets/banner/banner_01_btn.svg';
 import ThirdBannerBtn from 'public/assets/banner/banner_03_btn.svg';
+import { useMemo } from 'react';
 import styled from 'styled-components';
 import SwiperCore, { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-SwiperCore.use([Navigation]);
 const BANNER_SRC_LIST = [
   {
     src: '/assets/banner/banner_01.svg',
@@ -25,23 +25,29 @@ const BANNER_SRC_LIST = [
   },
 ];
 
+SwiperCore.use([Navigation]);
+
 function BannerList() {
-  const BANNER_LIST = BANNER_SRC_LIST.map((bannerSrc) => {
-    const { src, Button } = bannerSrc;
-    return (
-      <SwiperSlide className="mySlider" key={src}>
-        <Banner src={src}>
-          {Button && (
-            <Link href="/shop/theme/아기자기한" passHref>
-              <BannerBtn>
-                <Button />
-              </BannerBtn>
-            </Link>
-          )}
-        </Banner>
-      </SwiperSlide>
-    );
-  });
+  const BANNER_LIST = useMemo(
+    () =>
+      BANNER_SRC_LIST.map((bannerSrc) => {
+        const { src, Button } = bannerSrc;
+        return (
+          <SwiperSlide className="mySlider" key={src}>
+            <Banner src={src}>
+              {Button && (
+                <Link href="/shop/theme/아기자기한" passHref>
+                  <BannerBtn>
+                    <Button />
+                  </BannerBtn>
+                </Link>
+              )}
+            </Banner>
+          </SwiperSlide>
+        );
+      }),
+    [],
+  );
 
   return (
     <Container>
