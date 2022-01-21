@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import { theme } from 'styles/theme';
 
 interface TagListProps {
-  tags: string[];
+  tag: string[];
   handleTagSubmit: (data: string) => void;
   handleTagDelete: (data: string) => void;
 }
 
 function TagList(props: TagListProps) {
-  const { tags, handleTagSubmit, handleTagDelete } = props;
+  const { tag, handleTagSubmit, handleTagDelete } = props;
 
   const [input, setInput] = useState<string>('');
 
@@ -24,11 +24,11 @@ function TagList(props: TagListProps) {
   const handleSubmit = (e: React.KeyboardEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value;
     if (e.key === ',' || e.key === 'Enter') {
-      if (value === '' || value === ' ' || tags.includes(value)) {
+      if (value === '' || value === ' ' || tag.includes(value)) {
         setInput('');
         return;
       }
-      if (tags.length < 4) {
+      if (tag.length < 4) {
         handleTagSubmit(value);
         setInput('');
       }
@@ -37,10 +37,10 @@ function TagList(props: TagListProps) {
 
   return (
     <StyledRoot>
-      {tags &&
-        tags.map((tag) => (
-          <StyledTag key={tag} onClick={() => handleTagDelete(tag)}>
-            {tag}
+      {tag &&
+        tag.map((item) => (
+          <StyledTag key={item} onClick={() => handleTagDelete(item)}>
+            {item}
           </StyledTag>
         ))}
       <StyledInput

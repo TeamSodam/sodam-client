@@ -2,6 +2,8 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
+import { Item } from 'types/review';
+import { PriceOptionList, ShopCategoryType } from 'types/shop';
 
 import ItemsListDiv from './ItemsListDiv';
 
@@ -9,17 +11,29 @@ interface StyledDDIProps {
   idx: number;
   currentOpen: number;
   onSetCurrentOpen: (idx: number) => void;
+  selectedItem: ShopCategoryType | undefined;
+  handleItemSubmit: (
+    data: ShopCategoryType | PriceOptionList,
+    index: number,
+    type: keyof Item,
+  ) => void;
 }
 
 function DropdownItem(props: StyledDDIProps) {
-  const { idx, currentOpen, onSetCurrentOpen } = props;
-  const [selectedItem, setSelectedItem] = useState('어떤 소품을 구매하셨나요?(선택)');
+  const {
+    idx,
+    currentOpen,
+    onSetCurrentOpen,
+    selectedItem = '어떤 소품을 구매하셨나요?(선택)',
+    handleItemSubmit,
+  } = props;
+
   const [isOpen, setIsOpen] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
   const toggle = () => setIsOpen((prevIsOpen) => !prevIsOpen);
 
-  const onSelectedItem = (item: string) => {
-    setSelectedItem(item);
+  const onSelectedItem = (item: ShopCategoryType) => {
+    handleItemSubmit(item, idx, 'itemName');
     toggle();
     setIsSelected(true);
   };

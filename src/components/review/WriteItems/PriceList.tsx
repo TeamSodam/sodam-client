@@ -1,14 +1,15 @@
 import { PriceFilterList } from 'constants/dropdownOptionList';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
+import { PriceOptionList } from 'types/shop';
 
 interface StyledPLProps {
-  onSelectedPrice: (price: string) => void;
+  onSelectedPrice: (price: PriceOptionList) => void;
 }
 function PriceList(props: StyledPLProps) {
   const { onSelectedPrice } = props;
 
-  const handleClick = (price: string) => {
+  const handleClick = (price: PriceOptionList) => {
     onSelectedPrice(price);
   };
 

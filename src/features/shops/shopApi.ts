@@ -21,7 +21,7 @@ export const shopApi = createApi({
   refetchOnFocus: true,
   endpoints: (builder) => ({
     // builder.query<T, U>() --> T는 쿼리의 반환값 타입, U는 쿼리 파라미터의 타입.
-    getShopByCategory: builder.query<SodamResponse<ShopResponse[]>, string>({
+    getShopByCategory: builder.query<ShopResponse[], string>({
       query: (type) => ({
         url: 'https://server.sodam.me/shop/category',
         method: 'GET',
@@ -29,8 +29,9 @@ export const shopApi = createApi({
           type,
         },
       }),
+      transformResponse: (response: SodamResponse<ShopResponse[]>) => response.data,
     }),
-    getShopByTheme: builder.query<SodamResponse<ShopResponse[]>, ShopThemeRequestType>({
+    getShopByTheme: builder.query<ShopResponse[], ShopThemeRequestType>({
       query: ({ theme, sortType, offset, limit }) => ({
         url: 'https://server.sodam.me/shop',
         params: {
@@ -41,6 +42,7 @@ export const shopApi = createApi({
         },
         method: 'GET',
       }),
+      transformResponse: (response: SodamResponse<ShopResponse[]>) => response.data,
     }),
     getShopByShopId: builder.query<Shop, number>({
       query: (shopId) => ({

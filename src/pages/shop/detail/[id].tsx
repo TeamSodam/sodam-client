@@ -147,11 +147,13 @@ function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQu
           <LabelWithOptions>
             <LabelWrapper>
               <Label>소품샵 리뷰</Label>
-              <WriteReviewBtn
-                navigate={() => {
-                  router.push(`/review/write?shopId=${SHOP_ID}`);
-                }}
-              />
+              {shopInfo && (
+                <WriteReviewBtn
+                  navigate={() => {
+                    router.push(`/review/write?shopId=${SHOP_ID}&shopName=${shopInfo.shopName}`);
+                  }}
+                />
+              )}
             </LabelWrapper>
             <DropDownFilter pageType="detail" filterProps={filterProps} />
           </LabelWithOptions>
