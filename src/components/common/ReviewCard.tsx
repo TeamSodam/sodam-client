@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import { parseDate } from 'src/utils/parseDate';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
 import { ReviewCardData } from 'types/review';
@@ -21,17 +22,15 @@ function ReviewCard(props: ReviewCardProps) {
     shopName,
     category,
     content,
-    writerThumbnail,
-    writerName,
     date,
     likeCount,
     scrapCount,
     shopId,
     reviewId,
+    writerThumbnail,
+    writerName,
   } = reviewData;
-
   const [isHovered, setIsHovered] = useState(false);
-
   const likedCount = likeCount > 99 ? '99+' : likeCount;
   const savedCount = scrapCount > 99 ? '99+' : scrapCount;
 
@@ -42,6 +41,16 @@ function ReviewCard(props: ReviewCardProps) {
 
   const navigateToDetail = () => {
     if (shopId) router.push(`/review/detail/${reviewId}?shopId=${shopId}`);
+  };
+
+  const toggleHeaderByIsMyReview = () => {
+    if (isMyReview) return <p className="date">{parseDate(date)}</p>;
+    return (
+      <div className="profile">
+        {writerThumbnail && <Image src={writerThumbnail} width={24} height={24} alt="profile" />}
+        <p>{writerName}</p>
+      </div>
+    );
   };
 
   return (
@@ -58,21 +67,14 @@ function ReviewCard(props: ReviewCardProps) {
       )}
       <ImageDiv
         className="thumbnail__image"
-        src={typeof image === 'string' ? image : image[0]}
+        src={image[0]}
         width={384}
         height={208}
         alt="thumbnail"
       />
       <StyledContents>
         <StyledHeader>
-          {isMyReview ? (
-            <p className="date">{date}</p>
-          ) : (
-            <div className="profile">
-              <Image src={writerThumbnail} width={24} height={24} alt="profile" />
-              <p>{writerName}</p>
-            </div>
-          )}
+          {toggleHeaderByIsMyReview()}
           <div className="figure">
             <ImageDiv
               className="figure__icon"

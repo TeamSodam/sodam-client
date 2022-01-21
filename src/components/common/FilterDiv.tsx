@@ -2,16 +2,20 @@ import { MouseEvent } from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
 
+import { filterPropsType } from './DropDownFilter';
+
 interface StyledFDProps {
   selected: string;
   unselected: string[];
   saveSelectedOption: (option: string) => void;
   saveUnselectedOption: (option: string) => void;
   toggle: () => void;
+  filterProps?: filterPropsType[];
 }
 
 function FilterDiv(props: StyledFDProps) {
-  const { selected, unselected, saveSelectedOption, saveUnselectedOption, toggle } = props;
+  const { selected, unselected, saveSelectedOption, saveUnselectedOption, toggle, filterProps } =
+    props;
 
   const handleClick = (e: MouseEvent) => {
     if (!(e.target instanceof HTMLElement)) return;
@@ -19,6 +23,10 @@ function FilterDiv(props: StyledFDProps) {
     saveSelectedOption(currentSelected);
     saveUnselectedOption(currentSelected);
     toggle();
+    const targetFilter = filterProps?.find(
+      (filterInfo) => filterInfo.filterName === currentSelected,
+    );
+    targetFilter?.onClick();
   };
 
   return (

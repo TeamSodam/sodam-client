@@ -16,7 +16,7 @@ function GlobalNav() {
     { menuName: '소품샵 지도', menuURL: '/map' },
     { menuName: '테마별 소품샵', menuURL: '/shop/theme', routeTo: '/shop/theme/아기자기한' },
     { menuName: '저장한 소품샵', menuURL: '/shop/collect' },
-    { menuName: 'My Review', menuURL: '/review/my', routeTo: '/review/my/write' },
+    { menuName: 'MY REVIEW', menuURL: '/review/my', routeTo: '/review/my/write' },
   ];
 
   const router = useRouter();

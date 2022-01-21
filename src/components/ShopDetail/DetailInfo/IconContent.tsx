@@ -51,7 +51,7 @@ function IconContent(props: IconContentProps) {
         <MainIcon />
         <span>{iconName}</span>
       </IconWrapper>
-      <ContentWrapper>{showContent()}</ContentWrapper>
+      <ContentWrapper isCenter={iconName === 'SNS'}>{showContent()}</ContentWrapper>
     </Container>
   );
 }
@@ -59,7 +59,6 @@ function IconContent(props: IconContentProps) {
 const Container = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-between;
   gap: 2.4rem;
 `;
 
@@ -78,9 +77,10 @@ const IconWrapper = styled.div`
   }
 `;
 
-const ContentWrapper = styled.div`
+const ContentWrapper = styled.div<{ isCenter: boolean }>`
+  flex: 1;
   display: flex;
-  justify-content: flex-start;
+  justify-content: ${(props) => (props.isCenter ? 'center' : 'flex-start')};
   align-items: center;
   gap: 2.4rem;
 

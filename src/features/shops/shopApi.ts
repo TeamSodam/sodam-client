@@ -2,11 +2,12 @@ import { createApi } from '@reduxjs/toolkit/query/react';
 import { axiosBaseQuery } from 'libs/api';
 import { SodamResponse } from 'types/api';
 import {
+  BookmarkResponseType,
+  BookmarkResquestType,
   Shop,
   ShopAreaRequestType,
   ShopAreaResponse,
   ShopBookmarkRequestType,
-  ShopCategoryType,
   ShopMainSortType,
   ShopResponse,
   ShopSearchResponse,
@@ -20,10 +21,13 @@ export const shopApi = createApi({
   refetchOnFocus: true,
   endpoints: (builder) => ({
     // builder.query<T, U>() --> T는 쿼리의 반환값 타입, U는 쿼리 파라미터의 타입.
-    getShopByCategory: builder.query<Shop[], ShopCategoryType>({
-      query: (categoryType) => ({
-        url: `http://localhost:4000/shop/category?type=${categoryType}`,
+    getShopByCategory: builder.query<SodamResponse<ShopResponse[]>, string>({
+      query: (type) => ({
+        url: 'https://server.sodam.me/shop/category',
         method: 'GET',
+        params: {
+          type,
+        },
       }),
     }),
     getShopByTheme: builder.query<SodamResponse<ShopResponse[]>, ShopThemeRequestType>({
@@ -78,6 +82,16 @@ export const shopApi = createApi({
         method: 'GET',
       }),
     }),
+    postBookmark: builder.mutation<SodamResponse<BookmarkResponseType>, BookmarkResquestType>({
+      query: ({ shopId, isBookmarked }) => ({
+        url: 'https://server.sodam.me/shop/bookmark',
+        method: 'POST',
+        data: {
+          shopId,
+          isBookmarked,
+        },
+      }),
+    }),
   }),
 });
 
@@ -90,4 +104,5 @@ export const {
   useGetShopSearchResultQuery,
   useGetShopBySubwayQuery,
   useGetShopByBookmarkQuery,
+  usePostBookmarkMutation,
 } = shopApi;

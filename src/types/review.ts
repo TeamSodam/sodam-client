@@ -9,7 +9,7 @@ export interface Review {
   shopName: string;
   category: string[];
   reviewId: number;
-  date: Date;
+  date: string;
   likeCount: number;
   scrapCount: number;
   isLiked: boolean;
@@ -40,7 +40,37 @@ export interface ReviewRecentResponse {
   content: string;
 }
 
+export interface ReviewByShopIdData {
+  reviewId: number;
+  shopId: number;
+  image: string[];
+  writerName?: string;
+  writerThumbnail?: string;
+  likeCount: number;
+  scrapCount: number;
+  content: string;
+}
+
 export interface ReviewByShopIdResponse {
+  reviewCount: number;
+  data: ReviewByShopIdData[];
+}
+
+export interface ReviewMyWriteResponse {
+  reviewId: number;
+  shopId: number;
+  shopName: string;
+  category: string[];
+  likeCount: number;
+  scrapCount: number;
+  content: string;
+  image: string[];
+  date: string;
+}
+
+export interface ReviewMyScrapResponse {
+  category: string[];
+  shopName: string;
   reviewId: number;
   shopId: number;
   image: string[];
@@ -49,24 +79,6 @@ export interface ReviewByShopIdResponse {
   likeCount: number;
   scrapCount: number;
   content: string;
-}
-
-export interface ReviewMyWriteResponse {
-  reviewId: number;
-  likeCount: number;
-  scrapCount: number;
-  content: string;
-  image: string[];
-  date: Date;
-}
-
-export interface ReviewMyScrapResponse {
-  writerName: string;
-  content: string;
-  scrapCount: number;
-  likeCount: number;
-  shopName: string;
-  category: string;
 }
 
 export interface ReviewInfoRequestById {
@@ -78,12 +90,12 @@ export interface ReviewCardData {
   reviewId: number;
   shopId: number;
   image: string[];
-  writerThumbnail: string;
-  writerName: string;
+  writerThumbnail?: string;
+  writerName?: string;
   likeCount: number;
   scrapCount: number;
   content: string;
-  date?: Date;
+  date?: string;
   shopName?: string;
   category?: string[];
 }
@@ -103,4 +115,13 @@ export interface ReviewShopIdRequestParams extends ReviewPaginationType {
 export interface ReviewImage {
   file: File | null;
   preview: string | null;
+}
+
+export interface ReviewWriteRequest {
+  shopId: number;
+  shopName: string;
+  image: File[];
+  item: Item[];
+  content: string;
+  tag: string[];
 }

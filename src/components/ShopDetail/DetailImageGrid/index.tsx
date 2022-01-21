@@ -1,15 +1,10 @@
 import ImageDiv from 'components/common/ImageDiv';
 import styled from 'styled-components';
 
-function DetailImageGrid() {
+function DetailImageGrid({ imageList }: { imageList: string[] }) {
   return (
     <Container>
-      <ImageDiv
-        className="detail-image"
-        src="/assets/dummy/shop_detail.png"
-        layout="fill"
-        alt="main-img"
-      />
+      <ImageDiv className="detail-image" src={imageList[0]} layout="fill" alt="main-img" />
       <ImageDiv
         className="detail-image"
         src="/assets/dummy/dummy-shop.png"

@@ -5,8 +5,11 @@ import {
   Review,
   ReviewByShopIdResponse,
   ReviewInfoRequestById,
+  ReviewMyScrapResponse,
+  ReviewMyWriteResponse,
   ReviewRecentResponse,
   ReviewShopIdRequestParams,
+  ReviewWriteRequest,
 } from 'types/review';
 
 export const reviewApi = createApi({
@@ -18,13 +21,15 @@ export const reviewApi = createApi({
     getReviewRecent: builder.query<SodamResponse<ReviewRecentResponse[]>, void>({
       query: () => ({ url: 'https://server.sodam.me/review/recent', method: 'GET' }),
     }),
-    getMyWriteReview: builder.query<Review[], void>({
-      query: () => ({ url: 'http://localhost:4000/my/review/write', method: 'GET' }),
+    getMyWriteReview: builder.query<ReviewMyWriteResponse[], void>({
+      query: () => ({ url: 'https://server.sodam.me/my/review/write', method: 'GET' }),
+      transformResponse: (response: SodamResponse<ReviewMyWriteResponse[]>) => response.data,
     }),
-    getMyScrapReview: builder.query<Review[], void>({
-      query: () => ({ url: 'http://localhost:4000/my/review/scrap', method: 'GET' }),
+    getMyScrapReview: builder.query<ReviewMyScrapResponse[], void>({
+      query: () => ({ url: 'https://server.sodam.me/my/review/scrap', method: 'GET' }),
+      transformResponse: (response: SodamResponse<ReviewMyScrapResponse[]>) => response.data,
     }),
-    getReviewByShopId: builder.query<ReviewByShopIdResponse[], ReviewShopIdRequestParams>({
+    getReviewByShopId: builder.query<ReviewByShopIdResponse, ReviewShopIdRequestParams>({
       query: (shopInfo: ReviewShopIdRequestParams) => {
         const { shopId, sortType, offset, limit } = shopInfo;
         return {
@@ -37,7 +42,7 @@ export const reviewApi = createApi({
           },
         };
       },
-      transformResponse: (response: SodamResponse<ReviewByShopIdResponse[]>) => response.data,
+      transformResponse: (response: SodamResponse<ReviewByShopIdResponse>) => response.data,
     }),
     getShopReviewById: builder.query<Review, ReviewInfoRequestById>({
       query: ({ reviewId, shopId }) => ({
@@ -46,15 +51,25 @@ export const reviewApi = createApi({
       }),
       transformResponse: (response: SodamResponse<Review>) => response.data,
     }),
-    postReview: builder.mutation<Review, { token: string; reviewInfo: Required<Review> }>({
-      query: ({ token, reviewInfo }) => ({
-        url: 'http://localhost:4000/review',
-        method: 'POST',
-        data: reviewInfo,
-        headers: {
-          'Access-token': token,
-        },
-      }),
+    postReview: builder.mutation<Review, ReviewWriteRequest>({
+      query: (reviewInput) => {
+        const formData = new FormData();
+        Object.entries(reviewInput).forEach(([key, val]) => {
+          if (Array.isArray(val)) {
+            if (val.every((v) => v instanceof File)) {
+              val.forEach((file) => formData.append('image', file));
+            } else {
+              formData.append(key, JSON.stringify(val));
+            }
+          } else formData.append(key, val);
+        });
+        return {
+          url: 'https://server.sodam.me/review',
+          method: 'POST',
+          data: formData,
+        };
+      },
+      transformResponse: (response: SodamResponse<Review>) => response.data,
     }),
   }),
 });
