@@ -1,21 +1,11 @@
-import { wrapper } from 'app/store';
 import DropDownFilter from 'components/common/DropDownFilter';
 import ShopCard from 'components/common/ShopCard';
 import ThemeSelector from 'components/ThemeSelector';
-import { shopApi } from 'features/shops/shopApi';
+import { useGetShopByThemeQuery } from 'features/shops/shopApi';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { ShopResponse, ShopThemeSortType, ShopThemeType } from 'types/shop';
-
-type ThemePageDataType = {
-  [key in ShopThemeType]: {
-    [key in ShopThemeSortType]: ShopResponse[];
-  };
-};
-interface ThemePageProps {
-  data: ThemePageDataType;
-}
+import { ShopThemeSortType, ShopThemeType } from 'types/shop';
 
 const THEME_LIST: ShopThemeType[] = ['아기자기한', '힙한', '모던한', '빈티지'];
 
@@ -29,26 +19,26 @@ const parseThemeType = (themeType: string | string[] | undefined) => {
   return themeType;
 };
 
-function ThemePage(props: ThemePageProps) {
-  const { data } = props;
-
+function ThemePage() {
   const router = useRouter();
   const { type } = router.query;
 
   const parsedThemeType = parseThemeType(type);
-
   const [currentSortType, setCurrentSortType] = useState<ShopThemeSortType>('popular');
+  const { data: themeShopList } = useGetShopByThemeQuery({
+    theme: parsedThemeType || '아기자기한',
+    sortType: currentSortType,
+    offset: 1,
+    limit: 16,
+  });
 
   const filterProps = [
     { filterName: '리뷰 많은 순', onClick: () => setCurrentSortType('review') },
     { filterName: '저장 많은 순', onClick: () => setCurrentSortType('popular') },
   ];
-
-  const showCurrentThemeList = () => {
-    if (!parsedThemeType) return;
-    return data[parsedThemeType][currentSortType].map((shop) => (
-      <ShopCard key={shop.shopId} cardData={shop} />
-    ));
+  const showCurrentThemeList2 = () => {
+    if (!parsedThemeType && themeShopList) return;
+    return themeShopList?.map((shop) => <ShopCard key={shop.shopId} cardData={shop} />);
   };
 
   return (
@@ -62,64 +52,10 @@ function ThemePage(props: ThemePageProps) {
       <DropDownWrapper>
         <DropDownFilter pageType="theme" filterProps={filterProps} />
       </DropDownWrapper>
-      <ShopList>{showCurrentThemeList()}</ShopList>
+      <ShopList>{showCurrentThemeList2()}</ShopList>
     </Container>
   );
 }
-
-export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
-  const dispatch = store.dispatch;
-  let resultData: ThemePageDataType = {
-    힙한: {
-      popular: [],
-      review: [],
-    },
-    아기자기한: {
-      popular: [],
-      review: [],
-    },
-    모던한: {
-      popular: [],
-      review: [],
-    },
-    빈티지: {
-      popular: [],
-      review: [],
-    },
-  };
-  const SORT_TYPE: ShopThemeSortType[] = ['popular', 'review'];
-
-  for (const theme of THEME_LIST) {
-    const promiseList = SORT_TYPE.map((sortType) =>
-      dispatch(
-        shopApi.endpoints.getShopByTheme.initiate({
-          theme,
-          sortType,
-          offset: 1,
-          limit: 16,
-        }),
-      ),
-    );
-
-    const result = await Promise.all(promiseList);
-    result.forEach((eachResult, idx) => {
-      resultData = {
-        ...resultData,
-        [theme]: {
-          ...resultData[theme],
-          [SORT_TYPE[idx]]: eachResult?.data || [],
-        },
-      };
-    });
-  }
-
-  return {
-    props: {
-      data: resultData,
-    },
-  };
-});
-
 const Container = styled.main`
   width: 100%;
   display: flex;
