@@ -58,11 +58,12 @@ export const shopApi = createApi({
       }),
       transformResponse: (response: SodamResponse<ShopAreaResponse[]>) => response.data,
     }),
-    getShopInfo: builder.query<SodamResponse<ShopResponse[]>, ShopMainSortType>({
+    getShopInfo: builder.query<ShopResponse[], ShopMainSortType>({
       query: (type) => ({
         url: `https://server.sodam.me/shop/recommend?type=${type}`,
         method: 'GET',
       }),
+      transformResponse: (response: SodamResponse<ShopAreaResponse[]>) => response.data,
     }),
     getShopSearchResult: builder.query<ShopSearchResponse[], string>({
       query: (keyword) => ({

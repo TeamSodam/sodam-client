@@ -20,8 +20,9 @@ export const reviewApi = createApi({
   refetchOnFocus: true,
   endpoints: (builder) => ({
     // builder.query<T, U>() --> T는 쿼리의 반환값 타입, U는 쿼리 파라미터의 타입.
-    getReviewRecent: builder.query<SodamResponse<ReviewRecentResponse[]>, void>({
+    getReviewRecent: builder.query<ReviewRecentResponse[], void>({
       query: () => ({ url: 'https://server.sodam.me/review/recent', method: 'GET' }),
+      transformResponse: (response: SodamResponse<ReviewRecentResponse[]>) => response.data,
     }),
     getMyWriteReview: builder.query<ReviewMyWriteResponse[], void>({
       query: () => ({ url: 'https://server.sodam.me/my/review/write', method: 'GET' }),
