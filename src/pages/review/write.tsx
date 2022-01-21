@@ -156,8 +156,12 @@ function Write(props: WriteProps) {
       reviewImageList.forEach((reviewImage) => {
         reviewImage.file && tempData.image.push(reviewImage.file);
       });
-      await postReview(tempData);
-      router.push('/review/my/write');
+      const result = await postReview(tempData);
+      if ('data' in result) {
+        router.push(
+          `/review/detail/${result.data.reviewId}?shopId=${result.data.shopId}&reviewType=myWrite`,
+        );
+      }
     }
   };
 
