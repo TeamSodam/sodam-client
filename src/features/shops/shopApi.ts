@@ -31,7 +31,7 @@ export const shopApi = createApi({
       }),
       transformResponse: (response: SodamResponse<ShopResponse[]>) => response.data,
     }),
-    getShopByTheme: builder.query<SodamResponse<ShopResponse[]>, ShopThemeRequestType>({
+    getShopByTheme: builder.query<ShopResponse[], ShopThemeRequestType>({
       query: ({ theme, sortType, offset, limit }) => ({
         url: 'https://server.sodam.me/shop',
         params: {
@@ -42,6 +42,7 @@ export const shopApi = createApi({
         },
         method: 'GET',
       }),
+      transformResponse: (response: SodamResponse<ShopResponse[]>) => response.data,
     }),
     getShopByShopId: builder.query<Shop, number>({
       query: (shopId) => ({
