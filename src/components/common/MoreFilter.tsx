@@ -1,5 +1,5 @@
 import { MoreFilterList } from 'constants/dropdownOptionList';
-import { MouseEvent, useState } from 'react';
+import { Dispatch, MouseEvent, SetStateAction, useState } from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
 import { ShopCategoryType } from 'types/shop';
@@ -11,19 +11,19 @@ interface StyledMFProps {
 
 interface MoreFilterProps {
   currentCategory: string;
-  updateList: (nextCategory: ShopCategoryType) => void;
+  updateCategory: Dispatch<SetStateAction<ShopCategoryType>>;
 }
 
 function MoreFilter(props: MoreFilterProps) {
-  const { currentCategory, updateList } = props;
+  const { currentCategory, updateCategory } = props;
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen((prevIsOpen) => !prevIsOpen);
 
   const handleClick = (e: MouseEvent, option: ShopCategoryType) => {
     if (!(e.target instanceof HTMLElement)) return;
     e.stopPropagation();
-    updateList(option);
     toggle();
+    updateCategory(option);
   };
 
   return (

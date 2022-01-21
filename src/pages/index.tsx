@@ -7,12 +7,11 @@ import ShopCardRank from 'components/common/ShopCardRank';
 import ThemeSelector from 'components/ThemeSelector';
 import { MoreFilterList } from 'constants/dropdownOptionList';
 import { useGetReviewRecentQuery } from 'features/reviews/reviewApi';
-import { shopApi, useGetShopByCategoryQuery, useGetShopInfoQuery } from 'features/shops/shopApi';
+import { useGetShopByCategoryQuery, useGetShopInfoQuery } from 'features/shops/shopApi';
 import { selectUserInfo } from 'features/users/userSlice';
 import { useState } from 'react';
 import { useAppSelector } from 'src/app/hook';
 import styled from 'styled-components';
-import { ShopCategoryType } from 'types/shop';
 
 const randomCategory = MoreFilterList[Math.floor(Math.random() * 6)];
 
@@ -23,15 +22,6 @@ function Home() {
   const { data: popularShopList2 } = useGetShopInfoQuery('popular');
   const { data: reviewResultList2 } = useGetReviewRecentQuery();
   const { data: categoryShopList2 } = useGetShopByCategoryQuery(currentCategory.replace('·', ''));
-
-  const [currentCategoryList2, setCurrentCategoryList2] = useState(categoryShopList2);
-  const [getListByCategory] = shopApi.useLazyGetShopByCategoryQuery();
-
-  const updateListByCategory2 = async (nextCategory: ShopCategoryType) => {
-    setCurrentCategory(nextCategory);
-    const updatedList = await getListByCategory(nextCategory.replace('·', ''));
-    if (updatedList.data) setCurrentCategoryList2(updatedList.data);
-  };
 
   const showRandomShopSlider2 = () => {
     if (!randomShopList2) return;
@@ -63,8 +53,8 @@ function Home() {
   };
 
   const showRandomCategorySlider = () => {
-    if (!currentCategoryList2) return;
-    const cardList = currentCategoryList2.map((shop) => (
+    if (!categoryShopList2) return;
+    const cardList = categoryShopList2.map((shop) => (
       <ShopCard key={shop.shopId} cardData={shop} />
     ));
     return <MainSlider slidesPerView={4} cardList={cardList} />;
@@ -96,7 +86,7 @@ function Home() {
             <Label>
               <em>{currentCategory}</em> 소품샵 리스트
             </Label>
-            <MoreFilter currentCategory={currentCategory} updateList={updateListByCategory2} />
+            <MoreFilter currentCategory={currentCategory} updateCategory={setCurrentCategory} />
           </LabelFilterWrapper>
           {showRandomCategorySlider()}
         </LabelContentWrapper>
@@ -104,53 +94,6 @@ function Home() {
     </Container>
   );
 }
-
-// export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
-//   const dispatch = store.dispatch;
-//   const randomShopResult = await dispatch(shopApi.endpoints.getShopInfo.initiate('random'));
-//   const popularShopResult = await dispatch(shopApi.endpoints.getShopInfo.initiate('popular'));
-//   const reviewResult = await dispatch(reviewApi.endpoints.getReviewRecent.initiate());
-//   const categoryShopResult = await dispatch(
-//     shopApi.endpoints.getShopByCategory.initiate(randomCategory.replace('·', '')),
-//   );
-
-//   const resultProps: {
-//     randomShopList: ShopResponse[];
-//     reviewList: ReviewRecentResponse[];
-//     popularShopList: ShopResponse[];
-//     categoryShopList: ShopResponse[];
-//   } = {
-//     randomShopList: [],
-//     reviewList: [],
-//     popularShopList: [],
-//     categoryShopList: categoryShopResult.data || [],
-//   };
-
-//   if (randomShopResult.isSuccess) {
-//     const axiosResult = randomShopResult.data;
-//     if (axiosResult.status === 200) {
-//       resultProps.randomShopList = axiosResult.data;
-//     }
-//   }
-
-//   if (popularShopResult.isSuccess) {
-//     const axiosResult = popularShopResult.data;
-//     if (axiosResult.status === 200) {
-//       resultProps.popularShopList = axiosResult.data;
-//     }
-//   }
-
-//   if (reviewResult.isSuccess) {
-//     const axiosResult = reviewResult.data;
-//     if (axiosResult.status === 200) {
-//       resultProps.reviewList = axiosResult.data.filter((data) => data.image[0] !== null);
-//     }
-//   }
-
-//   return {
-//     props: resultProps,
-//   };
-// });
 
 const Container = styled.main`
   display: flex;
