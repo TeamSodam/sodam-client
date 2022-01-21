@@ -31,7 +31,6 @@ function ShopSearch(props: ShopSearchProps) {
 
   const requestSearch = async () => {
     const result = await trigger(inputValue);
-    console.log('r검색결과: ', result);
     setSearchValue(result.data);
     setIsOpen(true);
   };
