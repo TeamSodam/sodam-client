@@ -10,17 +10,6 @@ import { Review } from 'types/review';
 
 import ImageSlider from './ImageSlider';
 
-const dummyImageList = [
-  '/assets/dummy/dummy-image.jpg',
-  '/assets/dummy/dummy-image.jpg',
-  '/assets/dummy/dummy-image.jpg',
-  '/assets/dummy/dummy-image.jpg',
-  '/assets/dummy/dummy-image.jpg',
-  '/assets/dummy/dummy-image.jpg',
-  '/assets/dummy/dummy-image.jpg',
-  '/assets/dummy/dummy-image.jpg',
-];
-
 interface ReviewDetailCardProps {
   reviewData: Review;
 }
@@ -42,6 +31,7 @@ function ReviewDetailCard(props: ReviewDetailCardProps) {
     reviewId,
     isLiked,
     isScraped,
+    image,
   } = reviewData;
 
   const [likePost] = usePostLikeMutation();
@@ -95,7 +85,7 @@ function ReviewDetailCard(props: ReviewDetailCardProps) {
             </ScrapReview>
           </IconContainer>
         </ReviewDetailCardHeader>
-        <ImageSlider imageList={dummyImageList} />
+        <ImageSlider imageList={image} />
         <ReviewTextInfo>
           <ReviewProductInfo>
             {item.map((itemElement) => (
