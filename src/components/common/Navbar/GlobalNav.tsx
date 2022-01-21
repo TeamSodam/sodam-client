@@ -26,8 +26,8 @@ function GlobalNav() {
   };
 
   const onClickMenu = (menu: MenuListType) => {
-    if (menu.routeTo) router.push(menu.routeTo);
-    else router.push(menu.menuURL);
+    if (menu.routeTo) return menu.routeTo;
+    return menu.menuURL;
   };
 
   const isCurrentPathIncludesMyReview = () => router.asPath.includes('/review/my');
@@ -44,11 +44,7 @@ function GlobalNav() {
             </Logo>
             <MenuList>
               {menuList.map((menu) => (
-                <Menu
-                  key={menu.menuName}
-                  onClick={() => onClickMenu(menu)}
-                  isActive={getIsActive(menu)}
-                >
+                <Menu key={menu.menuName} href={onClickMenu(menu)} isActive={getIsActive(menu)}>
                   {menu.menuName}
                 </Menu>
               ))}
@@ -125,12 +121,14 @@ const MenuList = styled.div`
 
 const Menu = styled.a<{ isActive: boolean }>`
   margin-right: 3.2rem;
-  color: ${(props) => props.isActive && props.theme.colors.purpleMain};
+  color: ${(props) => (props.isActive ? props.theme.colors.purpleMain : props.theme.colors.black2)};
   font-weight: ${(props) => (props.isActive ? '600' : '400')};
 
   &:hover {
     cursor: pointer;
   }
+
+  text-decoration: none;
 `;
 
 const SearchBar = styled.div`

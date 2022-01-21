@@ -36,10 +36,20 @@ export const tooltipStyle = css`
     }
 
     &__content {
+      width: 100%;
+      height: 2rem;
       font-size: 1.2rem;
       line-height: 1.7rem;
       color: ${({ theme }) => theme.colors.black1};
       font-weight: 400;
+
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: normal;
+      word-wrap: break-all;
     }
 
     &::after {
