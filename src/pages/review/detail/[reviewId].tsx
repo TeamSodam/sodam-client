@@ -2,6 +2,7 @@ import { wrapper } from 'app/store';
 import DropDownFilter from 'components/common/DropDownFilter';
 import OtherReviewCard from 'components/review/OtherReviewCard';
 import ReviewDetailCard from 'components/review/ReviewDetailCard';
+import { REVIEW_MAP } from 'constants/reviewActiveMap';
 import {
   reviewApi,
   useGetReviewByShopIdQuery,
@@ -28,6 +29,7 @@ function Detail({ params, query }: { params: NextParsedUrlQuery; query: NextPars
 
   const REVIEW_ID = parseShopId(params.reviewId);
   const SHOP_ID = parseShopId(query.shopId);
+  const REVIEW_TYPE = parseShopName(query.reviewType);
   const SORT_TYPE = 'save';
 
   const { data: reviewData } = useGetShopReviewByIdQuery({
@@ -62,6 +64,7 @@ function Detail({ params, query }: { params: NextParsedUrlQuery; query: NextPars
   };
 
   const updateList = async (sortType: ReviewSortType) => {
+    if (!SHOP_ID) return;
     const result = await trigger({
       shopId: SHOP_ID,
       sortType,
@@ -97,7 +100,7 @@ function Detail({ params, query }: { params: NextParsedUrlQuery; query: NextPars
       {reviewData && <ReviewDetailCard reviewData={reviewData} />}
       <OtherReviewCardWrapper>
         <ReviewListHeader>
-          <HeaderTitle>이 소품샵의 다른 리뷰</HeaderTitle>
+          <HeaderTitle>{REVIEW_MAP[REVIEW_TYPE]}</HeaderTitle>
           <DropDownFilter pageType="detail" filterProps={filterProps} />
         </ReviewListHeader>
         <ReviewListContent>

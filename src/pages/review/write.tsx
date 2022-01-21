@@ -90,6 +90,13 @@ function Write(props: WriteProps) {
     setReviewImageList(tempImageList);
   };
 
+  const handleResultSelect = (shopId: number) => {
+    setReviewData((prevReviewData) => ({
+      ...prevReviewData,
+      shopId,
+    }));
+  };
+
   const handleImageDelete = (index: number) => {
     if (reviewImageList.length <= 1) {
       setReviewImageList([]);
@@ -164,7 +171,11 @@ function Write(props: WriteProps) {
           handleImageDelete={handleImageDelete}
         />
         <StyledTopRight>
-          <ShopSearch selectedShop={reviewData.shopName} handleDataChange={handleDataChange} />
+          <ShopSearch
+            selectedShop={reviewData.shopName}
+            handleDataChange={handleDataChange}
+            handleResultSelect={handleResultSelect}
+          />
           <WriteItems selectedItemList={reviewData.item} handleItemSubmit={handleItemSubmit} />
         </StyledTopRight>
       </StyledTop>
