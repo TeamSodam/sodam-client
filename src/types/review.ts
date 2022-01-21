@@ -1,8 +1,8 @@
-import { PriceList, ShopCategoryType } from './shop';
+import { PriceOptionList, ShopCategoryType } from './shop';
 
 export interface Item {
   itemName: ShopCategoryType;
-  price: PriceList;
+  price: PriceOptionList;
 }
 export interface Review {
   shopId: number;
@@ -16,13 +16,16 @@ export interface Review {
   isScraped: boolean;
   writerThumbnail: string;
   writerName: string;
-  image: string[];
+  image: File[];
   item: Item[];
   content: string;
   tag: string[];
   thumbnail: string;
   reviewCount: number;
 }
+
+export type ReviewWrite = Pick<Review, 'shopName' | 'image' | 'content' | 'tag' | 'item'>;
+export type ReviewWriteKey = keyof ReviewWrite;
 
 export interface ReviewRecentResponse {
   category: string[];

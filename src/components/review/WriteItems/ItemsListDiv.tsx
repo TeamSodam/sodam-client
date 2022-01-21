@@ -1,15 +1,16 @@
 import { MoreFilterList } from 'constants/dropdownOptionList';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
+import { ShopCategoryType } from 'types/shop';
 
 interface StyledILDProps {
-  onSelectedItem: (item: string) => void;
+  onSelectedItem: (item: ShopCategoryType) => void;
 }
 
 function ItemsListDiv(props: StyledILDProps) {
   const { onSelectedItem } = props;
 
-  const handleClick = (item: string) => {
+  const handleClick = (item: ShopCategoryType) => {
     onSelectedItem(item);
   };
   return (

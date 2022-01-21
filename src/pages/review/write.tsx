@@ -8,12 +8,9 @@ import Title from 'components/review/write/Title';
 import WriteItems from 'components/review/WriteItems/index';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { ReviewImage } from 'types/review';
+import { Item, ReviewImage, ReviewWrite, ReviewWriteKey } from 'types/review';
+import { PriceOptionList, ShopCategoryType } from 'types/shop';
 
-interface ReviewData {
-  text: string;
-  tags: string[];
-}
 interface WriteProps {
   userName: string;
 }
@@ -23,15 +20,30 @@ function Write(props: WriteProps) {
 
   const [isSubmitAvailable, setIsSubmitAvailable] = useState(false);
   const [reviewImageList, setReviewImageList] = useState<ReviewImage[]>([]);
-  const [reviewData, setReviewData] = useState<ReviewData>({ text: '', tags: [] });
+  const [reviewData, setReviewData] = useState<ReviewWrite>({
+    shopName: '',
+    image: [],
+    content: '',
+    tag: [],
+    item: [],
+  });
 
   useEffect(() => {
-    if (reviewImageList.length > 0 && reviewData.text.length >= 35) {
+    if (
+      reviewImageList.length > 0 &&
+      reviewData.content.length >= 35 &&
+      reviewData.shopName.length > 0
+    ) {
       setIsSubmitAvailable(true);
     } else {
       setIsSubmitAvailable(false);
     }
-  }, [reviewImageList, reviewData.text]);
+  }, [reviewImageList, reviewData.content, reviewData.shopName]);
+
+  // function isArrItemTypeSame<T>(data: T, list: any[]): list is T[] {
+  //   const tempArray = [data];
+  //   return typeof tempArray === typeof list;
+  // }
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files === null) return;
@@ -93,31 +105,46 @@ function Write(props: WriteProps) {
     setReviewImageList(tempImageList);
   };
 
-  const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    let data = e.target.value;
+  const handleDataChange = (data: string, key: Extract<ReviewWriteKey, 'content' | 'shopName'>) => {
     if (data.length > 500) {
       data = data.slice(0, 500);
     }
-    const tempData: ReviewData = { ...reviewData };
-    tempData.text = data;
+    const tempData: ReviewWrite = { ...reviewData };
+    tempData[key] = data;
+    setReviewData(tempData);
+  };
+
+  const handleItemSubmit = (
+    data: ShopCategoryType | PriceOptionList,
+    index: number,
+    type: keyof Item,
+  ) => {
+    const tempData: ReviewWrite = { ...reviewData };
+    tempData.item[index] = { ...tempData.item[index], [type]: data };
     setReviewData(tempData);
   };
 
   const handleTagSubmit = (data: string) => {
-    const tempData: ReviewData = { ...reviewData };
-    tempData.tags.push(data);
+    const tempData: ReviewWrite = { ...reviewData };
+    tempData.tag.push(data);
     setReviewData(tempData);
   };
 
   const handleTagDelete = (data: string) => {
-    const tempData: ReviewData = { ...reviewData };
-    tempData.tags = tempData.tags.filter((tag) => tag !== data);
+    const tempData: ReviewWrite = { ...reviewData };
+    tempData.tag = tempData.tag.filter((item) => item !== data);
     setReviewData(tempData);
   };
 
+  // 최종 제출
   const handleFormSubmit = async () => {
     if (isSubmitAvailable) {
-      console.log(reviewImageList, reviewData);
+      const tempData: ReviewWrite = { ...reviewData };
+      tempData.item.shift();
+      reviewImageList.forEach((reviewImage) => {
+        reviewImage.file && tempData.image.push(reviewImage.file);
+      });
+      console.log(tempData);
     }
   };
 
@@ -131,8 +158,8 @@ function Write(props: WriteProps) {
           handleImageDelete={handleImageDelete}
         />
         <StyledTopRight>
-          <ShopSearch />
-          <WriteItems />
+          <ShopSearch selectedShop={reviewData.shopName} handleDataChange={handleDataChange} />
+          <WriteItems selectedItemList={reviewData.item} handleItemSubmit={handleItemSubmit} />
         </StyledTopRight>
       </StyledTop>
       <PreviewImageList
@@ -141,9 +168,9 @@ function Write(props: WriteProps) {
         handleImageDelete={handleImageDelete}
         changeMainImage={changeMainImage}
       />
-      <ReviewText text={reviewData.text} handleTextChange={handleTextChange} />
+      <ReviewText content={reviewData.content} handleDataChange={handleDataChange} />
       <TagList
-        tags={reviewData.tags}
+        tag={reviewData.tag}
         handleTagSubmit={handleTagSubmit}
         handleTagDelete={handleTagDelete}
       />

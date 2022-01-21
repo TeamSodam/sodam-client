@@ -99,6 +99,13 @@ export type PriceList =
   | '90,000원-99,900원'
   | '100,000원 이상';
 
+export type PriceOptionList =
+  | '~ 2,900'
+  | '3,000 - 4,900'
+  | '5,000 - 9,900'
+  | '10,000 - 14,900'
+  | '20,000 ~';
+
 export type SeoulAreaType = keyof typeof SEOUL_ENUM;
 export type ShopAreaSortType = 'popular' | 'mysave';
 

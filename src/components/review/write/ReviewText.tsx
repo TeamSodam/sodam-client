@@ -1,23 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
+import { ReviewWriteKey } from 'types/review';
 
 interface ReviewTextProps {
-  text: string;
-  handleTextChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  content: string;
+  handleDataChange: (data: string, key: Extract<ReviewWriteKey, 'content' | 'shopName'>) => void;
 }
 
 function ReviewText(props: ReviewTextProps) {
-  const { text, handleTextChange } = props;
+  const { content, handleDataChange } = props;
 
   return (
     <StyledRoot>
       <StyledTextArea
-        value={text}
-        onChange={handleTextChange}
+        value={content}
+        onChange={(e) => handleDataChange(e.target.value, 'content')}
         placeholder="소품샵에 대한 후기를 자유롭게 작성해 주세요! (최소 35자, 최대 500자)"
       />
-      <p>{`(${text.length}/500자)`}</p>
+      <p>{`(${content.length}/500자)`}</p>
     </StyledRoot>
   );
 }
