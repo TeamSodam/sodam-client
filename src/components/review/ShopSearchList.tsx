@@ -41,8 +41,8 @@ const StyledUl = styled.ul`
   left: 0;
   flex-direction: column;
   width: 48.6rem;
-  height: 40rem;
-  overflow-y: scroll;
+  max-height: 40rem;
+  overflow-y: auto;
   box-shadow: 0px 3px 8px rgba(87, 82, 76, 0.15);
   border-radius: 0.5rem;
   background-color: ${theme.colors.grayBg};
@@ -59,6 +59,7 @@ const StyledUl = styled.ul`
     line-height: 3.6rem;
     font-weight: 500;
     font-size: 1.4rem;
+    padding-left: 0.8rem;
     color: ${theme.colors.black2};
     cursor: pointer;
   }

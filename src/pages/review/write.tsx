@@ -157,7 +157,7 @@ function Write(props: WriteProps) {
         reviewImage.file && tempData.image.push(reviewImage.file);
       });
       await postReview(tempData);
-      router.back();
+      router.push('/review/my/write');
     }
   };
 
