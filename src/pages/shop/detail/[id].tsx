@@ -31,12 +31,13 @@ function Detail() {
 
   const shopId = parseShopId(id);
   const { data: shopInfo } = useGetShopByShopIdQuery(shopId);
-  const { data: reviewList } = useGetReviewByShopIdQuery({
+  const { data: reviewInfo } = useGetReviewByShopIdQuery({
     shopId,
     sortType: 'recent',
     offset: currentPage,
     limit: 9,
   });
+
   const { data: subwayInfo } = useGetShopBySubwayQuery(shopId);
 
   const initialLocation = shopInfo && shopInfo.landAddress;
@@ -50,9 +51,14 @@ function Detail() {
   };
 
   const showReviewList = () => {
-    if (reviewList && reviewList.length > 0) {
-      return reviewList.map((review) => <ReviewCard key={review.reviewId} reviewData={review} />);
+    if (reviewInfo) {
+      const { data: reviewList } = reviewInfo;
+      if (reviewList.length > 0) {
+        return reviewList.map((review) => <ReviewCard key={review.reviewId} reviewData={review} />);
+      }
     }
+
+    return [];
   };
 
   const showSubwayShopList = () => {
@@ -66,11 +72,10 @@ function Detail() {
   };
 
   const calcPageNum = () => {
-    if (!reviewList || !reviewList.length) return 1;
+    if (!reviewInfo) return 1;
 
-    // 리뷰카운트 계산을 위해 임의로 이렇게 작업
-    // 서버에서 reviewCount 값 받아야함.
-    const reviewCount = 9;
+    const { reviewCount } = reviewInfo;
+    if (!reviewCount) return 1;
 
     const isElementRest = reviewCount % 9 > 0;
     const page = Math.floor(reviewCount / 9);
@@ -91,8 +96,12 @@ function Detail() {
     <StyledContainer>
       <ColoredBackground />
       <ImageGridWrapper>
-        <DetailImageGrid />
-        {shopInfo && <DetailInfo shopInfo={shopInfo} />}
+        {shopInfo && (
+          <>
+            <DetailImageGrid imageList={shopInfo.image} />
+            <DetailInfo shopInfo={shopInfo} />
+          </>
+        )}
         <MapContainer ref={mapRef}>{showDetailShopAddress()}</MapContainer>
       </ImageGridWrapper>
       <Wrapper>

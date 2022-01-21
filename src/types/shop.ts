@@ -15,7 +15,7 @@ export interface Shop {
   subway: string;
   blog: string;
   isBookmarked: boolean;
-  image: string | string[];
+  image: string[];
   close: string;
   area: SeoulAreaType;
   reviewCount: number;
@@ -105,4 +105,13 @@ export type ShopAreaSortType = 'popular' | 'mysave';
 export interface ShopAreaRequestType {
   area: string;
   sort: ShopAreaSortType;
+}
+
+export interface BookmarkResquestType {
+  shopId: number;
+  isBookmarked: boolean;
+}
+
+export interface BookmarkResponseType {
+  bookmarkCount: number;
 }

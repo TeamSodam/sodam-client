@@ -37,15 +37,20 @@ export interface ReviewRecentResponse {
   content: string;
 }
 
-export interface ReviewByShopIdResponse {
+export interface ReviewByShopIdData {
   reviewId: number;
   shopId: number;
   image: string[];
-  writerName: string;
-  writerThumbnail: string;
+  writerName?: string;
+  writerThumbnail?: string;
   likeCount: number;
   scrapCount: number;
   content: string;
+}
+
+export interface ReviewByShopIdResponse {
+  reviewCount: number;
+  data: ReviewByShopIdData[];
 }
 
 export interface ReviewMyWriteResponse {

@@ -25,7 +25,7 @@ function Detail() {
     shopId: SHOP_ID,
   });
 
-  const { data: reviewListData } = useGetReviewByShopIdQuery({
+  const { data: reviewResponse } = useGetReviewByShopIdQuery({
     shopId: SHOP_ID,
     sortType: SORT_TYPE,
     offset: 1,
@@ -33,8 +33,10 @@ function Detail() {
   });
 
   const getFilteredReviewListData = () => {
-    if (reviewListData && reviewListData.length > 0) {
-      return reviewListData?.filter((review) => review.reviewId !== REVIEW_ID);
+    if (!reviewResponse) return [];
+    const { data: reviewList } = reviewResponse;
+    if (reviewList && reviewList.length > 0) {
+      return reviewList?.filter((review) => review.reviewId !== REVIEW_ID);
     }
     return [];
   };
@@ -48,9 +50,7 @@ function Detail() {
           <DropDownFilter pageType="detail" />
         </ReviewListHeader>
         <ReviewListContent>
-          {reviewListData && reviewListData.length > 0 && (
-            <OtherReviewCard reviewListData={getFilteredReviewListData()} />
-          )}
+          {reviewResponse && <OtherReviewCard reviewListData={getFilteredReviewListData()} />}
         </ReviewListContent>
       </OtherReviewCardWrapper>
     </StyledReviewDetailWrapper>

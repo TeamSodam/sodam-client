@@ -2,6 +2,8 @@ import { createApi } from '@reduxjs/toolkit/query/react';
 import { axiosBaseQuery } from 'libs/api';
 import { SodamResponse } from 'types/api';
 import {
+  BookmarkResponseType,
+  BookmarkResquestType,
   Shop,
   ShopAreaRequestType,
   ShopAreaResponse,
@@ -74,10 +76,21 @@ export const shopApi = createApi({
       }),
       transformResponse: (response: SodamResponse<ShopSubwayResponse>) => response.data,
     }),
-    getShopByBookmark: builder.query<SodamResponse<ShopResponse[]>, ShopBookmarkRequestType>({
+    getShopByBookmark: builder.query<ShopResponse[], ShopBookmarkRequestType>({
       query: ({ sort, offset, limit }) => ({
         url: `https://server.sodam.me/shop/bookmark?sort=${sort}&offset=${offset}&limit=${limit}`,
         method: 'GET',
+      }),
+      transformResponse: (response: SodamResponse<ShopResponse[]>) => response.data,
+    }),
+    postBookmark: builder.mutation<SodamResponse<BookmarkResponseType>, BookmarkResquestType>({
+      query: ({ shopId, isBookmarked }) => ({
+        url: 'https://server.sodam.me/shop/bookmark',
+        method: 'POST',
+        data: {
+          shopId,
+          isBookmarked,
+        },
       }),
     }),
   }),
@@ -92,4 +105,5 @@ export const {
   useGetShopSearchResultQuery,
   useGetShopBySubwayQuery,
   useGetShopByBookmarkQuery,
+  usePostBookmarkMutation,
 } = shopApi;

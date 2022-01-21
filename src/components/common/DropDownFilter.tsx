@@ -8,10 +8,16 @@ import FilterDiv from './FilterDiv';
 
 interface StyledDDFProps {
   pageType: 'detail' | 'theme' | 'collect';
+  filterProps?: filterPropsType[];
+}
+
+export interface filterPropsType {
+  filterName: string;
+  onClick: () => void;
 }
 
 function DropDownFilter(props: StyledDDFProps) {
-  const { pageType } = props;
+  const { pageType, filterProps } = props;
   const pageOptionList = dropDownFilterList[pageType];
   const [selected, setSelected] = useState(pageOptionList[0]);
   const [unselected, setUnselected] = useState(pageOptionList.filter((el) => el !== selected));
@@ -35,6 +41,7 @@ function DropDownFilter(props: StyledDDFProps) {
           saveSelectedOption={saveSelectedOption}
           saveUnselectedOption={saveUnselectedOption}
           toggle={toggle}
+          filterProps={filterProps}
         />
       )}
       <StyledWrapper onClick={toggle}>
