@@ -7,6 +7,7 @@ import TagList from 'components/review/write/TagList';
 import Title from 'components/review/write/Title';
 import WriteItems from 'components/review/WriteItems/index';
 import { usePostReviewMutation } from 'features/reviews/reviewApi';
+import { route } from 'next/dist/server/router';
 import { useRouter } from 'next/router';
 import { parseShopId, parseShopName } from 'pages/review/detail/[reviewId]';
 import { useEffect, useState } from 'react';
@@ -162,10 +163,8 @@ function Write(props: WriteProps) {
       reviewImageList.forEach((reviewImage) => {
         reviewImage.file && tempData.image.push(reviewImage.file);
       });
-      const response = await postReview(tempData);
-      if (response) {
-        console.log(response);
-      }
+      await postReview(tempData);
+      router.back();
     }
   };
 
