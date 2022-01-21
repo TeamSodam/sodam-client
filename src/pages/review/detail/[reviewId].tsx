@@ -11,6 +11,10 @@ export const parseShopId = (shopId: string | string[] | undefined) => {
 
   return +shopId;
 };
+export const parseShopName = (shopName: string | string[] | undefined) => {
+  if (!shopName) return '';
+  if (typeof shopName === 'string') return JSON.parse(JSON.stringify(shopName));
+};
 
 function Detail() {
   const router = useRouter();

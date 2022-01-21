@@ -8,7 +8,7 @@ import Title from 'components/review/write/Title';
 import WriteItems from 'components/review/WriteItems/index';
 import { usePostReviewMutation } from 'features/reviews/reviewApi';
 import { useRouter } from 'next/router';
-import { parseShopId } from 'pages/review/detail/[reviewId]';
+import { parseShopId, parseShopName } from 'pages/review/detail/[reviewId]';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { Item, ReviewImage, ReviewWriteKey, ReviewWriteRequest } from 'types/review';
@@ -23,14 +23,12 @@ function Write(props: WriteProps) {
 
   const router = useRouter();
   const { shopId, shopName } = router.query;
-  // const SHOP_ID = parseShopId(shopId);
-  // const SHOP_NAME = JSON.parse(JSON.stringify(shopName));
 
   const [isSubmitAvailable, setIsSubmitAvailable] = useState(false);
   const [reviewImageList, setReviewImageList] = useState<ReviewImage[]>([]);
   const [reviewData, setReviewData] = useState<ReviewWriteRequest>({
-    shopId: 155,
-    shopName: '마인띵스',
+    shopId: parseShopId(shopId),
+    shopName: parseShopName(shopName),
     image: [],
     content: '',
     tag: [],
@@ -38,6 +36,16 @@ function Write(props: WriteProps) {
   });
 
   const [postReview] = usePostReviewMutation();
+
+  useEffect(() => {
+    const { shopId, shopName } = router.query;
+    const tempData = { ...reviewData };
+
+    tempData.shopId = parseShopId(shopId);
+    tempData.shopName = parseShopName(shopName);
+    setReviewData(tempData);
+  }, [router]);
+
   useEffect(() => {
     if (
       reviewImageList.length > 0 &&
