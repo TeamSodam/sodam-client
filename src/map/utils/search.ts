@@ -1,12 +1,14 @@
 import { KakaoLatLng, KakaoMap, StatusText, xy } from 'types/map';
 
 // address: 서울 서초구 방배천로18길 28 (실제주소) 반환 값: LatLng 객체
-export const getLocationByAddress = async (address: string): Promise<KakaoLatLng> => {
+export const getLocationByAddress = async (address: string): Promise<KakaoLatLng | null> => {
   const geocoder = new window.kakao.maps.services.Geocoder();
 
-  return await new Promise((resolve) => {
-    geocoder.addressSearch(address, function (result: xy[]) {
-      resolve(new window.kakao.maps.LatLng(result[0].y, result[0].x));
+  return await new Promise((resolve, reject) => {
+    geocoder.addressSearch(address, function (result: xy[], status: StatusText) {
+      if (status === window.kakao.maps.services.Status.OK) {
+        resolve(new window.kakao.maps.LatLng(result[0].y, result[0].x));
+      } else reject(null);
     });
   });
 };

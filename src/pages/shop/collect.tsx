@@ -2,6 +2,7 @@ import { wrapper } from 'app/store';
 import DropDownFilter from 'components/common/DropDownFilter';
 import ShopCard from 'components/common/ShopCard';
 import { shopApi } from 'features/shops/shopApi';
+import { useState } from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
 import { ShopResponse } from 'types/shop';
@@ -10,17 +11,39 @@ interface CollectPrefetchProps {
   collectShopList: ShopResponse[];
 }
 
-function collect(props: CollectPrefetchProps) {
+function Collect(props: CollectPrefetchProps) {
   const { collectShopList } = props;
+  const [trigger] = shopApi.useLazyGetShopByBookmarkQuery();
+  const [currentList, setCurrentList] = useState<ShopResponse[] | undefined>(collectShopList);
+
+  const updateList = async (sortType: string) => {
+    const result = await trigger({ sort: sortType, offset: 1, limit: 12 });
+    setCurrentList(result.data);
+  };
+
+  const filterProps = [
+    {
+      filterName: '저장 많은 순',
+      onClick: async () => updateList('save'),
+    },
+    {
+      filterName: '리뷰 많은 순',
+      onClick: async () => updateList('review'),
+    },
+    {
+      filterName: '최근 저장한 순',
+      onClick: async () => updateList('recent'),
+    },
+  ];
 
   return (
     <StyledContainer>
       <h2>저장한 소품샵</h2>
       <StyledFilterWrapper>
-        <DropDownFilter pageType="collect" />
+        <DropDownFilter pageType="collect" filterProps={filterProps} />
       </StyledFilterWrapper>
       <StyledCardWrapper>
-        {collectShopList.map((shop) => (
+        {currentList?.map((shop) => (
           <ShopCard key={shop.shopId} cardData={shop} />
         ))}
       </StyledCardWrapper>
@@ -28,25 +51,17 @@ function collect(props: CollectPrefetchProps) {
   );
 }
 
-export default collect;
+export default Collect;
 
 export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
   const dispatch = store.dispatch;
   const collectShopResult = await dispatch(
     shopApi.endpoints.getShopByBookmark.initiate({ sort: 'save', offset: 1, limit: 12 }),
   );
-  let responseData: ShopResponse[] = [];
-
-  if (collectShopResult.isSuccess) {
-    const axiosResult = collectShopResult.data;
-    if (axiosResult.status === 200) {
-      responseData = axiosResult.data;
-    }
-  }
 
   return {
     props: {
-      collectShopList: responseData,
+      collectShopList: collectShopResult.data || [],
     },
   };
 });

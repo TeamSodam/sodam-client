@@ -5,6 +5,8 @@ import {
   Review,
   ReviewByShopIdResponse,
   ReviewInfoRequestById,
+  ReviewLikeScrapRequest,
+  ReviewLikeScrapResponse,
   ReviewMyScrapResponse,
   ReviewMyWriteResponse,
   ReviewRecentResponse,
@@ -71,6 +73,26 @@ export const reviewApi = createApi({
       },
       transformResponse: (response: SodamResponse<Review>) => response.data,
     }),
+    postLike: builder.mutation<ReviewLikeScrapResponse, ReviewLikeScrapRequest>({
+      query: ({ reviewId, isLiked }) => ({
+        url: `https://server.sodam.me/review/${reviewId}/like`,
+        method: 'POST',
+        data: {
+          isLiked,
+        },
+      }),
+      transformResponse: (response: SodamResponse<ReviewLikeScrapResponse>) => response.data,
+    }),
+    postScrap: builder.mutation<ReviewLikeScrapResponse, ReviewLikeScrapRequest>({
+      query: ({ reviewId, isScraped }) => ({
+        url: `https://server.sodam.me/review/${reviewId}/scrap`,
+        method: 'POST',
+        data: {
+          isScraped,
+        },
+      }),
+      transformResponse: (response: SodamResponse<ReviewLikeScrapResponse>) => response.data,
+    }),
   }),
 });
 
@@ -80,5 +102,7 @@ export const {
   useGetMyScrapReviewQuery,
   useGetReviewByShopIdQuery,
   usePostReviewMutation,
+  usePostLikeMutation,
+  usePostScrapMutation,
   useGetShopReviewByIdQuery,
 } = reviewApi;
