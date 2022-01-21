@@ -50,11 +50,6 @@ function Write(props: WriteProps) {
     }
   }, [reviewImageList, reviewData.content, reviewData.shopName]);
 
-  // function isArrItemTypeSame<T>(data: T, list: any[]): list is T[] {
-  //   const tempArray = [data];
-  //   return typeof tempArray === typeof list;
-  // }
-
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files === null) return;
 
