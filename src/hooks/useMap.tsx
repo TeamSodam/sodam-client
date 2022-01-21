@@ -1,6 +1,7 @@
 import { useAppDispatch, useAppSelector } from 'app/hook';
 import {
   addCurrentMarker,
+  initMap,
   MarkerInfo,
   selectCurrentMarkerList,
   selectMap,
@@ -64,8 +65,9 @@ function useMap<T>(
       if (containerRef?.current) {
         if (!mapRef) {
           setMapRef(containerRef.current);
-          dispatch(setMap(null));
+          dispatch(initMap());
         }
+
         if (!map) {
           const location = await getLocationByAddress(`${initialLocation || '서울 마포구'}`);
           if (!location) return;
