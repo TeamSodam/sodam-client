@@ -32,6 +32,27 @@ function Detail() {
     limit: 9,
   });
 
+  const filterProps = [
+    {
+      filterName: '좋아요 많은 순',
+      onClick: () => {
+        console.log('좋아요 많은 순');
+      },
+    },
+    {
+      filterName: '스크랩 많은 순',
+      onClick: () => {
+        console.log('스크랩 많은 순');
+      },
+    },
+    {
+      filterName: '최신 순',
+      onClick: () => {
+        console.log('최신 순');
+      },
+    },
+  ];
+
   const getFilteredReviewListData = () => {
     if (!reviewResponse) return [];
     const { data: reviewList } = reviewResponse;
@@ -47,7 +68,7 @@ function Detail() {
       <OtherReviewCardWrapper>
         <ReviewListHeader>
           <HeaderTitle>이 소품샵의 다른 리뷰</HeaderTitle>
-          <DropDownFilter pageType="detail" />
+          <DropDownFilter pageType="detail" filterProps={filterProps} />
         </ReviewListHeader>
         <ReviewListContent>
           {reviewResponse && <OtherReviewCard reviewListData={getFilteredReviewListData()} />}

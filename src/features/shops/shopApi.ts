@@ -76,11 +76,12 @@ export const shopApi = createApi({
       }),
       transformResponse: (response: SodamResponse<ShopSubwayResponse>) => response.data,
     }),
-    getShopByBookmark: builder.query<SodamResponse<ShopResponse[]>, ShopBookmarkRequestType>({
+    getShopByBookmark: builder.query<ShopResponse[], ShopBookmarkRequestType>({
       query: ({ sort, offset, limit }) => ({
         url: `https://server.sodam.me/shop/bookmark?sort=${sort}&offset=${offset}&limit=${limit}`,
         method: 'GET',
       }),
+      transformResponse: (response: SodamResponse<ShopResponse[]>) => response.data,
     }),
     postBookmark: builder.mutation<SodamResponse<BookmarkResponseType>, BookmarkResquestType>({
       query: ({ shopId, isBookmarked }) => ({
