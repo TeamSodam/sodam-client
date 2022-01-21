@@ -40,6 +40,8 @@ const StyledUl = styled.ul`
   left: 0;
   flex-direction: column;
   width: 48.6rem;
+  height: 40rem;
+  overflow-y: scroll;
   box-shadow: 0px 3px 8px rgba(87, 82, 76, 0.15);
   border-radius: 0.5rem;
   background-color: ${theme.colors.grayBg};
