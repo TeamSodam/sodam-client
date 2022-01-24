@@ -80,6 +80,8 @@ function ReviewCard(props: ReviewCardProps) {
         width={384}
         height={208}
         alt="thumbnail"
+        placeholder="blur"
+        blurDataURL={image[0]}
       />
       <StyledContents>
         <StyledHeader>

@@ -12,6 +12,8 @@ function DetailImageGrid({ imageList }: { imageList: string[] }) {
           src={imageSrc}
           layout="fill"
           alt="main-img"
+          blurDataURL={imageSrc}
+          placeholder="blur"
         />
       ))}
     </Container>
