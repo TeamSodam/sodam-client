@@ -1,24 +1,18 @@
 import { wrapper } from 'app/store';
 import DropDownFilter from 'components/common/DropDownFilter';
-import OtherReviewCard from 'components/review/OtherReviewCard';
+import OtherReviewContainer from 'components/review/OtherReview/Container';
+import {
+  OtherMyScrapReview,
+  OtherMyWriteReview,
+  OtherShopReview,
+} from 'components/review/OtherReview/Presentation';
 import ReviewDetailCard from 'components/review/ReviewDetailCard';
 import { REVIEW_MAP } from 'constants/reviewActiveMap';
-import {
-  reviewApi,
-  useGetMyScrapReviewQuery,
-  useGetMyWriteReviewQuery,
-  useGetReviewByShopIdQuery,
-  useGetShopReviewByIdQuery,
-} from 'features/reviews/reviewApi';
+import { useGetShopReviewByIdQuery } from 'features/reviews/reviewApi';
 import { NextParsedUrlQuery } from 'next/dist/server/request-meta';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
-import {
-  ReviewByShopIdData,
-  ReviewMyScrapResponse,
-  ReviewMyWriteResponse,
-  ReviewSortType,
-} from 'types/review';
+import { ReviewSortType } from 'types/review';
 
 export const parseShopId = (shopId: string | string[] | undefined) => {
   if (!shopId) return 0;
@@ -32,86 +26,54 @@ export const parseShopName = (shopName: string | string[] | undefined) => {
 };
 
 function Detail({ params, query }: { params: NextParsedUrlQuery; query: NextParsedUrlQuery }) {
-  const [trigger] = reviewApi.useLazyGetReviewByShopIdQuery();
-
   const REVIEW_ID = parseShopId(params.reviewId);
   const SHOP_ID = parseShopId(query.shopId);
   const REVIEW_TYPE = parseShopName(query.reviewType);
-  const SORT_TYPE = 'save';
+  const [currentSortType, setCurrentSortType] = useState<ReviewSortType>('save');
+
+  const shopRequestInfo = {
+    shopId: SHOP_ID,
+    sortType: currentSortType,
+    offset: 1,
+    limit: 9,
+  };
 
   const { data: reviewData } = useGetShopReviewByIdQuery({
     reviewId: REVIEW_ID,
     shopId: SHOP_ID,
   });
 
-  const { data: reviewResponse } = useGetReviewByShopIdQuery({
-    shopId: SHOP_ID,
-    sortType: SORT_TYPE,
-    offset: 1,
-    limit: 9,
-  });
-
-  const { data: myWriteResponse } = useGetMyWriteReviewQuery();
-  const { data: myScrapResponse } = useGetMyScrapReviewQuery();
-
-  const [currentList, setCurrentList] = useState<
-    ReviewByShopIdData[] | ReviewMyScrapResponse[] | ReviewMyWriteResponse[] | undefined
-  >();
-
-  const getFilteredReviewListData = () => {
-    if (!currentList) return [];
-    let tmpList = currentList as ReviewByShopIdData[];
-
-    if (REVIEW_TYPE === 'myWrite') tmpList = currentList as ReviewMyWriteResponse[];
-    if (REVIEW_TYPE === 'myScrap') tmpList = currentList as ReviewMyScrapResponse[];
-
-    return tmpList.filter(({ reviewId }) => reviewId !== REVIEW_ID);
-  };
-
-  const updateList = async (sortType: ReviewSortType) => {
-    if (!SHOP_ID) return;
-    const result = await trigger({
-      shopId: SHOP_ID,
-      sortType,
-      offset: 1,
-      limit: 9,
-    });
-
-    if (result.data) setCurrentList(result.data.data);
-  };
-
   const filterProps = [
     {
       filterName: '스크랩 많은 순',
       onClick: () => {
-        updateList('save');
+        setCurrentSortType('save');
       },
     },
     {
       filterName: '좋아요 많은 순',
       onClick: () => {
-        updateList('like');
+        setCurrentSortType('like');
       },
     },
     {
       filterName: '최신 순',
       onClick: () => {
-        updateList('recent');
+        setCurrentSortType('recent');
       },
     },
   ];
 
-  useEffect(() => {
-    if (reviewResponse && myWriteResponse && myScrapResponse) {
-      if (REVIEW_TYPE === 'myWrite') {
-        setCurrentList(myWriteResponse);
-      } else if (REVIEW_TYPE === 'myScrap') {
-        setCurrentList(myScrapResponse);
-      } else {
-        setCurrentList(reviewResponse.data);
-      }
+  const getReviewDataByReviewType = () => {
+    switch (REVIEW_TYPE) {
+      case 'myWrite':
+        return <OtherMyWriteReview />;
+      case 'myScrap':
+        return <OtherMyScrapReview />;
+      default:
+        return <OtherShopReview reqInfo={shopRequestInfo} />;
     }
-  }, [reviewResponse, myWriteResponse, myScrapResponse, REVIEW_TYPE]);
+  };
 
   return (
     <StyledReviewDetailWrapper>
@@ -122,7 +84,7 @@ function Detail({ params, query }: { params: NextParsedUrlQuery; query: NextPars
           {REVIEW_TYPE === 'shop' && <DropDownFilter pageType="detail" filterProps={filterProps} />}
         </ReviewListHeader>
         <ReviewListContent>
-          {currentList && <OtherReviewCard reviewListData={getFilteredReviewListData()} />}
+          <OtherReviewContainer reviewDataList={getReviewDataByReviewType()} />
         </ReviewListContent>
       </OtherReviewCardWrapper>
     </StyledReviewDetailWrapper>
