@@ -33,7 +33,14 @@ function ShopElement({ shopInfo }: { shopInfo: ShopAreaResponse }) {
           <ReviewInfo>{`리뷰 ${reviewCount}개`}</ReviewInfo>
         </ShopSubInfo>
       </ShopLeftWrapper>
-      <Image width={100} height={100} src={image[0]} alt="shop-image" />
+      <Image
+        width={100}
+        height={100}
+        src={image[0]}
+        alt="shop-image"
+        placeholder="blur"
+        blurDataURL={image[0]}
+      />
     </StyledShopElement>
   );
 }
