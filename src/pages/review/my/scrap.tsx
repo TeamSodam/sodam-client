@@ -1,39 +1,24 @@
-import { wrapper } from 'app/store';
 import ReviewCard from 'components/common/ReviewCard';
-import { reviewApi } from 'features/reviews/reviewApi';
+import { useGetMyScrapReviewQuery } from 'features/reviews/reviewApi';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
-import { ReviewMyScrapResponse } from 'types/review';
 
-interface MyreviewPrefetchProps {
-  reviewMyScrapList: ReviewMyScrapResponse[];
-}
-function Scrap(props: MyreviewPrefetchProps) {
-  const { reviewMyScrapList } = props;
+function Scrap() {
+  const { data: reviewMyScrapList } = useGetMyScrapReviewQuery();
   return (
     <StyledContainer>
       <h2>스크랩한 리뷰</h2>
       <StyledCardWrapper>
-        {reviewMyScrapList.map((review) => (
-          <ReviewCard key={review.reviewId} reviewData={review} isHoverAvailable />
-        ))}
+        {reviewMyScrapList &&
+          reviewMyScrapList.map((review) => (
+            <ReviewCard key={review.reviewId} reviewData={review} isHoverAvailable />
+          ))}
       </StyledCardWrapper>
     </StyledContainer>
   );
 }
 
 export default Scrap;
-
-export const getServerSideProps = wrapper.getServerSideProps((store) => async () => {
-  const dispatch = store.dispatch;
-  const reviewMyScrapResult = await dispatch(reviewApi.endpoints.getMyScrapReview.initiate());
-
-  return {
-    props: {
-      reviewMyScrapList: reviewMyScrapResult.data || [],
-    },
-  };
-});
 
 const StyledContainer = styled.div`
   display: flex;
