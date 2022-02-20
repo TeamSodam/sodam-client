@@ -67,11 +67,11 @@ function Detail({ params, query }: { params: NextParsedUrlQuery; query: NextPars
   const getReviewDataByReviewType = () => {
     switch (REVIEW_TYPE) {
       case 'myWrite':
-        return <OtherMyWriteReview />;
+        return <OtherMyWriteReview reviewId={REVIEW_ID} />;
       case 'myScrap':
-        return <OtherMyScrapReview />;
+        return <OtherMyScrapReview reviewId={REVIEW_ID} />;
       default:
-        return <OtherShopReview reqInfo={shopRequestInfo} />;
+        return <OtherShopReview reqInfo={shopRequestInfo} reviewId={REVIEW_ID} />;
     }
   };
 
