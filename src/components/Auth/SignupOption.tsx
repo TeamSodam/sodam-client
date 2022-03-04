@@ -34,7 +34,7 @@ const StyledBtn = styled.button`
   border: 0;
   outline: 0;
   background-color: ${theme.colors.purpleMain};
-  color: ${theme.colors.grayBg};
+  color: white;
   font-weight: 500;
   font-size: 1rem;
   line-height: 2.2rem;
