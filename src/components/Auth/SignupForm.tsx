@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 function SignupForm() {
-  const SignupTypeList = ['이름', '닉네임', 'ID (이메일)', 'ID (이메일 인증번호)', 'PW', 'PW 확인'];
+  const SignupTypeList = ['이름', '닉네임', 'ID (이메일)', 'ID (이메일) 인증번호', 'PW', 'PW 확인'];
 
   return (
     <StyledRoot>

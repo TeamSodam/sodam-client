@@ -1,3 +1,4 @@
+import SignupOption from 'components/Auth/SignupOption';
 import useInput from 'hooks/useInput';
 import React from 'react';
 import styled from 'styled-components';
@@ -14,14 +15,8 @@ function PersonalInfoInput(props: PersonalInfoInputProps) {
   return (
     <StyledRoot>
       <StyledTitleWrapper>
-        <span>{title}</span>
-        {title === '닉네임' ? (
-          <StyledBtn>중복확인</StyledBtn>
-        ) : title === 'ID (이메일 인증번호)' ? (
-          <StyledBtn>확인</StyledBtn>
-        ) : (
-          <div />
-        )}
+        <h3>{title}</h3>
+        <SignupOption type={title} />
       </StyledTitleWrapper>
       <input type="text" {...inputValue} />
     </StyledRoot>
@@ -52,29 +47,13 @@ const StyledTitleWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  & > span {
+  & > h3 {
     font-weight: 500;
     font-size: 1.5rem;
     line-height: 2.2rem;
-    color: ${({ theme }) => theme.colors.black2};
+    color: ${theme.colors.black2};
   }
   & > div {
     display: none;
   }
-`;
-
-const StyledBtn = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 6.1rem;
-  height: 2.2rem;
-  border-radius: 5px;
-  border: 0;
-  outline: 0;
-  background-color: ${theme.colors.purpleMain};
-  color: ${theme.colors.grayBg};
-  font-weight: 500;
-  font-size: 1rem;
-  line-height: 2.2rem;
 `;
