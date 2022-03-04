@@ -1,7 +1,8 @@
 import { shopApi } from 'features/shops/shopApi';
+import _ from 'lodash';
 import Image from 'next/image';
 import searchDelIC from 'public/assets/ic_searchDel.svg';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
 import { ReviewWriteKey } from 'types/review';
@@ -18,18 +19,18 @@ interface ShopSearchProps {
 function ShopSearch(props: ShopSearchProps) {
   const { selectedShop, handleDataChange, handleResultSelect } = props;
 
-  const [inputValue, setInputValue] = useState('');
+  const inputRef = useRef<HTMLInputElement>(null);
   const [searchValue, setSearchValue] = useState<ShopSearchResponse[] | undefined>();
   const [trigger] = shopApi.useLazyGetShopSearchResultQuery();
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen((prevIsOpen) => !prevIsOpen);
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (!(e.target instanceof HTMLInputElement)) return;
-    setInputValue(e.target.value);
-  };
-
   const requestSearch = async () => {
+    const inputValue = getInputValue();
+    if (!inputValue) {
+      setIsOpen(false);
+      return;
+    }
     const result = await trigger(inputValue);
     setSearchValue(result.data);
     setIsOpen(true);
@@ -42,14 +43,19 @@ function ShopSearch(props: ShopSearchProps) {
   };
 
   const onSetSelected = (shop: string, shopId: number) => {
-    setInputValue(shop);
     handleDataChange(shop, 'shopName');
     handleResultSelect(shopId);
   };
 
   const handleDelete = () => {
     handleDataChange('', 'shopName');
-    setInputValue('');
+    if (inputRef.current) inputRef.current.value = '';
+  };
+
+  const getInputValue = () => {
+    if (inputRef.current) return inputRef.current.value;
+
+    return '';
   };
 
   return (
@@ -66,8 +72,8 @@ function ShopSearch(props: ShopSearchProps) {
               <input
                 type="text"
                 placeholder="소품샵명을 입력해주세요 (필수)"
-                value={inputValue}
-                onChange={handleChange}
+                onChange={_.debounce(requestSearch, 500)}
+                ref={inputRef}
               />
             </form>
             <Image
