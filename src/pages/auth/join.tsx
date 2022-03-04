@@ -1,9 +1,9 @@
-import PersonalInfoInput from 'components/common/PersonalInfoInput';
+import SignupForm from 'components/Auth/SignupForm';
 
 function Join() {
   return (
     <div>
-      <PersonalInfoInput />
+      <SignupForm />
     </div>
   );
 }

@@ -3,7 +3,7 @@ export interface User {
   thumbnail: string;
 }
 
-export interface UserSingupInfo {
+export interface UserSignupRequest {
   name: string;
   nickname: string;
   email: string;
