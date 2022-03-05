@@ -11,3 +11,11 @@ export interface UserSignupRequest {
   passwordConfirm: string;
   themePreference: string;
 }
+
+export type inputIndexType =
+  | 'name'
+  | 'nickname'
+  | 'email'
+  | 'emailConfirm'
+  | 'password'
+  | 'passwordConfirm';

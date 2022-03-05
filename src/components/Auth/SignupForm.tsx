@@ -1,14 +1,26 @@
 import PersonalInfoInput from 'components/common/PersonalInfoInput';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 function SignupForm() {
-  const SignupTypeList = ['이름', '닉네임', 'ID (이메일)', 'ID (이메일) 인증번호', 'PW', 'PW 확인'];
+  const [signupInfo, setSignupInfo] = useState({
+    name: '',
+    nickname: '',
+    email: '',
+    emailConfirm: '',
+    password: '',
+    passwordConfirm: '',
+  });
 
+  const handleOnChange = (type: string, value: string) => {
+    setSignupInfo({ ...signupInfo, [type]: value });
+  };
+
+  console.log(signupInfo);
   return (
     <StyledRoot>
-      {SignupTypeList.map((type) => (
-        <PersonalInfoInput key={type} title={type} />
+      {Object.keys(signupInfo).map((type) => (
+        <PersonalInfoInput key={type} inputType={type} handleOnChange={handleOnChange} />
       ))}
     </StyledRoot>
   );

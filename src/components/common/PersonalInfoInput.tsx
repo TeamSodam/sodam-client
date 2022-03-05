@@ -1,24 +1,31 @@
 import SignupOption from 'components/Auth/SignupOption';
+import useInfoType from 'hooks/useInfoType';
 import useInput from 'hooks/useInput';
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
 
 interface PersonalInfoInputProps {
-  title: string;
+  inputType: string;
+  handleOnChange: (type: string, value: string) => void;
 }
 
 function PersonalInfoInput(props: PersonalInfoInputProps) {
-  const { title } = props;
+  const { inputType, handleOnChange } = props;
   const inputValue = useInput();
+  const inputInfo = useInfoType(inputType);
+
+  useEffect(() => {
+    handleOnChange(inputType, inputValue.value);
+  }, [inputValue.value]);
 
   return (
     <StyledRoot>
       <StyledTitleWrapper>
-        <h3>{title}</h3>
-        <SignupOption type={title} />
+        <h3>{inputInfo.title}</h3>
+        <SignupOption type={inputType} />
       </StyledTitleWrapper>
-      <input type="text" {...inputValue} />
+      <input type={inputInfo.type} {...inputValue} />
     </StyledRoot>
   );
 }
