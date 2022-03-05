@@ -16,7 +16,6 @@ function SignupForm() {
     setSignupInfo({ ...signupInfo, [type]: value });
   };
 
-  console.log(signupInfo);
   return (
     <StyledRoot>
       {Object.keys(signupInfo).map((type) => (
