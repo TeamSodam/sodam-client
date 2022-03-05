@@ -64,7 +64,9 @@ function ReviewDetailCard(props: ReviewDetailCardProps) {
       <ReviewDetailCardContent>
         <ReviewDetailCardHeader>
           <div className="profile">
-            <Image src={writerThumbnail} alt="profile" width={48} height={48} />
+            {writerThumbnail && (
+              <Image src={writerThumbnail} alt="profile" width={48} height={48} />
+            )}
             <ReviewInfo>
               <ReviewWriter>{writerName}</ReviewWriter>
               <ReviewWriteDate>{parseDate(date)}</ReviewWriteDate>
