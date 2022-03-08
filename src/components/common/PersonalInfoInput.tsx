@@ -1,7 +1,7 @@
 import SignupOption from 'components/Auth/SignupOption';
 import useInfoType from 'hooks/useInfoType';
 import useInput from 'hooks/useInput';
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
 
@@ -12,12 +12,8 @@ interface PersonalInfoInputProps {
 
 function PersonalInfoInput(props: PersonalInfoInputProps) {
   const { inputType, handleOnChange } = props;
-  const inputValue = useInput();
   const inputInfo = useInfoType(inputType);
-
-  useEffect(() => {
-    handleOnChange(inputType, inputValue.value);
-  }, [inputValue.value]);
+  const inputValue = useInput(inputType, handleOnChange);
 
   return (
     <StyledRoot>
