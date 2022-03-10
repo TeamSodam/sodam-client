@@ -8,10 +8,11 @@ import { theme } from 'styles/theme';
 interface PersonalInfoInputProps {
   inputType: string;
   handleOnChange: (type: string, value: string) => void;
+  passwordError: boolean;
 }
 
 function PersonalInfoInput(props: PersonalInfoInputProps) {
-  const { inputType, handleOnChange } = props;
+  const { inputType, handleOnChange, passwordError } = props;
   const inputInfo = useInfoType(inputType);
   const inputValue = useInput(inputType, handleOnChange);
 
@@ -22,6 +23,9 @@ function PersonalInfoInput(props: PersonalInfoInputProps) {
         <SignupOption type={inputType} />
       </StyledTitleWrapper>
       <input type={inputInfo.type} {...inputValue} />
+      {(inputType === 'passwordConfirm' && passwordError) || inputValue.error ? (
+        <div>잘못되었습니다.</div>
+      ) : null}
     </StyledRoot>
   );
 }

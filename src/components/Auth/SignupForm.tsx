@@ -16,10 +16,16 @@ function SignupForm() {
     setSignupInfo({ ...signupInfo, [type]: value });
   };
 
+  const checkPassword = () => (signupInfo.password === signupInfo.passwordConfirm ? false : true);
   return (
     <StyledRoot>
       {Object.keys(signupInfo).map((type) => (
-        <PersonalInfoInput key={type} inputType={type} handleOnChange={handleOnChange} />
+        <PersonalInfoInput
+          key={type}
+          inputType={type}
+          handleOnChange={handleOnChange}
+          passwordError={checkPassword()}
+        />
       ))}
     </StyledRoot>
   );
