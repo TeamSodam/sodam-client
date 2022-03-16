@@ -1,7 +1,8 @@
 import useMedia from 'hooks/useMedia';
+import { ReactElement } from 'react';
 
 interface ScreenProps {
-  children: React.ReactNode;
+  children: ReactElement;
   mobile?: boolean;
   tablet?: boolean;
   desktop?: boolean;
@@ -26,8 +27,7 @@ function Screen(props: ScreenProps) {
   if (wide) {
     renderFlag = renderFlag || isWide;
   }
-
-  return renderFlag && children;
+  return renderFlag ? children : null;
 }
 
 export default Screen;

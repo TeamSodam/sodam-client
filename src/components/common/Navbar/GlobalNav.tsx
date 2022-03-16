@@ -1,5 +1,4 @@
 import LocalNav from 'components/common/Navbar/LocalNav';
-import useMedia from 'hooks/useMedia';
 import { useRouter } from 'next/router';
 import SearchICDesktop from 'public/assets/ic_search_desktop.svg';
 import MainLogoIC from 'public/assets/mainLogo.svg';
@@ -7,6 +6,7 @@ import ProfileIC from 'public/assets/profile.svg';
 import SearchIC from 'public/assets/searchIcon.svg';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
+import Screen from 'styles/Screen';
 
 interface MenuListType {
   menuName: string;
@@ -15,7 +15,6 @@ interface MenuListType {
 }
 
 function GlobalNav() {
-  const { isWide } = useMedia();
   const menuList: MenuListType[] = [
     { menuName: '소품샵 지도', menuURL: '/map' },
     { menuName: '테마별 소품샵', menuURL: '/shop/theme', routeTo: '/shop/theme/아기자기한' },
@@ -37,7 +36,6 @@ function GlobalNav() {
   const isCurrentPathIncludesMyReview = () => router.asPath.includes('/review/my');
 
   const getIsActive = (menu: MenuListType) => router.asPath.includes(menu.menuURL);
-
   return (
     <>
       <GlobalNavWrapper>
@@ -56,7 +54,14 @@ function GlobalNav() {
           </LeftNav>
           <RightNav>
             <SearchBar>
-              <SearchIcon>{isWide ? <SearchIC /> : <SearchICDesktop />}</SearchIcon>
+              <SearchIcon>
+                <Screen wide>
+                  <SearchIC />
+                </Screen>
+                <Screen mobile tablet desktop>
+                  <SearchICDesktop />
+                </Screen>
+              </SearchIcon>
               <SearchText />
             </SearchBar>
             <Login>로그아웃</Login>
