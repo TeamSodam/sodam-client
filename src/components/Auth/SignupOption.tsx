@@ -11,9 +11,9 @@ function SignupOption(props: SignupOptionProps) {
   const getSignOption = (type: string) => {
     switch (type) {
       case 'nickname':
-        return <StyledBtn>중복확인</StyledBtn>;
+        return <StyledBtn tabIndex={-1}>중복확인</StyledBtn>;
       case 'emailConfirm':
-        return <StyledBtn>확인</StyledBtn>;
+        return <StyledBtn tabIndex={-1}>확인</StyledBtn>;
       case 'password':
         return <StyledNotice>‘영문 소문자 + 숫자’ 포함하여 8글자 이상 15자 미만</StyledNotice>;
       default:

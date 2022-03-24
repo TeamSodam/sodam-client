@@ -16,7 +16,8 @@ function SignupForm() {
     setSignupInfo({ ...signupInfo, [type]: value });
   };
 
-  const checkPassword = () => (signupInfo.password === signupInfo.passwordConfirm ? false : true);
+  const checkPassword = () => signupInfo.password !== signupInfo.passwordConfirm;
+
   return (
     <StyledRoot>
       {Object.keys(signupInfo).map((type) => (
