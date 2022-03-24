@@ -2,6 +2,7 @@ import LocalNav from 'components/common/Navbar/LocalNav';
 import { useRouter } from 'next/router';
 import SearchICDesktop from 'public/assets/ic_search_desktop.svg';
 import MainLogoIC from 'public/assets/mainLogo.svg';
+import MainLogoDesktopIC from 'public/assets/mainLogoDesktop.svg';
 import ProfileIC from 'public/assets/profile.svg';
 import SearchIC from 'public/assets/searchIcon.svg';
 import styled from 'styled-components';
@@ -42,7 +43,12 @@ function GlobalNav() {
         <GlobalNavBar>
           <LeftNav>
             <Logo onClick={onClickLogo}>
-              <MainLogoIC />
+              <Screen wide>
+                <MainLogoIC />
+              </Screen>
+              <Screen mobile tablet desktop>
+                <MainLogoDesktopIC />
+              </Screen>
             </Logo>
             <MenuList>
               {menuList.map((menu) => (
@@ -86,6 +92,7 @@ const GlobalNavWrapper = styled.div`
 
   ${applyMediaQuery('desktop')} {
     padding: 0 18.75%;
+    height: 5.4rem;
   }
 `;
 
@@ -119,6 +126,13 @@ const Logo = styled.div`
 
   &:hover {
     cursor: pointer;
+  }
+
+  display: flex;
+  align-items: center;
+
+  ${applyMediaQuery('desktop')} {
+    margin-right: 2rem;
   }
 `;
 
