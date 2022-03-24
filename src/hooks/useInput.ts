@@ -2,7 +2,6 @@ import { ChangeEvent, useState } from 'react';
 
 function useInput(inputType: string, handleOnChange: (type: string, value: string) => void) {
   const [value, setValue] = useState('');
-  // const [valueRegex, setValueRegex] = useState<RegExp>(/^$/);
   const [error, setError] = useState(false);
   interface RegMapperType {
     [key: string]: RegExp;
