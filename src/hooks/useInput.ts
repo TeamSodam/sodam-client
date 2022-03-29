@@ -1,8 +1,12 @@
 import { ChangeEvent, useState } from 'react';
+import { UserSignupRequest } from 'types/user';
 
-function useInput(inputType: string, handleOnChange: (type: string, value: string) => void) {
+function useInput(
+  inputType: keyof UserSignupRequest,
+  handleOnChange: (type: keyof UserSignupRequest, value: string) => void,
+) {
   const [value, setValue] = useState('');
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(true);
   interface RegMapperType {
     [key: string]: RegExp;
   }
@@ -10,7 +14,7 @@ function useInput(inputType: string, handleOnChange: (type: string, value: strin
     name: /^[가-힣]{2,7}$/,
     nickname: /^[가-힣a-z0-9]{2,20}$/,
     email: /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/,
-    emailConfirm: /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/,
+    emailConfirm: /^[0-9]{1,}$/,
     password: /^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9$@$!%*#?&]{8,14}$/,
     passwordConfirm: /^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9$@$!%*#?&]{8,14}$/,
   };
@@ -21,7 +25,7 @@ function useInput(inputType: string, handleOnChange: (type: string, value: strin
       handleOnChange(inputType, e.target.value);
     }
 
-    if (!e.target.value || RegMapper[inputType].test(e.target.value)) setError(false);
+    if (RegMapper[inputType].test(e.target.value)) setError(false);
     else setError(true);
   };
 
