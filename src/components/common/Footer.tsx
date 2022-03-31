@@ -55,7 +55,7 @@ const FooterWrapper = styled.div`
   transform: translateX(-50%);
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   height: 23.6rem;
   padding-top: 5.4rem;
   color: ${({ theme }) => theme.colors.black2};
@@ -63,7 +63,6 @@ const FooterWrapper = styled.div`
 
 const Logo = styled.div`
   width: 18.7rem;
-  margin-right: 22.2rem;
 `;
 
 const LeftFooterWrapper = styled.div`
@@ -98,14 +97,13 @@ const ContactContent = styled.li`
 const RightFooterWrapper = styled.div`
   font-weight: 400;
   font-size: 1.4rem;
-  padding: 0 5.4rem;
 `;
 
 const RightFooter = styled.li`
   list-style: none;
   display: flex;
   justify-content: space-between;
-  margin: 0 0 1.6rem 12.6rem;
+  margin: 0 0 1.6rem 0;
 
   & > a {
     text-decoration: none;

@@ -16,7 +16,7 @@ function Layout({ children }: LayoutProps) {
         <WideLayout>{children}</WideLayout>
       </Screen>
       <Screen mobile>
-        <WideLayout>{children}</WideLayout>
+        <MobileLayout>{children}</MobileLayout>
       </Screen>
     </>
   );
@@ -30,6 +30,11 @@ const CenteredChild = css`
   }
 `;
 
+const MobileLayout = styled.div`
+  ${CenteredChild}
+  width: 312px;
+`;
+
 const DesktopLayout = styled.div`
   ${CenteredChild}
   width: 800px;
@@ -39,5 +44,4 @@ const WideLayout = styled.div`
   ${CenteredChild}
   width: 1195px;
 `;
-
 export default Layout;
