@@ -1,28 +1,19 @@
-import { useMediaQuery } from 'react-responsive';
-
-import { deviceQuery } from './mediaQuery';
+import useMedia from 'hooks/useMedia';
+import { ReactElement } from 'react';
 
 interface ScreenProps {
-  children: React.ReactNode;
+  children: ReactElement;
   mobile?: boolean;
   tablet?: boolean;
   desktop?: boolean;
+  wide?: boolean;
 }
 
 function Screen(props: ScreenProps) {
-  const { children, mobile, tablet, desktop } = props;
+  const { children, mobile, tablet, desktop, wide } = props;
+  const { isMobile, isTablet, isDesktop, isWide } = useMedia();
 
   let renderFlag = false;
-
-  const isMobile = useMediaQuery({
-    query: deviceQuery.mobile,
-  });
-  const isTablet = useMediaQuery({
-    query: deviceQuery.tablet,
-  });
-  const isDesktop = useMediaQuery({
-    query: deviceQuery.desktop,
-  });
 
   if (mobile) {
     renderFlag = renderFlag || isMobile;
@@ -33,8 +24,10 @@ function Screen(props: ScreenProps) {
   if (desktop) {
     renderFlag = renderFlag || isDesktop;
   }
-
-  return renderFlag && children;
+  if (wide) {
+    renderFlag = renderFlag || isWide;
+  }
+  return renderFlag ? children : null;
 }
 
 export default Screen;

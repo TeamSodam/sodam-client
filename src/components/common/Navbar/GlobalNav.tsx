@@ -1,9 +1,13 @@
 import LocalNav from 'components/common/Navbar/LocalNav';
 import { useRouter } from 'next/router';
+import SearchICDesktop from 'public/assets/ic_search_desktop.svg';
 import MainLogoIC from 'public/assets/mainLogo.svg';
+import MainLogoDesktopIC from 'public/assets/mainLogoDesktop.svg';
 import ProfileIC from 'public/assets/profile.svg';
 import SearchIC from 'public/assets/searchIcon.svg';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
+import Screen from 'styles/Screen';
 
 interface MenuListType {
   menuName: string;
@@ -33,14 +37,18 @@ function GlobalNav() {
   const isCurrentPathIncludesMyReview = () => router.asPath.includes('/review/my');
 
   const getIsActive = (menu: MenuListType) => router.asPath.includes(menu.menuURL);
-
   return (
     <>
       <GlobalNavWrapper>
         <GlobalNavBar>
           <LeftNav>
             <Logo onClick={onClickLogo}>
-              <MainLogoIC />
+              <Screen wide>
+                <MainLogoIC />
+              </Screen>
+              <Screen mobile tablet desktop>
+                <MainLogoDesktopIC />
+              </Screen>
             </Logo>
             <MenuList>
               {menuList.map((menu) => (
@@ -53,7 +61,12 @@ function GlobalNav() {
           <RightNav>
             <SearchBar>
               <SearchIcon>
-                <SearchIC />
+                <Screen wide>
+                  <SearchIC />
+                </Screen>
+                <Screen mobile tablet desktop>
+                  <SearchICDesktop />
+                </Screen>
               </SearchIcon>
               <SearchText />
             </SearchBar>
@@ -76,19 +89,28 @@ const GlobalNavWrapper = styled.div`
   justify-content: center;
   align-items: center;
   border-bottom: solid 1px ${({ theme }) => theme.colors.navLine};
+
+  ${applyMediaQuery('desktop')} {
+    padding: 0 18.75%;
+    height: 5.4rem;
+  }
 `;
 
 const GlobalNavBar = styled.div`
+  width: 119.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 119.5rem;
 `;
 
 const LeftNav = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  ${applyMediaQuery('desktop')} {
+    margin-right: 12.5%;
+  }
 `;
 
 const RightNav = styled.div`
@@ -105,6 +127,13 @@ const Logo = styled.div`
   &:hover {
     cursor: pointer;
   }
+
+  display: flex;
+  align-items: center;
+
+  ${applyMediaQuery('desktop')} {
+    margin-right: 2rem;
+  }
 `;
 
 const MenuList = styled.div`
@@ -116,6 +145,11 @@ const MenuList = styled.div`
 
   & > a {
     min-width: fit-content;
+  }
+
+  ${applyMediaQuery('desktop')} {
+    font-size: 1.2rem;
+    line-height: 1.7rem;
   }
 `;
 
@@ -129,6 +163,10 @@ const Menu = styled.a<{ isActive: boolean }>`
   }
 
   text-decoration: none;
+
+  ${applyMediaQuery('desktop')} {
+    margin-right: 2.8rem;
+  }
 `;
 
 const SearchBar = styled.div`
@@ -139,6 +177,11 @@ const SearchBar = styled.div`
   margin-right: 2.1rem;
   border: 2px solid ${({ theme }) => theme.colors.purpleMain};
   border-radius: 20px;
+
+  ${applyMediaQuery('desktop')} {
+    width: 15.7rem;
+    height: 2.2rem;
+  }
 `;
 
 const SearchIcon = styled.div`
@@ -148,6 +191,12 @@ const SearchIcon = styled.div`
   width: 2.1rem;
   height: 2rem;
   cursor: pointer;
+
+  ${applyMediaQuery('desktop')} {
+    width: 1.1rem;
+    height: 1.1rem;
+    margin-left: 0.8rem;
+  }
 `;
 
 const SearchText = styled.input`
@@ -168,12 +217,26 @@ const Login = styled.div`
   margin-right: 2.7rem;
   min-width: fit-content;
   cursor: pointer;
+
+  ${applyMediaQuery('desktop')} {
+    font-size: 1.2rem;
+    line-height: 1.7rem;
+  }
 `;
 
 const Profile = styled.div`
   width: 3.4rem;
   height: 3.4rem;
   cursor: pointer;
+
+  ${applyMediaQuery('desktop')} {
+    width: 2.2rem;
+    height: 2.2rem;
+
+    & svg {
+      transform: scale(0.647) translate(-30%, -30%);
+    }
+  }
 `;
 
 export default GlobalNav;
