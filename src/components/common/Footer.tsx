@@ -3,41 +3,61 @@ import SodamDoc from 'constants/sodamDocList';
 import Link from 'next/link';
 import FooterLogoIC from 'public/assets/footerLogo.svg';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 
 function Footer() {
   return (
-    <FooterWrapper>
-      <Logo>
-        <FooterLogoIC />
-      </Logo>
-      <LeftFooterWrapper>
-        {SodamContact.map((contact) => (
-          <LeftFooter key={contact.contactTitle}>
-            <ContactTitle>{contact.contactTitle}</ContactTitle>
-            <ContactContent>
-              <Link href={contact.contactURL}>{contact.contactContent}</Link>
-            </ContactContent>
-          </LeftFooter>
-        ))}
-      </LeftFooterWrapper>
-      <RightFooterWrapper>
-        {SodamDoc.map((doc) => (
-          <RightFooter key={doc.docTitle}>
-            <Link href={doc.docURL}>{doc.docTitle}</Link>
-          </RightFooter>
-        ))}
-      </RightFooterWrapper>
-    </FooterWrapper>
+    <MarginWrapper>
+      <FooterWrapper>
+        <Logo>
+          <FooterLogoIC />
+        </Logo>
+        <LeftFooterWrapper>
+          {SodamContact.map((contact) => (
+            <LeftFooter key={contact.contactTitle}>
+              <ContactTitle>{contact.contactTitle}</ContactTitle>
+              <ContactContent>
+                <Link href={contact.contactURL}>{contact.contactContent}</Link>
+              </ContactContent>
+            </LeftFooter>
+          ))}
+        </LeftFooterWrapper>
+        <RightFooterWrapper>
+          {SodamDoc.map((doc) => (
+            <RightFooter key={doc.docTitle}>
+              <Link href={doc.docURL}>{doc.docTitle}</Link>
+            </RightFooter>
+          ))}
+        </RightFooterWrapper>
+      </FooterWrapper>
+    </MarginWrapper>
   );
 }
 
+const MarginWrapper = styled.div`
+  margin: 0 auto;
+  width: 100vw !important;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: ${({ theme }) => theme.colors.grayBg};
+`;
+
 const FooterWrapper = styled.div`
+  ${applyMediaQuery('desktop')} {
+    width: 800px;
+  }
+  ${applyMediaQuery('wide')} {
+    width: 1195px;
+  }
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
   display: flex;
   justify-content: center;
-  width: 100%;
   height: 23.6rem;
   padding-top: 5.4rem;
-  background-color: ${({ theme }) => theme.colors.grayBg};
   color: ${({ theme }) => theme.colors.black2};
 `;
 

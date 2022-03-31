@@ -91,7 +91,6 @@ const GlobalNavWrapper = styled.div`
   border-bottom: solid 1px ${({ theme }) => theme.colors.navLine};
 
   ${applyMediaQuery('desktop')} {
-    padding: 0 18.75%;
     height: 5.4rem;
   }
 `;

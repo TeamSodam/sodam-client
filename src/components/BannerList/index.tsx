@@ -7,6 +7,7 @@ import FirstBannerBtn from 'public/assets/banner/banner_01_btn.svg';
 import ThirdBannerBtn from 'public/assets/banner/banner_03_btn.svg';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import SwiperCore, { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -64,8 +65,15 @@ function BannerList() {
 }
 
 const Container = styled.div`
-  width: 100%;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
   height: 517px;
+
+  ${applyMediaQuery('desktop')} {
+    height: 345px;
+  }
 
   & .mySlider {
     & > div {
@@ -74,6 +82,9 @@ const Container = styled.div`
       & > .swiper-slide {
         width: 100%;
         height: 517px;
+        ${applyMediaQuery('desktop')} {
+          height: 345px;
+        }
       }
     }
   }

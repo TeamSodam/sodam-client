@@ -1,5 +1,6 @@
 import { wrapper } from 'app/store';
 import Footer from 'components/common/Footer';
+import Layout from 'components/common/Layout';
 import NavBar from 'components/common/Navbar/GlobalNav';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
@@ -14,9 +15,11 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>소담</title>
       </Head>
-      <NavBar />
-      <Component {...pageProps} />
-      <Footer />
+      <Layout>
+        <NavBar />
+        <Component {...pageProps} />
+        <Footer />
+      </Layout>
     </ThemeProvider>
   );
 }
