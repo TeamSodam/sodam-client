@@ -91,7 +91,7 @@ export const getServerSideProps = wrapper.getServerSideProps(() => async (contex
 const StyledContainer = styled.main`
   display: flex;
   flex-direction: column;
-  margin: 7.2rem 18.75% 0 18.75%;
+  margin-top: 7.2rem;
 `;
 
 const StyledGoBack = styled.button`
