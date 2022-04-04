@@ -2,7 +2,6 @@ import 'swiper/swiper.min.css';
 import 'swiper/components/navigation/navigation.min.css';
 
 import Banner from 'components/common/Banner';
-import useWindowSize from 'hooks/useWindowSize';
 import Link from 'next/link';
 import FirstBannerBtn from 'public/assets/banner/banner_01_btn.svg';
 import ThirdBannerBtn from 'public/assets/banner/banner_03_btn.svg';
@@ -30,7 +29,6 @@ const BANNER_SRC_LIST = [
 function BannerList() {
   SwiperCore.use([Navigation]);
   const [swiperSetting, setSwiperSetting] = useState<Swiper | null>(null);
-  const { clientWidth: bannerWidth } = useWindowSize();
 
   useEffect(() => {
     if (!swiperSetting) {
@@ -63,14 +61,14 @@ function BannerList() {
     </Swiper>
   );
 
-  return <Container bannerWidth={bannerWidth}>{swiperSetting ? BANNER_LIST : null}</Container>;
+  return <Container>{swiperSetting ? BANNER_LIST : null}</Container>;
 }
 
-const Container = styled.div<{ bannerWidth: number }>`
+const Container = styled.div`
   position: relative;
   left: 50%;
   transform: translateX(-50%);
-  width: ${(props) => props.bannerWidth}px;
+  width: ${({ theme }) => theme.clientWidth}px;
   height: 517px;
 
   ${applyMediaQuery('desktop')} {

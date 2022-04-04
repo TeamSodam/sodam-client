@@ -1,16 +1,13 @@
 import SodamContact from 'constants/sodamContactList';
 import SodamDoc from 'constants/sodamDocList';
-import useWindowSize from 'hooks/useWindowSize';
 import Link from 'next/link';
 import FooterLogoIC from 'public/assets/footerLogo.svg';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 
 function Footer() {
-  const { clientWidth: footerWidth } = useWindowSize();
-
   return (
-    <MarginWrapper footerWidth={footerWidth}>
+    <MarginWrapper>
       <FooterWrapper>
         <Logo>
           <FooterLogoIC />
@@ -37,9 +34,9 @@ function Footer() {
   );
 }
 
-const MarginWrapper = styled.div<{ footerWidth: number }>`
+const MarginWrapper = styled.div`
   margin: 0 auto;
-  width: ${(props) => props.footerWidth}px !important;
+  width: ${({ theme }) => theme.clientWidth}px !important;
   position: relative;
   left: 50%;
   transform: translateX(-50%);

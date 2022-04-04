@@ -1,5 +1,4 @@
 import LocalNav from 'components/common/Navbar/LocalNav';
-import useWindowSize from 'hooks/useWindowSize';
 import { useRouter } from 'next/router';
 import SearchICDesktop from 'public/assets/ic_search_desktop.svg';
 import MainLogoIC from 'public/assets/mainLogo.svg';
@@ -38,11 +37,9 @@ function GlobalNav() {
   const isCurrentPathIncludesMyReview = () => router.asPath.includes('/review/my');
 
   const getIsActive = (menu: MenuListType) => router.asPath.includes(menu.menuURL);
-
-  const { clientWidth: navLineWidth } = useWindowSize();
   return (
     <>
-      <GlobalNavWrapper navLineWidth={navLineWidth}>
+      <GlobalNavWrapper>
         <GlobalNavBar>
           <LeftNav>
             <Logo onClick={onClickLogo}>
@@ -85,7 +82,7 @@ function GlobalNav() {
   );
 }
 
-const GlobalNavWrapper = styled.div<{ navLineWidth: number }>`
+const GlobalNavWrapper = styled.div`
   width: 100%;
   height: 8.2rem;
   display: flex;
@@ -94,7 +91,7 @@ const GlobalNavWrapper = styled.div<{ navLineWidth: number }>`
   &:after {
     content: '';
     position: absolute;
-    width: ${(props) => props.navLineWidth}px;
+    width: ${({ theme }) => theme.clientWidth}px;
     top: 8.2rem;
     background-color: ${({ theme }) => theme.colors.navLine};
     height: 1px;
