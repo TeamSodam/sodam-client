@@ -7,12 +7,12 @@ import { UserSignupRequest } from 'types/user';
 
 function Join() {
   const [signupInfo, setSignupInfo] = useState<UserSignupRequest>({
-    name: { value: '', isComplete: false },
-    email: { value: '', isComplete: false },
-    emailConfirm: { value: '', isComplete: false },
-    password: { value: '', isComplete: false },
-    passwordConfirm: { value: '', isComplete: false },
-    nickname: { value: '', isComplete: false },
+    name: { value: null, isComplete: false },
+    email: { value: null, isComplete: false },
+    emailConfirm: { value: null, isComplete: false },
+    password: { value: null, isComplete: false },
+    passwordConfirm: { value: null, isComplete: false },
+    nickname: { value: null, isComplete: false },
     themePreference: { value: [], isComplete: false },
   });
 

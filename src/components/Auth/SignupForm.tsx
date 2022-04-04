@@ -17,11 +17,14 @@ function SignupForm(props: SignupFormProps) {
   const InfoList = Object.keys(signupInfo);
 
   useEffect(() => {
-    handleComplete('passwordConfirm', !checkPassword());
+    signupInfo.passwordConfirm.value &&
+      !checkPassword() &&
+      handleComplete('passwordConfirm', !checkPassword());
   }, [checkPassword()]);
 
   const isKeyOfSignUpInfo = (inputType: string): inputType is keyof UserSignupRequest =>
     inputType in signupInfo;
+
   return (
     <StyledRoot>
       {InfoList.map((type, idx) => {

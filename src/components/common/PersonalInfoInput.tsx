@@ -10,7 +10,7 @@ interface PersonalInfoInputProps {
   inputType: keyof UserSignupRequest;
   handleOnChange: (type: keyof UserSignupRequest, value: string) => void;
   handleComplete: (type: keyof UserSignupRequest, value: boolean) => void;
-  passwordError: boolean;
+  passwordError: boolean | null | '';
   order: number;
 }
 
@@ -32,7 +32,9 @@ function PersonalInfoInput(props: PersonalInfoInputProps) {
   return (
     <StyledRoot order={order}>
       <StyledTitleWrapper>
-        <StyledTitle type={inputType}>{inputInfo.title}</StyledTitle>
+        <StyledTitle type={inputType}>
+          {inputInfo.title} <em>*</em>
+        </StyledTitle>
         {inputType === 'password' && (
           <StyledNotice>‘영문 소문자 + 숫자’ 포함하여 8글자 이상 15자 미만</StyledNotice>
         )}
@@ -70,6 +72,11 @@ const StyledTitle = styled.h3<{ type: string }>`
   font-size: 1.5rem;
   line-height: 2.2rem;
   color: ${({ type }) => (type === 'emailConfirm' ? theme.colors.gray1 : theme.colors.black2)};
+  & > em {
+    font-size: 1.2rem;
+    margin-left: 0.2rem;
+    color: ${theme.colors.purpleText};
+  }
 `;
 
 const StyledInputWrapper = styled.div`

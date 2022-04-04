@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
 
+import ThemeItem from './ThemeItem';
+
 interface ThemeSelectorProps {
   imgSrc?: string;
   handleOnClick: (value: string) => void;
@@ -12,6 +14,7 @@ interface ThemeSelectType {
 
 function ThemeSelector(props: ThemeSelectorProps) {
   const { handleOnClick } = props;
+
   const ThemeSelect: ThemeSelectType = {
     아기자기한: 'Cute',
     힙한: 'Hip',
@@ -19,17 +22,24 @@ function ThemeSelector(props: ThemeSelectorProps) {
     빈티지: 'Vintage',
   };
 
-  const getThemeIcon = (theme: string) => `/assets/ic_theme${ThemeSelect[theme]}Join.png`;
+  const getThemeIcon = (theme: string, isSelected: boolean) =>
+    isSelected
+      ? `/assets/ic_theme${ThemeSelect[theme]}Join.png`
+      : `/assets/ic_theme${ThemeSelect[theme]}JoinOff.png`;
 
   return (
     <StyledRoot>
-      <h1>선호 소품샵 테마</h1>
+      <h1>
+        선호 소품샵 테마 <em>*</em>
+      </h1>
       <StyledThemeWrapper>
         {Object.keys(ThemeSelect).map((theme) => (
-          <StyledSelectorWrapper key={theme} onClick={() => handleOnClick(theme)}>
-            <StyledImgWrapper imgSrc={getThemeIcon(theme)} />
-            <p>{theme}</p>
-          </StyledSelectorWrapper>
+          <ThemeItem
+            key={theme}
+            handleOnClick={handleOnClick}
+            getThemeIcon={getThemeIcon}
+            theme={theme}
+          />
         ))}
       </StyledThemeWrapper>
     </StyledRoot>
@@ -42,42 +52,21 @@ const StyledRoot = styled.div`
   margin-top: 4rem;
   & > h1 {
     font-weight: 500;
-    font-size: 2rem;
-    line-height: 2.9rem;
+    font-size: 1.5rem;
+    line-height: 2.2rem;
     color: ${theme.colors.black2};
-    margin-bottom: 3.2rem;
+    margin-bottom: 3.3rem;
+  }
+  & em {
+    font-size: 1.2rem;
+    margin-left: 0.2rem;
+    color: ${theme.colors.purpleText};
   }
 `;
 const StyledThemeWrapper = styled.div`
   display: flex;
   width: 52.8rem;
   justify-content: space-between;
-`;
-
-const StyledSelectorWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-
-  & > p {
-    font-weight: 500;
-    font-size: 1.2rem;
-    line-height: 1.7rem;
-    text-align: center;
-    color: ${theme.colors.purpleText};
-    margin-top: 1.8rem;
-  }
-`;
-
-const StyledImgWrapper = styled.div<Pick<ThemeSelectorProps, 'imgSrc'>>`
-  display: flex;
-  width: 9.4rem;
-  height: 9.4rem;
-  background-image: ${({ imgSrc }) => `url(${imgSrc})`};
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: contain;
 `;
 
 export default ThemeSelector;
