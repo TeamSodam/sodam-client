@@ -1,10 +1,12 @@
 import SEOUL_ENUM from 'constants/SeoulAreaEnum';
+import useWindowSize from 'hooks/useWindowSize';
 import { useRouter } from 'next/router';
 import { MouseEvent } from 'react';
 import styled from 'styled-components';
 
 function ImageMap() {
   const router = useRouter();
+  const { clientWidth } = useWindowSize();
   const onClickMapArea = (e: MouseEvent) => {
     if (!(e.currentTarget instanceof SVGGElement)) return;
     const areaId = e.currentTarget.dataset['area'];
@@ -18,6 +20,7 @@ function ImageMap() {
       viewBox="0 0 975 748"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      clientWidth={clientWidth}
     >
       <path
         className="map__star--big"
@@ -290,7 +293,8 @@ function ImageMap() {
   );
 }
 
-const StyledImageMap = styled.svg`
+const StyledImageMap = styled.svg<{ clientWidth: number }>`
+  transform: ${(props) => `scale(${props.clientWidth / 1920})`};
   align-self: center;
   & > g:hover {
     & path:first-child {
