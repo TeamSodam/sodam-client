@@ -43,7 +43,7 @@ function BannerList() {
   }, [swiperSetting]);
 
   const BANNER_LIST = (
-    <Swiper navigation autoplay={{ delay: 5000 }} className="mySlider">
+    <Swiper navigation className="mySlider">
       {BANNER_SRC_LIST.map((bannerSrc) => {
         const { src, Button } = bannerSrc;
         return (
@@ -63,7 +63,7 @@ function BannerList() {
     </Swiper>
   );
 
-  return <Container bannerWidth={bannerWidth}>{BANNER_LIST}</Container>;
+  return <Container bannerWidth={bannerWidth}>{swiperSetting ? BANNER_LIST : null}</Container>;
 }
 
 const Container = styled.div<{ bannerWidth: number }>`
