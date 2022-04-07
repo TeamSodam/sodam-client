@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import styled from 'styled-components';
-import { applyMediaQuery } from 'styles/mediaQuery';
+import { applyReponsiveWidth } from 'styles/mixin';
 
 interface BannerProps {
   src: string;
@@ -30,16 +30,8 @@ const StyledBanner = styled.div<{ imgUrl: string }>`
 `;
 
 const Wrapper = styled.div`
+  ${applyReponsiveWidth}
   position: relative;
-  ${applyMediaQuery('mobile')} {
-    width: 312px;
-  }
-  ${applyMediaQuery('desktop')} {
-    width: 800px;
-  }
-  ${applyMediaQuery('wide')} {
-    width: 1195px;
-  }
   height: 100%;
   margin: 0 auto;
   display: flex;

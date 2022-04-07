@@ -292,7 +292,6 @@ function ImageMap() {
 
 const StyledImageMap = styled.svg`
   transform: ${(props) => `scale(${props.theme.clientWidth / 1920})`};
-  align-self: center;
   & > g:hover {
     & path:first-child {
       fill: ${({ theme }) => theme.colors.purpleMain};
