@@ -3,7 +3,7 @@ import SodamDoc from 'constants/sodamDocList';
 import Link from 'next/link';
 import FooterLogoIC from 'public/assets/footerLogo.svg';
 import styled from 'styled-components';
-import { applyMediaQuery } from 'styles/mediaQuery';
+import { applyReponsiveWidth } from 'styles/mixin';
 
 function Footer() {
   return (
@@ -44,12 +44,7 @@ const MarginWrapper = styled.div`
 `;
 
 const FooterWrapper = styled.div`
-  ${applyMediaQuery('desktop')} {
-    width: 800px;
-  }
-  ${applyMediaQuery('wide')} {
-    width: 1195px;
-  }
+  ${applyReponsiveWidth}
   position: relative;
   left: 50%;
   transform: translateX(-50%);
