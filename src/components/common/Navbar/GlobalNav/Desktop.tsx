@@ -1,5 +1,4 @@
 import LocalNav from 'components/common/Navbar/LocalNav';
-import { useRouter } from 'next/router';
 import SearchICDesktop from 'public/assets/ic_search_desktop.svg';
 import MainLogoIC from 'public/assets/mainLogo.svg';
 import MainLogoDesktopIC from 'public/assets/mainLogoDesktop.svg';
@@ -9,34 +8,15 @@ import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import Screen from 'styles/Screen';
 
-interface MenuListType {
-  menuName: string;
-  menuURL: string;
-  routeTo?: string;
-}
+import { menuList, NavProps } from '.';
 
-function GlobalNav() {
-  const menuList: MenuListType[] = [
-    { menuName: '소품샵 지도', menuURL: '/map' },
-    { menuName: '테마별 소품샵', menuURL: '/shop/theme', routeTo: '/shop/theme/아기자기한' },
-    { menuName: '저장한 소품샵', menuURL: '/shop/collect' },
-    { menuName: 'MY REVIEW', menuURL: '/review/my', routeTo: '/review/my/write' },
-  ];
+function GlobalNavDesktop(props: NavProps) {
+  const {
+    onClick: { logo: onClickLogo, menu: onClickMenu },
+    isMyReview: isCurrentPathIncludesMyReview,
+    getIsActive,
+  } = props;
 
-  const router = useRouter();
-
-  const onClickLogo = () => {
-    router.push('/');
-  };
-
-  const onClickMenu = (menu: MenuListType) => {
-    if (menu.routeTo) return menu.routeTo;
-    return menu.menuURL;
-  };
-
-  const isCurrentPathIncludesMyReview = () => router.asPath.includes('/review/my');
-
-  const getIsActive = (menu: MenuListType) => router.asPath.includes(menu.menuURL);
   return (
     <>
       <GlobalNavWrapper>
@@ -249,4 +229,4 @@ const Profile = styled.div`
   }
 `;
 
-export default GlobalNav;
+export default GlobalNavDesktop;
