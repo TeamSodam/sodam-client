@@ -1,3 +1,4 @@
+import AcceptTerms from 'components/Auth/AcceptTerms';
 import SignupForm from 'components/Auth/SignupForm';
 import ThemeSelector from 'components/Auth/ThemeSelector';
 import { useState } from 'react';
@@ -55,6 +56,7 @@ function Join() {
         handleComplete={handleComplete}
       />
       <ThemeSelector handleOnClick={handleOnClick} />
+      <AcceptTerms />
       <StyledSumitBtn>가입완료</StyledSumitBtn>
     </StyledRoot>
   );
@@ -84,7 +86,7 @@ const StyledSumitBtn = styled.button`
   border-radius: 5px;
   border: 0;
   outline: 0;
-  margin: 9.3rem 0 12rem 0;
+  margin: 9rem 0 12rem 0;
   background-color: ${theme.colors.gray2};
   color: white;
   font-weight: bold;
