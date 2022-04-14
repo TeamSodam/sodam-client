@@ -12,18 +12,14 @@ import Screen from 'styles/Screen';
 import { menuList, NavProps } from '.';
 
 function GlobalNavDesktop(props: NavProps) {
-  const {
-    onClick: { logo: onClickLogo, menu: onClickMenu },
-    isMyReview: isCurrentPathIncludesMyReview,
-    getIsActive,
-  } = props;
+  const { onClickMenu, isMyReview: isCurrentPathIncludesMyReview, getIsActive } = props;
 
   return (
     <>
       <GlobalNavWrapper>
         <GlobalNavBar>
           <LeftNav>
-            <Logo onClick={onClickLogo}>
+            <Logo href="/">
               <Screen wide>
                 <MainLogoIC />
               </Screen>
@@ -110,7 +106,7 @@ const RightNav = styled.div`
   align-items: center;
 `;
 
-const Logo = styled.div`
+const Logo = styled.a`
   width: 5.8rem;
   height: 2.6rem;
   margin-right: 4.3rem;

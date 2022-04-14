@@ -1,20 +1,20 @@
 import Link from 'next/link';
 import SearchIC from 'public/assets/ic_search_mobile.svg';
-import MainLogoIC from 'public/assets/mainLogoDesktop.svg';
 import ProfileIC from 'public/assets/profile_mobile.svg';
 import styled from 'styled-components';
 
 import { menuList, NavProps } from '.';
 
 function GlobalNavMobile(props: NavProps) {
-  const {
-    onClick: { menu: onClickMenu, logo: onClickLogo },
-    getIsActive,
-  } = props;
+  const { onClickMenu, getIsActive } = props;
   return (
     <GlobalNavWrapper>
       <NavTop>
-        <MainLogoIC onClick={onClickLogo} />
+        <h1>
+          <Link href="/" passHref>
+            <MainLogo />
+          </Link>
+        </h1>
         <NavTopRightWrapper>
           <SearchIcon />
           <ProfileIC />
@@ -68,6 +68,24 @@ const Menu = styled.a<{ isActive: boolean }>`
 
   font-size: 1rem;
   line-height: 1.4rem;
+`;
+
+const MainLogo = styled.a`
+  position: relative;
+  display: block;
+  width: 3.8rem;
+  height: 100%;
+
+  &:after {
+    position: absolute;
+    background-image: url('/assets/mainLogoDesktop.svg');
+    background-repeat: no-repeat;
+
+    width: 100%;
+    height: 100%;
+
+    content: '';
+  }
 `;
 
 export default GlobalNavMobile;

@@ -13,11 +13,9 @@ export interface MenuListType {
 export interface NavProps {
   isMyReview: () => boolean;
   getIsActive: (menu: MenuListType) => boolean;
-  onClick: {
-    logo: () => void;
-    menu: (menu: MenuListType) => string;
-  };
+  onClickMenu: (menu: MenuListType) => string;
 }
+
 export const menuList: MenuListType[] = [
   { menuName: '소품샵 지도', menuURL: '/map' },
   { menuName: '테마별 소품샵', menuURL: '/shop/theme', routeTo: '/shop/theme/아기자기한' },
@@ -27,10 +25,6 @@ export const menuList: MenuListType[] = [
 
 function GlobalNav() {
   const router = useRouter();
-
-  const onClickLogo = () => {
-    router.push('/');
-  };
 
   const onClickMenu = (menu: MenuListType) => {
     if (menu.routeTo) return menu.routeTo;
@@ -42,10 +36,7 @@ function GlobalNav() {
   const getIsActive = (menu: MenuListType) => router.asPath.includes(menu.menuURL);
 
   const navProps = {
-    onClick: {
-      logo: onClickLogo,
-      menu: onClickMenu,
-    },
+    onClickMenu,
     getIsActive,
     isMyReview: isCurrentPathIncludesMyReview,
   };
