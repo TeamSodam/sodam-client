@@ -17,8 +17,6 @@ function Join() {
     themePreference: { value: [], isComplete: false },
   });
 
-  console.log(signupInfo);
-
   const handleComplete = (type: keyof UserSignupRequest, value: boolean) => {
     setSignupInfo({ ...signupInfo, [type]: { ...signupInfo[type], isComplete: value } });
   };
@@ -49,7 +47,10 @@ function Join() {
 
   return (
     <StyledRoot>
-      <h1>회원가입</h1>
+      <StyledTitleWrapper>
+        <h1>회원가입</h1>
+        <span>*는 필수 입력 항목입니다</span>
+      </StyledTitleWrapper>
       <SignupForm
         signupInfo={signupInfo}
         handleOnChange={handleOnChange}
@@ -67,15 +68,6 @@ const StyledRoot = styled.div`
   flex-direction: column;
   margin-top: 11rem;
   align-items: center;
-
-  & > h1 {
-    width: 52.8rem;
-    font-weight: 700;
-    font-size: 2.6rem;
-    line-height: 3.8rem;
-    margin-bottom: 4.5rem;
-    color: ${theme.colors.purpleText};
-  }
 `;
 const StyledSumitBtn = styled.button`
   display: flex;
@@ -92,5 +84,27 @@ const StyledSumitBtn = styled.button`
   font-weight: bold;
   font-size: 1.5rem;
   line-height: 5rem;
+`;
+
+const StyledTitleWrapper = styled.div`
+  display: flex;
+  width: 52.8rem;
+  justify-content: space-between;
+  margin-bottom: 4.5rem;
+
+  & > h1 {
+    font-weight: 700;
+    font-size: 2.6rem;
+    line-height: 3.8rem;
+    color: ${theme.colors.purpleText};
+  }
+  & > span {
+    display: flex;
+    align-items: flex-end;
+    font-size: 1.2rem;
+    line-height: 1.7rem;
+    font-weight: 500;
+    color: ${theme.colors.purpleText};
+  }
 `;
 export default Join;
