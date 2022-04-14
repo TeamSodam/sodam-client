@@ -1,4 +1,5 @@
 import LocalNav from 'components/common/Navbar/LocalNav';
+import Link from 'next/link';
 import SearchICDesktop from 'public/assets/ic_search_desktop.svg';
 import MainLogoIC from 'public/assets/mainLogo.svg';
 import MainLogoDesktopIC from 'public/assets/mainLogoDesktop.svg';
@@ -26,15 +27,15 @@ function GlobalNavDesktop(props: NavProps) {
               <Screen wide>
                 <MainLogoIC />
               </Screen>
-              <Screen mobile tablet desktop>
+              <Screen tablet desktop>
                 <MainLogoDesktopIC />
               </Screen>
             </Logo>
             <MenuList>
               {menuList.map((menu) => (
-                <Menu key={menu.menuName} href={onClickMenu(menu)} isActive={getIsActive(menu)}>
-                  {menu.menuName}
-                </Menu>
+                <Link key={menu.menuName} href={onClickMenu(menu)} passHref>
+                  <Menu isActive={getIsActive(menu)}>{menu.menuName}</Menu>
+                </Link>
               ))}
             </MenuList>
           </LeftNav>
@@ -44,7 +45,7 @@ function GlobalNavDesktop(props: NavProps) {
                 <Screen wide>
                   <SearchIC />
                 </Screen>
-                <Screen mobile tablet desktop>
+                <Screen tablet desktop>
                   <SearchICDesktop />
                 </Screen>
               </SearchIcon>

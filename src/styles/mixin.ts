@@ -6,6 +6,9 @@ export const applyReponsiveWidth = css`
   ${applyMediaQuery('mobile')} {
     width: 312px;
   }
+  ${applyMediaQuery('tablet')} {
+    width: 550px;
+  }
   ${applyMediaQuery('desktop')} {
     width: 800px;
   }

@@ -40,27 +40,23 @@ function GlobalNav() {
   const isCurrentPathIncludesMyReview = () => router.asPath.includes('/review/my');
 
   const getIsActive = (menu: MenuListType) => router.asPath.includes(menu.menuURL);
+
+  const navProps = {
+    onClick: {
+      logo: onClickLogo,
+      menu: onClickMenu,
+    },
+    getIsActive,
+    isMyReview: isCurrentPathIncludesMyReview,
+  };
+
   return (
     <>
-      <Screen tablet desktop wide>
-        <GlobalNavDesktop
-          onClick={{
-            logo: onClickLogo,
-            menu: onClickMenu,
-          }}
-          getIsActive={getIsActive}
-          isMyReview={isCurrentPathIncludesMyReview}
-        />
+      <Screen desktop wide>
+        <GlobalNavDesktop {...navProps} />
       </Screen>
-      <Screen mobile>
-        <GlobalNavMobile
-          onClick={{
-            logo: onClickLogo,
-            menu: onClickMenu,
-          }}
-          getIsActive={getIsActive}
-          isMyReview={isCurrentPathIncludesMyReview}
-        />
+      <Screen mobile tablet>
+        <GlobalNavMobile {...navProps} />
       </Screen>
     </>
   );
