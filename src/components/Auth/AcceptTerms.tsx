@@ -19,17 +19,28 @@ function AcceptTerms() {
   });
 
   const handleClick = (type: string) => {
-    setIsChecked({ ...isChecked, [type]: !isChecked[type] });
+    if (type === 'allCheck') {
+      setIsChecked({
+        allCheck: !isChecked.allCheck,
+        terms: !isChecked.allCheck,
+        privacy: !isChecked.allCheck,
+        event: !isChecked.allCheck,
+      });
+    } else {
+      setIsChecked({
+        ...isChecked,
+        [type]: !isChecked[type],
+      });
+    }
   };
 
   useEffect(() => {
-    setIsChecked({
-      ...isChecked,
-      terms: isChecked.allCheck,
-      privacy: isChecked.allCheck,
-      event: isChecked.allCheck,
-    });
-  }, [isChecked.allCheck]);
+    if (isChecked.terms && isChecked.privacy && isChecked.event) {
+      setIsChecked({ ...isChecked, allCheck: true });
+    } else {
+      setIsChecked({ ...isChecked, allCheck: false });
+    }
+  }, [isChecked.terms, isChecked.privacy, isChecked.event]);
 
   return (
     <StyledWrapper>
