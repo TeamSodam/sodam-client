@@ -58,6 +58,7 @@ export default PersonalInfoInput;
 const StyledRoot = styled.div<Pick<PersonalInfoInputProps, 'order'>>`
   display: flex;
   flex-direction: column;
+  width: 100%;
   order: ${(props) => props.order};
 `;
 
@@ -82,7 +83,6 @@ const StyledTitle = styled.h3<{ type: string }>`
 const StyledInputWrapper = styled.div`
   display: flex;
   align-items: center;
-  width: 52.8rem;
   height: 5rem;
   background-color: white;
   border: 1px solid ${theme.colors.purpleText};

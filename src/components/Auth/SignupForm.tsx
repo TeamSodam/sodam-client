@@ -52,6 +52,7 @@ const StyledRoot = styled.div`
   flex-direction: column;
   gap: 2rem;
   align-items: center;
+  width: 52.8rem;
 `;
 
 const StyledLine = styled.div`

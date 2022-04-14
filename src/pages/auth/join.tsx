@@ -69,6 +69,7 @@ const StyledRoot = styled.div`
   margin-top: 11rem;
   align-items: center;
 `;
+
 const StyledSumitBtn = styled.button`
   display: flex;
   justify-content: center;
