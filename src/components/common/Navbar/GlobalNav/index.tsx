@@ -42,7 +42,7 @@ function GlobalNav() {
   const getIsActive = (menu: MenuListType) => router.asPath.includes(menu.menuURL);
   return (
     <>
-      <Screen desktop tablet wide>
+      <Screen tablet desktop wide>
         <GlobalNavDesktop
           onClick={{
             logo: onClickLogo,
@@ -53,7 +53,14 @@ function GlobalNav() {
         />
       </Screen>
       <Screen mobile>
-        <GlobalNavMobile />
+        <GlobalNavMobile
+          onClick={{
+            logo: onClickLogo,
+            menu: onClickMenu,
+          }}
+          getIsActive={getIsActive}
+          isMyReview={isCurrentPathIncludesMyReview}
+        />
       </Screen>
     </>
   );

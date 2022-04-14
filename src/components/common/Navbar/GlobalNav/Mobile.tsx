@@ -1,32 +1,50 @@
+import SearchIC from 'public/assets/ic_search_mobile.svg';
+import MainLogoIC from 'public/assets/mainLogoDesktop.svg';
+import ProfileIC from 'public/assets/profile_mobile.svg';
 import styled from 'styled-components';
-import { applyMediaQuery } from 'styles/mediaQuery';
 
-function GlobalNavMobile() {
-  return <GlobalNavWrapper>모바일네브바</GlobalNavWrapper>;
+import { NavProps } from '.';
+
+function GlobalNavMobile(props: NavProps) {
+  return (
+    <GlobalNavWrapper>
+      <NavTop>
+        <MainLogoIC />
+        <NavTopRightWrapper>
+          <SearchIcon />
+          <ProfileIC />
+        </NavTopRightWrapper>
+      </NavTop>
+      <NavBottom />
+    </GlobalNavWrapper>
+  );
 }
 
 const GlobalNavWrapper = styled.div`
   width: 100%;
-  height: 8.2rem;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  &:after {
-    content: '';
-    position: absolute;
-    width: ${({ theme }) => theme.clientWidth}px;
-    top: 8.2rem;
-    background-color: ${({ theme }) => theme.colors.navLine};
-    height: 1px;
-  }
+  padding: 2.5rem 0 1.4rem 0;
+`;
 
-  ${applyMediaQuery('desktop')} {
-    height: 5.4rem;
+const NavTop = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 
-    &:after {
-      top: 5.4rem;
-    }
-  }
+const NavBottom = styled.nav`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const NavTopRightWrapper = styled.div`
+  display: flex;
+  gap: 1.5rem;
+`;
+
+const SearchIcon = styled(SearchIC)`
+  transform: translate(1px, 1px);
 `;
 
 export default GlobalNavMobile;
