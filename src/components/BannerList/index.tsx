@@ -101,7 +101,7 @@ const Container = styled.div`
   }
 `;
 
-const BannerBtn = styled.div`
+const BannerBtn = styled.a`
   position: absolute;
   bottom: 10rem;
 
