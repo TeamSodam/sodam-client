@@ -64,7 +64,7 @@ const Container = styled.main`
 `;
 
 const Wrapper = styled.div`
-  padding: 7.2rem 18.75% 0 18.75%;
+  padding-top: 7.2rem;
   width: 100%;
   display: flex;
   justify-content: flex-start;

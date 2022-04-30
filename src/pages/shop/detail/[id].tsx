@@ -198,14 +198,12 @@ const StyledContainer = styled.main`
 const ImageGridWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 7.2rem 18.75% 5.6rem 18.75%;
+  padding: 7.2rem 0 5.6rem 0;
   z-index: 2;
   gap: 5.6rem;
 `;
 
 const Wrapper = styled.div`
-  padding: 0 18.75%;
-
   display: flex;
   flex-direction: column;
   width: 100%;

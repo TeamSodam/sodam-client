@@ -23,7 +23,7 @@ export default Scrap;
 const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 7.2rem 18.75%;
+  margin: 7.2rem 0;
 
   & > h2 {
     font-weight: bold;

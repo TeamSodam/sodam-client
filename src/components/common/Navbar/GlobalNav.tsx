@@ -88,11 +88,21 @@ const GlobalNavWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: solid 1px ${({ theme }) => theme.colors.navLine};
+  &:after {
+    content: '';
+    position: absolute;
+    width: ${({ theme }) => theme.clientWidth}px;
+    top: 8.2rem;
+    background-color: ${({ theme }) => theme.colors.navLine};
+    height: 1px;
+  }
 
   ${applyMediaQuery('desktop')} {
-    padding: 0 18.75%;
     height: 5.4rem;
+
+    &:after {
+      top: 5.4rem;
+    }
   }
 `;
 

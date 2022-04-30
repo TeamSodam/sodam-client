@@ -1,36 +1,42 @@
-import Image from 'next/image';
 import { ReactNode } from 'react';
 import styled from 'styled-components';
+import { applyReponsiveWidth } from 'styles/mixin';
 
 interface BannerProps {
   src: string;
+  button: ReactNode;
   children?: ReactNode;
 }
 
 function Banner(props: BannerProps) {
-  const { src, children } = props;
+  const { src, button, children } = props;
   return (
-    <StyledBanner>
-      <Image src={src} alt="banner" layout="fill" />
-      {children}
+    <StyledBanner imgUrl={src}>
+      <Wrapper>
+        {children}
+        {button}
+      </Wrapper>
     </StyledBanner>
   );
 }
 
-const StyledBanner = styled.div`
-  width: 100% !important;
-  position: relative !important;
+const StyledBanner = styled.div<{ imgUrl: string }>`
+  width: 100%;
+  height: 100%;
 
-  & > span {
-    position: unset !important;
-  }
+  background-image: ${(props) => `url(${props.imgUrl})`};
+  background-repeat: no-repeat;
+  background-size: cover;
+`;
 
-  & img {
-    width: 100% !important;
-    object-fit: contain !important;
-    position: relative !important;
-    height: unset !important;
-  }
+const Wrapper = styled.div`
+  ${applyReponsiveWidth}
+  position: relative;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 export default Banner;

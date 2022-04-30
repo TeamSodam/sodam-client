@@ -5,5 +5,6 @@ declare module 'styled-components' {
     colors: {
       [key: string]: string;
     };
+    clientWidth: number;
   }
 }

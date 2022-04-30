@@ -16,7 +16,7 @@ function MapLandingPage() {
 const StyledContainer = styled.main`
   display: flex;
   flex-direction: column;
-  margin: 7.2rem 18.75% 13.4rem 18.75%;
+  margin: 7.2rem 0 13.4rem 0;
   & > svg {
     align-self: center;
   }

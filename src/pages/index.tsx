@@ -61,34 +61,32 @@ function Home() {
   return (
     <Container>
       <BannerList />
-      <MarginWrapper>
-        <LabelContentWrapper>
+      <LabelContentWrapper>
+        <Label>
+          <em>{nickname}</em>님, 이 소품샵은 어떠세요?
+        </Label>
+        {showRandomShopSlider()}
+      </LabelContentWrapper>
+      <LabelContentWrapper>
+        <Label>오늘의 소품샵 리뷰</Label>
+        {showReviewSlider()}
+      </LabelContentWrapper>
+      <ThemeSelector />
+      <LabelContentWrapper>
+        <Label>
+          주간 <em>HOT</em> 소품샵
+        </Label>
+        {showPopularShopSlider()}
+      </LabelContentWrapper>
+      <LabelContentWrapper>
+        <LabelFilterWrapper>
           <Label>
-            <em>{nickname}</em>님, 이 소품샵은 어떠세요?
+            <em>{currentCategory}</em> 소품샵 리스트
           </Label>
-          {showRandomShopSlider()}
-        </LabelContentWrapper>
-        <LabelContentWrapper>
-          <Label>오늘의 소품샵 리뷰</Label>
-          {showReviewSlider()}
-        </LabelContentWrapper>
-        <ThemeSelector />
-        <LabelContentWrapper>
-          <Label>
-            주간 <em>HOT</em> 소품샵
-          </Label>
-          {showPopularShopSlider()}
-        </LabelContentWrapper>
-        <LabelContentWrapper>
-          <LabelFilterWrapper>
-            <Label>
-              <em>{currentCategory}</em> 소품샵 리스트
-            </Label>
-            <MoreFilter currentCategory={currentCategory} updateCategory={setCurrentCategory} />
-          </LabelFilterWrapper>
-          {showRandomCategorySlider()}
-        </LabelContentWrapper>
-      </MarginWrapper>
+          <MoreFilter currentCategory={currentCategory} updateCategory={setCurrentCategory} />
+        </LabelFilterWrapper>
+        {showRandomCategorySlider()}
+      </LabelContentWrapper>
     </Container>
   );
 }
@@ -97,12 +95,6 @@ const Container = styled.main`
   display: flex;
   flex-direction: column;
   background-color: white;
-`;
-
-const MarginWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 6.5rem 18.75%;
 
   gap: 9rem;
 `;
