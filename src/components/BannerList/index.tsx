@@ -36,27 +36,24 @@ function BannerList() {
     <Container>
       {swiperSetting && (
         <Swiper navigation className="mySlider">
-          {currentBannerList.map((bannerSrc) => {
-            const { src, Button, Text } = bannerSrc;
-            return (
-              <SwiperSlide key={src}>
-                <Banner
-                  src={src}
-                  button={
-                    Button && (
-                      <Link href="/shop/theme/아기자기한" passHref>
-                        <BannerBtn>
-                          <Button />
-                        </BannerBtn>
-                      </Link>
-                    )
-                  }
-                >
-                  {Text}
-                </Banner>
-              </SwiperSlide>
-            );
-          })}
+          {currentBannerList.map(({ src, Button, Text }) => (
+            <SwiperSlide key={src}>
+              <Banner
+                src={src}
+                button={
+                  Button && (
+                    <Link href="/shop/theme/아기자기한" passHref>
+                      <BannerBtn>
+                        <Button />
+                      </BannerBtn>
+                    </Link>
+                  )
+                }
+              >
+                {Text}
+              </Banner>
+            </SwiperSlide>
+          ))}
         </Swiper>
       )}
     </Container>
