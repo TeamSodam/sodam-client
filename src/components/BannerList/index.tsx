@@ -73,6 +73,9 @@ const Container = styled.div`
   ${applyMediaQuery('desktop')} {
     height: 345px;
   }
+  ${applyMediaQuery('mobile')} {
+    height: 97px;
+  }
 
   & .mySlider {
     & > div {
@@ -84,6 +87,10 @@ const Container = styled.div`
         ${applyMediaQuery('desktop')} {
           height: 345px;
         }
+
+        ${applyMediaQuery('mobile')} {
+          height: 97px;
+        }
       }
     }
   }
@@ -91,9 +98,15 @@ const Container = styled.div`
   .mySlider .swiper-button-prev {
     width: fit-content;
     height: fit-content;
+
     top: 50%;
     left: 30px;
     color: white;
+
+    ${applyMediaQuery('mobile')} {
+      transform: scale(0.3);
+      left: 5px;
+    }
   }
   .mySlider .swiper-button-next {
     width: fit-content;
@@ -101,6 +114,11 @@ const Container = styled.div`
     top: 50%;
     right: 30px;
     color: white;
+
+    ${applyMediaQuery('mobile')} {
+      transform: scale(0.3);
+      right: 5px;
+    }
   }
 `;
 

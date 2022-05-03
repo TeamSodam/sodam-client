@@ -15,6 +15,11 @@ export const SecondBannerText = styled.div`
       line-height: 4.6rem;
     }
 
+    ${applyMediaQuery('mobile')} {
+      font-size: 0.9rem;
+      line-height: 1.3rem;
+    }
+
     color: #e15669;
   }
 
@@ -26,6 +31,11 @@ export const SecondBannerText = styled.div`
     ${applyMediaQuery('desktop')} {
       font-size: 1.9rem;
       line-height: 2.8rem;
+    }
+
+    ${applyMediaQuery('mobile')} {
+      font-size: 0.5rem;
+      line-height: 0.7rem;
     }
 
     color: #695054;
@@ -41,6 +51,10 @@ export const ThirdBannerText = styled.div`
   ${applyMediaQuery('desktop')} {
     font-size: 2.8rem;
     line-height: 3.4rem;
+  }
+  ${applyMediaQuery('mobile')} {
+    font-size: 0.7rem;
+    line-height: 1.3rem;
   }
   color: white;
 `;
