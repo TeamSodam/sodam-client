@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 import { ShopThemeType } from 'types/shop';
 
@@ -61,6 +62,11 @@ const StyledRoot = styled.div<Pick<StyledELProps, 'isActive'>>`
     font-weight: bold;
     font-size: 2rem;
     line-height: 2.9rem;
+    ${applyMediaQuery('mobile')} {
+      font-size: 0.7rem;
+      line-height: 1rem;
+    }
+
     text-align: center;
     color: ${({ isActive }) => (isActive ? theme.colors.purpleText : theme.colors.black2)};
     margin-top: ${({ isActive }) => (isActive ? '-4.5rem' : '1.6rem')};
@@ -71,8 +77,13 @@ const StyledImgWrapper = styled.div<StyledELProps>`
   display: flex;
   width: ${({ isActive }) => (isActive ? '28.2rem' : '22.2rem')};
   height: ${({ isActive }) => (isActive ? '31.8rem' : '17.8rem')};
+
+  ${applyMediaQuery('mobile')} {
+    width: 6.6rem;
+    height: 5.2rem;
+  }
   background-image: ${({ imgSrc }) => `url(${imgSrc})`};
   background-repeat: no-repeat;
   background-position: center center;
-  background-size: auto;
+  background-size: contain;
 `;
