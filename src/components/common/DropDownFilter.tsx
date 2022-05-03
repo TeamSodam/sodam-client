@@ -2,6 +2,7 @@ import { dropDownFilterList } from 'constants/dropdownOptionList';
 import Image from 'next/image';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 
 import FilterDiv from './FilterDiv';
@@ -70,5 +71,12 @@ const StyledWrapper = styled.div`
     font-size: 1.4rem;
     line-height: 2rem;
     color: ${theme.colors.purpleText};
+  }
+
+  ${applyMediaQuery('mobile')} {
+    & > span {
+      font-size: 0.9rem;
+      line-height: 1.3rem;
+    }
   }
 `;

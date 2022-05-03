@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 
 function LocalNav() {
@@ -42,6 +42,22 @@ const LocalNavbarWrapper = styled.div`
   ${applyMediaQuery('desktop')} {
     height: 4.2rem;
   }
+  ${applyMediaQuery('mobile')} {
+    height: 3.6rem;
+  }
+`;
+
+const NavLineStyle = css`
+  content: '';
+  position: absolute;
+  top: calc(8.2rem + 6.2rem);
+  left: 0;
+  ${applyMediaQuery('desktop')} {
+    top: calc(5.4rem + 4.2rem);
+  }
+  width: 100vw;
+  background-color: ${({ theme }) => theme.colors.navLine};
+  height: 1px;
 `;
 
 const LocalNavbar = styled.div`
@@ -50,23 +66,28 @@ const LocalNavbar = styled.div`
   font-size: 1.6rem;
   color: ${({ theme }) => theme.colors.gray1};
 
+  ${applyMediaQuery('mobile')} {
+    font-size: 1rem;
+    line-height: 1.4rem;
+  }
+
   & > a {
     min-width: fit-content;
   }
   width: 100%;
   height: 100%;
 
-  &:after {
-    content: '';
-    position: absolute;
-    top: calc(8.2rem + 6.2rem);
-    left: 0;
-    ${applyMediaQuery('desktop')} {
-      top: calc(5.4rem + 4.2rem);
+  &::after {
+    ${NavLineStyle}
+    ${applyMediaQuery('mobile')} {
+      top: calc(5.9rem + 4.8rem + 3.6rem);
     }
-    width: 100vw;
-    background-color: ${({ theme }) => theme.colors.navLine};
-    height: 1px;
+  }
+  &::before {
+    ${NavLineStyle}
+    ${applyMediaQuery('mobile')} {
+      top: calc(5.9rem + 4.8rem);
+    }
   }
 `;
 

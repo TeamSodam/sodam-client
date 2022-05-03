@@ -5,6 +5,7 @@ import { useGetShopByThemeQuery } from 'features/shops/shopApi';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { ShopThemeSortType, ShopThemeType } from 'types/shop';
 
 const THEME_LIST: ShopThemeType[] = ['아기자기한', '힙한', '모던한', '빈티지'];
@@ -65,6 +66,9 @@ const Container = styled.main`
 
 const Wrapper = styled.div`
   padding-top: 7.2rem;
+  ${applyMediaQuery('mobile')} {
+    padding: 1.4rem 0;
+  }
   width: 100%;
   display: flex;
   justify-content: flex-start;
@@ -74,10 +78,13 @@ const ThemeWrapper = styled.div`
   width: 100%;
   display: flex;
   height: calc(50.8rem - 7.2rem);
+  ${applyMediaQuery('mobile')} {
+    height: unset;
+  }
 `;
 
 const Delimiter = styled.div`
-  width: 100%;
+  width: 100vw;
   height: 0.5px;
   background-color: ${({ theme }) => theme.colors.navLine};
   padding: 0;
@@ -94,7 +101,6 @@ const ShopList = styled.div`
 `;
 
 const DropDownWrapper = styled.div`
-  padding-right: 18.75%;
   margin-left: auto;
   margin: 4rem 0 2.4rem auto;
 `;

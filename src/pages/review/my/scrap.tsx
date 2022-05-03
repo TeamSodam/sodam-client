@@ -1,6 +1,7 @@
 import ReviewCard from 'components/common/ReviewCard';
 import { useGetMyScrapReviewQuery } from 'features/reviews/reviewApi';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 
 function Scrap() {
@@ -30,6 +31,15 @@ const StyledContainer = styled.div`
     font-size: 3rem;
     line-height: 4.3rem;
     color: ${theme.colors.black2};
+  }
+
+  ${applyMediaQuery('mobile')} {
+    margin-top: 2.4rem;
+
+    & > h2 {
+      font-size: 1.4rem;
+      line-height: 2rem;
+    }
   }
 `;
 

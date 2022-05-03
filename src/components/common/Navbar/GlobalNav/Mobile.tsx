@@ -3,10 +3,11 @@ import SearchIC from 'public/assets/ic_search_mobile.svg';
 import ProfileIC from 'public/assets/profile_mobile.svg';
 import styled from 'styled-components';
 
+import LocalNav from '../LocalNav';
 import { menuList, NavProps } from '.';
 
 function GlobalNavMobile(props: NavProps) {
-  const { onClickMenu, getIsActive } = props;
+  const { onClickMenu, getIsActive, isMyReview } = props;
   return (
     <GlobalNavWrapper>
       <NavTop>
@@ -27,6 +28,7 @@ function GlobalNavMobile(props: NavProps) {
           </Link>
         ))}
       </NavBottom>
+      {isMyReview() && <LocalNav />}
     </GlobalNavWrapper>
   );
 }

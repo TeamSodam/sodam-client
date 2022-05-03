@@ -3,6 +3,7 @@ import ShopCard from 'components/common/ShopCard';
 import { useGetShopByBookmarkQuery } from 'features/shops/shopApi';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 import { ShopBookMarkRequestType } from 'types/shop';
 
@@ -54,6 +55,14 @@ const StyledContainer = styled.div`
     font-size: 3rem;
     line-height: 4.3rem;
     color: ${theme.colors.black2};
+  }
+
+  ${applyMediaQuery('mobile')} {
+    margin-top: 1.4rem;
+    & > h2 {
+      font-size: 1.4rem;
+      line-height: 2rem;
+    }
   }
 `;
 
