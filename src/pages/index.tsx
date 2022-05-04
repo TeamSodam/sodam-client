@@ -98,6 +98,7 @@ const Container = styled.main`
   background-color: white;
 
   gap: 9rem;
+  padding-bottom: 9rem;
 
   ${applyMediaQuery('mobile')} {
     gap: 3.6rem;

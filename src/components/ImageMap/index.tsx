@@ -296,7 +296,7 @@ function ImageMap() {
 }
 
 const StyledImageMap = styled.svg`
-  width: 100%;
+  width: 81.5%;
   height: auto;
   & > g:hover {
     & path:first-child {

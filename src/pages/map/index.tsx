@@ -20,7 +20,7 @@ const StyledContainer = styled.main`
   margin: 7.2rem 0 13.4rem 0;
 
   ${applyMediaQuery('mobile')} {
-    margin: 1.4rem 0 14.2rem 0;
+    margin: 1.4rem 0 13.4rem 0;
   }
   & > svg {
     align-self: center;
