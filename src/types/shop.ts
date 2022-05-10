@@ -15,7 +15,7 @@ export interface Shop {
   subway: string;
   blog: string;
   isBookmarked: boolean;
-  image: string[];
+  image: string[] | null;
   close: string;
   area: SeoulAreaType;
   reviewCount: number;

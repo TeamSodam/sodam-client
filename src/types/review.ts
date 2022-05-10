@@ -16,7 +16,7 @@ export interface Review {
   isScraped: boolean;
   writerThumbnail: string;
   writerName: string;
-  image: string[];
+  image: string[] | null;
   item: Item[];
   content: string;
   tag: string[];
@@ -32,7 +32,7 @@ export interface ReviewRecentResponse {
   shopName: string;
   reviewId: number;
   shopId: number;
-  image: string[];
+  image: string[] | null;
   writerName: string;
   writerThumbnail: string;
   likeCount: number;
@@ -46,7 +46,7 @@ export interface ReviewSomething {
   scrapCount: number;
   content: string;
   shopId: number;
-  image: string[];
+  image: string[] | null;
 }
 
 export interface ReviewByShopIdData extends ReviewSomething {
@@ -80,7 +80,7 @@ export interface ReviewInfoRequestById {
 export interface ReviewCardData {
   reviewId: number;
   shopId: number;
-  image: string[];
+  image: string[] | null;
   writerThumbnail?: string;
   writerName?: string;
   likeCount: number;
