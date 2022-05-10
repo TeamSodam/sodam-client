@@ -1,3 +1,4 @@
+import parseCategorySafely from 'src/utils/parseCategorySafely';
 import { css } from 'styled-components';
 import { Shop } from 'types/shop';
 
@@ -75,19 +76,12 @@ export const getToolTipTemplate = (
   shopInfo: Pick<Shop, 'shopName' | 'category' | 'landAddress' | 'shopId'>,
 ): string => {
   const { shopName, category, landAddress, shopId } = shopInfo;
-  const parseCategory = (category: string | string[]) => {
-    if (typeof category === 'string') return category;
-
-    if (category.length > 1) return category.join(', ');
-
-    return category[0];
-  };
 
   const tooltipTemplate = `
     <a class="marker-tooltip" href="/shop/detail/${shopId}">
       <div class="marker-tooltip__header">
         <span class="marker-tooltip__title">${shopName}</span>
-        <span class="marker-tooltip__category">${parseCategory(category)}</span>
+        <span class="marker-tooltip__category">${parseCategorySafely(category)}</span>
       </div>
       <p class="marker-tooltip__content">
         ${landAddress}

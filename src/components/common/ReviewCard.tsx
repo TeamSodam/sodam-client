@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import loadImageSafely from 'src/utils/loadImageSafely';
+import parseCategorySafely from 'src/utils/parseCategorySafely';
 import { parseDate } from 'src/utils/parseDate';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
@@ -34,11 +36,6 @@ function ReviewCard(props: ReviewCardProps) {
   const likedCount = likeCount > 99 ? '99+' : likeCount;
   const savedCount = scrapCount > 99 ? '99+' : scrapCount;
 
-  const joinCategory = () => {
-    if (typeof category === 'string') return category;
-    return category?.join(', ');
-  };
-
   const getCurrentActivePage = () => {
     if (router.asPath.includes('/my/write')) return 'myWrite';
     if (router.asPath.includes('/my/scrap')) return 'myScrap';
@@ -71,17 +68,17 @@ function ReviewCard(props: ReviewCardProps) {
       {isHoverAvailable && isHovered && (
         <StyledHover>
           <p>{shopName}</p>
-          <p>{joinCategory()}</p>
+          <p>{parseCategorySafely(category || '')}</p>
         </StyledHover>
       )}
       <ImageDiv
         className="thumbnail__image"
-        src={image[0]}
+        src={loadImageSafely(image)}
         width={384}
         height={208}
         alt="thumbnail"
         placeholder="blur"
-        blurDataURL={image[0]}
+        blurDataURL={loadImageSafely(image)}
       />
       <StyledContents>
         <StyledHeader>
