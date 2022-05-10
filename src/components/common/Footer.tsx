@@ -2,15 +2,23 @@ import SodamContact from 'constants/sodamContactList';
 import SodamDoc from 'constants/sodamDocList';
 import Link from 'next/link';
 import FooterLogoIC from 'public/assets/footerLogo.svg';
-import styled from 'styled-components';
+import MobileFooterLogoIC from 'public/assets/footerLogo_mobile.svg';
+import styled, { css } from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { applyReponsiveWidth } from 'styles/mixin';
+import Screen from 'styles/Screen';
 
 function Footer() {
   return (
     <MarginWrapper>
       <FooterWrapper>
         <Logo>
-          <FooterLogoIC />
+          <Screen mobile>
+            <MobileFooterLogoIC />
+          </Screen>
+          <Screen tablet desktop wide>
+            <FooterLogoIC />
+          </Screen>
         </Logo>
         <LeftFooterWrapper>
           {SodamContact.map((contact) => (
@@ -51,8 +59,11 @@ const FooterWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-  height: 23.6rem;
-  padding-top: 5.4rem;
+  padding: 5.4rem 0;
+  ${applyMediaQuery('mobile')} {
+    padding: 1.8rem 0;
+    gap: 3.7rem;
+  }
   color: ${({ theme }) => theme.colors.black2};
 `;
 
@@ -71,10 +82,20 @@ const LeftFooter = styled.div`
   gap: 2.4rem;
 `;
 
+const MobileFontStyle = css`
+  font-size: 5px;
+  line-height: 7px;
+`;
+
 const ContactTitle = styled.div`
   width: 7.7rem;
   font-weight: 600;
   font-size: 1.4rem;
+
+  ${applyMediaQuery('mobile')} {
+    width: 2.5rem;
+    ${MobileFontStyle}
+  }
 `;
 
 const ContactContent = styled.li`
@@ -87,19 +108,30 @@ const ContactContent = styled.li`
     text-decoration: none;
     color: inherit;
   }
+
+  ${applyMediaQuery('mobile')} {
+    ${MobileFontStyle}
+  }
 `;
 
 const RightFooterWrapper = styled.div`
   flex: 1;
   font-weight: 400;
   font-size: 1.4rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+
+  ${applyMediaQuery('mobile')} {
+    ${MobileFontStyle}
+  }
 `;
 
 const RightFooter = styled.li`
   list-style: none;
   display: flex;
   justify-content: space-between;
-  margin: 0 0 1.6rem 0;
 
   & > a {
     text-decoration: none;
