@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
 
@@ -15,7 +15,7 @@ function Login() {
     setLoginInfo({ ...loginInfo, [inputType]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     console.log('제출');
   };
