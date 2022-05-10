@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import loadImageSafely from 'src/utils/loadImageSafely';
+import parseCategorySafely from 'src/utils/parseCategorySafely';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
 import { ShopCardData } from 'types/shop';
@@ -13,25 +15,20 @@ function ShopCard(props: ShopCardProps) {
   const { cardData } = props;
   const { image, shopName, category, shopId } = cardData;
 
-  const joinCategory = () => {
-    if (typeof category === 'string') return category;
-    return category.join(', ');
-  };
-
   return (
     <Link href={`/shop/detail/${shopId}`} passHref>
       <StyledRoot>
         <Image
-          src={image[0]}
+          src={loadImageSafely(image)}
           width={282}
           height={208}
           alt="thumbnail"
           placeholder="blur"
-          blurDataURL={image[0]}
+          blurDataURL={loadImageSafely(image)}
         />
         <StyledTitle>
           <h3>{shopName}</h3>
-          <p>{joinCategory()}</p>
+          <p>{parseCategorySafely(category)}</p>
         </StyledTitle>
       </StyledRoot>
     </Link>

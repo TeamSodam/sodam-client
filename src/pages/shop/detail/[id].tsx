@@ -135,7 +135,7 @@ function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQu
       <ImageGridWrapper>
         {shopInfo && (
           <>
-            <DetailImageGrid imageList={shopInfo.image} />
+            <DetailImageGrid imageList={shopInfo.image || []} />
             <DetailInfo shopInfo={shopInfo} />
           </>
         )}

@@ -1,6 +1,8 @@
 import useMap from 'hooks/useMap';
 import Image from 'next/image';
 import DelimiterIC from 'public/assets/ic_delimiter.svg';
+import loadImageSafely from 'src/utils/loadImageSafely';
+import parseCategorySafely from 'src/utils/parseCategorySafely';
 import styled from 'styled-components';
 import { ShopAreaResponse } from 'types/shop';
 
@@ -13,18 +15,12 @@ function ShopElement({ shopInfo }: { shopInfo: ShopAreaResponse }) {
 
   const { shopName, category, image, landAddress, time, reviewCount } = shopInfo;
 
-  const parseCategory = (category: string | string[]) => {
-    if (typeof category === 'string') return category;
-
-    return category.join(', ');
-  };
-
   return (
     <StyledShopElement onClick={() => moveByAddress(landAddress, shopName)}>
       <ShopLeftWrapper>
         <ShopMainInfo>
           <h2>{shopName}</h2>
-          <span>{parseCategory(category)}</span>
+          <span>{parseCategorySafely(category)}</span>
           <ShopAddress>{landAddress}</ShopAddress>
         </ShopMainInfo>
         <ShopSubInfo>
@@ -36,10 +32,10 @@ function ShopElement({ shopInfo }: { shopInfo: ShopAreaResponse }) {
       <Image
         width={100}
         height={100}
-        src={image[0]}
+        src={loadImageSafely(image)}
         alt="shop-image"
         placeholder="blur"
-        blurDataURL={image[0]}
+        blurDataURL={loadImageSafely(image)}
       />
     </StyledShopElement>
   );
