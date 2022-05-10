@@ -12,6 +12,7 @@ import { selectUserInfo } from 'features/users/userSlice';
 import { useState } from 'react';
 import { useAppSelector } from 'src/app/hook';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 
 const randomCategory = MoreFilterList[Math.floor(Math.random() * 6)];
 
@@ -97,6 +98,11 @@ const Container = styled.main`
   background-color: white;
 
   gap: 9rem;
+  padding-bottom: 9rem;
+
+  ${applyMediaQuery('mobile')} {
+    gap: 3.6rem;
+  }
 `;
 
 const Label = styled.h2`
@@ -108,12 +114,21 @@ const Label = styled.h2`
   & > em {
     color: ${({ theme }) => theme.colors.purpleText};
   }
+
+  ${applyMediaQuery('mobile')} {
+    font-size: 1.4rem;
+    line-height: 2rem;
+  }
 `;
 
 const LabelContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3.2rem;
+
+  ${applyMediaQuery('mobile')} {
+    gap: 1.6rem;
+  }
 `;
 
 const LabelFilterWrapper = styled.div`

@@ -1,5 +1,6 @@
 import ImageMap from 'components/ImageMap';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 
 function MapLandingPage() {
   return (
@@ -17,6 +18,10 @@ const StyledContainer = styled.main`
   display: flex;
   flex-direction: column;
   margin: 7.2rem 0 13.4rem 0;
+
+  ${applyMediaQuery('mobile')} {
+    margin: 1.4rem 0 13.4rem 0;
+  }
   & > svg {
     align-self: center;
   }
@@ -30,6 +35,11 @@ const Header = styled.h1`
   & > b {
     color: ${({ theme }) => theme.colors.purpleText};
   }
+
+  ${applyMediaQuery('mobile')} {
+    font-size: 1.4rem;
+    line-height: 2rem;
+  }
 `;
 
 const SubHeader = styled.p`
@@ -38,6 +48,11 @@ const SubHeader = styled.p`
   font-weight: 500;
   color: ${({ theme }) => theme.colors.black1};
   margin-bottom: 5.2rem;
+
+  ${applyMediaQuery('mobile')} {
+    font-size: 1rem;
+    line-height: 1.4rem;
+  }
 `;
 
 export default MapLandingPage;

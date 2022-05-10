@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 import { ShopThemeType } from 'types/shop';
 
@@ -49,6 +50,14 @@ const StyledRoot = styled.div`
     line-height: 4.3rem;
     color: ${theme.colors.black2};
   }
+  ${applyMediaQuery('mobile')} {
+    & > h4 {
+      font-size: 1.4rem;
+      line-height: 2rem;
+    }
+
+    gap: 1.6rem;
+  }
 `;
 
 const StyledElWrapper = styled.div<StyledThemeELProps>`
@@ -57,10 +66,9 @@ const StyledElWrapper = styled.div<StyledThemeELProps>`
   gap: 5.8rem;
   margin-top: ${({ isMain }) => (isMain ? '5.4rem' : 0)};
 
-  & > h4 {
-    font-weight: bold;
-    font-size: 3rem;
-    line-height: 4.3rem;
-    color: ${theme.colors.black2};
+  ${applyMediaQuery('mobile')} {
+    gap: 1.6rem;
+
+    margin-top: ${({ isMain }) => (isMain ? '1.3rem' : 0)};
   }
 `;

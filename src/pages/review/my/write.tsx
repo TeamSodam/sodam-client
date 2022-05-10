@@ -3,6 +3,7 @@ import WriteReviewBtn from 'components/common/WriteReviewBtn';
 import { useGetMyWriteReviewQuery } from 'features/reviews/reviewApi';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 
 function Write() {
@@ -42,6 +43,14 @@ const StyledContainer = styled.div`
     font-size: 3rem;
     line-height: 4.3rem;
     color: ${theme.colors.black2};
+  }
+
+  ${applyMediaQuery('mobile')} {
+    margin: 2.5rem 0;
+    & > h2 {
+      font-size: 1.4rem;
+      line-height: 2rem;
+    }
   }
 `;
 const StyledBtnWrapper = styled.div`

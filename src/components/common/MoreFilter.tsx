@@ -1,6 +1,7 @@
 import { MoreFilterList } from 'constants/dropdownOptionList';
 import { Dispatch, MouseEvent, SetStateAction, useState } from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 import { ShopCategoryType } from 'types/shop';
 
@@ -68,6 +69,13 @@ const StyledWrapper = styled.div`
     line-height: 2rem;
     color: ${theme.colors.gray1};
   }
+
+  ${applyMediaQuery('mobile')} {
+    & > span {
+      font-size: 0.9rem;
+      line-height: 1.3rem;
+    }
+  }
 `;
 
 const StyledUl = styled.ul`
@@ -92,4 +100,9 @@ const StyledLi = styled.li<StyledMFProps>`
   margin-left: 1.2rem;
   color: ${({ isActive }) => (isActive ? theme.colors.purpleText : theme.colors.gray1)};
   cursor: pointer;
+
+  ${applyMediaQuery('mobile')} {
+    font-size: 0.9rem;
+    line-height: 1.3rem;
+  }
 `;
