@@ -84,7 +84,7 @@ const StyledSidebar = styled.aside<StyledMapProps>`
   position: absolute;
   top: 0;
   left: 0;
-  width: ${(props) => (props.isOpen ? '48.5rem' : 0)};
+  width: ${(props) => (props.isOpen ? '40.4%' : 0)};
   height: 100%;
   z-index: 2;
 
@@ -108,10 +108,11 @@ const Option = styled.li<StyledMapProps>`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.6rem;
+  gap: 0.72%;
 
   width: 100%;
-  height: 7.65rem;
+  height: 9.2%;
+  overflow: hidden;
 
   ${(props) =>
     props.isActive
@@ -127,6 +128,10 @@ const Option = styled.li<StyledMapProps>`
 
   &:hover {
     cursor: pointer;
+  }
+
+  & > * {
+    transform: scale(0.7);
   }
 `;
 
@@ -165,7 +170,7 @@ const ToggleBtn = styled.button`
   transform: translate(100%, -50%);
 
   width: 4.1rem;
-  height: 7.8rem;
+  height: 9.92%;
 
   background-color: white;
   border-radius: 0 10px 10px 0;

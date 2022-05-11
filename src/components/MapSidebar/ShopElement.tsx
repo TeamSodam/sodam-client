@@ -1,9 +1,9 @@
 import useMap from 'hooks/useMap';
-import Image from 'next/image';
 import DelimiterIC from 'public/assets/ic_delimiter.svg';
 import loadImageSafely from 'src/utils/loadImageSafely';
 import parseCategorySafely from 'src/utils/parseCategorySafely';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { ShopAreaResponse } from 'types/shop';
 
 interface StyledShopElementProps {
@@ -24,34 +24,51 @@ function ShopElement({ shopInfo }: { shopInfo: ShopAreaResponse }) {
           <ShopAddress>{landAddress}</ShopAddress>
         </ShopMainInfo>
         <ShopSubInfo>
-          <WorkHour>{time}</WorkHour>
+          <WorkHour>{time || '시간 정보 없음'}</WorkHour>
           <DelimiterIC />
           <ReviewInfo>{`리뷰 ${reviewCount}개`}</ReviewInfo>
         </ShopSubInfo>
       </ShopLeftWrapper>
-      <Image
-        width={100}
-        height={100}
-        src={loadImageSafely(image)}
-        alt="shop-image"
-        placeholder="blur"
-        blurDataURL={loadImageSafely(image)}
-      />
+      <ShopImage src={loadImageSafely(image)} />
     </StyledShopElement>
   );
 }
 
+const ShopImage = styled.div<{ src: string }>`
+  width: 10rem;
+  ${applyMediaQuery('desktop')} {
+    width: 8rem;
+  }
+
+  position: relative;
+
+  &::after {
+    content: '';
+    width: 100%;
+    padding-top: 100%;
+    position: absolute;
+    top: 0;
+    background-image: ${(props) => `url(${props.src})`};
+    background-position: center;
+    background-size: cover;
+  }
+`;
+
 const StyledShopElement = styled.li<StyledShopElementProps>`
+  box-sizing: border-box;
   width: 100%;
-  height: 15.5rem;
+  min-height: calc(18.4% + 0.1rem);
 
   padding: 2.8rem 2.4rem;
+
+  ${applyMediaQuery('desktop')} {
+    padding: 1.4rem 1.2rem;
+  }
 
   background-color: ${(props) => props.isSelected && props.theme.colors.grayBg};
   border-bottom: 0.1rem solid ${({ theme }) => theme.colors.gray2};
 
-  display: grid;
-  grid-template-columns: 1fr 10rem;
+  display: flex;
   gap: 2rem;
 
   &:hover {
@@ -64,6 +81,7 @@ const ShopLeftWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  flex: 1;
 `;
 
 const ShopMainInfo = styled.div`
@@ -84,6 +102,18 @@ const ShopMainInfo = styled.div`
     line-height: 1.7rem;
     color: ${({ theme }) => theme.colors.gray1};
   }
+
+  ${applyMediaQuery('desktop')} {
+    & > h2 {
+      font-size: 1.2rem;
+      line-height: 1.7rem;
+    }
+
+    & > span {
+      font-size: 0.8rem;
+      line-height: 1rem;
+    }
+  }
 `;
 
 const ShopAddress = styled.p`
@@ -92,6 +122,11 @@ const ShopAddress = styled.p`
   color: ${({ theme }) => theme.colors.black1};
   font-weight: 400;
   margin-top: 0.8rem;
+
+  ${applyMediaQuery('desktop')} {
+    font-size: 0.8rem;
+    line-height: 1rem;
+  }
 `;
 
 const ShopSubInfo = styled.div`
@@ -105,6 +140,11 @@ const WorkHour = styled.span`
   line-height: 1.7rem;
   font-weight: 500;
   color: ${({ theme }) => theme.colors.gray1};
+
+  ${applyMediaQuery('desktop')} {
+    font-size: 0.8rem;
+    line-height: 1rem;
+  }
 `;
 
 const ReviewInfo = styled(WorkHour)`

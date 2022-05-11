@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import LeftArr from 'public/assets/ic_leftArr.svg';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { ShopAreaSortType } from 'types/shop';
 
 const parseAreaId = (areaId: string | string[] | undefined) => {
@@ -92,6 +93,10 @@ const StyledContainer = styled.main`
   display: flex;
   flex-direction: column;
   margin-top: 7.2rem;
+
+  ${applyMediaQuery('desktop')} {
+    margin-top: 5.2rem;
+  }
 `;
 
 const StyledGoBack = styled.button`
@@ -125,6 +130,10 @@ const MapContainer = styled.div`
 
   margin: 3.5rem 0 13.2rem 0;
 
+  ${applyMediaQuery('desktop')} {
+    height: 55rem;
+    margin: 3.5rem 0 10rem 0;
+  }
   position: relative;
 `;
 
