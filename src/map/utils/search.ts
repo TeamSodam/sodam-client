@@ -4,11 +4,11 @@ import { KakaoLatLng, KakaoMap, StatusText, xy } from 'types/map';
 export const getLocationByAddress = async (address: string): Promise<KakaoLatLng | null> => {
   const geocoder = new window.kakao.maps.services.Geocoder();
 
-  return await new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     geocoder.addressSearch(address, function (result: xy[], status: StatusText) {
       if (status === window.kakao.maps.services.Status.OK) {
         resolve(new window.kakao.maps.LatLng(result[0].y, result[0].x));
-      } else reject(null);
+      } else reject(Error(`${address} 에 대한 검색에 실패했어요.`));
     });
   });
 };

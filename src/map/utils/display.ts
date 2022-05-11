@@ -16,60 +16,63 @@ export const displayMarker = async (
 ) => {
   const { kakao } = window;
   const { landAddress, shopName } = shopInfo;
-  const markerPosition = await getLocationByAddress(landAddress);
-  if (!markerPosition) return;
+  try {
+    const markerPosition = await getLocationByAddress(landAddress);
 
-  const MARKER_SRC = '/assets/ic_basic_marker.svg';
-  const ACTIVE_MARKER_SRC = '/assets/ic_active_marker.svg';
-  const imageSize = new kakao.maps.Size(32, 38);
-  const imageOption = { offset: new kakao.maps.Point(18, 36) };
+    const MARKER_SRC = '/assets/ic_basic_marker.svg';
+    const ACTIVE_MARKER_SRC = '/assets/ic_active_marker.svg';
+    const imageSize = new kakao.maps.Size(32, 38);
+    const imageOption = { offset: new kakao.maps.Point(18, 36) };
 
-  const markerImage = new kakao.maps.MarkerImage(MARKER_SRC, imageSize, imageOption);
-  const activeMarkerImage = new kakao.maps.MarkerImage(ACTIVE_MARKER_SRC, imageSize, imageOption);
-  const marker = new kakao.maps.Marker({
-    position: markerPosition,
-    image: markerImage,
-    clickable: true,
-    title: shopName,
-  });
+    const markerImage = new kakao.maps.MarkerImage(MARKER_SRC, imageSize, imageOption);
+    const activeMarkerImage = new kakao.maps.MarkerImage(ACTIVE_MARKER_SRC, imageSize, imageOption);
+    const marker = new kakao.maps.Marker({
+      position: markerPosition,
+      image: markerImage,
+      clickable: true,
+      title: shopName,
+    });
 
-  const customOverlay = new kakao.maps.CustomOverlay({
-    map,
-    position: marker.getPosition(),
-  });
+    const customOverlay = new kakao.maps.CustomOverlay({
+      map,
+      position: marker.getPosition(),
+    });
 
-  const currentTooltipFactory = isStaticMarker ? getMiniToolTipTemplate : getToolTipTemplate;
+    const currentTooltipFactory = isStaticMarker ? getMiniToolTipTemplate : getToolTipTemplate;
 
-  customOverlay.setContent(currentTooltipFactory(shopInfo));
-  if (!isStaticMarker) {
-    customOverlay.setMap(null);
-    let isClicked = false;
-    kakao.maps.event.addListener(marker, 'click', () => {
-      const nextMarkerState = {
+    customOverlay.setContent(currentTooltipFactory(shopInfo));
+    if (!isStaticMarker) {
+      customOverlay.setMap(null);
+      let isClicked = false;
+      kakao.maps.event.addListener(marker, 'click', () => {
+        const nextMarkerState = {
+          marker,
+          name: shopName,
+          isClicked: !isClicked,
+        };
+        if (isClicked) {
+          marker.setImage(markerImage);
+          customOverlay.setMap(null);
+        } else {
+          marker.setImage(activeMarkerImage);
+          customOverlay.setMap(map);
+        }
+
+        changeClickState(nextMarkerState);
+        isClicked = !isClicked;
+      });
+
+      addMarkerToList({
         marker,
         name: shopName,
-        isClicked: !isClicked,
-      };
-      if (isClicked) {
-        marker.setImage(markerImage);
-        customOverlay.setMap(null);
-      } else {
-        marker.setImage(activeMarkerImage);
-        customOverlay.setMap(map);
-      }
+        isClicked,
+      });
+    } else {
+      map.setLevel(1);
+    }
 
-      changeClickState(nextMarkerState);
-      isClicked = !isClicked;
-    });
-
-    addMarkerToList({
-      marker,
-      name: shopName,
-      isClicked,
-    });
-  } else {
-    map.setLevel(1);
+    marker.setMap(map);
+  } catch (error) {
+    console.error('해당 주소를 찾을 수 없어요.');
   }
-
-  marker.setMap(map);
 };

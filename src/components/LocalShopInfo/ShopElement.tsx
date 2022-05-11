@@ -35,22 +35,19 @@ function ShopElement({ shopInfo }: { shopInfo: ShopAreaResponse }) {
 }
 
 const ShopImage = styled.div<{ src: string }>`
+  background-image: ${(props) => `url(${props.src})`};
+  background-position: center;
+  background-size: cover;
   width: 10rem;
+  height: 10rem;
   ${applyMediaQuery('desktop')} {
     width: 8rem;
+    height: 8rem;
   }
 
-  position: relative;
-
-  &::after {
-    content: '';
-    width: 100%;
-    padding-top: 100%;
-    position: absolute;
-    top: 0;
-    background-image: ${(props) => `url(${props.src})`};
-    background-position: center;
-    background-size: cover;
+  ${applyMediaQuery('mobile')} {
+    width: 7.6rem;
+    height: 7.6rem;
   }
 `;
 
@@ -63,6 +60,11 @@ const StyledShopElement = styled.li<StyledShopElementProps>`
 
   ${applyMediaQuery('desktop')} {
     padding: 1.4rem 1.2rem;
+  }
+
+  ${applyMediaQuery('mobile')} {
+    max-height: 11.6rem;
+    padding: 2rem;
   }
 
   background-color: ${(props) => props.isSelected && props.theme.colors.grayBg};
@@ -127,6 +129,10 @@ const ShopAddress = styled.p`
     font-size: 0.8rem;
     line-height: 1rem;
   }
+  ${applyMediaQuery('mobile')} {
+    font-size: 0.8rem;
+    line-height: 1rem;
+  }
 `;
 
 const ShopSubInfo = styled.div`
@@ -142,6 +148,10 @@ const WorkHour = styled.span`
   color: ${({ theme }) => theme.colors.gray1};
 
   ${applyMediaQuery('desktop')} {
+    font-size: 0.8rem;
+    line-height: 1rem;
+  }
+  ${applyMediaQuery('mobile')} {
     font-size: 0.8rem;
     line-height: 1rem;
   }
