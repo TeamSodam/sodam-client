@@ -70,7 +70,7 @@ function MapWithAreaId(props: { areaId: number }) {
       </StyledGoBack>
       <MapContainer ref={mapRef}>
         {currentList && (
-          <Screen tablet desktop wide>
+          <Screen desktop wide>
             <LocalShopInfo
               shopList={currentList}
               currentOption={currentOption}
@@ -80,7 +80,7 @@ function MapWithAreaId(props: { areaId: number }) {
         )}
       </MapContainer>
       {currentList && (
-        <Screen mobile>
+        <Screen mobile tablet>
           <LocalShopInfo
             shopList={currentList}
             currentOption={currentOption}
@@ -113,12 +113,6 @@ const StyledContainer = styled.main`
 
   ${applyMediaQuery('mobile')} {
     margin-top: 2.1rem;
-
-    ${applyMediaQuery('mobile')} {
-      & > div > div:nth-child(4) > div > div:nth-child(6) > div > img {
-        transform: scale(0.7);
-      }
-    }
   }
 `;
 
@@ -171,9 +165,18 @@ const MapContainer = styled.div`
     margin: 3.5rem 0 10rem 0;
   }
 
+  ${applyMediaQuery('tablet')} {
+    height: 36rem;
+    margin: 1.1rem 0 0 0;
+  }
+
   ${applyMediaQuery('mobile')} {
     height: 29rem;
     margin: 1.1rem 0 0 0;
+
+    & img[title] {
+      transform: scale(0.7);
+    }
   }
 
   position: relative;

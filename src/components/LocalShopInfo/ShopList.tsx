@@ -27,7 +27,7 @@ const StyledShopList = styled.ul`
     display: none;
   }
 
-  ${applyMediaQuery('mobile')} {
+  ${applyMediaQuery('mobile', 'tablet')} {
     border: 0.1rem solid ${({ theme }) => theme.colors.gray2};
     margin-bottom: 1rem;
   }

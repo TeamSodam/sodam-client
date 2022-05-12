@@ -16,20 +16,22 @@ interface LocalShopInfoProps {
 
 function LocalShopInfo(props: LocalShopInfoProps) {
   const { currentOption, toggleOption, shopList } = props;
-  const { isMobile } = useMedia();
+  const { isMobile, isTablet } = useMedia();
   const [isOpen, setIsOpen] = useState(true);
   const toggle = () => setIsOpen((prevState) => !prevState);
-  const StyledShopInfoContainer = isMobile ? StyledSection : StyledSidebar;
+
+  const isSmallDevice = isMobile || isTablet;
+  const StyledShopInfoContainer = isSmallDevice ? StyledSection : StyledSidebar;
 
   return (
     <StyledShopInfoContainer isOpen={isOpen}>
-      {((!isMobile && isOpen) || isMobile) && (
+      {((!isSmallDevice && isOpen) || isSmallDevice) && (
         <>
           <OptionList currentOption={currentOption} toggleOption={toggleOption} />
           <ShopList shopList={shopList} />
         </>
       )}
-      {!isMobile && (
+      {!isSmallDevice && (
         <ToggleBtn onClick={toggle}>
           <ToggleArrowIcon isOpen={isOpen} />
         </ToggleBtn>

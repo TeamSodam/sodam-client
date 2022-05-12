@@ -54,7 +54,7 @@ const StyledOptionList = styled.ul`
   height: 100%;
   border-right: 0.1rem solid ${({ theme }) => theme.colors.gray2};
 
-  ${applyMediaQuery('mobile')} {
+  ${applyMediaQuery('mobile', 'tablet')} {
     flex-direction: row;
     border-right: unset;
   }
@@ -93,7 +93,7 @@ const Option = styled.li<{ isActive: boolean }>`
     }
   }
 
-  ${applyMediaQuery('mobile')} {
+  ${applyMediaQuery('mobile', 'tablet')} {
     width: 9rem;
     min-height: 2.4rem;
     max-height: 3.5rem;
@@ -112,10 +112,6 @@ const Option = styled.li<{ isActive: boolean }>`
             border-bottom: unset;
           `};
 
-    /* & > svg,
-    & > svg * {
-      transform: scale(0.65) translate(-5%, 10%);
-    } */
     & > * {
       transform: scale(0.65);
     }
