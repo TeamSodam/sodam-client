@@ -11,5 +11,5 @@ export const deviceQuery: DeviceQuery = {
   wide: '(min-width: 1920px)',
 };
 
-export const applyMediaQuery = (device: Device): string =>
-  `@media screen and ${deviceQuery[device]}`;
+export const applyMediaQuery = (...deviceList: Device[]) =>
+  '@media screen and ' + deviceList.map((device) => deviceQuery[device]).join(',');
