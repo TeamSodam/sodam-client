@@ -109,6 +109,7 @@ const Option = styled.li<{ isActive: boolean }>`
           `
         : css`
             border: 0.1rem solid ${theme.colors.gray2};
+            border-bottom: unset;
           `};
 
     /* & > svg,

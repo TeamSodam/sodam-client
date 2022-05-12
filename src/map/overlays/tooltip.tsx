@@ -1,5 +1,6 @@
 import parseCategorySafely from 'src/utils/parseCategorySafely';
 import { css } from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { Shop } from 'types/shop';
 
 export const tooltipStyle = css`
@@ -68,6 +69,10 @@ export const tooltipStyle = css`
     &:hover {
       cursor: pointer;
       transform: scale(1.05);
+    }
+
+    ${applyMediaQuery('mobile')} {
+      transform: scale(0.65) translateY(50%);
     }
   }
 `;

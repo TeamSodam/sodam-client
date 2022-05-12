@@ -24,7 +24,7 @@ export const searchAndMoveByAddress = (
     if (status === window.kakao.maps.services.Status.OK) {
       const coords = new window.kakao.maps.LatLng(result[0].y, result[0].x);
       map.setCenter(coords);
-      if (!isStaticMarker) map.panBy(-200, 0);
+      if (!isStaticMarker) map.panBy(-65, 0);
     }
   });
 };

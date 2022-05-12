@@ -1,7 +1,7 @@
+import useMedia from 'hooks/useMedia';
 import LeftArrIC from 'public/assets/ic_leftArr.svg';
 import { useState } from 'react';
 import styled, { css } from 'styled-components';
-import Screen from 'styles/Screen';
 import { ShopAreaResponse } from 'types/shop';
 
 import OptionList from './OptionList';
@@ -16,31 +16,25 @@ interface LocalShopInfoProps {
 
 function LocalShopInfo(props: LocalShopInfoProps) {
   const { currentOption, toggleOption, shopList } = props;
+  const { isMobile } = useMedia();
   const [isOpen, setIsOpen] = useState(true);
   const toggle = () => setIsOpen((prevState) => !prevState);
+  const StyledShopInfoContainer = isMobile ? StyledSection : StyledSidebar;
 
   return (
-    <>
-      <Screen mobile>
-        <StyledSection>
+    <StyledShopInfoContainer isOpen={isOpen}>
+      {((!isMobile && isOpen) || isMobile) && (
+        <>
           <OptionList currentOption={currentOption} toggleOption={toggleOption} />
           <ShopList shopList={shopList} />
-        </StyledSection>
-      </Screen>
-      <Screen desktop wide tablet>
-        <StyledSidebar isOpen={isOpen}>
-          {isOpen && (
-            <>
-              <OptionList currentOption={currentOption} toggleOption={toggleOption} />
-              <ShopList shopList={shopList} />
-            </>
-          )}
-          <ToggleBtn onClick={toggle}>
-            <ToggleArrowIcon isOpen={isOpen} />
-          </ToggleBtn>
-        </StyledSidebar>
-      </Screen>
-    </>
+        </>
+      )}
+      {!isMobile && (
+        <ToggleBtn onClick={toggle}>
+          <ToggleArrowIcon isOpen={isOpen} />
+        </ToggleBtn>
+      )}
+    </StyledShopInfoContainer>
   );
 }
 

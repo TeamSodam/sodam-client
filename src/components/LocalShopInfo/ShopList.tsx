@@ -49,6 +49,12 @@ const EmptyShopList = styled.div`
     opacity: 0.5;
     text-align: center;
   }
+
+  ${applyMediaQuery('mobile')} {
+    border: 0.1rem solid ${({ theme }) => theme.colors.gray2};
+    padding: 30% 0;
+    margin-bottom: 1rem;
+  }
 `;
 
 export default ShopList;

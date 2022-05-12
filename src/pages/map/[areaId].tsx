@@ -113,6 +113,12 @@ const StyledContainer = styled.main`
 
   ${applyMediaQuery('mobile')} {
     margin-top: 2.1rem;
+
+    ${applyMediaQuery('mobile')} {
+      & > div > div:nth-child(4) > div > div:nth-child(6) > div > img {
+        transform: scale(0.7);
+      }
+    }
   }
 `;
 
@@ -124,6 +130,7 @@ const StyledGoBack = styled.button`
 
   background-color: transparent;
   border: none;
+  padding: 0;
   & > span {
     font-weight: 700;
     font-size: 1.4rem;
