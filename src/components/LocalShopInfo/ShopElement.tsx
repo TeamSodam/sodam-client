@@ -16,7 +16,12 @@ function ShopElement({ shopInfo }: { shopInfo: ShopAreaResponse }) {
   const { shopName, category, image, landAddress, time, reviewCount } = shopInfo;
 
   return (
-    <StyledShopElement onClick={() => moveByAddress(landAddress, shopName)}>
+    <StyledShopElement
+      onClick={() => {
+        moveByAddress(landAddress, shopName);
+        scrollTo(0, 0);
+      }}
+    >
       <ShopLeftWrapper>
         <ShopMainInfo>
           <h2>{shopName}</h2>
