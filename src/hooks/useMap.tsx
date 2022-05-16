@@ -45,7 +45,7 @@ function useMap<T>(
   const moveByAddress = useCallback(
     (address: string, name: string) => {
       if (map) {
-        searchAndMoveByAddress(map, address, isStaticMarker);
+        searchAndMoveByAddress(map, address, isStaticMarker, name);
         const targetMarker = currentMarkerList.find((marker) => marker.name === name);
         if (targetMarker) {
           const clickedMarkers = currentMarkerList.filter((marker) => marker.isClicked === true);

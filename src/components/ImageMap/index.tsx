@@ -2,6 +2,7 @@ import SEOUL_ENUM from 'constants/SeoulAreaEnum';
 import { useRouter } from 'next/router';
 import { MouseEvent } from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 
 function ImageMap() {
   const router = useRouter();
@@ -310,6 +311,10 @@ const StyledImageMap = styled.svg`
   }
 
   flex: 1;
+
+  ${applyMediaQuery('mobile')} {
+    width: 100%;
+  }
 `;
 
 export default ImageMap;

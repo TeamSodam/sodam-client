@@ -17,7 +17,7 @@ export const displayMarker = async (
   const { kakao } = window;
   const { landAddress, shopName } = shopInfo;
   try {
-    const markerPosition = await getLocationByAddress(landAddress);
+    const markerPosition = await getLocationByAddress(landAddress, shopName);
 
     const MARKER_SRC = '/assets/ic_basic_marker.svg';
     const ACTIVE_MARKER_SRC = '/assets/ic_active_marker.svg';
@@ -73,6 +73,6 @@ export const displayMarker = async (
 
     marker.setMap(map);
   } catch (error) {
-    console.error('해당 주소를 찾을 수 없어요.');
+    console.error(`${shopName}의 주소를 나타내는데 실패했어요. ${error}`);
   }
 };
