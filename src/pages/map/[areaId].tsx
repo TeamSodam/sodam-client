@@ -45,7 +45,10 @@ function MapWithAreaId(props: { areaId: number }) {
 
   const initialLocation = currentList && currentList.length > 0 && currentList[0].landAddress;
 
-  const { displayMarkerByAddress } = useMap(mapRef, initialLocation || SEOUL_ENUM[AREA_ID]);
+  const { displayMarkerByAddress, moveByAddress } = useMap(
+    mapRef,
+    initialLocation || SEOUL_ENUM[AREA_ID],
+  );
   const onClickGoBack = () => {
     dispatch(initMap());
     router.push('/map');
@@ -75,6 +78,7 @@ function MapWithAreaId(props: { areaId: number }) {
               shopList={currentList}
               currentOption={currentOption}
               toggleOption={toggleOption}
+              moveByAddress={moveByAddress}
             />
           </Screen>
         )}
@@ -85,6 +89,7 @@ function MapWithAreaId(props: { areaId: number }) {
             shopList={currentList}
             currentOption={currentOption}
             toggleOption={toggleOption}
+            moveByAddress={moveByAddress}
           />
         </Screen>
       )}

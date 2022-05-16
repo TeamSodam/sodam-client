@@ -7,16 +7,18 @@ import ShopElement from './ShopElement';
 function ShopList({
   shopList,
   isSaveOption,
+  moveByAddress,
 }: {
   shopList: ShopAreaResponse[];
   isSaveOption: boolean;
+  moveByAddress: (landAddress: string, shopName: string) => void;
 }) {
   const emptyText = `선택 지역에 해당하는 ${isSaveOption ? '저장한 ' : ''}소품샵이 없어요`;
 
   return shopList.length ? (
     <StyledShopList>
       {shopList.map((shop) => (
-        <ShopElement shopInfo={shop} key={shop.shopId} />
+        <ShopElement shopInfo={shop} key={shop.shopId} moveByAddress={moveByAddress} />
       ))}
     </StyledShopList>
   ) : (

@@ -1,4 +1,3 @@
-import useMap from 'hooks/useMap';
 import DelimiterIC from 'public/assets/ic_delimiter.svg';
 import loadImageSafely from 'src/utils/loadImageSafely';
 import parseCategorySafely from 'src/utils/parseCategorySafely';
@@ -10,9 +9,13 @@ interface StyledShopElementProps {
   isSelected?: boolean;
 }
 
-function ShopElement({ shopInfo }: { shopInfo: ShopAreaResponse }) {
-  const { moveByAddress } = useMap();
-
+function ShopElement({
+  shopInfo,
+  moveByAddress,
+}: {
+  shopInfo: ShopAreaResponse;
+  moveByAddress: (landAddress: string, shopName: string) => void;
+}) {
   const { shopName, category, image, landAddress, time, reviewCount } = shopInfo;
 
   return (

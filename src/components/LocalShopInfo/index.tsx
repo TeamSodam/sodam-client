@@ -10,12 +10,13 @@ import ShopList from './ShopList';
 export type OptionLabel = '인기 순' | '내가 저장한';
 interface LocalShopInfoProps {
   currentOption: OptionLabel;
-  toggleOption: (option: OptionLabel) => void;
   shopList: ShopAreaResponse[];
+  toggleOption: (option: OptionLabel) => void;
+  moveByAddress: (landAddress: string, shopName: string) => void;
 }
 
 function LocalShopInfo(props: LocalShopInfoProps) {
-  const { currentOption, toggleOption, shopList } = props;
+  const { currentOption, shopList, toggleOption, moveByAddress } = props;
   const { isMobile, isTablet } = useMedia();
   const [isOpen, setIsOpen] = useState(true);
   const toggle = () => setIsOpen((prevState) => !prevState);
@@ -28,7 +29,11 @@ function LocalShopInfo(props: LocalShopInfoProps) {
       {((!isSmallDevice && isOpen) || isSmallDevice) && (
         <>
           <OptionList currentOption={currentOption} toggleOption={toggleOption} />
-          <ShopList shopList={shopList} isSaveOption={currentOption === '내가 저장한'} />
+          <ShopList
+            moveByAddress={moveByAddress}
+            shopList={shopList}
+            isSaveOption={currentOption === '내가 저장한'}
+          />
         </>
       )}
       {!isSmallDevice && (
