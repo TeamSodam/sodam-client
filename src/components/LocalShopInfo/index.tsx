@@ -9,7 +9,7 @@ import ShopList from './ShopList';
 
 export type OptionLabel = '인기 순' | '내가 저장한';
 interface LocalShopInfoProps {
-  currentOption: string;
+  currentOption: OptionLabel;
   toggleOption: (option: OptionLabel) => void;
   shopList: ShopAreaResponse[];
 }
@@ -28,7 +28,7 @@ function LocalShopInfo(props: LocalShopInfoProps) {
       {((!isSmallDevice && isOpen) || isSmallDevice) && (
         <>
           <OptionList currentOption={currentOption} toggleOption={toggleOption} />
-          <ShopList shopList={shopList} />
+          <ShopList shopList={shopList} isSaveOption={currentOption === '내가 저장한'} />
         </>
       )}
       {!isSmallDevice && (

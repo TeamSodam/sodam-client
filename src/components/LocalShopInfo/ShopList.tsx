@@ -4,7 +4,15 @@ import { ShopAreaResponse } from 'types/shop';
 
 import ShopElement from './ShopElement';
 
-function ShopList({ shopList }: { shopList: ShopAreaResponse[] }) {
+function ShopList({
+  shopList,
+  isSaveOption,
+}: {
+  shopList: ShopAreaResponse[];
+  isSaveOption: boolean;
+}) {
+  const emptyText = `선택 지역에 해당하는 ${isSaveOption ? '저장한 ' : ''}소품샵이 없어요`;
+
   return shopList.length ? (
     <StyledShopList>
       {shopList.map((shop) => (
@@ -13,7 +21,7 @@ function ShopList({ shopList }: { shopList: ShopAreaResponse[] }) {
     </StyledShopList>
   ) : (
     <EmptyShopList>
-      <span>선택 지역에 해당하는 저장한 소품샵이 없어요</span>
+      <span>{emptyText}</span>
     </EmptyShopList>
   );
 }
