@@ -6,5 +6,6 @@ declare module 'styled-components' {
       [key: string]: string;
     };
     clientWidth: number;
+    availableWidth: number;
   }
 }

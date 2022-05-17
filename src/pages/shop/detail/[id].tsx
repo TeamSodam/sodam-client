@@ -223,6 +223,8 @@ const ColoredBackground = styled.div`
   height: 59rem;
   top: 0;
   background-color: ${({ theme }) => theme.colors.purpleBg};
+  transform: ${({ theme: { clientWidth, availableWidth } }) =>
+    `scaleX(${clientWidth / availableWidth})`};
 `;
 
 const Label = styled.h2`
