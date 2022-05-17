@@ -11,6 +11,7 @@ import Time from 'public/assets/ic_time.svg';
 import Website from 'public/assets/ic_website.svg';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { Shop } from 'types/shop';
 
 import IconContent, { IconContentProps } from './IconContent';
@@ -126,6 +127,10 @@ const Container = styled.div`
   display: flex;
   height: 21.9rem;
   gap: 10.7rem;
+
+  ${applyMediaQuery('desktop')} {
+    gap: 4.5rem;
+  }
 `;
 
 const LeftWrapper = styled.div`
@@ -166,6 +171,19 @@ const UpWrapper = styled.div`
     line-height: 2.6rem;
     color: ${({ theme }) => theme.colors.gray1};
   }
+
+  ${applyMediaQuery('desktop')} {
+    & > h1 {
+      font-size: 2.4rem;
+      line-height: 3.2rem;
+      margin-top: unset;
+    }
+
+    & > p {
+      font-size: 1.2rem;
+      line-height: 2rem;
+    }
+  }
 `;
 
 const DownWrapper = styled.div`
@@ -181,6 +199,10 @@ const RightWrapper = styled.div`
   grid-template-rows: repeat(3, 1fr);
   grid-template-columns: repeat(2, 1fr);
   gap: 4rem;
+
+  ${applyMediaQuery('desktop')} {
+    gap: 2rem 1rem;
+  }
 `;
 
 const ThemeList = styled.ul`
@@ -205,6 +227,11 @@ const Theme = styled.li`
   &:before {
     content: '#';
   }
+
+  ${applyMediaQuery('desktop')} {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
 `;
 
 const IconWrapper = styled.div`
@@ -213,6 +240,10 @@ const IconWrapper = styled.div`
 
   & svg:hover {
     cursor: pointer;
+  }
+
+  ${applyMediaQuery('desktop')} {
+    transform: scale(0.75);
   }
 `;
 

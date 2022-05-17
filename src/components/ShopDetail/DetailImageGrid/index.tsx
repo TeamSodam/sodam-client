@@ -1,6 +1,7 @@
 import ImageDiv from 'components/common/ImageDiv';
 import shortid from 'shortid';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 
 function DetailImageGrid({ imageList }: { imageList: string[] }) {
   return (
@@ -23,6 +24,10 @@ function DetailImageGrid({ imageList }: { imageList: string[] }) {
 const Container = styled.div`
   width: 100%;
   height: 59rem;
+
+  ${applyMediaQuery('desktop')} {
+    height: 45rem;
+  }
 
   display: grid;
   grid-template-columns: 3fr 1fr;

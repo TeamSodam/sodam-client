@@ -1,5 +1,6 @@
 import shortid from 'shortid';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 
 export interface IconContentProps {
   mainIcon: React.FC<React.SVGProps<SVGSVGElement>>;
@@ -60,6 +61,9 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   gap: 2.4rem;
+  ${applyMediaQuery('desktop')} {
+    gap: 1.8rem;
+  }
 `;
 
 const IconWrapper = styled.div`
@@ -75,6 +79,17 @@ const IconWrapper = styled.div`
     line-height: 2rem;
     color: ${({ theme }) => theme.colors.purpleText};
   }
+  ${applyMediaQuery('desktop')} {
+    gap: 1.2rem;
+    & > span {
+      font-size: 1.3rem;
+      line-height: 1.5rem;
+    }
+
+    & > svg {
+      transform: scale(0.75);
+    }
+  }
 `;
 
 const ContentWrapper = styled.div<{ isCenter: boolean }>`
@@ -87,6 +102,13 @@ const ContentWrapper = styled.div<{ isCenter: boolean }>`
   font-weight: 500;
   font-size: 1.8rem;
   line-height: 2rem;
+
+  ${applyMediaQuery('desktop')} {
+    font-size: 1.3rem;
+    line-height: 1.5rem;
+
+    gap: unset;
+  }
 
   color: ${({ theme }) => theme.colors.black1};
 
@@ -105,6 +127,10 @@ const FillableIcon = styled.button<{ isFilled: boolean }>`
   border: none;
   & circle {
     fill: ${(props) => props.isFilled && props.theme.colors.purpleMain};
+  }
+
+  ${applyMediaQuery('desktop')} {
+    transform: scale(0.75);
   }
 `;
 

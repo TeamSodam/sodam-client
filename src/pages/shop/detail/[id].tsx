@@ -15,6 +15,7 @@ import { NextParsedUrlQuery } from 'next/dist/server/request-meta';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { ReviewByShopIdData, ReviewSortType } from 'types/review';
 
 const parseShopId = (shopID: string | string[] | undefined) => {
@@ -198,7 +199,7 @@ const StyledContainer = styled.main`
 const ImageGridWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 7.2rem 0 5.6rem 0;
+  padding: 6% 0 4.6% 0;
   z-index: 2;
   gap: 5.6rem;
 `;
@@ -221,6 +222,9 @@ const ColoredBackground = styled.div`
   position: absolute;
   width: 100%;
   height: 59rem;
+  ${applyMediaQuery('desktop')} {
+    height: 45rem;
+  }
   top: 0;
   background-color: ${({ theme }) => theme.colors.purpleBg};
   transform: ${({ theme: { clientWidth, availableWidth } }) =>
