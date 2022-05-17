@@ -1,3 +1,5 @@
+import { ShopThemeType } from './shop';
+
 export interface User {
   name: string;
   thumbnail: string;
@@ -19,3 +21,10 @@ export type inputIndexType =
   | 'emailConfirm'
   | 'password'
   | 'passwordConfirm';
+
+export type UserInfo = Pick<UserSignupRequest, 'name' | 'nickname' | 'email'>;
+export type UserTheme = ShopThemeType[];
+export interface UserImage {
+  image: string;
+}
+export type UserInfoAll = UserInfo & UserImage & UserTheme;
