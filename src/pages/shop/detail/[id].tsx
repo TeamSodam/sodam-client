@@ -12,7 +12,6 @@ import { reviewApi, useGetReviewByShopIdQuery } from 'features/reviews/reviewApi
 import { useGetShopByShopIdQuery, useGetShopBySubwayQuery } from 'features/shops/shopApi';
 import useMap from 'hooks/useMap';
 import { NextParsedUrlQuery } from 'next/dist/server/request-meta';
-import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
@@ -32,7 +31,6 @@ function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQu
   const SORT_TYPE = 'like';
 
   const mapRef = useRef<HTMLDivElement>(null);
-  const router = useRouter();
 
   const [currentPage, setCurrentPage] = useState(1);
   const { data: shopInfo } = useGetShopByShopIdQuery(SHOP_ID);
@@ -140,18 +138,16 @@ function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQu
             <DetailInfo shopInfo={shopInfo} />
           </>
         )}
-        <MapContainer ref={mapRef}>{showDetailShopAddress()}</MapContainer>
       </ImageGridWrapper>
       <Wrapper>
+        <MapContainer ref={mapRef}>{showDetailShopAddress()}</MapContainer>
         <LabelContentWrapper>
           <LabelWithOptions>
             <LabelWrapper>
               <Label>소품샵 리뷰</Label>
               {shopInfo && (
                 <WriteReviewBtn
-                  navigate={() => {
-                    router.push(`/review/write?shopId=${SHOP_ID}&shopName=${shopInfo.shopName}`);
-                  }}
+                  href={`/review/write?shopId=${SHOP_ID}&shopName=${shopInfo.shopName}`}
                 />
               )}
             </LabelWrapper>
@@ -193,13 +189,17 @@ const StyledContainer = styled.main`
   position: relative;
   gap: 8rem;
 
+  ${applyMediaQuery('desktop')} {
+    gap: 4rem;
+  }
+
   padding-bottom: 8rem;
 `;
 
 const ImageGridWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 6% 0 4.6% 0;
+  padding-top: 6%;
   z-index: 2;
   gap: 5.6rem;
 `;
@@ -240,12 +240,21 @@ const Label = styled.h2`
   & > em {
     color: ${({ theme }) => theme.colors.purpleText};
   }
+
+  ${applyMediaQuery('desktop')} {
+    font-size: 2.4rem;
+    line-height: 3.2rem;
+  }
 `;
 
 const LabelContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5.6rem;
+
+  ${applyMediaQuery('desktop')} {
+    gap: 4rem;
+  }
 `;
 
 const ReviewGrid = styled.div`

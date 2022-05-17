@@ -1,25 +1,29 @@
+import Link from 'next/link';
 import writeIC from 'public/assets/ic_writeReview.svg';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 
 interface StyledWRBProps {
-  navigate: () => void;
+  href: string;
 }
-function WriteReviewBtn(props: StyledWRBProps) {
-  const { navigate } = props;
+function WriteReviewLink(props: StyledWRBProps) {
+  const { href } = props;
 
   return (
-    <StyledWriteBtn onClick={navigate}>
-      <span>리뷰 작성하기</span>
-      <WriteIcon />
-    </StyledWriteBtn>
+    <Link href={href} passHref>
+      <StyledWriteLink>
+        <span>리뷰 작성하기</span>
+        <WriteIcon />
+      </StyledWriteLink>
+    </Link>
   );
 }
 
-export default WriteReviewBtn;
+export default WriteReviewLink;
 
-const StyledWriteBtn = styled.button`
+const StyledWriteLink = styled.a`
+  text-decoration: none;
   display: flex;
   justify-content: center;
   align-items: center;
