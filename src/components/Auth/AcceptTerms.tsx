@@ -35,12 +35,11 @@ function AcceptTerms() {
   };
 
   useEffect(() => {
-    if (isChecked.terms && isChecked.privacy && isChecked.event) {
-      setIsChecked({ ...isChecked, allCheck: true });
-    } else {
-      setIsChecked({ ...isChecked, allCheck: false });
-    }
-  }, [isChecked.terms, isChecked.privacy, isChecked.event]);
+    const isAllChecked = isChecked.terms && isChecked.privacy && isChecked.event;
+
+    if (isChecked.allCheck !== isAllChecked)
+      setIsChecked((prevIsChecked) => ({ ...prevIsChecked, allCheck: isAllChecked }));
+  }, [isChecked]);
 
   return (
     <StyledWrapper>

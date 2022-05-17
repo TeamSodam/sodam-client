@@ -6,14 +6,14 @@ function useInput(
   handleOnChange: (type: keyof UserSignupRequest, value: string) => void,
 ) {
   const [value, setValue] = useState('');
-  const [error, setError] = useState(true);
+  const [isError, setIsError] = useState(true);
   interface RegMapperType {
     [key: string]: RegExp;
   }
   const RegMapper: RegMapperType = {
     name: /^[가-힣]{2,7}$/,
     nickname: /^[가-힣a-z0-9]{2,20}$/,
-    email: /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/,
+    email: /^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
     emailConfirm: /^[0-9]{1,}$/,
     password: /^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9$@$!%*#?&]{8,14}$/,
     passwordConfirm: /^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9$@$!%*#?&]{8,14}$/,
@@ -25,11 +25,11 @@ function useInput(
       handleOnChange(inputType, e.target.value);
     }
 
-    if (RegMapper[inputType].test(e.target.value)) setError(false);
-    else setError(true);
+    if (RegMapper[inputType].test(e.target.value)) setIsError(false);
+    else setIsError(true);
   };
 
-  return { value, onChange, error };
+  return { value, onChange, isError };
 }
 
 export default useInput;

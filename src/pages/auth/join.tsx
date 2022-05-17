@@ -1,7 +1,7 @@
 import AcceptTerms from 'components/Auth/AcceptTerms';
 import SignupForm from 'components/Auth/SignupForm';
 import ThemeSelector from 'components/Auth/ThemeSelector';
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
 import { UserSignupRequest } from 'types/user';
@@ -17,13 +17,19 @@ function Join() {
     themePreference: { value: [], isComplete: false },
   });
 
-  const handleComplete = (type: keyof UserSignupRequest, value: boolean) => {
-    setSignupInfo({ ...signupInfo, [type]: { ...signupInfo[type], isComplete: value } });
-  };
+  const handleComplete = useCallback((type: keyof UserSignupRequest, isComplete: boolean) => {
+    setSignupInfo((prevSignupInfo) => ({
+      ...prevSignupInfo,
+      [type]: { ...prevSignupInfo[type], isComplete },
+    }));
+  }, []);
 
-  const handleOnChange = (type: keyof UserSignupRequest, value: string) => {
-    setSignupInfo({ ...signupInfo, [type]: { ...signupInfo[type], value } });
-  };
+  const handleOnChange = useCallback((type: keyof UserSignupRequest, value: string) => {
+    setSignupInfo((prevSignupInfo) => ({
+      ...prevSignupInfo,
+      [type]: { ...prevSignupInfo[type], value },
+    }));
+  }, []);
 
   const handleOnClick = (value: string) => {
     if (signupInfo.themePreference.value.includes(value)) {
@@ -44,6 +50,14 @@ function Join() {
       });
     }
   };
+
+  useEffect(() => {
+    if (signupInfo.themePreference.value.length === 0) {
+      handleComplete('themePreference', false);
+    } else {
+      handleComplete('themePreference', true);
+    }
+  }, [signupInfo.themePreference.value, handleComplete]);
 
   return (
     <StyledRoot>

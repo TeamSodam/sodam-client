@@ -12,15 +12,14 @@ interface SignupFormProps {
 
 function SignupForm(props: SignupFormProps) {
   const { signupInfo, handleOnChange, handleComplete } = props;
-  const checkPassword = () => signupInfo.password.value !== signupInfo.passwordConfirm.value;
+  const isPasswordEqual = signupInfo.password.value === signupInfo.passwordConfirm.value;
 
   const InfoList = Object.keys(signupInfo);
 
   useEffect(() => {
-    signupInfo.passwordConfirm.value &&
-      !checkPassword() &&
-      handleComplete('passwordConfirm', !checkPassword());
-  }, [checkPassword()]);
+    if (signupInfo.passwordConfirm.value && isPasswordEqual)
+      handleComplete('passwordConfirm', true);
+  }, [isPasswordEqual, handleComplete, signupInfo.passwordConfirm.value]);
 
   const isKeyOfSignUpInfo = (inputType: string): inputType is keyof UserSignupRequest =>
     inputType in signupInfo;
@@ -36,7 +35,7 @@ function SignupForm(props: SignupFormProps) {
               inputType={type}
               handleOnChange={handleOnChange}
               handleComplete={handleComplete}
-              passwordError={checkPassword()}
+              passwordError={signupInfo.passwordConfirm.value && !isPasswordEqual}
               order={idx}
             />
           );

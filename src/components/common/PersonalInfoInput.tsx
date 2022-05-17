@@ -1,5 +1,5 @@
 import SignupOption from 'components/Auth/SignupOption';
-import useInfoType from 'hooks/useInfoType';
+import { joinInfoList } from 'constants/joinInfoList';
 import useInput from 'hooks/useInput';
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
@@ -16,8 +16,8 @@ interface PersonalInfoInputProps {
 
 function PersonalInfoInput(props: PersonalInfoInputProps) {
   const { inputType, handleOnChange, handleComplete, passwordError, order } = props;
-  const inputInfo = useInfoType(inputType);
-  const inputValue = useInput(inputType, handleOnChange);
+  const inputInfo = joinInfoList[inputType];
+  const { isError, ...inputValue } = useInput(inputType, handleOnChange);
 
   useEffect(() => {
     if (
@@ -25,9 +25,9 @@ function PersonalInfoInput(props: PersonalInfoInputProps) {
       inputType !== 'nickname' &&
       inputType !== 'passwordConfirm'
     ) {
-      handleComplete(inputType, !inputValue.error);
+      handleComplete(inputType, !isError);
     }
-  }, [inputValue.error]);
+  }, [isError, handleComplete, inputType]);
 
   return (
     <StyledRoot order={order}>
@@ -41,10 +41,9 @@ function PersonalInfoInput(props: PersonalInfoInputProps) {
       </StyledTitleWrapper>
       <StyledInputWrapper>
         <input type={inputInfo.type} {...inputValue} placeholder={inputInfo.placeholder} />
-        <SignupOption type={inputType} error={inputValue.error} />
+        <SignupOption type={inputType} error={isError} />
       </StyledInputWrapper>
-      {(inputType === 'passwordConfirm' && passwordError) ||
-      (inputValue.error && inputValue.value) ? (
+      {(inputType === 'passwordConfirm' && passwordError) || (isError && inputValue.value) ? (
         <StyledNoticeErr>{inputInfo.notice}</StyledNoticeErr>
       ) : (
         <StyledNoticeErr />
