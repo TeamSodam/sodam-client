@@ -1,25 +1,18 @@
 import ReviewCard from 'components/common/ReviewCard';
-import WriteReviewBtn from 'components/common/WriteReviewBtn';
+import WriteReviewLink from 'components/common/WriteReviewLink';
 import { useGetMyWriteReviewQuery } from 'features/reviews/reviewApi';
-import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 
 function Write() {
-  const router = useRouter();
-
   const { data: reviewMyWriteList } = useGetMyWriteReviewQuery();
-
-  const navigate = () => {
-    router.push('/review/write');
-  };
 
   return (
     <StyledContainer>
       <h2>내가 작성한 리뷰</h2>
       <StyledBtnWrapper>
-        <WriteReviewBtn navigate={navigate} />
+        <WriteReviewLink href="/review/write" />
       </StyledBtnWrapper>
       <StyledCardWrapper>
         {reviewMyWriteList &&

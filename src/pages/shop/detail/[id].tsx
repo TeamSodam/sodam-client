@@ -4,7 +4,7 @@ import MainSlider from 'components/common/MainSlider';
 import PageNaviagator from 'components/common/PageNaviagator';
 import ReviewCard from 'components/common/ReviewCard';
 import ShopCard from 'components/common/ShopCard';
-import WriteReviewBtn from 'components/common/WriteReviewBtn';
+import WriteReviewLink from 'components/common/WriteReviewLink';
 import DetailImageGrid from 'components/ShopDetail/DetailImageGrid';
 import DetailInfo from 'components/ShopDetail/DetailInfo';
 import DetailShopAddress from 'components/ShopDetail/DetailShopAddress';
@@ -146,7 +146,7 @@ function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQu
             <LabelWrapper>
               <Label>소품샵 리뷰</Label>
               {shopInfo && (
-                <WriteReviewBtn
+                <WriteReviewLink
                   href={`/review/write?shopId=${SHOP_ID}&shopName=${shopInfo.shopName}`}
                 />
               )}
