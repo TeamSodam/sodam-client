@@ -24,7 +24,8 @@ function UserInfoWrap(props: Props) {
     setNicknameData(text);
   };
 
-  const onSubmitNickname = async (): Promise<boolean> => {
+  const onSubmitNickname = async (): Promise<boolean | null> => {
+    if (nicknameData.length === 0) return null;
     const result = (async () => await editNickname({ nickname: nicknameData }))();
     return result.then((result) => ('data' in result ? true : false));
   };

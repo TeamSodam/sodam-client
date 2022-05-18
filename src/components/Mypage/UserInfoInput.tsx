@@ -13,7 +13,7 @@ interface EditOptions {
   confirmText: string;
   failText: string;
   onChange: (text: string) => void;
-  onConfirm: () => Promise<boolean>;
+  onConfirm: () => Promise<boolean | null>;
 }
 
 function UserInfoInput(props: Props) {
@@ -26,6 +26,7 @@ function UserInfoInput(props: Props) {
   const onClickHandler = async () => {
     if (editMode && onConfirm) {
       const result = await onConfirm();
+      if (typeof result !== 'boolean') return;
       if (result) {
         setEditMode(false);
         setIsFail(false);
