@@ -1,5 +1,6 @@
+import { useEditUserNicknameMutation } from 'features/users/userApi';
 import Image from 'next/image';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
 import { UserImage, UserInfo } from 'types/user';
@@ -15,20 +16,46 @@ function UserInfoWrap(props: Props) {
   const { userInfo, userImage } = props;
   const { name, nickname, email } = userInfo;
 
+  const [editNickname] = useEditUserNicknameMutation();
+
+  const [nicknameData, setNicknameData] = useState(nickname);
+
+  const onChangeNickname = (text: string) => {
+    setNicknameData(text);
+  };
+
+  const onSubmitNickname = async (): Promise<boolean> => {
+    const result = (async () => await editNickname({ nickname: nicknameData }))();
+    return result.then((result) => ('data' in result ? true : false));
+  };
+
   return (
     <StyledRoot>
-      <h2>{name}님의 정보</h2>
-      <div className="outer-wrap">
-        <div className="inner-wrap__left">
-          <StyledImage>
-            <Image src={userImage.image} layout="fill" alt="profile" />
-          </StyledImage>
-          <button className="button__profile">프로필 사진 설정</button>
-        </div>
-        <div className="inner-wrap__right">
-          <UserInfoInput label="이름" initialValue={name} />
-          <UserInfoInput label="닉네임" initialValue={nickname} canEdit editOptions={{editText: '닉네임 수정', confirmText: '수정 완료', onChange: (text: string) => {}, onConfirm: () => {}}} />
-          <UserInfoInput label="ID (이메일)" initialValue={email} />
+      <div>
+        <h2>{name}님의 정보</h2>
+        <div className="outer-wrap">
+          <div className="inner-wrap__left">
+            <StyledImage>
+              <Image src={userImage.image} layout="fill" alt="profile" />
+            </StyledImage>
+            <button className="button__profile">프로필 사진 설정</button>
+          </div>
+          <div className="inner-wrap__right">
+            <UserInfoInput label="이름" initialValue={name} />
+            <UserInfoInput
+              label="닉네임"
+              initialValue={nicknameData}
+              canEdit
+              editOptions={{
+                editText: '닉네임 수정',
+                confirmText: '수정 완료',
+                failText: '이미 사용 중인 닉네임입니다',
+                onChange: onChangeNickname,
+                onConfirm: onSubmitNickname,
+              }}
+            />
+            <UserInfoInput label="ID (이메일)" initialValue={email} />
+          </div>
         </div>
       </div>
     </StyledRoot>
@@ -36,6 +63,12 @@ function UserInfoWrap(props: Props) {
 }
 
 const StyledRoot = styled.section`
+  width: 66.4rem;
+  height: 31.9rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: 2px solid ${theme.colors.grayBg};
   h2 {
     font-size: 2.6rem;
     font-weight: 700;

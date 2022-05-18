@@ -30,7 +30,22 @@ export const userApi = createApi({
       }),
       transformResponse: (response: SodamResponse<UserTheme>) => response.data,
     }),
+    editUserNickname: builder.mutation<Pick<UserInfo, 'nickname'>, Pick<UserInfo, 'nickname'>>({
+      query: ({ nickname }) => ({
+        url: 'https://server.sodam.me/user/nickname',
+        method: 'PUT',
+        data: {
+          nickname,
+        },
+      }),
+      transformResponse: (response: SodamResponse<Pick<UserInfo, 'nickname'>>) => response.data,
+    }),
   }),
 });
 
-export const { useGetUserImageQuery, useGetUserInfoQuery, useGetUserThemeQuery } = userApi;
+export const {
+  useGetUserImageQuery,
+  useGetUserInfoQuery,
+  useGetUserThemeQuery,
+  useEditUserNicknameMutation,
+} = userApi;
