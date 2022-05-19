@@ -11,24 +11,28 @@ interface Props {
 type CategoryType = {
   [key in ShopThemeType]: string;
 };
+interface StyledProps {
+  isSelected: boolean;
+}
 
 function UserThemeItem(props: Props) {
   const { themeType, isSelected } = props;
 
   const Category: CategoryType = {
-    아기자기한: 'Cute',
-    힙한: 'Hip',
-    모던한: 'Modern',
-    빈티지: 'Vintage',
+    아기자기한: 'cute',
+    힙한: 'hip',
+    모던한: 'modern',
+    빈티지: 'vintage',
   };
 
-  const getCategoryIcon = (): string => `/assets/ic_theme${Category[themeType]}.png`;
+  const getCategoryOnIcon = (): string => `/assets/ic_theme_${Category[themeType]}_on.png`;
+  const getCategoryOffIcon = (): string => `/assets/ic_theme_${Category[themeType]}_off.png`;
 
   return (
-    <StyledRoot>
+    <StyledRoot isSelected={isSelected}>
       <StyledImage>
         <Image
-          src={isSelected ? getCategoryIcon() : getCategoryIcon()}
+          src={isSelected ? getCategoryOnIcon() : getCategoryOffIcon()}
           layout="fill"
           alt={themeType}
         />
@@ -38,7 +42,7 @@ function UserThemeItem(props: Props) {
   );
 }
 
-const StyledRoot = styled.button`
+const StyledRoot = styled.button<StyledProps>`
   width: 9.4rem;
   height: 12.9rem;
   border: none;
@@ -47,7 +51,7 @@ const StyledRoot = styled.button`
   p {
     font-size: 1.2rem;
     font-weight: 500;
-    color: ${theme.colors.purpleText};
+    color: ${({ isSelected }) => (isSelected ? theme.colors.purpleText : theme.colors.inactive)};
   }
 `;
 const StyledImage = styled.div`

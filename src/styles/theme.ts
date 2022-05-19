@@ -13,5 +13,6 @@ export const theme = {
     gray2: '#E9E8EB',
     grayBg: '#F8F8F8',
     navLine: '#EBE9E8',
+    inactive: '#D7D5DB',
   },
 };
