@@ -42,12 +42,11 @@ function PersonalInfoInput(props: PersonalInfoInputProps) {
       return <StyledNoticeErr>{inputInfo.notice}</StyledNoticeErr>;
     }
 
-    if (type === 'nickname') {
-      if (isConfirm && isCompleteList.nickname) {
+    if (type === 'nickname' && isConfirm) {
+      if (isCompleteList.nickname) {
         return <StyledNoticeErr>{inputInfo.completeNotice}</StyledNoticeErr>;
-      } else if (isConfirm && !isCompleteList.nickname) {
-        return <StyledNoticeErr>{inputInfo.unCompleteNotice}</StyledNoticeErr>;
       }
+      return <StyledNoticeErr>{inputInfo.unCompleteNotice}</StyledNoticeErr>;
     }
 
     return <StyledNoticeErr />;
