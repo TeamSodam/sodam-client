@@ -19,7 +19,7 @@ function SignupForm(props: SignupFormProps) {
     email: signupInfo.email.isComplete,
     emailConfirm: signupInfo.emailConfirm.isComplete,
   };
-  console.log(signupInfo);
+
   useEffect(() => {
     if (signupInfo.passwordConfirm.value && isPasswordEqual)
       handleComplete('passwordConfirm', true);

@@ -28,7 +28,6 @@ function SignupOption(props: SignupOptionProps) {
         const { uniqueEmail, verificationCode } = await email({ email: value }).unwrap();
         handleConfirm(type, uniqueEmail);
         localStorage.setItem('verificationCode', verificationCode);
-        console.log(uniqueEmail, verificationCode);
       } catch (error) {
         const { uniqueEmail } = error.data.data;
         handleConfirm(type, uniqueEmail);
