@@ -2,7 +2,7 @@ import PersonalInfoInput from 'components/common/PersonalInfoInput';
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
-import { UserSignupRequest } from 'types/user';
+import { UserSignupRequest } from 'types/auth';
 
 interface SignupFormProps {
   signupInfo: UserSignupRequest;
@@ -13,8 +13,11 @@ interface SignupFormProps {
 function SignupForm(props: SignupFormProps) {
   const { signupInfo, handleOnChange, handleComplete } = props;
   const isPasswordEqual = signupInfo.password.value === signupInfo.passwordConfirm.value;
-
   const InfoList = Object.keys(signupInfo);
+  const isCompleteList = {
+    nickname: signupInfo.nickname.isComplete,
+    emailConfirm: signupInfo.emailConfirm.isComplete,
+  };
 
   useEffect(() => {
     if (signupInfo.passwordConfirm.value && isPasswordEqual)
@@ -37,6 +40,7 @@ function SignupForm(props: SignupFormProps) {
               handleComplete={handleComplete}
               passwordError={signupInfo.passwordConfirm.value && !isPasswordEqual}
               order={idx}
+              isCompleteList={isCompleteList}
             />
           );
         }

@@ -1,9 +1,10 @@
 import { ChangeEvent, useState } from 'react';
-import { UserSignupRequest } from 'types/user';
+import { UserSignupRequest } from 'types/auth';
 
 function useInput(
   inputType: keyof UserSignupRequest,
   handleOnChange: (type: keyof UserSignupRequest, value: string) => void,
+  // isConfirm: boolean,
 ) {
   const [value, setValue] = useState('');
   const [isError, setIsError] = useState(true);
@@ -21,6 +22,7 @@ function useInput(
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
+
     if (handleOnChange) {
       handleOnChange(inputType, e.target.value);
     }

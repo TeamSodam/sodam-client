@@ -1,13 +1,29 @@
+import { usePostNicknameMutation } from 'features/auth/authApi';
 import React from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
+import { UserSignupRequest } from 'types/auth';
 
 interface SignupOptionProps {
   type: string;
   error: boolean;
+  value: string;
+  nicknameComplete: boolean;
+  handleConfirm: (type: keyof UserSignupRequest, value: boolean) => void;
 }
 function SignupOption(props: SignupOptionProps) {
-  const { type, error } = props;
+  const { type, error, value, handleConfirm, nicknameComplete } = props;
+  const [nickname] = usePostNicknameMutation();
+  const handleClick = async () => {
+    if (value) {
+      try {
+        const { uniqueNickname } = await nickname({ nickname: value }).unwrap();
+        handleConfirm('nickname', uniqueNickname);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
   const getSignOption = (type: string) => {
     switch (type) {
@@ -19,7 +35,12 @@ function SignupOption(props: SignupOptionProps) {
         );
       case 'nickname':
         return (
-          <StyledBtn tabIndex={-1} inputType={type}>
+          <StyledBtn
+            onClick={handleClick}
+            tabIndex={-1}
+            inputType={type}
+            disabled={error || nicknameComplete}
+          >
             중복확인
           </StyledBtn>
         );

@@ -4,7 +4,7 @@ import ThemeSelector from 'components/Auth/ThemeSelector';
 import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
-import { UserSignupRequest } from 'types/user';
+import { UserSignupRequest } from 'types/auth';
 
 function Join() {
   const [signupInfo, setSignupInfo] = useState<UserSignupRequest>({
