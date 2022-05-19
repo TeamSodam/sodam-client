@@ -16,9 +16,10 @@ function SignupForm(props: SignupFormProps) {
   const InfoList = Object.keys(signupInfo);
   const isCompleteList = {
     nickname: signupInfo.nickname.isComplete,
+    email: signupInfo.email.isComplete,
     emailConfirm: signupInfo.emailConfirm.isComplete,
   };
-
+  console.log(signupInfo);
   useEffect(() => {
     if (signupInfo.passwordConfirm.value && isPasswordEqual)
       handleComplete('passwordConfirm', true);
