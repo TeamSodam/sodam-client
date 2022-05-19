@@ -24,7 +24,8 @@ export const joinInfoList: ObjectsType = {
     title: 'ID (이메일) 인증번호',
     type: 'string',
     placeholder: '',
-    notice: '인증번호가 일치하지 않습니다',
+    completeNotice: '인증되었습니다',
+    unCompleteNotice: '인증번호가 일치하지 않습니다',
   },
   password: {
     title: 'PW',

@@ -1,4 +1,4 @@
-import { usePostNicknameMutation } from 'features/auth/authApi';
+import { usePostEmailMutation, usePostNicknameMutation } from 'features/auth/authApi';
 import React from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
@@ -8,20 +8,35 @@ interface SignupOptionProps {
   type: string;
   error: boolean;
   value: string;
-  nicknameComplete: boolean;
+  isCompleteList: { [key: string]: boolean };
   handleConfirm: (type: keyof UserSignupRequest, value: boolean) => void;
 }
 function SignupOption(props: SignupOptionProps) {
-  const { type, error, value, handleConfirm, nicknameComplete } = props;
+  const { type, error, value, handleConfirm, isCompleteList } = props;
   const [nickname] = usePostNicknameMutation();
+  const [email] = usePostEmailMutation();
   const handleClick = async () => {
-    if (value) {
+    if (type === 'nickname') {
       try {
         const { uniqueNickname } = await nickname({ nickname: value }).unwrap();
-        handleConfirm('nickname', uniqueNickname);
+        handleConfirm(type, uniqueNickname);
       } catch (error) {
         console.log(error);
       }
+    } else if (type === 'email') {
+      try {
+        const { uniqueEmail, verificationCode } = await email({ email: value }).unwrap();
+        handleConfirm(type, uniqueEmail);
+        localStorage.setItem('verificationCode', verificationCode);
+        console.log(uniqueEmail, verificationCode);
+      } catch (error) {
+        const { uniqueEmail } = error.data.data;
+        handleConfirm(type, uniqueEmail);
+      }
+    } else if (type === 'emailConfirm') {
+      const verificationCode = localStorage.getItem('verificationCode');
+      handleConfirm(type, value === verificationCode);
+      localStorage.removeItem('verificationCode');
     }
   };
 
@@ -29,7 +44,7 @@ function SignupOption(props: SignupOptionProps) {
     switch (type) {
       case 'email':
         return (
-          <StyledBtn tabIndex={-1} inputType={type} disabled={error}>
+          <StyledBtn onClick={handleClick} tabIndex={-1} inputType={type} disabled={error}>
             인증번호 전송
           </StyledBtn>
         );
@@ -39,14 +54,19 @@ function SignupOption(props: SignupOptionProps) {
             onClick={handleClick}
             tabIndex={-1}
             inputType={type}
-            disabled={error || nicknameComplete}
+            disabled={error || isCompleteList.nickname}
           >
             중복확인
           </StyledBtn>
         );
       case 'emailConfirm':
         return (
-          <StyledBtn tabIndex={-1} inputType={type} disabled={error}>
+          <StyledBtn
+            onClick={handleClick}
+            tabIndex={-1}
+            inputType={type}
+            disabled={error || isCompleteList.emailConfirm}
+          >
             확인
           </StyledBtn>
         );

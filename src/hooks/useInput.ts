@@ -14,7 +14,7 @@ function useInput(
     name: /^[가-힣]{2,7}$/,
     nickname: /^[가-힣a-z0-9]{2,20}$/,
     email: /^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/,
-    emailConfirm: /^[0-9]{1,}$/,
+    emailConfirm: /^[a-zA-Z0-9]{4,4}$/,
     password: /^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9$@$!%*#?&]{8,14}$/,
     passwordConfirm: /^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9$@$!%*#?&]{8,14}$/,
   };

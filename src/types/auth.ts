@@ -25,3 +25,12 @@ export interface nicknameResponseType {
 export interface nicknameRequestType {
   nickname: string;
 }
+
+export interface emailRequestType {
+  email: string;
+}
+
+export interface emailResponseType {
+  uniqueEmail: boolean;
+  verificationCode: string;
+}

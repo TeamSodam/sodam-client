@@ -1,7 +1,12 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { axiosBaseQuery } from 'libs/api';
 import { SodamResponse } from 'types/api';
-import { nicknameRequestType, nicknameResponseType } from 'types/auth';
+import {
+  emailRequestType,
+  emailResponseType,
+  nicknameRequestType,
+  nicknameResponseType,
+} from 'types/auth';
 
 export const authApi = createApi({
   reducerPath: 'authApi',
@@ -19,7 +24,17 @@ export const authApi = createApi({
       }),
       transformResponse: (response: SodamResponse<nicknameResponseType>) => response.data,
     }),
+    postEmail: builder.mutation<emailResponseType, emailRequestType>({
+      query: ({ email }) => ({
+        url: 'https://server.sodam.me/auth/signup/sendmail',
+        method: 'POST',
+        data: {
+          email,
+        },
+      }),
+      transformResponse: (response: SodamResponse<emailResponseType>) => response.data,
+    }),
   }),
 });
 
-export const { usePostNicknameMutation } = authApi;
+export const { usePostNicknameMutation, usePostEmailMutation } = authApi;
