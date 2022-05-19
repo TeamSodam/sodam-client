@@ -1,6 +1,8 @@
+import { useEditUserThemeMutation } from 'features/users/userApi';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
+import { ShopThemeType } from 'types/shop';
 import { UserTheme as UserThemeType } from 'types/user';
 
 import UserThemeItem from './UserThemeItem';
@@ -14,10 +16,28 @@ function UserTheme(props: Props) {
 
   const themeList: UserThemeType = ['아기자기한', '힙한', '모던한', '빈티지'];
 
+  const [editUserTheme] = useEditUserThemeMutation();
+
   const [editMode, setEditMode] = useState(false);
+  const [selected, setSelected] = useState<UserThemeType>(userTheme);
+
+  const onSubmit = async () => {
+    await editUserTheme(selected);
+  };
 
   const onClickHandler = () => {
+    if (editMode) {
+      onSubmit();
+    }
     setEditMode(!editMode);
+  };
+
+  const onToggleTheme = (value: ShopThemeType) => {
+    if (selected.includes(value)) {
+      setSelected(selected.filter((item) => item !== value));
+    } else {
+      setSelected([...selected, value]);
+    }
   };
 
   return (
@@ -28,7 +48,13 @@ function UserTheme(props: Props) {
       </div>
       <div>
         {themeList.map((theme) => (
-          <UserThemeItem key={theme} themeType={theme} isSelected={userTheme.includes(theme)} />
+          <UserThemeItem
+            key={theme}
+            themeType={theme}
+            isSelected={selected.includes(theme)}
+            canEdit={editMode}
+            onToggle={onToggleTheme}
+          />
         ))}
       </div>
     </StyledRoot>

@@ -40,6 +40,16 @@ export const userApi = createApi({
       }),
       transformResponse: (response: SodamResponse<Pick<UserInfo, 'nickname'>>) => response.data,
     }),
+    editUserTheme: builder.mutation<UserTheme, UserTheme>({
+      query: (theme) => ({
+        url: 'https://server.sodam.me/user/theme',
+        method: 'PUT',
+        data: {
+          theme,
+        },
+      }),
+      transformResponse: (response: SodamResponse<UserTheme>) => response.data,
+    }),
   }),
 });
 
@@ -48,4 +58,5 @@ export const {
   useGetUserInfoQuery,
   useGetUserThemeQuery,
   useEditUserNicknameMutation,
+  useEditUserThemeMutation,
 } = userApi;
