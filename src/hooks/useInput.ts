@@ -4,7 +4,6 @@ import { UserSignupRequest } from 'types/auth';
 function useInput(
   inputType: keyof UserSignupRequest,
   handleOnChange: (type: keyof UserSignupRequest, value: string) => void,
-  // isConfirm: boolean,
 ) {
   const [value, setValue] = useState('');
   const [isError, setIsError] = useState(true);
