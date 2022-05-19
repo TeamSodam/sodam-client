@@ -29,8 +29,7 @@ function SignupOption(props: SignupOptionProps) {
         handleConfirm(type, uniqueEmail);
         localStorage.setItem('verificationCode', verificationCode);
       } catch (error) {
-        const { uniqueEmail } = error.data.data;
-        handleConfirm(type, uniqueEmail);
+        console.log(error);
       }
     } else if (type === 'emailConfirm') {
       const verificationCode = localStorage.getItem('verificationCode');
