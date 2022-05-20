@@ -4,18 +4,31 @@ import { theme } from 'styles/theme';
 
 interface SignupOptionProps {
   type: string;
+  error: boolean;
 }
 function SignupOption(props: SignupOptionProps) {
-  const { type } = props;
+  const { type, error } = props;
 
   const getSignOption = (type: string) => {
     switch (type) {
+      case 'email':
+        return (
+          <StyledBtn tabIndex={-1} inputType={type} disabled={error}>
+            인증번호 전송
+          </StyledBtn>
+        );
       case 'nickname':
-        return <StyledBtn tabIndex={-1}>중복확인</StyledBtn>;
+        return (
+          <StyledBtn tabIndex={-1} inputType={type}>
+            중복확인
+          </StyledBtn>
+        );
       case 'emailConfirm':
-        return <StyledBtn tabIndex={-1}>확인</StyledBtn>;
-      case 'password':
-        return <StyledNotice>‘영문 소문자 + 숫자’ 포함하여 8글자 이상 15자 미만</StyledNotice>;
+        return (
+          <StyledBtn tabIndex={-1} inputType={type} disabled={error}>
+            확인
+          </StyledBtn>
+        );
       default:
         return null;
     }
@@ -24,11 +37,12 @@ function SignupOption(props: SignupOptionProps) {
   return getSignOption(type);
 }
 
-const StyledBtn = styled.button`
+const StyledBtn = styled.button<{ inputType: string }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 6.1rem;
+  width: ${({ inputType }) => inputType !== 'email' && '6.1rem'};
+  padding: 0 ${({ inputType }) => inputType === 'email' && '1.1rem'};
   height: 2.2rem;
   border-radius: 5px;
   border: 0;
@@ -38,13 +52,11 @@ const StyledBtn = styled.button`
   font-weight: 500;
   font-size: 1rem;
   line-height: 2.2rem;
-`;
-
-const StyledNotice = styled.span`
-  font-weight: 500;
-  font-size: 1rem;
-  line-height: 1.4rem;
-  color: ${theme.colors.purpleText};
+  margin-right: 1.2rem;
+  &:disabled {
+    background-color: ${theme.colors.gray2};
+    cursor: default;
+  }
 `;
 
 export default SignupOption;
