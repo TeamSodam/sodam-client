@@ -31,6 +31,9 @@ const LayoutWrapper = styled.div<StyledProps>`
       display: flex;
       flex-direction: column;
       align-items: space-between;
+      & > div:first-child {
+        height: 8.2rem;
+      }
     `}
 `;
 
