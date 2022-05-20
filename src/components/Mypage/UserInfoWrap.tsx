@@ -1,6 +1,12 @@
-import { useEditUserNicknameMutation } from 'features/users/userApi';
+import {
+  useDeleteUserImageMutation,
+  useEditUserImageMutation,
+  useEditUserNicknameMutation,
+} from 'features/users/userApi';
 import Image from 'next/image';
 import React, { useState } from 'react';
+import cropImage from 'src/utils/cropImage';
+import dataURItoBlob from 'src/utils/dataURItoBlob';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
 import { UserImage, UserInfo } from 'types/user';
@@ -16,9 +22,17 @@ function UserInfoWrap(props: Props) {
   const { userInfo, userImage } = props;
   const { name, nickname, email } = userInfo;
 
+  const profileDefaultImg = '/assets/profile_default.svg';
+
   const [editNickname] = useEditUserNicknameMutation();
+  const [editProfile] = useEditUserImageMutation();
+  const [deleteProfile] = useDeleteUserImageMutation();
 
   const [nicknameData, setNicknameData] = useState(nickname);
+  const [profileToggle, setProfileToggle] = useState(false);
+  const [profileImg, setProfileImg] = useState(
+    userImage.image === '' ? profileDefaultImg : userImage.image,
+  );
 
   const onChangeNickname = (text: string) => {
     setNicknameData(text);
@@ -30,6 +44,45 @@ function UserInfoWrap(props: Props) {
     return result.then((result) => ('data' in result ? true : false));
   };
 
+  const onProfileToggle = () => {
+    setProfileToggle(!profileToggle);
+  };
+
+  const onSubmitProfile = async (image: Blob) => {
+    const imageFile: File = new File([image], 'profile.png', {
+      lastModified: new Date().getTime(),
+      type: 'image/png',
+    });
+    await editProfile(imageFile);
+  };
+
+  const onEditProfile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files === null) return;
+
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.readAsDataURL(file);
+    reader.onloadend = async () => {
+      if (reader.result instanceof ArrayBuffer || !reader.result) {
+        setProfileImg(userImage.image);
+      } else {
+        const canvas: HTMLCanvasElement = await cropImage(reader.result, 1);
+        const croppedImage = canvas.toDataURL('image/png');
+        const croppedFile = dataURItoBlob(croppedImage);
+        setProfileImg(croppedImage);
+        onSubmitProfile(croppedFile);
+      }
+    };
+    onProfileToggle();
+  };
+
+  const onDeleteProfile = async () => {
+    await deleteProfile();
+    setProfileImg(profileDefaultImg);
+    onProfileToggle();
+  };
+
   return (
     <StyledRoot>
       <div>
@@ -37,9 +90,22 @@ function UserInfoWrap(props: Props) {
         <div className="outer-wrap">
           <div className="inner-wrap__left">
             <StyledImage>
-              <Image src={userImage.image} layout="fill" alt="profile" />
+              <Image src={profileImg} layout="fill" alt="profile" />
             </StyledImage>
-            <button className="button__profile">프로필 사진 설정</button>
+            <button className="button__profile" onClick={onProfileToggle}>
+              프로필 사진 설정
+            </button>
+            {profileToggle && (
+              <StyledProfileToggle>
+                <li>
+                  <button>새로운 프로필 사진 등록</button>
+                  <StyledInput type="file" accept="image/*" multiple onChange={onEditProfile} />
+                </li>
+                <li>
+                  <button onClick={onDeleteProfile}>현재 사진 삭제</button>
+                </li>
+              </StyledProfileToggle>
+            )}
           </div>
           <div className="inner-wrap__right">
             <UserInfoInput label="이름" initialValue={name} />
@@ -87,6 +153,7 @@ const StyledRoot = styled.section`
       justify-content: flex-start;
       align-items: center;
       margin-right: 4.2rem;
+      width: 11rem;
     }
     &__right div:last-child {
       margin: 0;
@@ -114,6 +181,50 @@ const StyledImage = styled.div`
   border-radius: 50%;
   img {
     border-radius: 50%;
+  }
+`;
+const StyledProfileToggle = styled.ul`
+  width: 13.9rem;
+  height: 5.8rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 3px 8px 0 rgba(87, 82, 76, 0.15);
+  margin-top: 0.8rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  animation: fadeIn 0.8s;
+  li button {
+    font-size: 1.2rem;
+    font-weight: 500;
+    padding: 0;
+  }
+  li:first-child button {
+    color: ${theme.colors.purpleText};
+  }
+  li:last-child button {
+    color: ${theme.colors.gray1};
+  }
+  @keyframes fadeIn {
+    from {
+      transform: translateY(-10%);
+      opacity: 0.5;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+`;
+const StyledInput = styled.input`
+  width: 11.9rem;
+  height: 1.45rem;
+  margin-top: -1.45rem;
+  display: block;
+  opacity: 0;
+  &:hover {
+    cursor: pointer;
   }
 `;
 

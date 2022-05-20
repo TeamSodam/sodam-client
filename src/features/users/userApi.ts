@@ -50,6 +50,25 @@ export const userApi = createApi({
       }),
       transformResponse: (response: SodamResponse<UserTheme>) => response.data,
     }),
+    editUserImage: builder.mutation<UserImage, File>({
+      query: (imageFile) => {
+        const formData = new FormData();
+        formData.append('image', imageFile);
+        return {
+          url: 'https://server.sodam.me/user/image',
+          method: 'PUT',
+          data: formData,
+        };
+      },
+      transformResponse: (response: SodamResponse<UserImage>) => response.data,
+    }),
+    deleteUserImage: builder.mutation<void, void>({
+      query: () => ({
+        url: 'https://server.sodam.me/user/image',
+        method: 'DELETE',
+      }),
+      transformResponse: (response: SodamResponse<void>) => response.data,
+    }),
   }),
 });
 
@@ -59,4 +78,6 @@ export const {
   useGetUserThemeQuery,
   useEditUserNicknameMutation,
   useEditUserThemeMutation,
+  useEditUserImageMutation,
+  useDeleteUserImageMutation,
 } = userApi;
