@@ -8,6 +8,7 @@ import React, { useState } from 'react';
 import cropImage from 'src/utils/cropImage';
 import dataURItoBlob from 'src/utils/dataURItoBlob';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 import { UserImage, UserInfo } from 'types/user';
 
@@ -173,6 +174,29 @@ const StyledRoot = styled.section`
       margin-top: 1.2rem;
     }
   }
+  ${applyMediaQuery('mobile')} {
+    width: 31.2rem;
+    height: 22rem;
+    border-bottom: 1px solid ${theme.colors.grayBg};
+    h2 {
+      font-size: 1.8rem;
+      line-height: 3rem;
+      margin-bottom: 3.1rem;
+    }
+    .inner-wrap__left {
+      margin-right: 1.6rem;
+      width: 6.6rem;
+    }
+    .button__profile {
+      width: 6.7rem;
+      padding: 0;
+      font-size: 1rem;
+      line-height: 1.2rem;
+      margin-top: 1rem;
+      transform: scale(0.8);
+      transform-origin: top center;
+    }
+  }
 `;
 const StyledImage = styled.div`
   position: relative;
@@ -181,6 +205,10 @@ const StyledImage = styled.div`
   border-radius: 50%;
   img {
     border-radius: 50%;
+  }
+  ${applyMediaQuery('mobile')} {
+    width: 6.6rem;
+    height: 6.6rem;
   }
 `;
 const StyledProfileToggle = styled.ul`
@@ -206,6 +234,24 @@ const StyledProfileToggle = styled.ul`
   li:last-child button {
     color: ${theme.colors.gray1};
   }
+  ${applyMediaQuery('mobile')} {
+    width: 8.4rem;
+    height: 4rem;
+    border-radius: 0.4rem;
+    margin-top: 0.5rem;
+    padding: 0.8rem;
+    li {
+      height: 1.2rem;
+      width: 7rem;
+    }
+    li > button {
+      height: 1.2rem;
+      width: 9.5rem;
+      font-size: 1rem;
+      transform: scale(0.7);
+      transform-origin: top left;
+    }
+  }
   @keyframes fadeIn {
     from {
       transform: translateY(-10%);
@@ -225,6 +271,11 @@ const StyledInput = styled.input`
   opacity: 0;
   &:hover {
     cursor: pointer;
+  }
+  ${applyMediaQuery('mobile')} {
+    width: 7rem;
+    height: 1.2rem;
+    margin-top: -1.5rem;
   }
 `;
 

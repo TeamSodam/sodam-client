@@ -7,6 +7,7 @@ import {
 } from 'features/users/userApi';
 import React from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 
 function Mypage() {
   const { data: userInfo } = useGetUserInfoQuery();
@@ -30,6 +31,11 @@ const StyledRoot = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  ${applyMediaQuery('mobile')} {
+    min-height: 41.7rem;
+    margin: 3.1rem 0;
+    justify-content: flex-start;
+  }
 `;
 
 export default Mypage;

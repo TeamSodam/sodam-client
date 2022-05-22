@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 import { ShopThemeType } from 'types/shop';
 
@@ -79,17 +80,39 @@ const StyledRoot = styled.button<StyledProps>`
     float: right;
     transform: translate(1.2rem, -1.2rem);
   }
+  ${applyMediaQuery('mobile')} {
+    width: 5rem;
+    height: 6.6rem;
+    p {
+      font-size: 1rem;
+    }
+    button {
+      width: 1.4rem;
+      height: 1.4rem;
+      padding: 0.2rem;
+      transform: translate(0.7rem, -0.7rem);
+    }
+  }
 `;
 const StyledImage = styled.div`
   position: relative;
   width: 9.4rem;
   height: 9.4rem;
   margin-bottom: 1.8rem;
+  ${applyMediaQuery('mobile')} {
+    width: 5rem;
+    height: 5rem;
+    margin-bottom: 0.6rem;
+  }
 `;
 const StyledIcon = styled.div`
   position: relative;
   width: 1.6rem;
   height: 1.6rem;
+  ${applyMediaQuery('mobile')} {
+    width: 1rem;
+    height: 1rem;
+  }
 `;
 
 export default UserThemeItem;

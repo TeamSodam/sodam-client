@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 
 interface Props {
@@ -85,6 +86,9 @@ const StyledRoot = styled.div`
     line-height: 2.2rem;
     width: 23.5rem;
     height: 2.8rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     &:focus {
       outline: none;
     }
@@ -111,6 +115,40 @@ const StyledRoot = styled.div`
     transform: translateX(9.9rem);
     margin-top: 0.4rem;
     color: ${theme.colors.purpleText};
+  }
+  ${applyMediaQuery('mobile')} {
+    margin-bottom: 1.6rem;
+    height: 1.4rem;
+    label {
+      width: 4.8rem;
+      font-size: 1rem;
+      line-height: 1.4rem;
+      margin-right: 1.6rem;
+    }
+    input {
+      font-size: 1rem;
+      line-height: 1.1rem;
+      width: 11.1rem;
+      height: 1.3rem;
+    }
+    .outline {
+      border-radius: 0.3rem;
+      font-size: 1rem;
+      padding: 0.6rem;
+    }
+    button {
+      width: 4.5rem;
+      height: 1.5rem;
+      border-radius: 0.3rem;
+      font-size: 1rem;
+      line-height: 1.5rem;
+      margin-left: 1.2rem;
+    }
+    p {
+      font-size: 1rem;
+      transform: translateX(2rem) scale(0.6);
+      margin-top: 0.2rem;
+    }
   }
 `;
 

@@ -12,7 +12,11 @@ type InputIndexType =
   | 'password'
   | 'passwordConfirm';
 
-export type UserInfo = Pick<UserSignupRequest, 'name' | 'nickname' | 'email'>;
+export interface UserInfo {
+  name: string;
+  nickname: string;
+  email: string;
+}
 export type UserTheme = ShopThemeType[];
 export interface UserImage {
   image: string;
