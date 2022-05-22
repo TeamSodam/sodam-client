@@ -62,6 +62,7 @@ function GlobalNavDesktop(props: NavProps) {
 const GlobalNavWrapper = styled.div`
   width: 100%;
   height: 8.2rem;
+  min-height: 8.2rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -76,6 +77,7 @@ const GlobalNavWrapper = styled.div`
 
   ${applyMediaQuery('desktop')} {
     height: 5.4rem;
+    min-height: 5.4rem;
 
     &:after {
       top: 5.4rem;

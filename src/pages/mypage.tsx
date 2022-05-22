@@ -13,7 +13,7 @@ function Mypage() {
   const { data: userImage } = useGetUserImageQuery();
   const { data: userTheme } = useGetUserThemeQuery();
 
-  if (!userInfo || !userImage || !userTheme) return <>Data Not Found</>;
+  if (!userInfo || !userImage || !userTheme) return <></>;
   return (
     <StyledRoot>
       <UserInfoWrap userInfo={userInfo} userImage={userImage} />
@@ -25,6 +25,7 @@ function Mypage() {
 const StyledRoot = styled.div`
   width: 100%;
   height: 100%;
+  min-height: 78.8rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
