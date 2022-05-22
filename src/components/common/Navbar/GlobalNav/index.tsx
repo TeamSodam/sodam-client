@@ -1,3 +1,4 @@
+import { useGetUserImageQuery } from 'features/users/userApi';
 import { useRouter } from 'next/router';
 import Screen from 'styles/Screen';
 
@@ -14,6 +15,7 @@ export interface NavProps {
   isMyReview: () => boolean;
   getIsActive: (menu: MenuListType) => boolean;
   onClickMenu: (menu: MenuListType) => string;
+  userImage: string | undefined;
 }
 
 export const menuList: MenuListType[] = [
@@ -25,6 +27,8 @@ export const menuList: MenuListType[] = [
 
 function GlobalNav() {
   const router = useRouter();
+
+  const { data: userImage } = useGetUserImageQuery();
 
   const onClickMenu = (menu: MenuListType) => {
     if (menu.routeTo) return menu.routeTo;
@@ -39,6 +43,7 @@ function GlobalNav() {
     onClickMenu,
     getIsActive,
     isMyReview: isCurrentPathIncludesMyReview,
+    userImage: userImage?.image,
   };
 
   return (

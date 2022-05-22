@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import SearchIC from 'public/assets/ic_search_mobile.svg';
 import ProfileIC from 'public/assets/profile_mobile.svg';
@@ -7,7 +8,7 @@ import LocalNav from '../LocalNav';
 import { menuList, NavProps } from '.';
 
 function GlobalNavMobile(props: NavProps) {
-  const { onClickMenu, getIsActive, isMyReview } = props;
+  const { onClickMenu, getIsActive, isMyReview, userImage } = props;
   return (
     <GlobalNavWrapper>
       <NavTop>
@@ -18,7 +19,15 @@ function GlobalNavMobile(props: NavProps) {
         </h1>
         <NavTopRightWrapper>
           <SearchIcon />
-          <ProfileIC />
+          <Link href="/mypage" passHref>
+            {userImage ? (
+              <StyledImage>
+                <Image src={userImage} layout="fill" alt="profile" />
+              </StyledImage>
+            ) : (
+              <ProfileIC />
+            )}
+          </Link>
         </NavTopRightWrapper>
       </NavTop>
       <NavBottom>
@@ -56,6 +65,15 @@ const NavBottom = styled.nav`
 const NavTopRightWrapper = styled.div`
   display: flex;
   gap: 1.5rem;
+`;
+
+const StyledImage = styled.div`
+  position: relative;
+  width: 2rem;
+  height: 2rem;
+  img {
+    border-radius: 50%;
+  }
 `;
 
 const SearchIcon = styled(SearchIC)`
