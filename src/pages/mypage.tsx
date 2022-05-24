@@ -14,7 +14,7 @@ function Mypage() {
   const { data: userImage } = useGetUserImageQuery();
   const { data: userTheme } = useGetUserThemeQuery();
 
-  if (!userInfo || !userImage || !userTheme) return <></>;
+  if (!userInfo || !userImage || !userTheme) return null;
   return (
     <StyledRoot>
       <UserInfoWrap userInfo={userInfo} userImage={userImage} />
