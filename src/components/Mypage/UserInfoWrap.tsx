@@ -41,8 +41,12 @@ function UserInfoWrap(props: Props) {
 
   const onSubmitNickname = async (): Promise<boolean | null> => {
     if (nicknameData.length === 0) return null;
-    const result = (async () => await editNickname({ nickname: nicknameData }))();
-    return result.then((result) => ('data' in result ? true : false));
+    try {
+      await editNickname({ nickname: nicknameData }).unwrap();
+      return true;
+    } catch (e) {
+      return false;
+    }
   };
 
   const onProfileToggle = () => {
