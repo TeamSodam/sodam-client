@@ -2,10 +2,10 @@ import { createApi } from '@reduxjs/toolkit/query/react';
 import { axiosBaseQuery } from 'libs/api';
 import { SodamResponse } from 'types/api';
 import {
-  emailRequestType,
-  emailResponseType,
-  nicknameRequestType,
-  nicknameResponseType,
+  EmailRequestType,
+  EmailResponseType,
+  NicknameRequestType,
+  NicknameResponseType,
 } from 'types/auth';
 
 export const authApi = createApi({
@@ -14,7 +14,7 @@ export const authApi = createApi({
   refetchOnFocus: true,
   endpoints: (builder) => ({
     // builder.query<T, U>() --> T는 쿼리의 반환값 타입, U는 쿼리 파라미터의 타입.
-    postNickname: builder.mutation<nicknameResponseType, nicknameRequestType>({
+    postNickname: builder.mutation<NicknameResponseType, NicknameRequestType>({
       query: ({ nickname }) => ({
         url: 'https://server.sodam.me/auth/signup/nickname',
         method: 'POST',
@@ -22,9 +22,9 @@ export const authApi = createApi({
           nickname,
         },
       }),
-      transformResponse: (response: SodamResponse<nicknameResponseType>) => response.data,
+      transformResponse: (response: SodamResponse<NicknameResponseType>) => response.data,
     }),
-    postEmail: builder.mutation<emailResponseType, emailRequestType>({
+    postEmail: builder.mutation<EmailResponseType, EmailRequestType>({
       query: ({ email }) => ({
         url: 'https://server.sodam.me/auth/signup/sendmail',
         method: 'POST',
@@ -32,7 +32,7 @@ export const authApi = createApi({
           email,
         },
       }),
-      transformResponse: (response: SodamResponse<emailResponseType>) => response.data,
+      transformResponse: (response: SodamResponse<EmailResponseType>) => response.data,
     }),
   }),
 });

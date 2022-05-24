@@ -13,19 +13,19 @@ interface SignupOptionProps {
 }
 function SignupOption(props: SignupOptionProps) {
   const { type, error, value, handleConfirm, isCompleteList } = props;
-  const [nickname] = usePostNicknameMutation();
-  const [email] = usePostEmailMutation();
+  const [checkNickname] = usePostNicknameMutation();
+  const [checkEmail] = usePostEmailMutation();
   const handleClick = async () => {
     if (type === 'nickname') {
       try {
-        const { uniqueNickname } = await nickname({ nickname: value }).unwrap();
+        const { uniqueNickname } = await checkNickname({ nickname: value }).unwrap();
         handleConfirm(type, uniqueNickname);
       } catch (error) {
         console.log(error);
       }
     } else if (type === 'email') {
       try {
-        const { uniqueEmail, verificationCode } = await email({ email: value }).unwrap();
+        const { uniqueEmail, verificationCode } = await checkEmail({ email: value }).unwrap();
         handleConfirm(type, uniqueEmail);
         localStorage.setItem('verificationCode', verificationCode);
       } catch (error) {

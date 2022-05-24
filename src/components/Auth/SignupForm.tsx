@@ -13,7 +13,6 @@ interface SignupFormProps {
 function SignupForm(props: SignupFormProps) {
   const { signupInfo, handleOnChange, handleComplete } = props;
   const isPasswordEqual = signupInfo.password.value === signupInfo.passwordConfirm.value;
-  const InfoList = Object.keys(signupInfo);
   const isCompleteList = {
     nickname: signupInfo.nickname.isComplete,
     email: signupInfo.email.isComplete,
@@ -28,10 +27,11 @@ function SignupForm(props: SignupFormProps) {
   const isKeyOfSignUpInfo = (inputType: string): inputType is keyof UserSignupRequest =>
     inputType in signupInfo;
 
+  const InfoList = Object.keys(signupInfo).slice(0, -1).filter(isKeyOfSignUpInfo);
+
   return (
     <StyledRoot>
       {InfoList.map((type, idx) => {
-        if (idx === InfoList.length - 1) return;
         if (isKeyOfSignUpInfo(type)) {
           return (
             <PersonalInfoInput
