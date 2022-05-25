@@ -11,6 +11,7 @@ import DetailShopAddress from 'components/ShopDetail/DetailShopAddress';
 import { reviewApi, useGetReviewByShopIdQuery } from 'features/reviews/reviewApi';
 import { useGetShopByShopIdQuery, useGetShopBySubwayQuery } from 'features/shops/shopApi';
 import useMap from 'hooks/useMap';
+import useMedia from 'hooks/useMedia';
 import { NextParsedUrlQuery } from 'next/dist/server/request-meta';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
@@ -25,6 +26,7 @@ const parseShopId = (shopID: string | string[] | undefined) => {
 };
 
 function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQuery }) {
+  const { isMobile } = useMedia();
   const [trigger] = reviewApi.useLazyGetReviewByShopIdQuery();
 
   const SHOP_ID = parseShopId(params.id);
@@ -130,7 +132,7 @@ function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQu
 
   return (
     <StyledContainer>
-      <ColoredBackground />
+      {!isMobile && <ColoredBackground />}
       <ImageGridWrapper>
         {shopInfo && (
           <>
@@ -193,6 +195,10 @@ const StyledContainer = styled.main`
     gap: 4rem;
   }
 
+  ${applyMediaQuery('mobile')} {
+    gap: 3.5rem;
+  }
+
   padding-bottom: 8rem;
 `;
 
@@ -202,6 +208,10 @@ const ImageGridWrapper = styled.div`
   padding-top: 6%;
   z-index: 2;
   gap: 5.6rem;
+
+  ${applyMediaQuery('mobile')} {
+    gap: 0.8rem;
+  }
 `;
 
 const Wrapper = styled.div`

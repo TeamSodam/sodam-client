@@ -1,17 +1,13 @@
 import { usePostBookmarkMutation } from 'features/shops/shopApi';
 import useMedia from 'hooks/useMedia';
 import Blog from 'public/assets/ic_blog.svg';
-import StarIC from 'public/assets/ic_empty_star.svg';
 import Instagram from 'public/assets/ic_instagram.svg';
-import Phone from 'public/assets/ic_phone.svg';
 import SmartStore from 'public/assets/ic_smartstore.svg';
-import Sns from 'public/assets/ic_sns.svg';
-import Subway from 'public/assets/ic_subway.svg';
-import Time from 'public/assets/ic_time.svg';
-import Website from 'public/assets/ic_website.svg';
 import { useState } from 'react';
 import type { AnyStyledComponent } from 'styled-components';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
+import { getBackgroundImageCss } from 'styles/mixin';
 import { Shop } from 'types/shop';
 
 import DesktopLayout from './DesktopLayout';
@@ -19,7 +15,7 @@ import IconContent, { IconContentProps } from './IconContent';
 import MobileLayout from './MobileLayout';
 
 function DetailInfo({ shopInfo }: { shopInfo: Shop }) {
-  const { isMobile } = useMedia();
+  const { isMobile, isTablet } = useMedia();
   const {
     shopName,
     category,
@@ -40,23 +36,27 @@ function DetailInfo({ shopInfo }: { shopInfo: Shop }) {
 
   const iconContents: IconContentProps[] = [
     {
-      mainIcon: Subway,
       iconName: '지하철역',
       content: subway,
+      iconUrl: '/assets/ic_subway.svg',
+      mobileOrder: 1,
     },
     {
-      mainIcon: Website,
       iconName: '홈페이지',
       content: homepage,
+      iconUrl: '/assets/ic_website.svg',
+      mobileOrder: 4,
     },
     {
-      mainIcon: Phone,
       iconName: '전화번호',
       content: phone,
+      iconUrl: '/assets/ic_phone.svg',
+      mobileOrder: 2,
     },
     {
-      mainIcon: Sns,
       iconName: 'SNS',
+      iconUrl: '/assets/ic_sns.svg',
+      mobileOrder: 5,
       content: [
         {
           icon: Instagram,
@@ -76,9 +76,10 @@ function DetailInfo({ shopInfo }: { shopInfo: Shop }) {
       ],
     },
     {
-      mainIcon: Time,
       iconName: '영업시간',
       content: time,
+      iconUrl: '/assets/ic_time.svg',
+      mobileOrder: 3,
     },
   ];
 
@@ -87,8 +88,16 @@ function DetailInfo({ shopInfo }: { shopInfo: Shop }) {
     return category.join(',');
   };
 
-  const showIconContent = () =>
-    iconContents.map((iconContent) => <IconContent key={iconContent.iconName} {...iconContent} />);
+  const showIconContent = () => {
+    const orderedIconContents =
+      isMobile || isTablet
+        ? [...iconContents].sort((a, b) => a.mobileOrder - b.mobileOrder)
+        : iconContents;
+
+    return orderedIconContents.map((iconContent) => (
+      <IconContent key={iconContent.iconName} {...iconContent} />
+    ));
+  };
 
   const showTheme = (StTheme: AnyStyledComponent) => {
     if (typeof theme === 'string') {
@@ -115,11 +124,18 @@ function DetailInfo({ shopInfo }: { shopInfo: Shop }) {
   return isMobile ? <MobileLayout {...layoutProps} /> : <DesktopLayout {...layoutProps} />;
 }
 
-const BookMarkBtn = styled(StarIC)<{ isBookmarked: boolean }>`
-  background-color: transparent;
-  border: none;
+const BookMarkBtn = styled.button<{ isBookmarked: boolean }>`
+  ${({ isBookmarked }) =>
+    getBackgroundImageCss(isBookmarked ? '/assets/ic_pin_star.svg' : '/assets/ic_empty_star.svg')};
 
-  fill: ${(props) => props.isBookmarked && props.theme.colors.purpleMain};
+  border: none;
+  width: 3.2rem;
+  height: 3.2rem;
+
+  ${applyMediaQuery('mobile')} {
+    width: 1.78rem;
+    height: 1.78rem;
+  }
 `;
 
 export default DetailInfo;

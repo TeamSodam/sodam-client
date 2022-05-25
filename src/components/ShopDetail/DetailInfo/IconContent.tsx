@@ -1,10 +1,12 @@
 import shortid from 'shortid';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
+import { getBackgroundImageCss } from 'styles/mixin';
 
 export interface IconContentProps {
-  mainIcon: React.FC<React.SVGProps<SVGSVGElement>>;
+  iconUrl: string;
   iconName: string;
+  mobileOrder: number;
   content:
     | string
     | Array<{
@@ -15,7 +17,7 @@ export interface IconContentProps {
 }
 
 function IconContent(props: IconContentProps) {
-  const { mainIcon: MainIcon, iconName, content } = props;
+  const { iconUrl, iconName, content } = props;
 
   const showContent = () => {
     if (typeof content === 'string') {
@@ -30,10 +32,11 @@ function IconContent(props: IconContentProps) {
       return content;
     }
 
-    return content.map((contentEl) => {
+    return content.map((contentEl, index) => {
       const { icon: Icon, isFilled, link } = contentEl;
       return (
         <FillableIcon
+          index={index}
           key={shortid.generate()}
           isFilled={isFilled}
           onClick={() => {
@@ -49,7 +52,7 @@ function IconContent(props: IconContentProps) {
   return (
     <Container>
       <IconWrapper>
-        <MainIcon />
+        <SvgWrapper url={iconUrl} />
         <span>{iconName}</span>
       </IconWrapper>
       <ContentWrapper isCenter={iconName === 'SNS'}>{showContent()}</ContentWrapper>
@@ -57,13 +60,26 @@ function IconContent(props: IconContentProps) {
   );
 }
 
-const Container = styled.div`
+const Container = styled.li`
   width: 100%;
   display: flex;
   gap: 2.4rem;
   ${applyMediaQuery('desktop')} {
     gap: 1.8rem;
   }
+`;
+
+const SvgWrapper = styled.div<{ url: string }>`
+  ${applyMediaQuery('desktop')} {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+  ${applyMediaQuery('mobile')} {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+
+  ${({ url }) => getBackgroundImageCss(url)};
 `;
 
 const IconWrapper = styled.div`
@@ -90,6 +106,15 @@ const IconWrapper = styled.div`
       transform: scale(0.75);
     }
   }
+
+  ${applyMediaQuery('mobile')} {
+    min-width: 6.5rem;
+    gap: 1rem;
+    & > span {
+      font-size: 1.1rem;
+      line-height: 2rem;
+    }
+  }
 `;
 
 const ContentWrapper = styled.div<{ isCenter: boolean }>`
@@ -110,6 +135,16 @@ const ContentWrapper = styled.div<{ isCenter: boolean }>`
     gap: unset;
   }
 
+  ${applyMediaQuery('mobile')} {
+    position: relative;
+    font-size: 1.1rem;
+    line-height: 2rem;
+
+    gap: unset;
+
+    justify-content: flex-start;
+  }
+
   color: ${({ theme }) => theme.colors.black1};
 
   & a {
@@ -117,7 +152,7 @@ const ContentWrapper = styled.div<{ isCenter: boolean }>`
   }
 `;
 
-const FillableIcon = styled.button<{ isFilled: boolean }>`
+const FillableIcon = styled.button<{ isFilled: boolean; index: number }>`
   &:hover {
     cursor: ${(props) => (props.isFilled ? 'pointer' : 'default')};
   }
@@ -131,6 +166,12 @@ const FillableIcon = styled.button<{ isFilled: boolean }>`
 
   ${applyMediaQuery('desktop')} {
     transform: scale(0.75);
+  }
+  ${applyMediaQuery('mobile')} {
+    position: absolute;
+    top: 50%;
+    left: ${({ index }) => 3.9 * index}rem;
+    transform: translate(-25%, -45%) scale(0.5);
   }
 `;
 

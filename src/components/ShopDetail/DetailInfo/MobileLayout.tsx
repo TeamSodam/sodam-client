@@ -1,7 +1,7 @@
-import ShareIC from 'public/assets/ic_share.svg';
 import type { AnyStyledComponent } from 'styled-components';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
+import { getBackgroundImageCss } from 'styles/mixin';
 
 interface DetailInfoData {
   shopName: string;
@@ -15,20 +15,18 @@ function MobileLayout(props: DetailInfoData) {
   const { shopName, showCategory, showTheme, BookMarkBtn, showIconContent } = props;
   return (
     <Container>
-      <LeftWrapper>
-        <UpWrapper>
+      <ThemeList>{showTheme(Theme)}</ThemeList>
+      <StyledWrapper>
+        <StyledNames>
           <h1>{shopName}</h1>
           <p>{showCategory()}</p>
-        </UpWrapper>
-        <DownWrapper>
-          <ThemeList>{showTheme(Theme)}</ThemeList>
-          <IconWrapper>
-            {BookMarkBtn}
-            <ShareIC />
-          </IconWrapper>
-        </DownWrapper>
-      </LeftWrapper>
-      <RightWrapper>{showIconContent()}</RightWrapper>
+        </StyledNames>
+        <IconWrapper>
+          {BookMarkBtn}
+          <ShareButton />
+        </IconWrapper>
+      </StyledWrapper>
+      <IconContents>{showIconContent()}</IconContents>
     </Container>
   );
 }
@@ -37,89 +35,39 @@ export default MobileLayout;
 
 const Container = styled.div`
   display: flex;
-  height: 21.9rem;
-  gap: 10.7rem;
-
-  ${applyMediaQuery('desktop')} {
-    gap: 4.5rem;
-    height: 15.2rem;
-  }
-`;
-
-const LeftWrapper = styled.div`
-  flex: 1;
-  display: flex;
   flex-direction: column;
-  gap: 2.4rem;
-
-  height: 100%;
+  gap: 1.6rem;
 `;
 
-const UpWrapper = styled.div`
-  max-height: 75%;
+const ShareButton = styled.div`
+  ${getBackgroundImageCss('/assets/ic_share.svg')};
+  width: 1.7rem;
+  height: 1.7rem;
+`;
 
-  padding-bottom: 3.2rem;
+const StyledWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 0.8rem;
   border-bottom: 1px solid ${({ theme }) => theme.colors.purpleText};
+`;
+
+const StyledNames = styled.div`
+  display: flex;
+  align-items: flex-end;
+  gap: 0.7rem;
 
   & > h1 {
-    width: 95%;
-    font-size: 3rem;
-    line-height: 4.4rem;
-    color: ${({ theme }) => theme.colors.black2};
+    font-size: 1.8rem;
+    line-height: 2.6rem;
     font-weight: 700;
-    margin-bottom: 0.8rem;
-    margin-top: -1rem;
-
-    display: -webkit-box;
-    white-space: normal;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   & > p {
-    font-weight: 500;
-    font-size: 1.8rem;
-    line-height: 2.6rem;
+    font-size: 1.1rem;
+    line-height: 1.6rem;
+    font-weight: 400;
     color: ${({ theme }) => theme.colors.gray1};
-  }
-
-  ${applyMediaQuery('desktop')} {
-    & > h1 {
-      font-size: 2.4rem;
-      line-height: 3.2rem;
-      margin-top: unset;
-    }
-
-    & > p {
-      font-size: 1.2rem;
-      line-height: 2rem;
-    }
-  }
-`;
-
-const DownWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-`;
-
-const RightWrapper = styled.div`
-  flex: 1.7;
-  height: 72%;
-  display: grid;
-  grid-template-rows: repeat(3, 1fr);
-  grid-template-columns: repeat(2, 1fr);
-  gap: 3.7rem;
-
-  & > * {
-    height: 2.2rem;
-  }
-
-  ${applyMediaQuery('desktop')} {
-    gap: 2rem 1rem;
-    height: 100%;
   }
 `;
 
@@ -133,42 +81,36 @@ const Theme = styled.li`
   display: flex;
   align-items: center;
 
-  background-color: ${({ theme }) => theme.colors.purpleText};
-  color: white;
+  color: ${({ theme }) => theme.colors.purpleText};
+  border: 1px solid ${({ theme }) => theme.colors.purpleText};
+  background-color: white;
   border-radius: 3rem;
 
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 0.9rem;
   line-height: 2rem;
 
-  padding: 0.7rem 1.2rem;
+  padding: 0 1rem;
   height: fit-content;
-
-  ${applyMediaQuery('desktop')} {
-    font-size: 1rem;
-    line-height: 1.5rem;
-    padding: 0.7rem 1rem;
-  }
 
   &:before {
     content: '#';
   }
+`;
 
-  ${applyMediaQuery('desktop')} {
-    font-size: 1rem;
-    line-height: 1.5rem;
-  }
+const IconContents = styled.ul`
+  display: flex;
+  flex-direction: column;
+
+  gap: 1.2rem;
 `;
 
 const IconWrapper = styled.div`
   display: flex;
-  gap: 2.3rem;
+  align-items: flex-end;
+  gap: 1rem;
 
   & svg:hover {
     cursor: pointer;
-  }
-
-  ${applyMediaQuery('desktop')} {
-    transform: scale(0.75);
   }
 `;

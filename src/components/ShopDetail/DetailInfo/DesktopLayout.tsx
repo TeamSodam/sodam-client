@@ -28,7 +28,7 @@ function DesktopLayout(props: DetailInfoData) {
           </IconWrapper>
         </DownWrapper>
       </LeftWrapper>
-      <RightWrapper>{showIconContent()}</RightWrapper>
+      <IconContents>{showIconContent()}</IconContents>
     </Container>
   );
 }
@@ -105,7 +105,8 @@ const DownWrapper = styled.div`
   justify-content: space-between;
 `;
 
-const RightWrapper = styled.div`
+const IconContents = styled.ul`
+  list-style: none;
   flex: 1.7;
   height: 72%;
   display: grid;

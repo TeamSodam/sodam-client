@@ -29,6 +29,10 @@ const Container = styled.div`
     height: 45rem;
   }
 
+  ${applyMediaQuery('mobile')} {
+    height: 15.6rem;
+  }
+
   display: grid;
   grid-template-columns: 3fr 1fr;
   grid-template-rows: repeat(3, 1fr);
