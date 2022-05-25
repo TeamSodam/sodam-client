@@ -130,6 +130,7 @@ const Container = styled.div`
 
   ${applyMediaQuery('desktop')} {
     gap: 4.5rem;
+    height: 15.2rem;
   }
 `;
 
@@ -198,16 +199,22 @@ const RightWrapper = styled.div`
   display: grid;
   grid-template-rows: repeat(3, 1fr);
   grid-template-columns: repeat(2, 1fr);
-  gap: 4rem;
+  gap: 3.7rem;
+
+  & > * {
+    height: 2.2rem;
+  }
 
   ${applyMediaQuery('desktop')} {
     gap: 2rem 1rem;
+    height: 100%;
   }
 `;
 
 const ThemeList = styled.ul`
   display: flex;
   gap: 0.8rem;
+  align-items: center;
 `;
 
 const Theme = styled.li`
@@ -222,7 +229,14 @@ const Theme = styled.li`
   font-size: 1.2rem;
   line-height: 2rem;
 
-  padding: 0.2rem 1.2rem;
+  padding: 0.7rem 1.2rem;
+  height: fit-content;
+
+  ${applyMediaQuery('desktop')} {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    padding: 0.7rem 1rem;
+  }
 
   &:before {
     content: '#';

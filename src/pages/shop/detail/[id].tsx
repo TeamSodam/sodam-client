@@ -216,6 +216,14 @@ const MapContainer = styled.div`
   height: 32rem;
 
   position: relative;
+
+  ${applyMediaQuery('desktop')} {
+    height: 21.3rem;
+
+    & img[title] {
+      transform: scale(0.85) translateX(7.5%);
+    }
+  }
 `;
 
 const ColoredBackground = styled.div`

@@ -1,4 +1,5 @@
 import { css } from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { Shop } from 'types/shop';
 
 export const miniTooltipStyle = css`
@@ -29,6 +30,15 @@ export const miniTooltipStyle = css`
       bottom: -0.9rem;
       left: 50%;
       transform: translateX(-50%);
+    }
+
+    ${applyMediaQuery('desktop')} {
+      padding: 0.4rem 1.6rem;
+      margin-top: -8rem;
+      &__title {
+        font-size: 1.1rem;
+        line-height: 2rem;
+      }
     }
   }
 `;

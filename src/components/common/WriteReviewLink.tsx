@@ -38,12 +38,19 @@ const StyledWriteLink = styled.a`
   font-size: 1.6rem;
   line-height: 2.3rem;
 
+  ${applyMediaQuery('desktop')} {
+    height: 3.2rem;
+    width: 13.6rem;
+
+    font-size: 1.2rem;
+    line-height: 1.7rem;
+    font-family: 'Noto Sans KR';
+  }
+
   ${applyMediaQuery('mobile')} {
-    & > span {
-      font-size: 0.8rem;
-      line-height: 1.2rem;
-      font-family: 'Noto Sans KR';
-    }
+    font-size: 0.8rem;
+    line-height: 1.2rem;
+    font-family: 'Noto Sans KR';
 
     border-radius: 5px;
     gap: 0.3rem;

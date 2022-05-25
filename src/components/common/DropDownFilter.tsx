@@ -79,4 +79,15 @@ const StyledWrapper = styled.div`
       line-height: 1.3rem;
     }
   }
+
+  ${applyMediaQuery('desktop')} {
+    & > span {
+      font-size: 1rem;
+      line-height: 1.4rem;
+    }
+
+    & img {
+      transform: scale(0.85);
+    }
+  }
 `;

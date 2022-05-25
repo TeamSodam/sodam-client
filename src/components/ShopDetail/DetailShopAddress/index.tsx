@@ -5,6 +5,7 @@ import LandAddressIC from 'public/assets/ic_land_address.svg';
 import RoadAddressIC from 'public/assets/ic_road_address.svg';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { Shop } from 'types/shop';
 
 const ROAD = 'ROAD';
@@ -79,6 +80,14 @@ const Container = styled.div`
   transform: translateX(-50%);
 
   z-index: 2;
+
+  ${applyMediaQuery('desktop')} {
+    & svg {
+      transform: scale(0.75) translateX(12.5%);
+    }
+    height: 4.5rem;
+    gap: 1rem;
+  }
 `;
 
 const Address = styled.span`
@@ -86,6 +95,11 @@ const Address = styled.span`
   font-size: 20px;
   line-height: 20px;
   color: ${({ theme }) => theme.colors.black1};
+
+  ${applyMediaQuery('desktop')} {
+    font-size: 1.4rem;
+    line-height: 2rem;
+  }
 `;
 
 const ToggleBtn = styled.button`
