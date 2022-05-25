@@ -1,6 +1,5 @@
 import type { AnyStyledComponent } from 'styled-components';
 import styled from 'styled-components';
-import { applyMediaQuery } from 'styles/mediaQuery';
 import { getBackgroundImageCss } from 'styles/mixin';
 
 interface DetailInfoData {

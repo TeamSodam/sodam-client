@@ -88,6 +88,13 @@ const Container = styled.div`
     height: 4.5rem;
     gap: 1rem;
   }
+  ${applyMediaQuery('mobile')} {
+    & svg {
+      transform: scale(0.45) translateX(25.5%);
+    }
+    height: 3rem;
+    gap: 1rem;
+  }
 `;
 
 const Address = styled.span`
@@ -99,6 +106,12 @@ const Address = styled.span`
   ${applyMediaQuery('desktop')} {
     font-size: 1.4rem;
     line-height: 2rem;
+  }
+  ${applyMediaQuery('mobile')} {
+    font-size: 0.6rem;
+    line-height: 2rem;
+
+    transform: scale(0.6);
   }
 `;
 

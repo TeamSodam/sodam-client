@@ -25,18 +25,19 @@ const Container = styled.div`
   width: 100%;
   height: 59rem;
 
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1.6rem 2.7rem;
+
   ${applyMediaQuery('desktop')} {
     height: 45rem;
   }
 
   ${applyMediaQuery('mobile')} {
     height: 15.6rem;
+    gap: 0.8rem 0.3rem;
   }
-
-  display: grid;
-  grid-template-columns: 3fr 1fr;
-  grid-template-rows: repeat(3, 1fr);
-  gap: 1.6rem 2.7rem;
 
   .detail-image {
     position: relative !important;

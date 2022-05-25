@@ -132,14 +132,10 @@ function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQu
 
   return (
     <StyledContainer>
-      {!isMobile && <ColoredBackground />}
+      <ColoredBackground />
       <ImageGridWrapper>
-        {shopInfo && (
-          <>
-            <DetailImageGrid imageList={shopInfo.image || []} />
-            <DetailInfo shopInfo={shopInfo} />
-          </>
-        )}
+        <DetailImageGrid imageList={shopInfo?.image || new Array(4)} />
+        {shopInfo && <DetailInfo shopInfo={shopInfo} />}
       </ImageGridWrapper>
       <Wrapper>
         <MapContainer ref={mapRef}>{showDetailShopAddress()}</MapContainer>
@@ -234,9 +230,20 @@ const MapContainer = styled.div`
       transform: scale(0.85) translateX(7.5%);
     }
   }
+
+  ${applyMediaQuery('mobile')} {
+    height: 13.5rem;
+
+    & img[title] {
+      transform: scale(0.85) translateX(7.5%);
+    }
+  }
 `;
 
 const ColoredBackground = styled.div`
+  ${applyMediaQuery('mobile')} {
+    display: none;
+  }
   position: absolute;
   width: 100%;
   height: 59rem;
