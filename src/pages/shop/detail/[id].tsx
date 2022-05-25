@@ -233,7 +233,7 @@ const MapContainer = styled.div`
     height: 13.5rem;
 
     & img[title] {
-      transform: scale(0.55) translateX(20%);
+      transform: scale(0.55) translate(20%, 25px);
     }
   }
 `;
@@ -268,6 +268,10 @@ const Label = styled.h2`
     font-size: 2.4rem;
     line-height: 3.2rem;
   }
+  ${applyMediaQuery('mobile')} {
+    font-size: 1.4rem;
+    line-height: 2rem;
+  }
 `;
 
 const LabelContentWrapper = styled.div`
@@ -297,6 +301,10 @@ const LabelWrapper = styled.div`
   display: flex;
   gap: 2.4rem;
   align-items: center;
+
+  ${applyMediaQuery('mobile')} {
+    gap: 1.2rem;
+  }
 `;
 
 export default Detail;

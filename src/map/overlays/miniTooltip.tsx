@@ -48,6 +48,8 @@ export const miniTooltipStyle = css`
         font-size: 0.6rem;
         line-height: 2rem;
       }
+
+      transform: translateY(15px);
     }
   }
 `;
