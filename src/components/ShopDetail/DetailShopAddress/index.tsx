@@ -75,7 +75,7 @@ const Container = styled.div`
 
   z-index: 2;
 
-  ${applyMediaQuery('desktop')} {
+  ${applyMediaQuery('desktop', 'tablet')} {
     & svg {
       transform: scale(0.75) translateX(12.5%);
     }
@@ -116,7 +116,7 @@ const Address = styled.span`
   line-height: 2rem;
   color: ${({ theme }) => theme.colors.black1};
 
-  ${applyMediaQuery('desktop')} {
+  ${applyMediaQuery('desktop', 'tablet')} {
     font-size: 1.4rem;
     line-height: 2rem;
   }

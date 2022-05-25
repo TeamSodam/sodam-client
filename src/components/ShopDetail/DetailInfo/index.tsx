@@ -16,6 +16,7 @@ import MobileLayout from './MobileLayout';
 
 function DetailInfo({ shopInfo }: { shopInfo: Shop }) {
   const { isMobile, isTablet } = useMedia();
+  const isSmallDevice = isMobile || isTablet;
   const {
     shopName,
     category,
@@ -89,10 +90,9 @@ function DetailInfo({ shopInfo }: { shopInfo: Shop }) {
   };
 
   const showIconContent = () => {
-    const orderedIconContents =
-      isMobile || isTablet
-        ? [...iconContents].sort((a, b) => a.mobileOrder - b.mobileOrder)
-        : iconContents;
+    const orderedIconContents = isSmallDevice
+      ? [...iconContents].sort((a, b) => a.mobileOrder - b.mobileOrder)
+      : iconContents;
 
     return orderedIconContents.map((iconContent) => (
       <IconContent key={iconContent.iconName} {...iconContent} />
@@ -121,7 +121,7 @@ function DetailInfo({ shopInfo }: { shopInfo: Shop }) {
     BookMarkBtn: <BookMarkBtn isBookmarked={currentBookmarked} onClick={handleClick} />,
   };
 
-  return isMobile ? <MobileLayout {...layoutProps} /> : <DesktopLayout {...layoutProps} />;
+  return isSmallDevice ? <MobileLayout {...layoutProps} /> : <DesktopLayout {...layoutProps} />;
 }
 
 const BookMarkBtn = styled.button<{ isBookmarked: boolean }>`
@@ -132,7 +132,7 @@ const BookMarkBtn = styled.button<{ isBookmarked: boolean }>`
   width: 3.2rem;
   height: 3.2rem;
 
-  ${applyMediaQuery('mobile')} {
+  ${applyMediaQuery('mobile', 'tablet')} {
     width: 1.78rem;
     height: 1.78rem;
   }

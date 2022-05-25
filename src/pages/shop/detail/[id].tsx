@@ -189,7 +189,7 @@ const StyledContainer = styled.main`
     gap: 4rem;
   }
 
-  ${applyMediaQuery('mobile')} {
+  ${applyMediaQuery('mobile', 'tablet')} {
     gap: 3.5rem;
   }
 
@@ -203,7 +203,7 @@ const ImageGridWrapper = styled.div`
   z-index: 2;
   gap: 5.6rem;
 
-  ${applyMediaQuery('mobile')} {
+  ${applyMediaQuery('mobile', 'tablet')} {
     gap: 0.8rem;
   }
 `;
@@ -229,6 +229,13 @@ const MapContainer = styled.div`
     }
   }
 
+  ${applyMediaQuery('tablet')} {
+    height: 18rem;
+    & img[title] {
+      transform: scale(0.75) translateX(12.5%);
+    }
+  }
+
   ${applyMediaQuery('mobile')} {
     height: 13.5rem;
 
@@ -239,7 +246,7 @@ const MapContainer = styled.div`
 `;
 
 const ColoredBackground = styled.div`
-  ${applyMediaQuery('mobile')} {
+  ${applyMediaQuery('mobile', 'tablet')} {
     display: none;
   }
   position: absolute;
@@ -268,7 +275,7 @@ const Label = styled.h2`
     font-size: 2.4rem;
     line-height: 3.2rem;
   }
-  ${applyMediaQuery('mobile')} {
+  ${applyMediaQuery('mobile', 'tablet')} {
     font-size: 1.4rem;
     line-height: 2rem;
   }
@@ -302,7 +309,7 @@ const LabelWrapper = styled.div`
   gap: 2.4rem;
   align-items: center;
 
-  ${applyMediaQuery('mobile')} {
+  ${applyMediaQuery('mobile', 'tablet')} {
     gap: 1.2rem;
   }
 `;

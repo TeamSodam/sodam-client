@@ -74,7 +74,7 @@ const SvgWrapper = styled.div<{ url: string }>`
     width: 2.2rem;
     height: 2.2rem;
   }
-  ${applyMediaQuery('mobile')} {
+  ${applyMediaQuery('mobile', 'tablet')} {
     width: 1.4rem;
     height: 1.4rem;
   }
@@ -107,7 +107,7 @@ const IconWrapper = styled.div`
     }
   }
 
-  ${applyMediaQuery('mobile')} {
+  ${applyMediaQuery('mobile', 'tablet')} {
     min-width: 6.5rem;
     gap: 1rem;
     & > span {
@@ -135,7 +135,7 @@ const ContentWrapper = styled.div<{ isCenter: boolean }>`
     gap: unset;
   }
 
-  ${applyMediaQuery('mobile')} {
+  ${applyMediaQuery('mobile', 'tablet')} {
     position: relative;
     font-size: 1.1rem;
     line-height: 2rem;
@@ -167,7 +167,7 @@ const FillableIcon = styled.button<{ isFilled: boolean; index: number }>`
   ${applyMediaQuery('desktop')} {
     transform: scale(0.75);
   }
-  ${applyMediaQuery('mobile')} {
+  ${applyMediaQuery('mobile', 'tablet')} {
     position: absolute;
     top: 50%;
     left: ${({ index }) => 3.9 * index}rem;

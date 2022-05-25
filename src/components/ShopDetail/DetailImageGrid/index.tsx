@@ -34,6 +34,10 @@ const Container = styled.div`
     height: 45rem;
   }
 
+  ${applyMediaQuery('tablet')} {
+    height: 30rem;
+    gap: 1rem 1.5rem;
+  }
   ${applyMediaQuery('mobile')} {
     height: 15.6rem;
     gap: 0.8rem 0.3rem;
