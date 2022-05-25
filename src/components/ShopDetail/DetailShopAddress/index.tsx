@@ -1,47 +1,26 @@
-import RoadToggleIC from 'public/assets/ic_address_land.svg';
-import LandToggleIC from 'public/assets/ic_address_road.svg';
-import CopyIC from 'public/assets/ic_copy.svg';
-import LandAddressIC from 'public/assets/ic_land_address.svg';
-import RoadAddressIC from 'public/assets/ic_road_address.svg';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
+import { getBackgroundImageCss } from 'styles/mixin';
 import { Shop } from 'types/shop';
 
-const ROAD = 'ROAD';
-const LAND = 'LAND';
-interface AddressToggleMap {
-  [key: string]: {
-    addressState: React.FC<React.SVGProps<SVGSVGElement>>;
-    toggleAddress: React.FC<React.SVGProps<SVGSVGElement>>;
-  };
+const ROAD = '도로명';
+const LAND = '지번';
+
+interface StButtonprops {
+  url: string;
 }
 
-const ADDRESS_ICON_MAP: AddressToggleMap = {
-  [ROAD]: {
-    addressState: RoadAddressIC,
-    toggleAddress: RoadToggleIC,
-  },
-  [LAND]: {
-    addressState: LandAddressIC,
-    toggleAddress: LandToggleIC,
-  },
+const ADDRESS_ICON_MAP = {
+  [ROAD]: '/assets/ic_road_address.svg',
+  [LAND]: '/assets/ic_land_address.svg',
 };
 
 type AddressProps = Pick<Shop, 'roadAddress' | 'landAddress'>;
 
 function DetailShopAddress({ roadAddress, landAddress }: AddressProps) {
   const [currentAddress, setCurrentAddress] = useState(roadAddress);
-  const [currentAddressType, setCurrentAddressType] = useState(ROAD);
-  const getAddressState = () => {
-    const AddressType = ADDRESS_ICON_MAP[currentAddressType].addressState;
-    return <AddressType />;
-  };
-
-  const getAddressStateToggler = () => {
-    const AddressToggler = ADDRESS_ICON_MAP[currentAddressType].toggleAddress;
-    return <AddressToggler />;
-  };
+  const [currentAddressType, setCurrentAddressType] = useState<keyof typeof ADDRESS_ICON_MAP>(ROAD);
 
   const toggleAddressType = () => {
     setCurrentAddress(currentAddressType === ROAD ? landAddress : roadAddress);
@@ -52,12 +31,27 @@ function DetailShopAddress({ roadAddress, landAddress }: AddressProps) {
 
   return (
     <Container>
-      {getAddressState()}
+      <AddressLabel url={ADDRESS_ICON_MAP[currentAddressType]} />
       <Address>{currentAddress}</Address>
-      <ToggleBtn onClick={toggleAddressType}>{getAddressStateToggler()}</ToggleBtn>
-      <CopyBtn onClick={copyAddressToClipboard}>
-        <CopyIC />
-      </CopyBtn>
+      <ButtonWrapper>
+        <ToggleButton
+          onClick={toggleAddressType}
+          url="/assets/ic_address_toggle.svg"
+          id="address-toggle"
+          type="button"
+        />
+        <label htmlFor="address-toggle">{currentAddressType}</label>
+      </ButtonWrapper>
+
+      <ButtonWrapper>
+        <CopyBtn
+          onClick={copyAddressToClipboard}
+          url="/assets/ic_copy.svg"
+          id="address-copy"
+          type="button"
+        />
+        <label htmlFor="address-copy">복사</label>
+      </ButtonWrapper>
     </Container>
   );
 }
@@ -89,18 +83,37 @@ const Container = styled.div`
     gap: 1rem;
   }
   ${applyMediaQuery('mobile')} {
-    & svg {
-      transform: scale(0.45) translateX(25.5%);
-    }
     height: 3rem;
-    gap: 1rem;
+    padding: 0 0.5rem;
+  }
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  & > label {
+    min-width: fit-content;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    color: ${({ theme }) => theme.colors.purpleText};
+  }
+  ${applyMediaQuery('mobile')} {
+    gap: 0.2rem;
+
+    & > label {
+      transform: scale(0.6);
+      font-size: 0.6rem;
+      line-height: 1.5rem;
+    }
   }
 `;
 
 const Address = styled.span`
   font-weight: 500;
-  font-size: 20px;
-  line-height: 20px;
+  font-size: 2rem;
+  line-height: 2rem;
   color: ${({ theme }) => theme.colors.black1};
 
   ${applyMediaQuery('desktop')} {
@@ -108,32 +121,17 @@ const Address = styled.span`
     line-height: 2rem;
   }
   ${applyMediaQuery('mobile')} {
+    word-break: keep-all;
     font-size: 0.6rem;
-    line-height: 2rem;
-
+    line-height: 1.5rem;
+    /* width: fit-content; */
     transform: scale(0.6);
+    margin: 0 -4rem;
   }
 `;
 
-const ToggleBtn = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background-color: transparent;
-  border: none;
-  padding: 0;
-
-  &:hover {
-    cursor: pointer;
-  }
-`;
-
-const CopyBtn = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: fit-content;
+const BackgroundButton = styled.button<StButtonprops>`
+  ${({ url }) => getBackgroundImageCss(url)};
   background-color: transparent;
   border: none;
   padding: 0;
@@ -141,4 +139,40 @@ const CopyBtn = styled.button`
     cursor: pointer;
   }
 `;
+const CopyBtn = styled(BackgroundButton)`
+  width: 1.9rem;
+  height: 1.9rem;
+  ${applyMediaQuery('mobile')} {
+    width: 1.2rem;
+    min-width: 1.2rem;
+    height: 1.2rem;
+    margin-right: -0.5rem;
+    margin-left: -1rem;
+  }
+`;
+
+const ToggleButton = styled(BackgroundButton)`
+  width: 1.9rem;
+  height: 1.9rem;
+  ${applyMediaQuery('mobile')} {
+    width: 1.2rem;
+    min-width: 1.2rem;
+    height: 1.2rem;
+    margin-right: -0.5rem;
+  }
+`;
+
+const AddressLabel = styled.span<StButtonprops>`
+  ${({ url }) => getBackgroundImageCss(url)};
+  width: 6.3rem;
+  height: 2.6rem;
+
+  ${applyMediaQuery('mobile')} {
+    min-width: 2.7rem;
+    width: 2.7rem;
+    height: 1.1rem;
+    background-size: contain;
+  }
+`;
+
 export default DetailShopAddress;

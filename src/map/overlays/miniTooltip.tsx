@@ -40,6 +40,15 @@ export const miniTooltipStyle = css`
         line-height: 2rem;
       }
     }
+    ${applyMediaQuery('mobile')} {
+      padding: 0.4rem 0.7rem;
+      margin-top: -7rem;
+      filter: drop-shadow(0px 1px 1.5px rgba(149, 144, 140, 0.4));
+      &__title {
+        font-size: 0.6rem;
+        line-height: 2rem;
+      }
+    }
   }
 `;
 

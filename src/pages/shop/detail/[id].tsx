@@ -11,7 +11,6 @@ import DetailShopAddress from 'components/ShopDetail/DetailShopAddress';
 import { reviewApi, useGetReviewByShopIdQuery } from 'features/reviews/reviewApi';
 import { useGetShopByShopIdQuery, useGetShopBySubwayQuery } from 'features/shops/shopApi';
 import useMap from 'hooks/useMap';
-import useMedia from 'hooks/useMedia';
 import { NextParsedUrlQuery } from 'next/dist/server/request-meta';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
@@ -26,7 +25,6 @@ const parseShopId = (shopID: string | string[] | undefined) => {
 };
 
 function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQuery }) {
-  const { isMobile } = useMedia();
   const [trigger] = reviewApi.useLazyGetReviewByShopIdQuery();
 
   const SHOP_ID = parseShopId(params.id);
@@ -235,7 +233,7 @@ const MapContainer = styled.div`
     height: 13.5rem;
 
     & img[title] {
-      transform: scale(0.85) translateX(7.5%);
+      transform: scale(0.55) translateX(20%);
     }
   }
 `;
