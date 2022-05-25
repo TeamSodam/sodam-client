@@ -1,10 +1,10 @@
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import loadImageSafely from 'src/utils/loadImageSafely';
 import parseCategorySafely from 'src/utils/parseCategorySafely';
 import { parseDate } from 'src/utils/parseDate';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 import { ReviewCardData } from 'types/review';
 
@@ -53,7 +53,9 @@ function ReviewCard(props: ReviewCardProps) {
     if (isMyReview) return <p className="date">{parseDate(date)}</p>;
     return (
       <div className="profile">
-        {writerThumbnail && <Image src={writerThumbnail} width={24} height={24} alt="profile" />}
+        {writerThumbnail && (
+          <ImageDiv className="profile__image" src={writerThumbnail} layout="fill" alt="profile" />
+        )}
         <p>{writerName}</p>
       </div>
     );
@@ -74,8 +76,7 @@ function ReviewCard(props: ReviewCardProps) {
       <ImageDiv
         className="thumbnail__image"
         src={loadImageSafely(image)}
-        width={384}
-        height={208}
+        layout="fill"
         alt="thumbnail"
         placeholder="blur"
         blurDataURL={loadImageSafely(image)}
@@ -85,18 +86,16 @@ function ReviewCard(props: ReviewCardProps) {
           {toggleHeaderByIsMyReview()}
           <div className="figure">
             <ImageDiv
-              className="figure__icon"
+              className="figure__icon--heart"
               src={'/assets/ic_heart.svg'}
-              width={15}
-              height={13}
+              layout="fill"
               alt="liked"
             />
             <p>{likedCount}</p>
             <ImageDiv
-              className="figure__icon"
+              className="figure__icon--save"
               src={'/assets/ic_save.svg'}
-              width={12}
-              height={14}
+              layout="fill"
               alt="saved"
             />
             <p>{savedCount}</p>
@@ -118,9 +117,20 @@ const StyledRoot = styled.div`
     cursor: pointer;
   }
   .thumbnail__image {
+    position: relative;
+    width: 38.4rem;
+    height: 20.8rem;
     & img {
       border-top-left-radius: 5px;
       border-top-right-radius: 5px;
+    }
+  }
+  ${applyMediaQuery('desktop')} {
+    width: 25.6rem;
+    height: 21.4rem;
+    .thumbnail__image {
+      width: 25.6rem;
+      height: 13.9rem;
     }
   }
 `;
@@ -156,6 +166,17 @@ const StyledHover = styled.div`
       opacity: 1;
     }
   }
+  ${applyMediaQuery('desktop')} {
+    p:first-child {
+      font-size: 1.4rem;
+      line-height: 2rem;
+      margin: 0.2rem auto;
+    }
+    p:last-child {
+      font-size: 1rem;
+      line-height: 1.2rem;
+    }
+  }
 `;
 const StyledContents = styled.div`
   display: flex;
@@ -178,6 +199,14 @@ const StyledContents = styled.div`
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
   }
+  ${applyMediaQuery('desktop')} {
+    padding: 0.8rem 1.6rem 1.4rem 1.6rem;
+    & > p {
+      height: 2.6rem;
+      font-size: 1rem;
+      line-height: 1.3rem;
+    }
+  }
 `;
 const StyledHeader = styled.div`
   display: flex;
@@ -193,8 +222,13 @@ const StyledHeader = styled.div`
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    img {
-      border-radius: 12px;
+    &__image {
+      position: relative;
+      width: 2.4rem;
+      height: 2.4rem;
+      img {
+        border-radius: 50%;
+      }
     }
     p {
       font-size: 1.4rem;
@@ -212,11 +246,57 @@ const StyledHeader = styled.div`
       font-weight: 400;
       line-height: 2.2rem;
     }
-    &__icon {
+    &__icon--heart,
+    &__icon--save {
       display: flex;
       align-items: center;
       margin-right: 0.6rem;
       margin-left: 1rem;
+      position: relative;
+    }
+    &__icon--heart {
+      width: 1.5rem;
+      height: 1.3rem;
+    }
+    &__icon--save {
+      width: 1.2rem;
+      height: 1.4rem;
+    }
+  }
+  ${applyMediaQuery('desktop')} {
+    margin-bottom: 0.5rem;
+    .date {
+      font-size: 1rem;
+      line-height: 2.2rem;
+    }
+    .profile {
+      &__image {
+        width: 1.6rem;
+        height: 1.6rem;
+      }
+      p {
+        font-size: 1rem;
+        line-height: 2.2rem;
+        margin-left: 0.5rem;
+      }
+    }
+    .figure {
+      p {
+        font-size: 1rem;
+      }
+      &__icon--heart,
+      &__icon--save {
+        margin-right: 0.4rem;
+        margin-left: 0.6rem;
+      }
+      &__icon--heart {
+        width: 1rem;
+        height: 0.87rem;
+      }
+      &__icon--save {
+        width: 0.8rem;
+        height: 0.93rem;
+      }
     }
   }
 `;
