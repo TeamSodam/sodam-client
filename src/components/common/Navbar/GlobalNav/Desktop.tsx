@@ -1,4 +1,5 @@
 import LocalNav from 'components/common/Navbar/LocalNav';
+import Image from 'next/image';
 import Link from 'next/link';
 import SearchICDesktop from 'public/assets/ic_search_desktop.svg';
 import MainLogoIC from 'public/assets/mainLogo.svg';
@@ -12,7 +13,7 @@ import Screen from 'styles/Screen';
 import { menuList, NavProps } from '.';
 
 function GlobalNavDesktop(props: NavProps) {
-  const { onClickMenu, isMyReview: isCurrentPathIncludesMyReview, getIsActive } = props;
+  const { onClickMenu, isMyReview: isCurrentPathIncludesMyReview, getIsActive, userImage } = props;
 
   return (
     <>
@@ -48,9 +49,11 @@ function GlobalNavDesktop(props: NavProps) {
               <SearchText />
             </SearchBar>
             <Login>로그아웃</Login>
-            <Profile>
-              <ProfileIC />
-            </Profile>
+            <Link href="/mypage" passHref>
+              <Profile>
+                {userImage ? <Image src={userImage} layout="fill" alt="profile" /> : <ProfileIC />}
+              </Profile>
+            </Link>
           </RightNav>
         </GlobalNavBar>
       </GlobalNavWrapper>
@@ -62,6 +65,7 @@ function GlobalNavDesktop(props: NavProps) {
 const GlobalNavWrapper = styled.div`
   width: 100%;
   height: 8.2rem;
+  min-height: 8.2rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -76,6 +80,7 @@ const GlobalNavWrapper = styled.div`
 
   ${applyMediaQuery('desktop')} {
     height: 5.4rem;
+    min-height: 5.4rem;
 
     &:after {
       top: 5.4rem;
@@ -212,9 +217,13 @@ const Login = styled.div`
 `;
 
 const Profile = styled.div`
+  position: relative;
   width: 3.4rem;
   height: 3.4rem;
   cursor: pointer;
+  img {
+    border-radius: 50%;
+  }
 
   ${applyMediaQuery('desktop')} {
     width: 2.2rem;
