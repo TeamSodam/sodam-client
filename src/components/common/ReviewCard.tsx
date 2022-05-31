@@ -136,6 +136,14 @@ const StyledRoot = styled.div`
       height: 13.9rem;
     }
   }
+  ${applyMediaQuery('tablet', 'mobile')} {
+    width: 15.3rem;
+    height: 22rem;
+    .thumbnail__image {
+      width: 15.3rem;
+      height: 13.4rem;
+    }
+  }
 `;
 const StyledHover = styled.div`
   position: absolute;
@@ -169,7 +177,7 @@ const StyledHover = styled.div`
       opacity: 1;
     }
   }
-  ${applyMediaQuery('desktop')} {
+  ${applyMediaQuery('desktop', 'tablet', 'mobile')} {
     p:first-child {
       font-size: 1.4rem;
       line-height: 2rem;
@@ -208,6 +216,15 @@ const StyledContents = styled.div`
       height: 2.6rem;
       font-size: 1rem;
       line-height: 1.3rem;
+    }
+  }
+  ${applyMediaQuery('tablet', 'mobile')} {
+    padding: 0.8rem 1rem 1.4rem 1rem;
+    & > p {
+      height: 4rem;
+      font-size: 1rem;
+      line-height: 1.3rem;
+      -webkit-line-clamp: 3;
     }
   }
 `;
@@ -299,6 +316,45 @@ const StyledHeader = styled.div`
       &__icon--save {
         width: 0.8rem;
         height: 0.93rem;
+      }
+    }
+  }
+  ${applyMediaQuery('tablet', 'mobile')} {
+    margin-bottom: 0.3rem;
+    .date {
+      font-size: 1rem;
+      line-height: 1.2rem;
+      transform: scale(0.8);
+    }
+    .profile {
+      &__image {
+        width: 1.4rem;
+        height: 1.4rem;
+      }
+      p {
+        font-size: 1rem;
+        line-height: 1.2rem;
+        margin-left: 0.3rem;
+        transform: scale(0.8);
+      }
+    }
+    .figure {
+      p {
+        font-size: 1rem;
+        transform: scale(0.7);
+      }
+      &__icon--heart,
+      &__icon--save {
+        margin-right: 0.2rem;
+        margin-left: 0.5rem;
+      }
+      &__icon--heart {
+        width: 0.8rem;
+        height: 0.8rem;
+      }
+      &__icon--save {
+        width: 0.8rem;
+        height: 0.8rem;
       }
     }
   }

@@ -31,8 +31,7 @@ function Home() {
     switch (type) {
       case 'shop':
         if (isDesktop) return 4;
-        if (isTablet) return 3;
-        if (isMobile) return 2;
+        if (isTablet || isMobile) return 2;
         return 4;
       case 'review':
         if (isDesktop) return 3;

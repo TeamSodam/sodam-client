@@ -48,6 +48,15 @@ const StyledRoot = styled.div`
       height: 2.7rem;
     }
   }
+  ${applyMediaQuery('tablet', 'mobile')} {
+    .rank__wrap {
+      margin-left: 0.7rem;
+    }
+    .rank__icon {
+      width: 1.6rem;
+      height: 2rem;
+    }
+  }
 `;
 
 export default ShopCardRank;
