@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { RootState } from 'app/store';
 
 export interface UserState {
-  token: string;
+  isLogin: boolean;
+  token: string | null;
   userInfo: {
     nickname: string;
     email: string;
@@ -13,10 +14,11 @@ export interface UserState {
 type UserInfo = Pick<UserState, 'userInfo'>;
 
 const initialState: UserState = {
-  token: 'intial-test-token',
+  isLogin: false,
+  token: null,
   userInfo: {
     nickname: '소푸미',
-    email: 'test@test.com',
+    email: '',
   },
 };
 
@@ -26,17 +28,24 @@ export const userSlice = createSlice({
   reducers: {
     setToken: (state, action: PayloadAction<string>) => {
       state.token = action.payload;
+      state.isLogin = true;
     },
     setUser: (state, action: PayloadAction<UserInfo>) => {
       state.userInfo = action.payload.userInfo;
     },
+    logout: (state) => {
+      state.isLogin = false;
+      state.token = null;
+      state.userInfo = { ...initialState.userInfo };
+    },
   },
 });
 
-export const { setToken, setUser } = userSlice.actions;
+export const { setToken, setUser, logout } = userSlice.actions;
 
 export const selectUser = (state: RootState) => state.reducer.user;
 export const selectUserToken = (state: RootState) => state.reducer.user.token;
 export const selectUserInfo = (state: RootState) => state.reducer.user.userInfo;
+export const selectIsLogin = (state: RootState) => state.reducer.user.isLogin;
 
 export default userSlice.reducer;

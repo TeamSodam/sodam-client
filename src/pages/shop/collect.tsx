@@ -1,7 +1,7 @@
 import DropDownFilter from 'components/common/DropDownFilter';
 import ShopCard from 'components/common/ShopCard';
-import { useGetShopByBookmarkQuery } from 'features/shops/shopApi';
-import { useState } from 'react';
+import { shopApi, useGetShopByBookmarkQuery } from 'features/shops/shopApi';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
@@ -14,6 +14,16 @@ function Collect() {
     offset: 1,
     limit: 12,
   });
+
+  const [fetchCollectShops] = shopApi.useLazyGetShopByBookmarkQuery();
+  const [currentList, setCurrentList] = useState([]);
+
+  useEffect(() => {
+    (async function () {
+      const data = await fetchCollectShops({ sort: currentSort, offset: 1, limit: 12 });
+      console.log(data);
+    })();
+  }, [currentSort]);
 
   const filterProps = [
     {

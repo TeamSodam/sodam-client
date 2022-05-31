@@ -1,4 +1,6 @@
+import { useAppDispatch } from 'app/hook';
 import LocalNav from 'components/common/Navbar/LocalNav';
+import { logout } from 'features/users/userSlice';
 import Image from 'next/image';
 import Link from 'next/link';
 import SearchICDesktop from 'public/assets/ic_search_desktop.svg';
@@ -13,21 +15,31 @@ import Screen from 'styles/Screen';
 import { menuList, NavProps } from '.';
 
 function GlobalNavDesktop(props: NavProps) {
-  const { onClickMenu, isMyReview: isCurrentPathIncludesMyReview, getIsActive, userImage } = props;
+  const {
+    onClickMenu,
+    isMyReview: isCurrentPathIncludesMyReview,
+    getIsActive,
+    userImage,
+    isLogin,
+  } = props;
+
+  const dispatch = useAppDispatch();
 
   return (
     <>
       <GlobalNavWrapper>
         <GlobalNavBar>
           <LeftNav>
-            <Logo href="/">
-              <Screen wide>
-                <MainLogoIC />
-              </Screen>
-              <Screen tablet desktop>
-                <MainLogoDesktopIC />
-              </Screen>
-            </Logo>
+            <Link href="/" passHref>
+              <Logo>
+                <Screen wide>
+                  <MainLogoIC />
+                </Screen>
+                <Screen tablet desktop>
+                  <MainLogoDesktopIC />
+                </Screen>
+              </Logo>
+            </Link>
             <MenuList>
               {menuList.map((menu) => (
                 <Link key={menu.menuName} href={onClickMenu(menu)} passHref>
@@ -48,12 +60,24 @@ function GlobalNavDesktop(props: NavProps) {
               </SearchIcon>
               <SearchText />
             </SearchBar>
-            <Login>로그아웃</Login>
-            <Link href="/mypage" passHref>
-              <Profile>
-                {userImage ? <Image src={userImage} layout="fill" alt="profile" /> : <ProfileIC />}
-              </Profile>
-            </Link>
+            {isLogin ? (
+              <>
+                <Logout onClick={() => dispatch(logout())}>로그아웃</Logout>
+                <Link href="/mypage" passHref>
+                  <Profile>
+                    {userImage ? (
+                      <Image src={userImage} layout="fill" alt="profile" />
+                    ) : (
+                      <ProfileIC />
+                    )}
+                  </Profile>
+                </Link>
+              </>
+            ) : (
+              <Link passHref href="/auth/login">
+                <Login>로그인</Login>
+              </Link>
+            )}
           </RightNav>
         </GlobalNavBar>
       </GlobalNavWrapper>
@@ -204,7 +228,25 @@ const SearchText = styled.input`
   }
 `;
 
-const Login = styled.div`
+const Logout = styled.button`
+  font-family: 'Noto Sans KR';
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  font-size: 1.6rem;
+  margin-right: 2.7rem;
+  min-width: fit-content;
+  cursor: pointer;
+
+  ${applyMediaQuery('desktop')} {
+    font-size: 1.2rem;
+    line-height: 1.7rem;
+  }
+`;
+
+const Login = styled.a`
+  color: inherit;
+  text-decoration: none;
   font-size: 1.6rem;
   margin-right: 2.7rem;
   min-width: fit-content;
