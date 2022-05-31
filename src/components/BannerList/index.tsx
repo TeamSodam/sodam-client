@@ -2,21 +2,21 @@ import 'swiper/swiper.min.css';
 import 'swiper/components/navigation/navigation.min.css';
 
 import Banner from 'components/common/Banner';
-import useMedia from 'hooks/useMedia';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
-import SwiperCore, { Navigation } from 'swiper';
+import SwiperCore, { Autoplay, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import BANNER_SRC from './bannerSrcList';
+const bannerList = [
+  { src: 'assets/banner/banner1.png', href: '/map' },
+  { src: 'assets/banner/banner2.png', href: '/shop/theme/아기자기한' },
+  { src: 'assets/banner/banner3.png' },
+];
 
 function BannerList() {
-  SwiperCore.use([Navigation]);
+  SwiperCore.use([Navigation, Autoplay]);
   const [swiperSetting, setSwiperSetting] = useState<Swiper | null>(null);
-  const { isDesktop } = useMedia();
-  const [currentBannerList, setcurrentBannerList] = useState(BANNER_SRC.wide);
 
   useEffect(() => {
     if (!swiperSetting) {
@@ -28,30 +28,13 @@ function BannerList() {
     }
   }, [swiperSetting]);
 
-  useEffect(() => {
-    setcurrentBannerList(isDesktop ? BANNER_SRC.desktop : BANNER_SRC.wide);
-  }, [isDesktop]);
-
   return (
     <Container>
       {swiperSetting && (
-        <Swiper navigation className="mySlider">
-          {currentBannerList.map(({ src, Button, Text }) => (
+        <Swiper autoplay={{ delay: 3000 }} navigation className="mySlider">
+          {bannerList.map(({ src, href }) => (
             <SwiperSlide key={src}>
-              <Banner
-                src={src}
-                button={
-                  Button && (
-                    <Link href="/shop/theme/아기자기한" passHref>
-                      <BannerBtn>
-                        <Button />
-                      </BannerBtn>
-                    </Link>
-                  )
-                }
-              >
-                {Text}
-              </Banner>
+              <Banner src={src} href={href} />
             </SwiperSlide>
           ))}
         </Swiper>
@@ -85,6 +68,10 @@ const Container = styled.div`
           height: 345px;
         }
 
+        ${applyMediaQuery('tablet')} {
+          height: 180px;
+        }
+
         ${applyMediaQuery('mobile')} {
           height: 97px;
         }
@@ -116,21 +103,6 @@ const Container = styled.div`
       transform: scale(0.3);
       right: 5px;
     }
-  }
-`;
-
-const BannerBtn = styled.a`
-  position: absolute;
-  bottom: 10rem;
-
-  ${applyMediaQuery('desktop')} {
-    bottom: 6.6rem;
-    transform: scale(0.66) translateX(-25%);
-  }
-  left: 0;
-
-  &:hover {
-    cursor: pointer;
   }
 `;
 
