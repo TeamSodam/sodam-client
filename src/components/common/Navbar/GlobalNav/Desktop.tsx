@@ -3,6 +3,7 @@ import LocalNav from 'components/common/Navbar/LocalNav';
 import { logout } from 'features/users/userSlice';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import SearchICDesktop from 'public/assets/ic_search_desktop.svg';
 import MainLogoIC from 'public/assets/mainLogo.svg';
 import MainLogoDesktopIC from 'public/assets/mainLogoDesktop.svg';
@@ -23,7 +24,12 @@ function GlobalNavDesktop(props: NavProps) {
     isLogin,
   } = props;
 
+  const router = useRouter();
   const dispatch = useAppDispatch();
+  const handleLogout = () => {
+    dispatch(logout());
+    router.push('/');
+  };
 
   return (
     <>
@@ -62,7 +68,7 @@ function GlobalNavDesktop(props: NavProps) {
             </SearchBar>
             {isLogin ? (
               <>
-                <Logout onClick={() => dispatch(logout())}>로그아웃</Logout>
+                <Logout onClick={handleLogout}>로그아웃</Logout>
                 <Link href="/mypage" passHref>
                   <Profile>
                     {userImage ? (
