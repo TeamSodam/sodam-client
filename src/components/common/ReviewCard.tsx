@@ -53,9 +53,12 @@ function ReviewCard(props: ReviewCardProps) {
     if (isMyReview) return <p className="date">{parseDate(date)}</p>;
     return (
       <div className="profile">
-        {writerThumbnail && (
-          <ImageDiv className="profile__image" src={writerThumbnail} layout="fill" alt="profile" />
-        )}
+        <ImageDiv
+          className="profile__image"
+          src={writerThumbnail ? writerThumbnail : '/assets/profile_default.svg'}
+          layout="fill"
+          alt="profile"
+        />
         <p>{writerName}</p>
       </div>
     );
