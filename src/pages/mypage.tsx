@@ -12,13 +12,13 @@ import { applyMediaQuery } from 'styles/mediaQuery';
 function Mypage() {
   const { data: userInfo } = useGetUserInfoQuery();
   const { data: userImage } = useGetUserImageQuery();
-  const { data: userTheme } = useGetUserThemeQuery();
+  const { data: userThemeWrap } = useGetUserThemeQuery();
 
-  if (!userInfo || !userImage || !userTheme) return null;
+  if (!userInfo || !userImage || !userThemeWrap) return null;
   return (
     <StyledRoot>
       <UserInfoWrap userInfo={userInfo} userImage={userImage} />
-      <UserTheme userTheme={userTheme} />
+      <UserTheme userTheme={userThemeWrap.theme} />
     </StyledRoot>
   );
 }

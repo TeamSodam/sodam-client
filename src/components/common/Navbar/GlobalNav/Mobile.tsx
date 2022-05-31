@@ -19,7 +19,7 @@ function GlobalNavMobile(props: NavProps) {
         </h1>
         <NavTopRightWrapper>
           <SearchIcon />
-          <Link href="/mypage" passHref>
+          <Link href="/mypage">
             {userImage ? (
               <StyledImage>
                 <Image src={userImage} layout="fill" alt="profile" />
