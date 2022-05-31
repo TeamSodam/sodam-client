@@ -1,4 +1,6 @@
 import type { BaseQueryFn } from '@reduxjs/toolkit/query';
+import { fetchBaseQuery } from '@reduxjs/toolkit/query';
+import { RootState } from 'app/store';
 import axios, { AxiosRequestConfig } from 'axios';
 
 const DEV_BASE_URL = 'http://localhost:4000';
@@ -21,4 +23,13 @@ export const axiosBaseQuery =
 
 export const client = axios.create({
   baseURL: DEV_BASE_URL,
+});
+
+export const fetchBaseQueryWithToken = fetchBaseQuery({
+  prepareHeaders: (headers, { getState }) => {
+    const token = (getState() as RootState).reducer.user.token;
+    if (token) headers.set('accesstoken', token);
+
+    return headers;
+  },
 });

@@ -25,6 +25,10 @@ function Login() {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    /* 
+      NOW  :: 우선 로그인 버튼 누르면 환경변수의 임시 토큰으로 로그인 처리함
+      TODO :: INPUT값으로 로그인 API 응답 값으로 토큰 설정해야함.
+    */
     dispatch(setToken(process.env.NEXT_PUBLIC_ACCESS_TOKEN as string));
     router.back();
   };

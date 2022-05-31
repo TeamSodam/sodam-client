@@ -1,5 +1,5 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { RootState } from 'app/store';
+import { createApi } from '@reduxjs/toolkit/query/react';
+import { fetchBaseQueryWithToken } from 'libs/api';
 import { SodamResponse } from 'types/api';
 import {
   BookmarkResponseType,
@@ -17,14 +17,7 @@ import {
 
 export const shopApi = createApi({
   reducerPath: 'shopApi',
-  baseQuery: fetchBaseQuery({
-    prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState).reducer.user.token;
-      if (token) headers.set('accesstoken', token);
-
-      return headers;
-    },
-  }),
+  baseQuery: fetchBaseQueryWithToken,
   refetchOnFocus: true,
   endpoints: (builder) => ({
     // builder.query<T, U>() --> T는 쿼리의 반환값 타입, U는 쿼리 파라미터의 타입.
