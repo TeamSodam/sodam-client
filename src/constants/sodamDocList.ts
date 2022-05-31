@@ -1,19 +1,19 @@
 const sodamDocList = [
   {
     docTitle: '이용약관',
-    docURL: 'https://www.notion.so/d062eead83c14467a64c232212591b48',
+    docURL: 'https://scrawny-trust-955.notion.site/22-05-01-9b7ab1cb1f1a418289c861fd6cb5a96c',
   },
   {
     docTitle: '개인정보처리방침',
-    docURL: 'https://www.notion.so/d062eead83c14467a64c232212591b48',
+    docURL: 'https://scrawny-trust-955.notion.site/22-05-01-f33d36edf5d34fe58002f3ff892610bf',
   },
   {
-    docTitle: '제휴/광고 문의',
-    docURL: 'https://www.instagram.com/official_sodam/',
+    docTitle: '서비스 이용 문의',
+    docURL: 'https://forms.gle/5nY6F1dJ63K4rhd58',
   },
   {
     docTitle: '소품샵 등록/삭제 문의',
-    docURL: 'https://www.instagram.com/official_sodam/',
+    docURL: 'https://forms.gle/jVFECFWTSR7C5xVm8',
   },
 ];
 
