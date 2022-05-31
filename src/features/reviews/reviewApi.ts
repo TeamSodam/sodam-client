@@ -85,7 +85,7 @@ export const reviewApi = createApi({
       query: ({ reviewId, isLiked }) => ({
         url: `https://server.sodam.me/review/${reviewId}/like`,
         method: 'POST',
-        data: {
+        body: {
           isLiked,
         },
       }),
@@ -95,7 +95,7 @@ export const reviewApi = createApi({
       query: ({ reviewId, isScraped }) => ({
         url: `https://server.sodam.me/review/${reviewId}/scrap`,
         method: 'POST',
-        data: {
+        body: {
           isScraped,
         },
       }),

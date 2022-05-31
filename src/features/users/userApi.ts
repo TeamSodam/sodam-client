@@ -41,7 +41,7 @@ export const userApi = createApi({
       query: ({ nickname }) => ({
         url: 'https://server.sodam.me/user/nickname',
         method: 'PUT',
-        data: {
+        body: {
           nickname,
         },
       }),
@@ -51,7 +51,7 @@ export const userApi = createApi({
       query: (theme) => ({
         url: 'https://server.sodam.me/user/theme',
         method: 'PUT',
-        data: {
+        body: {
           theme,
         },
       }),
@@ -64,7 +64,7 @@ export const userApi = createApi({
         return {
           url: 'https://server.sodam.me/user/image',
           method: 'PUT',
-          data: formData,
+          body: formData,
         };
       },
       transformResponse: (response: SodamResponse<UserImage>) => response.data,

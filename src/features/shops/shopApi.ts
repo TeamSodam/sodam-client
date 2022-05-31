@@ -101,7 +101,7 @@ export const shopApi = createApi({
       query: ({ shopId, isBookmarked }) => ({
         url: 'https://server.sodam.me/shop/bookmark',
         method: 'POST',
-        data: {
+        body: {
           shopId,
           isBookmarked,
         },
