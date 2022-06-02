@@ -19,17 +19,18 @@ function Mypage() {
   const router = useRouter();
   const { data: userInfo } = useGetUserInfoQuery();
   const { data: userImage } = useGetUserImageQuery();
-  const { data: userTheme } = useGetUserThemeQuery();
+  const { data: userThemeWrap } = useGetUserThemeQuery();
+  
   const handleClickLogout = () => {
     dispatch(logout());
     router.push('/');
   };
 
-  if (!userInfo || !userImage || !userTheme) return null;
+  if (!userInfo || !userImage || !userThemeWrap) return null;
   return (
     <StyledRoot>
       <UserInfoWrap userInfo={userInfo} userImage={userImage} />
-      <UserTheme userTheme={userTheme} />
+      <UserTheme userTheme={userThemeWrap.theme} />
       {isMobile && <LogoutButton onClick={handleClickLogout}>로그아웃</LogoutButton>}
     </StyledRoot>
   );
