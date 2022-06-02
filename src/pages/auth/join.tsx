@@ -71,9 +71,6 @@ function Join() {
     setIsReady((prevReadyState) => ({ ...prevReadyState, inputReady }));
   }, [signupInfo]);
 
-  console.log('signupInfo :>> ', signupInfo);
-  console.log('isReady :>> ', isReady);
-
   return (
     <StyledRoot>
       <StyledTitleWrapper>
