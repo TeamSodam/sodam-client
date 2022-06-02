@@ -80,9 +80,14 @@ function GlobalNavDesktop(props: NavProps) {
                 </Link>
               </>
             ) : (
-              <Link passHref href="/auth/login">
-                <Login>로그인</Login>
-              </Link>
+              <>
+                <Link passHref href="/auth/join">
+                  <Join>회원가입</Join>
+                </Link>
+                <Link passHref href="/auth/login">
+                  <Login>로그인</Login>
+                </Link>
+              </>
             )}
           </RightNav>
         </GlobalNavBar>
@@ -263,6 +268,8 @@ const Login = styled.a`
     line-height: 1.7rem;
   }
 `;
+
+const Join = styled(Login)``;
 
 const Profile = styled.div`
   position: relative;
