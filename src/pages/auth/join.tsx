@@ -17,6 +17,12 @@ function Join() {
     themePreference: { value: [], isComplete: false },
   });
 
+  const [isReady, setIsReady] = useState({ inputReady: false, agreeReady: false });
+
+  const handleIsReady = useCallback((value: boolean) => {
+    setIsReady((prevReadyState) => ({ ...prevReadyState, agreeReady: value }));
+  }, []);
+
   const handleComplete = useCallback((type: keyof UserSignupRequest, isComplete: boolean) => {
     setSignupInfo((prevSignupInfo) => ({
       ...prevSignupInfo,
@@ -59,6 +65,15 @@ function Join() {
     }
   }, [signupInfo.themePreference.value, handleComplete]);
 
+  useEffect(() => {
+    const inputReady = Object.entries(signupInfo).every(([, info]) => info.isComplete);
+    if (!inputReady) return;
+    setIsReady((prevReadyState) => ({ ...prevReadyState, inputReady }));
+  }, [signupInfo]);
+
+  console.log('signupInfo :>> ', signupInfo);
+  console.log('isReady :>> ', isReady);
+
   return (
     <StyledRoot>
       <StyledTitleWrapper>
@@ -71,8 +86,10 @@ function Join() {
         handleComplete={handleComplete}
       />
       <ThemeSelector handleOnClick={handleOnClick} />
-      <AcceptTerms />
-      <StyledSumitBtn>가입완료</StyledSumitBtn>
+      <AcceptTerms handleIsReady={handleIsReady} />
+      <StyledSumitBtn disabled={!(isReady.agreeReady && isReady.inputReady)}>
+        가입완료
+      </StyledSumitBtn>
     </StyledRoot>
   );
 }
@@ -94,11 +111,16 @@ const StyledSumitBtn = styled.button`
   border: 0;
   outline: 0;
   margin: 9rem 0 12rem 0;
-  background-color: ${theme.colors.gray2};
+  background-color: ${theme.colors.purpleMain};
   color: white;
   font-weight: bold;
   font-size: 1.5rem;
   line-height: 5rem;
+
+  &:disabled {
+    background-color: ${theme.colors.gray2};
+    cursor: default;
+  }
 `;
 
 const StyledTitleWrapper = styled.div`

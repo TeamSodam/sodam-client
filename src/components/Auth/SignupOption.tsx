@@ -41,39 +41,36 @@ function SignupOption(props: SignupOptionProps) {
   const getSignOption = (type: string) => {
     switch (type) {
       case 'email':
-        return (
-          <StyledBtn onClick={handleClick} tabIndex={-1} inputType={type} disabled={error}>
-            인증번호 전송
-          </StyledBtn>
-        );
+        return {
+          disabled: error,
+          label: '인증번호 전송',
+        };
       case 'nickname':
-        return (
-          <StyledBtn
-            onClick={handleClick}
-            tabIndex={-1}
-            inputType={type}
-            disabled={error || isCompleteList.nickname}
-          >
-            중복확인
-          </StyledBtn>
-        );
+        return {
+          disabled: error || isCompleteList.nickname,
+          label: '중복확인',
+        };
       case 'emailConfirm':
-        return (
-          <StyledBtn
-            onClick={handleClick}
-            tabIndex={-1}
-            inputType={type}
-            disabled={error || isCompleteList.emailConfirm}
-          >
-            확인
-          </StyledBtn>
-        );
+        return {
+          disabled: error || isCompleteList.emailConfirm,
+          label: '확인',
+        };
       default:
         return null;
     }
   };
 
-  return getSignOption(type);
+  const currentOption = getSignOption(type);
+
+  if (!currentOption) return null;
+
+  const { disabled, label } = currentOption;
+
+  return (
+    <StyledBtn onClick={handleClick} tabIndex={-1} inputType={type} disabled={disabled}>
+      {label}
+    </StyledBtn>
+  );
 }
 
 const StyledBtn = styled.button<{ inputType: string }>`

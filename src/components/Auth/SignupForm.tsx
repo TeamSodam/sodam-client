@@ -31,21 +31,17 @@ function SignupForm(props: SignupFormProps) {
 
   return (
     <StyledRoot>
-      {InfoList.map((type, idx) => {
-        if (isKeyOfSignUpInfo(type)) {
-          return (
-            <PersonalInfoInput
-              key={type}
-              inputType={type}
-              handleOnChange={handleOnChange}
-              handleComplete={handleComplete}
-              passwordError={signupInfo.passwordConfirm.value && !isPasswordEqual}
-              order={idx}
-              isCompleteList={isCompleteList}
-            />
-          );
-        }
-      })}
+      {InfoList.map((type, idx) => (
+        <PersonalInfoInput
+          key={type}
+          inputType={type}
+          handleOnChange={handleOnChange}
+          handleComplete={handleComplete}
+          passwordError={signupInfo.passwordConfirm.value && !isPasswordEqual}
+          order={idx}
+          isCompleteList={isCompleteList}
+        />
+      ))}
       <StyledLine />
     </StyledRoot>
   );

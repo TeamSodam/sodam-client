@@ -29,7 +29,7 @@ function PersonalInfoInput(props: PersonalInfoInputProps) {
 
   useEffect(() => {
     setIsConfirm(false);
-    handleComplete(inputType, false);
+    if (inputType === 'nickname' || inputType === 'email') handleComplete(inputType, false);
   }, [inputValue.value, handleComplete, inputType]);
 
   const handleConfirm = (type: keyof UserSignupRequest, value: boolean) => {
@@ -39,30 +39,30 @@ function PersonalInfoInput(props: PersonalInfoInputProps) {
 
   const getNotice = (type: keyof UserSignupRequest, isConfirm: boolean) => {
     if ((type === 'passwordConfirm' && passwordError) || (isError && inputValue.value)) {
-      return <StyledNoticeErr>{inputInfo.notice}</StyledNoticeErr>;
+      return inputInfo.notice;
     }
 
     if (type === 'nickname' && isConfirm) {
       if (isCompleteList.nickname) {
-        return <StyledNoticeErr>{inputInfo.completeNotice}</StyledNoticeErr>;
+        return inputInfo.completeNotice;
       }
-      return <StyledNoticeErr>{inputInfo.unCompleteNotice}</StyledNoticeErr>;
+      return inputInfo.unCompleteNotice;
     }
 
     if (type === 'email' && isConfirm) {
       if (!isCompleteList.email) {
-        return <StyledNoticeErr>{inputInfo.unCompleteNotice}</StyledNoticeErr>;
+        return inputInfo.unCompleteNotice;
       }
     }
 
     if (type === 'emailConfirm' && isConfirm) {
       if (isCompleteList.emailConfirm) {
-        return <StyledNoticeErr>{inputInfo.completeNotice}</StyledNoticeErr>;
+        return inputInfo.completeNotice;
       }
-      return <StyledNoticeErr>{inputInfo.unCompleteNotice}</StyledNoticeErr>;
+      return inputInfo.unCompleteNotice;
     }
 
-    return <StyledNoticeErr />;
+    return null;
   };
 
   return (
@@ -90,7 +90,7 @@ function PersonalInfoInput(props: PersonalInfoInputProps) {
           handleConfirm={handleConfirm}
         />
       </StyledInputWrapper>
-      {getNotice(inputType, isConfirm)}
+      <StyledNoticeErr>{getNotice(inputType, isConfirm)}</StyledNoticeErr>
     </StyledRoot>
   );
 }
