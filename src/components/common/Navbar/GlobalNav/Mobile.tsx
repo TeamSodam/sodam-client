@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import SearchIC from 'public/assets/ic_search_mobile.svg';
 import styled from 'styled-components';
 
 import LocalNav from '../LocalNav';
+import NavSearch from '../NavSearch';
 import { menuList, NavProps } from '.';
 
 function GlobalNavMobile(props: NavProps) {
@@ -17,12 +17,7 @@ function GlobalNavMobile(props: NavProps) {
           </Link>
         </h1>
         <NavTopRightWrapper>
-          <SearchTab>
-            <span>
-              <SearchIC />
-            </span>
-            <input type="text" />
-          </SearchTab>
+          <NavSearch />
           {isLogin ? (
             <Link href="/mypage" passHref>
               <StyledImage>
@@ -81,27 +76,6 @@ const StyledImage = styled.div`
   img {
     border-radius: 50%;
   }
-`;
-
-const SearchTab = styled.div`
-  border: 1px solid ${({ theme }) => theme.colors.purpleMain};
-  border-radius: 2rem;
-  padding: 0.2rem 0.8rem;
-
-  & svg {
-    transform: translateY(1px);
-  }
-
-  & > input {
-    width: 7rem;
-    border: none;
-    outline: none;
-    font-size: 1rem;
-    padding: 0 0.5rem;
-  }
-
-  display: flex;
-  align-items: center;
 `;
 
 const Menu = styled.a<{ isActive: boolean }>`

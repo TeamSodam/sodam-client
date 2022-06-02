@@ -4,15 +4,14 @@ import { logout } from 'features/users/userSlice';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import SearchICDesktop from 'public/assets/ic_search_desktop.svg';
 import MainLogoIC from 'public/assets/mainLogo.svg';
 import MainLogoDesktopIC from 'public/assets/mainLogoDesktop.svg';
 import ProfileIC from 'public/assets/profile.svg';
-import SearchIC from 'public/assets/searchIcon.svg';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import Screen from 'styles/Screen';
 
+import NavSearch from '../NavSearch';
 import { menuList, NavProps } from '.';
 
 function GlobalNavDesktop(props: NavProps) {
@@ -55,17 +54,7 @@ function GlobalNavDesktop(props: NavProps) {
             </MenuList>
           </LeftNav>
           <RightNav>
-            <SearchBar>
-              <SearchIcon>
-                <Screen wide>
-                  <SearchIC />
-                </Screen>
-                <Screen tablet desktop>
-                  <SearchICDesktop />
-                </Screen>
-              </SearchIcon>
-              <SearchText />
-            </SearchBar>
+            <NavSearch />
             {isLogin ? (
               <>
                 <Logout onClick={handleLogout}>로그아웃</Logout>
@@ -144,6 +133,7 @@ const RightNav = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 2.7rem;
 `;
 
 const Logo = styled.a`
@@ -196,56 +186,12 @@ const Menu = styled.a<{ isActive: boolean }>`
   }
 `;
 
-const SearchBar = styled.div`
-  display: flex;
-  align-items: center;
-  width: 28.2rem;
-  height: 4rem;
-  margin-right: 2.1rem;
-  border: 2px solid ${({ theme }) => theme.colors.purpleMain};
-  border-radius: 20px;
-
-  ${applyMediaQuery('desktop')} {
-    width: 15.7rem;
-    height: 2.2rem;
-  }
-`;
-
-const SearchIcon = styled.div`
-  display: flex;
-  align-items: center;
-  margin-left: 1.2rem;
-  width: 2.1rem;
-  height: 2rem;
-  cursor: pointer;
-
-  ${applyMediaQuery('desktop')} {
-    width: 1.1rem;
-    height: 1.1rem;
-    margin-left: 0.8rem;
-  }
-`;
-
-const SearchText = styled.input`
-  width: 100%;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  border: none;
-  margin: 0 1rem;
-
-  &:focus {
-    outline: none;
-  }
-`;
-
 const Logout = styled.button`
   font-family: 'Noto Sans KR';
   padding: 0;
   border: none;
   background-color: transparent;
   font-size: 1.6rem;
-  margin-right: 2.7rem;
   min-width: fit-content;
   cursor: pointer;
 
@@ -259,7 +205,7 @@ const Login = styled.a`
   color: inherit;
   text-decoration: none;
   font-size: 1.6rem;
-  margin-right: 2.7rem;
+  font-weight: 400;
   min-width: fit-content;
   cursor: pointer;
 
@@ -283,6 +229,7 @@ const Profile = styled.div`
   ${applyMediaQuery('desktop')} {
     width: 2.2rem;
     height: 2.2rem;
+    line-height: 2.2rem;
 
     & svg {
       transform: scale(0.647) translate(-30%, -30%);
