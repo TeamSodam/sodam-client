@@ -87,7 +87,7 @@ function ReviewDetailCard(props: ReviewDetailCardProps) {
             </ScrapReview>
           </IconContainer>
         </ReviewDetailCardHeader>
-        <ImageSlider imageList={image} />
+        <ImageSlider imageList={image || []} />
         <ReviewTextInfo>
           <ReviewProductInfo>
             {item.map((itemElement) => (
