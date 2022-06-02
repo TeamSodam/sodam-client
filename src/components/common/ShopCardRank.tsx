@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { ShopCardData } from 'types/shop';
 
 import ImageDiv from './ImageDiv';
@@ -18,7 +19,9 @@ function ShopCardRank(props: ShopCardRankProps) {
   return (
     <StyledRoot>
       {rank && rank <= 3 && (
-        <ImageDiv className="rank__icon" src={getRankIcon()} width={32} height={40} alt="rank" />
+        <div className="rank__wrap">
+          <ImageDiv className="rank__icon" src={getRankIcon()} layout="fill" alt="rank" />
+        </div>
       )}
       <ShopCard cardData={cardData} />
     </StyledRoot>
@@ -26,10 +29,24 @@ function ShopCardRank(props: ShopCardRankProps) {
 }
 
 const StyledRoot = styled.div`
-  .rank__icon {
+  .rank__wrap {
     position: absolute;
     z-index: 2;
     margin-left: 1.7rem;
+  }
+  .rank__icon {
+    position: relative;
+    width: 3.2rem;
+    height: 4rem;
+  }
+  ${applyMediaQuery('desktop')} {
+    .rank__wrap {
+      margin-left: 1rem;
+    }
+    .rank__icon {
+      width: 2.2rem;
+      height: 2.7rem;
+    }
   }
 `;
 

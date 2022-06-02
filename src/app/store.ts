@@ -3,6 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
 import { reviewApi } from 'features/reviews/reviewApi';
 import { shopApi } from 'features/shops/shopApi';
+import { userApi } from 'features/users/userApi';
 import { createWrapper } from 'next-redux-wrapper';
 import reducer, { RootReducerState } from 'reducers';
 
@@ -12,9 +13,10 @@ export const makeStore = () =>
       reducer: reducer as Reducer<RootReducerState, AnyAction>,
       [shopApi.reducerPath]: shopApi.reducer,
       [reviewApi.reducerPath]: reviewApi.reducer,
+      [userApi.reducerPath]: userApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat([shopApi.middleware, reviewApi.middleware]),
+      getDefaultMiddleware().concat([shopApi.middleware, reviewApi.middleware, userApi.middleware]),
   });
 
 export const wrapper = createWrapper(makeStore, { debug: process.env.NODE_ENV !== 'production' });

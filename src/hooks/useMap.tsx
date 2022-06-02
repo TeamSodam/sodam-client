@@ -1,11 +1,8 @@
 import { useAppDispatch, useAppSelector } from 'app/hook';
 import {
   addCurrentMarker,
-  initMap,
   MarkerInfo,
   selectCurrentMarkerList,
-  selectMap,
-  setMap,
   setMarkerCilckState,
 } from 'features/map/mapSlice';
 import { displayMarker } from 'map/utils/display';
@@ -25,8 +22,7 @@ function useMap<T>(
   initialLocation?: string,
   isStaticMarker?: boolean,
 ) {
-  const map = useAppSelector(selectMap);
-  const [mapRef, setMapRef] = useState<T extends HTMLElement ? T : HTMLElement>();
+  const [map, setMap] = useState<KakaoMap>(null);
   const currentMarkerList = useAppSelector(selectCurrentMarkerList);
   const dispatch = useAppDispatch();
 
@@ -36,8 +32,9 @@ function useMap<T>(
       const changeClickState = (markerInfo: MarkerInfo) =>
         dispatch(setMarkerCilckState(markerInfo));
 
-      if (map)
+      if (map) {
         await displayMarker(map, shopInfo, addMarkerToList, changeClickState, isStaticMarker);
+      }
     },
     [map, dispatch, isStaticMarker],
   );
@@ -45,7 +42,7 @@ function useMap<T>(
   const moveByAddress = useCallback(
     (address: string, name: string) => {
       if (map) {
-        searchAndMoveByAddress(map, address, isStaticMarker);
+        searchAndMoveByAddress(map, address, isStaticMarker, name);
         const targetMarker = currentMarkerList.find((marker) => marker.name === name);
         if (targetMarker) {
           const clickedMarkers = currentMarkerList.filter((marker) => marker.isClicked === true);
@@ -62,30 +59,27 @@ function useMap<T>(
 
   useEffect(() => {
     (async () => {
-      if (containerRef?.current) {
-        if (!mapRef) {
-          setMapRef(containerRef.current);
-          dispatch(initMap());
-        }
+      if (map && initialLocation) {
+        searchAndMoveByAddress(map, initialLocation, isStaticMarker);
+      }
+    })();
+  }, [map, initialLocation, isStaticMarker]);
 
-        if (!map) {
-          const location = await getLocationByAddress(`${initialLocation || '서울 마포구'}`);
-          if (!location) return;
-          dispatch(
-            setMap(
-              new window.kakao.maps.Map(containerRef.current, {
-                center: location,
-                level: 4,
-              }),
-            ),
+  useEffect(() => {
+    (async () => {
+      if (!map && containerRef?.current) {
+        const location = await getLocationByAddress(initialLocation || '서울 마포구');
+        if (location) {
+          setMap(
+            new window.kakao.maps.Map(containerRef.current, {
+              center: location,
+              level: 4,
+            }),
           );
-        }
-        if (map && initialLocation) {
-          searchAndMoveByAddress(map, initialLocation, isStaticMarker);
         }
       }
     })();
-  }, [containerRef, dispatch, map, initialLocation, isStaticMarker, mapRef]);
+  }, []);
 
   return { map, displayMarkerByAddress, moveByAddress };
 }
