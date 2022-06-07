@@ -1,6 +1,7 @@
 import type { AnyAction, Reducer } from '@reduxjs/toolkit';
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
+import { authApi } from 'features/auth/authApi';
 import { reviewApi } from 'features/reviews/reviewApi';
 import { shopApi } from 'features/shops/shopApi';
 import { userApi } from 'features/users/userApi';
@@ -14,6 +15,7 @@ export const makeStore = () =>
       [shopApi.reducerPath]: shopApi.reducer,
       [reviewApi.reducerPath]: reviewApi.reducer,
       [userApi.reducerPath]: userApi.reducer,
+      [authApi.reducerPath]: authApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware().concat([shopApi.middleware, reviewApi.middleware, userApi.middleware]),
