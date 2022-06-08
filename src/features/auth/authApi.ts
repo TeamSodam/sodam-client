@@ -6,7 +6,7 @@ import {
   EmailResponseType,
   NicknameRequestType,
   NicknameResponseType,
-  UserSignupRequest,
+  SignupRequest,
 } from 'types/auth';
 import { UserTokenResponse } from 'types/user';
 
@@ -36,13 +36,11 @@ export const authApi = createApi({
       }),
       transformResponse: (response: SodamResponse<EmailResponseType>) => response.data,
     }),
-    postSignup: builder.mutation<UserTokenResponse, Omit<UserSignupRequest, 'emailConfirm'>>({
-      query: ({ email }) => ({
-        url: 'https://server.sodam.me/auth/signup/sendmail',
+    postSignup: builder.mutation<UserTokenResponse, SignupRequest>({
+      query: (signupForm) => ({
+        url: 'https://server.sodam.me/auth/signup',
         method: 'POST',
-        data: {
-          email,
-        },
+        data: signupForm,
       }),
       transformResponse: (response: SodamResponse<UserTokenResponse>) => response.data,
     }),
