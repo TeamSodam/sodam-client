@@ -30,3 +30,7 @@ export type UserSignupRequest = Record<
     isComplete: boolean;
   }
 > & { themePreference: { value: string[]; isComplete: boolean } };
+
+export interface SignupRequest {
+  [key: string]: string;
+}
