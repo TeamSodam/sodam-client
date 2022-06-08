@@ -1,4 +1,5 @@
 import { useAppDispatch } from 'app/hook';
+import { usePostLoginMutation } from 'features/auth/authApi';
 import { setToken } from 'features/users/userSlice';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -7,6 +8,7 @@ import styled from 'styled-components';
 import { theme } from 'styles/theme';
 
 function Login() {
+  const [postLogin] = usePostLoginMutation();
   const [loginInfo, setLoginInfo] = useState({
     email: null,
     password: null,
@@ -23,20 +25,21 @@ function Login() {
     setLoginInfo({ ...loginInfo, [inputType]: e.target.value });
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    /* 
-      NOW  :: 우선 로그인 버튼 누르면 환경변수의 임시 토큰으로 로그인 처리함
-      TODO :: INPUT값으로 로그인 API 응답 값으로 토큰 설정해야함.
-    */
-    dispatch(setToken(process.env.NEXT_PUBLIC_ACCESS_TOKEN as string));
-    router.back();
+    try {
+      const { accesstoken } = await postLogin(loginInfo).unwrap();
+      dispatch(setToken(accesstoken));
+      router.back();
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
     <StyledRoot>
       <h1>로그인</h1>
-      <StyledForm onSubmit={(e) => handleSubmit(e)}>
+      <StyledForm onSubmit={async (e) => handleSubmit(e)}>
         <span>ID(이메일)</span>
         <StyledInputDiv>
           <input type="email" onChange={(e) => handleChange(e, 'email')} />
