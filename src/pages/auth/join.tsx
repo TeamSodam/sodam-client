@@ -1,12 +1,19 @@
 import AcceptTerms from 'components/Auth/AcceptTerms';
 import SignupForm from 'components/Auth/SignupForm';
 import ThemeSelector from 'components/Auth/ThemeSelector';
+import { usePostSignupMutation } from 'features/auth/authApi';
+import { setToken } from 'features/users/userSlice';
+import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
 import { UserSignupRequest } from 'types/auth';
 
 function Join() {
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const [postSignup] = usePostSignupMutation();
   const [signupInfo, setSignupInfo] = useState<UserSignupRequest>({
     name: { value: null, isComplete: false },
     email: { value: null, isComplete: false },
@@ -57,6 +64,19 @@ function Join() {
     }
   };
 
+  const handleSubmit = async () => {
+    const signupForm = Object.entries(signupInfo)
+      .filter(([type]) => type !== 'emailConfirm')
+      .reduce((el, [type, info]) => ({ ...el, [type]: info.value }), {});
+    try {
+      const { accesstoken } = await postSignup(signupForm).unwrap();
+      dispatch(setToken(accesstoken));
+      router.push('/');
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
     if (signupInfo.themePreference.value.length === 0) {
       handleComplete('themePreference', false);
@@ -84,7 +104,7 @@ function Join() {
       />
       <ThemeSelector handleOnClick={handleOnClick} />
       <AcceptTerms handleIsReady={handleIsReady} />
-      <StyledSumitBtn disabled={!(isReady.agreeReady && isReady.inputReady)}>
+      <StyledSumitBtn onClick={handleSubmit} disabled={!(isReady.agreeReady && isReady.inputReady)}>
         가입완료
       </StyledSumitBtn>
     </StyledRoot>
