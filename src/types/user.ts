@@ -15,6 +15,3 @@ export interface UserImage {
   image: string;
 }
 export type UserInfoAll = UserInfo & UserImage & UserTheme;
-export interface UserTokenResponse {
-  accesstoken: string;
-}

@@ -6,13 +6,19 @@ export interface NicknameRequestType {
   nickname: string;
 }
 
-export interface EmailRequestType {
-  email: string;
+export interface EmailPWRequestType {
+  email: string | null;
+  password: string | null;
 }
 
 export interface EmailResponseType {
   uniqueEmail: boolean;
   verificationCode: string;
+}
+export interface AuthResponseType {
+  accesstoken: string;
+  nickname: string;
+  name: string;
 }
 
 type InputIndexType =
