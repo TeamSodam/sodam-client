@@ -1,3 +1,4 @@
+import { useAppDispatch } from 'app/hook';
 import AcceptTerms from 'components/Auth/AcceptTerms';
 import SignupForm from 'components/Auth/SignupForm';
 import ThemeSelector from 'components/Auth/ThemeSelector';
@@ -5,13 +6,12 @@ import { usePostSignupMutation } from 'features/auth/authApi';
 import { setToken } from 'features/users/userSlice';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
 import { UserSignupRequest } from 'types/auth';
 
 function Join() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const router = useRouter();
   const [postSignup] = usePostSignupMutation();
   const [signupInfo, setSignupInfo] = useState<UserSignupRequest>({
