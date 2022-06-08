@@ -1,7 +1,7 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { fetchBaseQueryWithToken } from 'libs/api';
 import { SodamResponse } from 'types/api';
-import { UserImage, UserInfo, UserTheme } from 'types/auth';
+import { UserImage, UserInfo, UserTheme } from 'types/user';
 
 export const userApi = createApi({
   reducerPath: 'userApi',
