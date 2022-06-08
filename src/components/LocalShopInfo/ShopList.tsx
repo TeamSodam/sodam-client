@@ -1,3 +1,5 @@
+import { useAppSelector } from 'app/hook';
+import { selectIsLogin } from 'features/users/userSlice';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import { ShopAreaResponse } from 'types/shop';
@@ -13,7 +15,10 @@ function ShopList({
   isSaveOption: boolean;
   moveByAddress: (landAddress: string, shopName: string) => void;
 }) {
+  const isLogin = useAppSelector(selectIsLogin);
+
   const emptyText = `선택 지역에 해당하는 ${isSaveOption ? '저장한 ' : ''}소품샵이 없어요`;
+  const loginText = '소품샵을 저장하기 위해 로그인이 필요해요.';
 
   return shopList.length ? (
     <StyledShopList>
@@ -23,7 +28,7 @@ function ShopList({
     </StyledShopList>
   ) : (
     <EmptyShopList>
-      <span>{emptyText}</span>
+      <span>{isLogin ? emptyText : loginText}</span>
     </EmptyShopList>
   );
 }

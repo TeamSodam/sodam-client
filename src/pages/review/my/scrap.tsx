@@ -1,20 +1,42 @@
+import { useAppSelector } from 'app/hook';
+import EmptyContent from 'components/common/EmptyContent';
 import ReviewCard from 'components/common/ReviewCard';
 import { useGetMyScrapReviewQuery } from 'features/reviews/reviewApi';
+import { selectIsLogin } from 'features/users/userSlice';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 
+const emptyContentData = {
+  title: '스크랩한 리뷰',
+  src: '/assets/img_scrapNoContent.png',
+  label: '아직 스크랩한 리뷰가 없어요',
+  // eslint-disable-next-line prettier/prettier
+  subLabel: '홈 화면에서 \'오늘의 리뷰\' 구경하러 가볼까요?',
+  button: '홈 화면 바로가기',
+  buttonUrl: '/',
+};
+
 function Scrap() {
-  const { data: reviewMyScrapList } = useGetMyScrapReviewQuery();
+  const isLogin = useAppSelector(selectIsLogin);
+  const { data: reviewMyScrapList } = useGetMyScrapReviewQuery(undefined, {
+    skip: !isLogin,
+  });
+
   return (
     <StyledContainer>
-      <h2>스크랩한 리뷰</h2>
-      <StyledCardWrapper>
-        {reviewMyScrapList &&
-          reviewMyScrapList.map((review) => (
-            <ReviewCard key={review.reviewId} reviewData={review} isHoverAvailable />
-          ))}
-      </StyledCardWrapper>
+      {!reviewMyScrapList?.length ? (
+        <EmptyContent emptyContentData={emptyContentData} />
+      ) : (
+        <>
+          <h2>스크랩한 리뷰</h2>
+          <StyledCardWrapper>
+            {reviewMyScrapList.map((review) => (
+              <ReviewCard key={review.reviewId} reviewData={review} isHoverAvailable />
+            ))}
+          </StyledCardWrapper>
+        </>
+      )}
     </StyledContainer>
   );
 }
