@@ -1,4 +1,6 @@
+import { useAppSelector } from 'app/hook';
 import { useGetUserImageQuery } from 'features/users/userApi';
+import { selectIsLogin } from 'features/users/userSlice';
 import { useRouter } from 'next/router';
 import Screen from 'styles/Screen';
 
@@ -16,6 +18,7 @@ export interface NavProps {
   getIsActive: (menu: MenuListType) => boolean;
   onClickMenu: (menu: MenuListType) => string;
   userImage: string | undefined;
+  isLogin: boolean;
 }
 
 export const menuList: MenuListType[] = [
@@ -27,7 +30,7 @@ export const menuList: MenuListType[] = [
 
 function GlobalNav() {
   const router = useRouter();
-
+  const isLogin = useAppSelector(selectIsLogin);
   const { data: userImage } = useGetUserImageQuery();
 
   const onClickMenu = (menu: MenuListType) => {
@@ -40,6 +43,7 @@ function GlobalNav() {
   const getIsActive = (menu: MenuListType) => router.asPath.includes(menu.menuURL);
 
   const navProps = {
+    isLogin,
     onClickMenu,
     getIsActive,
     isMyReview: isCurrentPathIncludesMyReview,

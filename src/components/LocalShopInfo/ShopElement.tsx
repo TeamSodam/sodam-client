@@ -62,7 +62,7 @@ const ShopImage = styled.div<{ src: string }>`
 const StyledShopElement = styled.li<StyledShopElementProps>`
   box-sizing: border-box;
   width: 100%;
-  min-height: calc(18.4% + 0.1rem);
+  height: calc(18.4% + 0.1rem);
 
   padding: 2.8rem 2.4rem;
 

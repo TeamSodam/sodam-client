@@ -76,7 +76,8 @@
     "@typescript-eslint"
   ],
   "globals": {
-    "React": "writable"
+    "React": "writable",
+    "JSX": true
   },
   "settings": {
     "react": {
