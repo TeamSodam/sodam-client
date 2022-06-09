@@ -2,7 +2,7 @@ import PersonalInfoInput from 'components/common/PersonalInfoInput';
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
-import { UserSignupRequest } from 'types/user';
+import { UserSignupRequest } from 'types/auth';
 
 interface SignupFormProps {
   signupInfo: UserSignupRequest;
@@ -13,8 +13,11 @@ interface SignupFormProps {
 function SignupForm(props: SignupFormProps) {
   const { signupInfo, handleOnChange, handleComplete } = props;
   const isPasswordEqual = signupInfo.password.value === signupInfo.passwordConfirm.value;
-
-  const InfoList = Object.keys(signupInfo);
+  const isCompleteList = {
+    nickname: signupInfo.nickname.isComplete,
+    email: signupInfo.email.isComplete,
+    emailConfirm: signupInfo.emailConfirm.isComplete,
+  };
 
   useEffect(() => {
     if (signupInfo.passwordConfirm.value && isPasswordEqual)
@@ -24,23 +27,21 @@ function SignupForm(props: SignupFormProps) {
   const isKeyOfSignUpInfo = (inputType: string): inputType is keyof UserSignupRequest =>
     inputType in signupInfo;
 
+  const InfoList = Object.keys(signupInfo).slice(0, -1).filter(isKeyOfSignUpInfo);
+
   return (
     <StyledRoot>
-      {InfoList.map((type, idx) => {
-        if (idx === InfoList.length - 1) return;
-        if (isKeyOfSignUpInfo(type)) {
-          return (
-            <PersonalInfoInput
-              key={type}
-              inputType={type}
-              handleOnChange={handleOnChange}
-              handleComplete={handleComplete}
-              passwordError={signupInfo.passwordConfirm.value && !isPasswordEqual}
-              order={idx}
-            />
-          );
-        }
-      })}
+      {InfoList.map((type, idx) => (
+        <PersonalInfoInput
+          key={type}
+          inputType={type}
+          handleOnChange={handleOnChange}
+          handleComplete={handleComplete}
+          passwordError={signupInfo.passwordConfirm.value && !isPasswordEqual}
+          order={idx}
+          isCompleteList={isCompleteList}
+        />
+      ))}
       <StyledLine />
     </StyledRoot>
   );

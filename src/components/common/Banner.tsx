@@ -1,42 +1,42 @@
-import { ReactNode } from 'react';
-import styled from 'styled-components';
-import { applyReponsiveWidth } from 'styles/mixin';
+import Link from 'next/link';
+import styled, { css } from 'styled-components';
 
 interface BannerProps {
   src: string;
-  button: ReactNode;
-  children?: ReactNode;
+  href?: string;
 }
 
 function Banner(props: BannerProps) {
-  const { src, button, children } = props;
-  return (
-    <StyledBanner imgUrl={src}>
-      <Wrapper>
-        {children}
-        {button}
-      </Wrapper>
-    </StyledBanner>
-  );
+  const { src, href } = props;
+
+  if (href) {
+    return (
+      <Link passHref href={href}>
+        <StyledBannerLink imgUrl={src} />
+      </Link>
+    );
+  }
+
+  return <StyledBanner imgUrl={src} />;
 }
 
-const StyledBanner = styled.div<{ imgUrl: string }>`
+const BannerCss = css<{ imgUrl: string }>`
+  display: block;
   width: 100%;
   height: 100%;
 
   background-image: ${(props) => `url(${props.imgUrl})`};
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
 `;
 
-const Wrapper = styled.div`
-  ${applyReponsiveWidth}
-  position: relative;
-  height: 100%;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+const StyledBanner = styled.div`
+  ${BannerCss}
+`;
+
+const StyledBannerLink = styled.a`
+  ${BannerCss}
 `;
 
 export default Banner;

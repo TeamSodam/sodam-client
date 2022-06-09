@@ -36,8 +36,6 @@ function EmptyContent(props: EmptyContentProps) {
 
 const StyledContainer = styled.div`
   width: 100%;
-  height: calc(100vh - 8.2rem - 23.7rem);
-  padding: 7.2rem 36.1rem 14.8rem;
   display: flex;
   flex-direction: column;
 `;

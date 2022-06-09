@@ -4,6 +4,7 @@ import 'swiper/swiper-bundle.min.css';
 import useMedia from 'hooks/useMedia';
 import Image from 'next/image';
 import { ReactElement, useEffect, useRef, useState } from 'react';
+import shortid from 'shortid';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
@@ -98,7 +99,7 @@ function MainSlider(props: MainSliderProps) {
         {swiperSetting && (
           <Swiper {...swiperSetting}>
             {cardList.map((card) => (
-              <SwiperSlide key={card.key}>{card}</SwiperSlide>
+              <SwiperSlide key={card.key + shortid()}>{card}</SwiperSlide>
             ))}
           </Swiper>
         )}

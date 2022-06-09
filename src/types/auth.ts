@@ -29,3 +29,20 @@ export type UserSignupRequest = Record<
     isComplete: boolean;
   }
 > & { themePreference: { value: string[]; isComplete: boolean } };
+
+export interface NicknameResponseType {
+  uniqueNickname: boolean;
+}
+
+export interface NicknameRequestType {
+  nickname: string;
+}
+
+export interface EmailRequestType {
+  email: string;
+}
+
+export interface EmailResponseType {
+  uniqueEmail: boolean;
+  verificationCode: string;
+}

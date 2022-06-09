@@ -1,4 +1,7 @@
+import { useAppDispatch } from 'app/hook';
+import { setToken } from 'features/users/userSlice';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
@@ -8,6 +11,11 @@ function Login() {
     email: null,
     password: null,
   });
+
+  const router = useRouter();
+
+  const dispatch = useAppDispatch();
+
   const loginError = false;
 
   const handleChange = (e: ChangeEvent, inputType: string) => {
@@ -17,7 +25,12 @@ function Login() {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log('제출');
+    /* 
+      NOW  :: 우선 로그인 버튼 누르면 환경변수의 임시 토큰으로 로그인 처리함
+      TODO :: INPUT값으로 로그인 API 응답 값으로 토큰 설정해야함.
+    */
+    dispatch(setToken(process.env.NEXT_PUBLIC_ACCESS_TOKEN as string));
+    router.back();
   };
 
   return (

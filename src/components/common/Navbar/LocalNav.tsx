@@ -55,7 +55,7 @@ const NavLineStyle = css`
   ${applyMediaQuery('desktop')} {
     top: calc(5.4rem + 4.2rem);
   }
-  width: 100vw;
+  width: ${({ theme }) => theme.clientWidth}px;
   background-color: ${({ theme }) => theme.colors.navLine};
   height: 1px;
 `;

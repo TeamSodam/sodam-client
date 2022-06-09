@@ -9,8 +9,13 @@ import { termsContents } from './TermsContents';
 interface CheckedKeysType {
   [key: string]: boolean;
 }
+interface AcceptTermsProps {
+  handleIsReady: (value: boolean) => void;
+}
 
-function AcceptTerms() {
+function AcceptTerms(props: AcceptTermsProps) {
+  const { handleIsReady } = props;
+
   const [isChecked, setIsChecked] = useState<CheckedKeysType>({
     allCheck: false,
     terms: false,
@@ -39,7 +44,10 @@ function AcceptTerms() {
 
     if (isChecked.allCheck !== isAllChecked)
       setIsChecked((prevIsChecked) => ({ ...prevIsChecked, allCheck: isAllChecked }));
-  }, [isChecked]);
+    if (isChecked.terms && isChecked.privacy) {
+      handleIsReady(isChecked.terms && isChecked.privacy);
+    }
+  }, [isChecked, handleIsReady]);
 
   return (
     <StyledWrapper>

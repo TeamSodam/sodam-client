@@ -1,9 +1,10 @@
-import { useAppDispatch } from 'app/hook';
+import { useAppDispatch, useAppSelector } from 'app/hook';
 import { wrapper } from 'app/store';
 import LocalShopInfo, { OptionLabel } from 'components/LocalShopInfo';
 import SEOUL_ENUM from 'constants/SeoulAreaEnum';
 import { initMap } from 'features/map/mapSlice';
 import { useGetShopByAreaQuery } from 'features/shops/shopApi';
+import { selectIsLogin } from 'features/users/userSlice';
 import useMap from 'hooks/useMap';
 import { useRouter } from 'next/router';
 import LeftArr from 'public/assets/ic_leftArr.svg';
@@ -33,11 +34,19 @@ function MapWithAreaId(props: { areaId: number }) {
   const { areaId: AREA_ID } = props;
   const dispatch = useAppDispatch();
   const router = useRouter();
+
+  const isLogin = useAppSelector(selectIsLogin);
+
   const [currentOption, setCurrentOption] = useState<OptionLabel>('인기 순');
-  const { data: currentList } = useGetShopByAreaQuery({
-    area: SEOUL_ENUM[AREA_ID],
-    sort: OPTION_MAPPER[currentOption],
-  });
+  const { data: currentList } = useGetShopByAreaQuery(
+    {
+      area: SEOUL_ENUM[AREA_ID],
+      sort: OPTION_MAPPER[currentOption],
+    },
+    {
+      skip: !isLogin && currentOption === '내가 저장한',
+    },
+  );
 
   const toggleOption = (option: OptionLabel) => setCurrentOption(option);
 
@@ -72,27 +81,23 @@ function MapWithAreaId(props: { areaId: number }) {
         <span>지역 다시 선택하기</span>
       </StyledGoBack>
       <MapContainer ref={mapRef}>
-        {currentList && (
-          <Screen desktop wide>
-            <LocalShopInfo
-              shopList={currentList}
-              currentOption={currentOption}
-              toggleOption={toggleOption}
-              moveByAddress={moveByAddress}
-            />
-          </Screen>
-        )}
-      </MapContainer>
-      {currentList && (
-        <Screen mobile tablet>
+        <Screen desktop wide>
           <LocalShopInfo
-            shopList={currentList}
+            shopList={!isLogin && currentOption === '내가 저장한' ? [] : currentList || []}
             currentOption={currentOption}
             toggleOption={toggleOption}
             moveByAddress={moveByAddress}
           />
         </Screen>
-      )}
+      </MapContainer>
+      <Screen mobile tablet>
+        <LocalShopInfo
+          shopList={!isLogin && currentOption === '내가 저장한' ? [] : currentList || []}
+          currentOption={currentOption}
+          toggleOption={toggleOption}
+          moveByAddress={moveByAddress}
+        />
+      </Screen>
     </StyledContainer>
   );
 }

@@ -69,10 +69,13 @@ const FooterWrapper = styled.div`
 
 const Logo = styled.div`
   flex: 1;
+  ${applyMediaQuery('desktop')} {
+    transform: scale(0.75);
+  }
 `;
 
 const LeftFooterWrapper = styled.div`
-  flex: 1;
+  flex: 1.5;
 `;
 
 const LeftFooter = styled.div`
