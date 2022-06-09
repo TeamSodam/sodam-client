@@ -18,7 +18,7 @@ function Login() {
 
   const dispatch = useAppDispatch();
 
-  const loginError = false;
+  const [loginError, setLoginError] = useState(false);
 
   const handleChange = (e: ChangeEvent, inputType: string) => {
     if (!(e.target instanceof HTMLInputElement)) return;
@@ -32,7 +32,7 @@ function Login() {
       dispatch(setToken(accesstoken));
       router.back();
     } catch (e) {
-      console.log(e);
+      setLoginError(true);
     }
   };
 
