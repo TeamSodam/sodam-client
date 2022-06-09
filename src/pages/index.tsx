@@ -125,6 +125,9 @@ const Container = styled.main`
   gap: 9rem;
   padding-bottom: 9rem;
 
+  ${applyMediaQuery('desktop')} {
+    gap: 7.5rem;
+  }
   ${applyMediaQuery('mobile')} {
     gap: 3.6rem;
   }
@@ -140,6 +143,10 @@ const Label = styled.h2`
     color: ${({ theme }) => theme.colors.purpleText};
   }
 
+  ${applyMediaQuery('desktop')} {
+    font-size: 2.6rem;
+    line-height: 3.8rem;
+  }
   ${applyMediaQuery('mobile')} {
     font-size: 1.4rem;
     line-height: 2rem;
@@ -151,6 +158,9 @@ const LabelContentWrapper = styled.div`
   flex-direction: column;
   gap: 3.2rem;
 
+  ${applyMediaQuery('desktop')} {
+    gap: 2rem;
+  }
   ${applyMediaQuery('mobile')} {
     gap: 1.6rem;
   }

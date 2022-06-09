@@ -62,6 +62,10 @@ const StyledRoot = styled.div<Pick<StyledELProps, 'isActive'>>`
     font-weight: bold;
     font-size: 2rem;
     line-height: 2.9rem;
+    ${applyMediaQuery('desktop')} {
+      font-size: 1.6rem;
+      line-height: 2.3rem;
+    }
     ${applyMediaQuery('mobile')} {
       font-size: 0.7rem;
       line-height: 1rem;
@@ -70,6 +74,9 @@ const StyledRoot = styled.div<Pick<StyledELProps, 'isActive'>>`
     text-align: center;
     color: ${({ isActive }) => (isActive ? theme.colors.purpleText : theme.colors.black2)};
     margin-top: ${({ isActive }) => (isActive ? '-4.5rem' : '1.6rem')};
+    ${applyMediaQuery('desktop')} {
+      margin-top: ${({ isActive }) => (isActive ? '-3.3rem' : '1.3rem')};
+    }
     ${applyMediaQuery('mobile')} {
       margin-top: ${({ isActive }) => (isActive ? '-1.7rem' : '0.3rem')};
     }
@@ -81,6 +88,10 @@ const StyledImgWrapper = styled.div<StyledELProps>`
   width: ${({ isActive }) => (isActive ? '28.2rem' : '22.2rem')};
   height: ${({ isActive }) => (isActive ? '31.8rem' : '17.8rem')};
 
+  ${applyMediaQuery('desktop')} {
+    width: ${({ isActive }) => (isActive ? '19.1rem' : '14.8rem')};
+    height: ${({ isActive }) => (isActive ? '21rem' : '11.4rem')};
+  }
   ${applyMediaQuery('mobile')} {
     width: ${({ isActive }) => (isActive ? '7.6rem' : '6.6rem')};
     height: ${({ isActive }) => (isActive ? '8.7rem' : '5.2rem')};
