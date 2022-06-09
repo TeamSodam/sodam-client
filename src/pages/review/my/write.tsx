@@ -1,25 +1,49 @@
+import { useAppSelector } from 'app/hook';
+import EmptyContent from 'components/common/EmptyContent';
 import ReviewCard from 'components/common/ReviewCard';
 import WriteReviewLink from 'components/common/WriteReviewLink';
 import { useGetMyWriteReviewQuery } from 'features/reviews/reviewApi';
+import { selectIsLogin } from 'features/users/userSlice';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 
+const emptyContentData = {
+  title: '내가 작성한 리뷰',
+  src: '/assets/img_writeNoContent.png',
+  label: '아직 작성한 리뷰가 없어요',
+  subLabel: '다녀온 소품샵 후기를 기록하러 가볼까요?',
+  button: '리뷰 작성하기',
+  buttonUrl: '/review/write',
+};
+
 function Write() {
-  const { data: reviewMyWriteList } = useGetMyWriteReviewQuery();
+  const isLogin = useAppSelector(selectIsLogin);
+  const router = useRouter();
+
+  const { data: reviewMyWriteList } = useGetMyWriteReviewQuery(undefined, {
+    skip: !isLogin,
+  });
 
   return (
     <StyledContainer>
-      <h2>내가 작성한 리뷰</h2>
-      <StyledBtnWrapper>
-        <WriteReviewLink href="/review/write" />
-      </StyledBtnWrapper>
-      <StyledCardWrapper>
-        {reviewMyWriteList &&
-          reviewMyWriteList.map((review) => (
-            <ReviewCard key={review.reviewId} reviewData={review} isHoverAvailable isMyReview />
-          ))}
-      </StyledCardWrapper>
+      {!reviewMyWriteList?.length ? (
+        <EmptyContent emptyContentData={emptyContentData} />
+      ) : (
+        <>
+          <h2>내가 작성한 리뷰</h2>
+          <StyledBtnWrapper>
+            <WriteReviewLink href="/review/write" />
+          </StyledBtnWrapper>
+          <StyledCardWrapper>
+            {reviewMyWriteList &&
+              reviewMyWriteList.map((review) => (
+                <ReviewCard key={review.reviewId} reviewData={review} isHoverAvailable isMyReview />
+              ))}
+          </StyledCardWrapper>
+        </>
+      )}
     </StyledContainer>
   );
 }

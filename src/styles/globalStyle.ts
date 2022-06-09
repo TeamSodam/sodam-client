@@ -18,6 +18,9 @@ const GlobalStyles = createGlobalStyle`
     font-weight: 500;
     font-size: 62.5%;
   }
+  body > div {
+    height: 100%;
+  }
 
   button:hover {
     cursor: pointer

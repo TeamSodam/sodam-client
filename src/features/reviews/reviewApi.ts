@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
-import { axiosBaseQuery } from 'libs/api';
+import { fetchBaseQueryWithToken } from 'libs/api';
 import { SodamResponse } from 'types/api';
 import {
   Review,
@@ -16,7 +16,7 @@ import {
 
 export const reviewApi = createApi({
   reducerPath: 'reviewApi',
-  baseQuery: axiosBaseQuery(),
+  baseQuery: fetchBaseQueryWithToken,
   refetchOnFocus: true,
   endpoints: (builder) => ({
     // builder.query<T, U>() --> T는 쿼리의 반환값 타입, U는 쿼리 파라미터의 타입.
@@ -78,7 +78,7 @@ export const reviewApi = createApi({
       query: ({ reviewId, isLiked }) => ({
         url: `https://server.sodam.me/review/${reviewId}/like`,
         method: 'POST',
-        data: {
+        body: {
           isLiked,
         },
       }),
@@ -88,7 +88,7 @@ export const reviewApi = createApi({
       query: ({ reviewId, isScraped }) => ({
         url: `https://server.sodam.me/review/${reviewId}/scrap`,
         method: 'POST',
-        data: {
+        body: {
           isScraped,
         },
       }),

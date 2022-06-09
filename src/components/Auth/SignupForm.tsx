@@ -1,33 +1,48 @@
 import PersonalInfoInput from 'components/common/PersonalInfoInput';
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { theme } from 'styles/theme';
+import { UserSignupRequest } from 'types/auth';
 
-function SignupForm() {
-  const [signupInfo, setSignupInfo] = useState({
-    name: '',
-    nickname: '',
-    email: '',
-    emailConfirm: '',
-    password: '',
-    passwordConfirm: '',
-  });
+interface SignupFormProps {
+  signupInfo: UserSignupRequest;
+  handleOnChange: (type: keyof UserSignupRequest, value: string) => void;
+  handleComplete: (type: keyof UserSignupRequest, value: boolean) => void;
+}
 
-  const handleOnChange = (type: string, value: string) => {
-    setSignupInfo({ ...signupInfo, [type]: value });
+function SignupForm(props: SignupFormProps) {
+  const { signupInfo, handleOnChange, handleComplete } = props;
+  const isPasswordEqual = signupInfo.password.value === signupInfo.passwordConfirm.value;
+  const isCompleteList = {
+    nickname: signupInfo.nickname.isComplete,
+    email: signupInfo.email.isComplete,
+    emailConfirm: signupInfo.emailConfirm.isComplete,
   };
 
-  const checkPassword = () => signupInfo.password !== signupInfo.passwordConfirm;
+  useEffect(() => {
+    if (signupInfo.passwordConfirm.value && isPasswordEqual)
+      handleComplete('passwordConfirm', true);
+  }, [isPasswordEqual, handleComplete, signupInfo.passwordConfirm.value]);
+
+  const isKeyOfSignUpInfo = (inputType: string): inputType is keyof UserSignupRequest =>
+    inputType in signupInfo;
+
+  const InfoList = Object.keys(signupInfo).slice(0, -1).filter(isKeyOfSignUpInfo);
 
   return (
     <StyledRoot>
-      {Object.keys(signupInfo).map((type) => (
+      {InfoList.map((type, idx) => (
         <PersonalInfoInput
           key={type}
           inputType={type}
           handleOnChange={handleOnChange}
-          passwordError={checkPassword()}
+          handleComplete={handleComplete}
+          passwordError={signupInfo.passwordConfirm.value && !isPasswordEqual}
+          order={idx}
+          isCompleteList={isCompleteList}
         />
       ))}
+      <StyledLine />
     </StyledRoot>
   );
 }
@@ -37,5 +52,15 @@ const StyledRoot = styled.div`
   flex-direction: column;
   gap: 2rem;
   align-items: center;
+  width: 52.8rem;
+`;
+
+const StyledLine = styled.div`
+  display: flex;
+  order: 4;
+  width: 59.1rem;
+  height: 0.2rem;
+  margin: 1.2rem 0 0 0.2rem;
+  background-color: ${theme.colors.grayBg};
 `;
 export default SignupForm;

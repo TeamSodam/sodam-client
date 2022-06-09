@@ -1,13 +1,13 @@
+import Image from 'next/image';
 import Link from 'next/link';
-import SearchIC from 'public/assets/ic_search_mobile.svg';
-import ProfileIC from 'public/assets/profile_mobile.svg';
 import styled from 'styled-components';
 
 import LocalNav from '../LocalNav';
+import NavSearch from '../NavSearch';
 import { menuList, NavProps } from '.';
 
 function GlobalNavMobile(props: NavProps) {
-  const { onClickMenu, getIsActive, isMyReview } = props;
+  const { onClickMenu, getIsActive, isMyReview, userImage, isLogin } = props;
   return (
     <GlobalNavWrapper>
       <NavTop>
@@ -17,8 +17,18 @@ function GlobalNavMobile(props: NavProps) {
           </Link>
         </h1>
         <NavTopRightWrapper>
-          <SearchIcon />
-          <ProfileIC />
+          <NavSearch />
+          {isLogin ? (
+            <Link href="/mypage" passHref>
+              <StyledImage>
+                {userImage && <Image src={userImage} layout="fill" alt="profile" />}
+              </StyledImage>
+            </Link>
+          ) : (
+            <Link passHref href="/auth/login">
+              <Login>로그인</Login>
+            </Link>
+          )}
         </NavTopRightWrapper>
       </NavTop>
       <NavBottom>
@@ -55,11 +65,17 @@ const NavBottom = styled.nav`
 
 const NavTopRightWrapper = styled.div`
   display: flex;
+  align-items: center;
   gap: 1.5rem;
 `;
 
-const SearchIcon = styled(SearchIC)`
-  transform: translate(1px, 1px);
+const StyledImage = styled.div`
+  position: relative;
+  width: 2rem;
+  height: 2rem;
+  img {
+    border-radius: 50%;
+  }
 `;
 
 const Menu = styled.a<{ isActive: boolean }>`
@@ -88,6 +104,15 @@ const MainLogo = styled.a`
 
     content: '';
   }
+`;
+
+const Login = styled.a`
+  color: ${({ theme }) => theme.colors.black2};
+  text-decoration: none;
+  font-size: 1rem;
+  min-width: fit-content;
+  cursor: pointer;
+  font-weight: 400;
 `;
 
 export default GlobalNavMobile;

@@ -9,6 +9,7 @@ import { MoreFilterList } from 'constants/dropdownOptionList';
 import { useGetReviewRecentQuery } from 'features/reviews/reviewApi';
 import { useGetShopByCategoryQuery, useGetShopInfoQuery } from 'features/shops/shopApi';
 import { selectUserInfo } from 'features/users/userSlice';
+import useMedia from 'hooks/useMedia';
 import { useState } from 'react';
 import { useAppSelector } from 'src/app/hook';
 import styled from 'styled-components';
@@ -24,11 +25,29 @@ function Home() {
   const { data: reviewResultList } = useGetReviewRecentQuery();
   const { data: categoryShopList } = useGetShopByCategoryQuery(currentCategory.replace('·', ''));
 
+  const { isMobile, isTablet, isDesktop } = useMedia();
+
+  const getSlidesPerView = (type: 'shop' | 'review'): number => {
+    switch (type) {
+      case 'shop':
+        if (isDesktop) return 4;
+        if (isTablet) return 3;
+        if (isMobile) return 2;
+        return 4;
+      case 'review':
+        if (isDesktop) return 3;
+        if (isTablet || isMobile) return 2;
+        return 3;
+      default:
+        return 4;
+    }
+  };
+
   const showRandomShopSlider = () => {
     if (!randomShopList) return;
     const cardList = randomShopList.map((shop) => <ShopCard key={shop.shopId} cardData={shop} />);
 
-    return <MainSlider slidesPerView={4} cardList={cardList} />;
+    return <MainSlider slidesPerView={getSlidesPerView('shop')} cardList={cardList} isShopCard />;
   };
 
   const showReviewSlider = () => {
@@ -37,7 +56,13 @@ function Home() {
       <ReviewCard key={review.reviewId} reviewData={review} isHoverAvailable />
     ));
 
-    return <MainSlider slidesPerView={3} cardList={reviewCardList} />;
+    return (
+      <MainSlider
+        slidesPerView={getSlidesPerView('review')}
+        cardList={reviewCardList}
+        isShopCard={false}
+      />
+    );
   };
 
   const showPopularShopSlider = () => {
@@ -50,13 +75,13 @@ function Home() {
       return <ShopCard key={shop.shopId} cardData={shop} />;
     });
 
-    return <MainSlider slidesPerView={4} cardList={cardList} />;
+    return <MainSlider slidesPerView={getSlidesPerView('shop')} cardList={cardList} isShopCard />;
   };
 
   const showRandomCategorySlider = () => {
     if (!categoryShopList) return;
     const cardList = categoryShopList.map((shop) => <ShopCard key={shop.shopId} cardData={shop} />);
-    return <MainSlider slidesPerView={4} cardList={cardList} />;
+    return <MainSlider slidesPerView={getSlidesPerView('shop')} cardList={cardList} isShopCard />;
   };
 
   return (

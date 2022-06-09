@@ -1,14 +1,17 @@
-import { useAppDispatch } from 'app/hook';
+import { useAppDispatch, useAppSelector } from 'app/hook';
 import { wrapper } from 'app/store';
-import MapSidebar, { OptionLabel } from 'components/MapSidebar';
+import LocalShopInfo, { OptionLabel } from 'components/LocalShopInfo';
 import SEOUL_ENUM from 'constants/SeoulAreaEnum';
 import { initMap } from 'features/map/mapSlice';
 import { useGetShopByAreaQuery } from 'features/shops/shopApi';
+import { selectIsLogin } from 'features/users/userSlice';
 import useMap from 'hooks/useMap';
 import { useRouter } from 'next/router';
 import LeftArr from 'public/assets/ic_leftArr.svg';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
+import Screen from 'styles/Screen';
 import { ShopAreaSortType } from 'types/shop';
 
 const parseAreaId = (areaId: string | string[] | undefined) => {
@@ -31,11 +34,19 @@ function MapWithAreaId(props: { areaId: number }) {
   const { areaId: AREA_ID } = props;
   const dispatch = useAppDispatch();
   const router = useRouter();
+
+  const isLogin = useAppSelector(selectIsLogin);
+
   const [currentOption, setCurrentOption] = useState<OptionLabel>('인기 순');
-  const { data: currentList } = useGetShopByAreaQuery({
-    area: SEOUL_ENUM[AREA_ID],
-    sort: OPTION_MAPPER[currentOption],
-  });
+  const { data: currentList } = useGetShopByAreaQuery(
+    {
+      area: SEOUL_ENUM[AREA_ID],
+      sort: OPTION_MAPPER[currentOption],
+    },
+    {
+      skip: !isLogin && currentOption === '내가 저장한',
+    },
+  );
 
   const toggleOption = (option: OptionLabel) => setCurrentOption(option);
 
@@ -43,7 +54,10 @@ function MapWithAreaId(props: { areaId: number }) {
 
   const initialLocation = currentList && currentList.length > 0 && currentList[0].landAddress;
 
-  const { displayMarkerByAddress } = useMap(mapRef, initialLocation || SEOUL_ENUM[AREA_ID]);
+  const { displayMarkerByAddress, moveByAddress } = useMap(
+    mapRef,
+    initialLocation || SEOUL_ENUM[AREA_ID],
+  );
   const onClickGoBack = () => {
     dispatch(initMap());
     router.push('/map');
@@ -67,14 +81,23 @@ function MapWithAreaId(props: { areaId: number }) {
         <span>지역 다시 선택하기</span>
       </StyledGoBack>
       <MapContainer ref={mapRef}>
-        {currentList && (
-          <MapSidebar
-            shopList={currentList}
+        <Screen desktop wide>
+          <LocalShopInfo
+            shopList={!isLogin && currentOption === '내가 저장한' ? [] : currentList || []}
             currentOption={currentOption}
             toggleOption={toggleOption}
+            moveByAddress={moveByAddress}
           />
-        )}
+        </Screen>
       </MapContainer>
+      <Screen mobile tablet>
+        <LocalShopInfo
+          shopList={!isLogin && currentOption === '내가 저장한' ? [] : currentList || []}
+          currentOption={currentOption}
+          toggleOption={toggleOption}
+          moveByAddress={moveByAddress}
+        />
+      </Screen>
     </StyledContainer>
   );
 }
@@ -89,9 +112,18 @@ export const getServerSideProps = wrapper.getServerSideProps(() => async (contex
 });
 
 const StyledContainer = styled.main`
+  height: 100%;
   display: flex;
   flex-direction: column;
   margin-top: 7.2rem;
+
+  ${applyMediaQuery('desktop')} {
+    margin-top: 5.2rem;
+  }
+
+  ${applyMediaQuery('mobile')} {
+    margin-top: 2.1rem;
+  }
 `;
 
 const StyledGoBack = styled.button`
@@ -102,6 +134,7 @@ const StyledGoBack = styled.button`
 
   background-color: transparent;
   border: none;
+  padding: 0;
   & > span {
     font-weight: 700;
     font-size: 1.4rem;
@@ -111,6 +144,18 @@ const StyledGoBack = styled.button`
 
   &:hover {
     transform: scale(1.1);
+  }
+
+  ${applyMediaQuery('mobile')} {
+    gap: 0.9rem;
+    & > span {
+      font-size: 1rem;
+      line-height: 1.4rem;
+    }
+
+    & > svg {
+      transform: scale(0.5) translateY(12.5%);
+    }
   }
 `;
 
@@ -124,6 +169,25 @@ const MapContainer = styled.div`
   height: 82.4rem;
 
   margin: 3.5rem 0 13.2rem 0;
+
+  ${applyMediaQuery('desktop')} {
+    height: 55rem;
+    margin: 3.5rem 0 10rem 0;
+  }
+
+  ${applyMediaQuery('tablet')} {
+    height: 36rem;
+    margin: 1.1rem 0 0 0;
+  }
+
+  ${applyMediaQuery('mobile')} {
+    height: 29rem;
+    margin: 1.1rem 0 0 0;
+
+    & img[title] {
+      transform: scale(0.7);
+    }
+  }
 
   position: relative;
 `;

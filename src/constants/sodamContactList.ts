@@ -1,18 +1,18 @@
 const sodamContactList = [
   {
     contactTitle: 'Contact',
-    contactContent: 'vvayun@naver.com',
-    contactURL: 'https://www.naver.com',
+    contactContent: 'sodamteam2@gmail.com',
+    contactURL: 'https://scrawny-trust-955.notion.site/dd1f0a1e0a574349ae41f815549a9755',
   },
   {
     contactTitle: 'Info',
     contactContent: '공식 노션 바로가기',
-    contactURL: 'https://www.notion.so/d062eead83c14467a64c232212591b48',
+    contactURL: 'https://scrawny-trust-955.notion.site/dd1f0a1e0a574349ae41f815549a9755',
   },
   {
     contactTitle: 'Instagram',
-    contactContent: '@official_sodam',
-    contactURL: 'https://www.instagram.com/official_sodam/',
+    contactContent: '@sodam_official_',
+    contactURL: 'https://www.instagram.com/sodam_official_/',
   },
 ];
 

@@ -1,32 +1,50 @@
+import { useAppDispatch } from 'app/hook';
 import LocalNav from 'components/common/Navbar/LocalNav';
+import { logout } from 'features/users/userSlice';
+import Image from 'next/image';
 import Link from 'next/link';
-import SearchICDesktop from 'public/assets/ic_search_desktop.svg';
+import { useRouter } from 'next/router';
 import MainLogoIC from 'public/assets/mainLogo.svg';
 import MainLogoDesktopIC from 'public/assets/mainLogoDesktop.svg';
 import ProfileIC from 'public/assets/profile.svg';
-import SearchIC from 'public/assets/searchIcon.svg';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import Screen from 'styles/Screen';
 
+import NavSearch from '../NavSearch';
 import { menuList, NavProps } from '.';
 
 function GlobalNavDesktop(props: NavProps) {
-  const { onClickMenu, isMyReview: isCurrentPathIncludesMyReview, getIsActive } = props;
+  const {
+    onClickMenu,
+    isMyReview: isCurrentPathIncludesMyReview,
+    getIsActive,
+    userImage,
+    isLogin,
+  } = props;
+
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const handleLogout = () => {
+    dispatch(logout());
+    router.push('/');
+  };
 
   return (
     <>
       <GlobalNavWrapper>
         <GlobalNavBar>
           <LeftNav>
-            <Logo href="/">
-              <Screen wide>
-                <MainLogoIC />
-              </Screen>
-              <Screen tablet desktop>
-                <MainLogoDesktopIC />
-              </Screen>
-            </Logo>
+            <Link href="/" passHref>
+              <Logo>
+                <Screen wide>
+                  <MainLogoIC />
+                </Screen>
+                <Screen tablet desktop>
+                  <MainLogoDesktopIC />
+                </Screen>
+              </Logo>
+            </Link>
             <MenuList>
               {menuList.map((menu) => (
                 <Link key={menu.menuName} href={onClickMenu(menu)} passHref>
@@ -36,21 +54,30 @@ function GlobalNavDesktop(props: NavProps) {
             </MenuList>
           </LeftNav>
           <RightNav>
-            <SearchBar>
-              <SearchIcon>
-                <Screen wide>
-                  <SearchIC />
-                </Screen>
-                <Screen tablet desktop>
-                  <SearchICDesktop />
-                </Screen>
-              </SearchIcon>
-              <SearchText />
-            </SearchBar>
-            <Login>로그아웃</Login>
-            <Profile>
-              <ProfileIC />
-            </Profile>
+            <NavSearch />
+            {isLogin ? (
+              <>
+                <Logout onClick={handleLogout}>로그아웃</Logout>
+                <Link href="/mypage" passHref>
+                  <Profile>
+                    {userImage ? (
+                      <Image src={userImage} layout="fill" alt="profile" />
+                    ) : (
+                      <ProfileIC />
+                    )}
+                  </Profile>
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link passHref href="/auth/join">
+                  <Join>회원가입</Join>
+                </Link>
+                <Link passHref href="/auth/login">
+                  <Login>로그인</Login>
+                </Link>
+              </>
+            )}
           </RightNav>
         </GlobalNavBar>
       </GlobalNavWrapper>
@@ -62,6 +89,7 @@ function GlobalNavDesktop(props: NavProps) {
 const GlobalNavWrapper = styled.div`
   width: 100%;
   height: 8.2rem;
+  min-height: 8.2rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -76,6 +104,7 @@ const GlobalNavWrapper = styled.div`
 
   ${applyMediaQuery('desktop')} {
     height: 5.4rem;
+    min-height: 5.4rem;
 
     &:after {
       top: 5.4rem;
@@ -104,6 +133,7 @@ const RightNav = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 2.7rem;
 `;
 
 const Logo = styled.a`
@@ -156,52 +186,12 @@ const Menu = styled.a<{ isActive: boolean }>`
   }
 `;
 
-const SearchBar = styled.div`
-  display: flex;
-  align-items: center;
-  width: 28.2rem;
-  height: 4rem;
-  margin-right: 2.1rem;
-  border: 2px solid ${({ theme }) => theme.colors.purpleMain};
-  border-radius: 20px;
-
-  ${applyMediaQuery('desktop')} {
-    width: 15.7rem;
-    height: 2.2rem;
-  }
-`;
-
-const SearchIcon = styled.div`
-  display: flex;
-  align-items: center;
-  margin-left: 1.2rem;
-  width: 2.1rem;
-  height: 2rem;
-  cursor: pointer;
-
-  ${applyMediaQuery('desktop')} {
-    width: 1.1rem;
-    height: 1.1rem;
-    margin-left: 0.8rem;
-  }
-`;
-
-const SearchText = styled.input`
-  width: 100%;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+const Logout = styled.button`
+  font-family: 'Noto Sans KR';
+  padding: 0;
   border: none;
-  margin: 0 1rem;
-
-  &:focus {
-    outline: none;
-  }
-`;
-
-const Login = styled.div`
+  background-color: transparent;
   font-size: 1.6rem;
-  margin-right: 2.7rem;
   min-width: fit-content;
   cursor: pointer;
 
@@ -211,14 +201,35 @@ const Login = styled.div`
   }
 `;
 
+const Login = styled.a`
+  color: inherit;
+  text-decoration: none;
+  font-size: 1.6rem;
+  font-weight: 400;
+  min-width: fit-content;
+  cursor: pointer;
+
+  ${applyMediaQuery('desktop')} {
+    font-size: 1.2rem;
+    line-height: 1.7rem;
+  }
+`;
+
+const Join = styled(Login)``;
+
 const Profile = styled.div`
+  position: relative;
   width: 3.4rem;
   height: 3.4rem;
   cursor: pointer;
+  img {
+    border-radius: 50%;
+  }
 
   ${applyMediaQuery('desktop')} {
     width: 2.2rem;
     height: 2.2rem;
+    line-height: 2.2rem;
 
     & svg {
       transform: scale(0.647) translate(-30%, -30%);
