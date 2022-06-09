@@ -18,7 +18,12 @@ export const makeStore = () =>
       [authApi.reducerPath]: authApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat([shopApi.middleware, reviewApi.middleware, userApi.middleware]),
+      getDefaultMiddleware().concat([
+        shopApi.middleware,
+        reviewApi.middleware,
+        userApi.middleware,
+        authApi.middleware,
+      ]),
   });
 
 export const wrapper = createWrapper(makeStore, { debug: process.env.NODE_ENV !== 'production' });

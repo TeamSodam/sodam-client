@@ -13,15 +13,14 @@ function Login() {
     email: null,
     password: null,
   });
+  const [isLoginError, setIsLoginError] = useState(false);
 
   const router = useRouter();
 
   const dispatch = useAppDispatch();
-
-  const [loginError, setLoginError] = useState(false);
-
   const handleChange = (e: ChangeEvent, inputType: string) => {
     if (!(e.target instanceof HTMLInputElement)) return;
+    if (isLoginError) setIsLoginError(false);
     setLoginInfo({ ...loginInfo, [inputType]: e.target.value });
   };
 
@@ -32,9 +31,11 @@ function Login() {
       dispatch(setToken(accesstoken));
       router.back();
     } catch (e) {
-      setLoginError(true);
+      setIsLoginError(true);
     }
   };
+
+  const isSubmitAvailable = () => Object.values(loginInfo).every((info) => info) && !isLoginError;
 
   return (
     <StyledRoot>
@@ -48,12 +49,14 @@ function Login() {
         <StyledInputDiv>
           <input type="password" onChange={(e) => handleChange(e, 'password')} />
         </StyledInputDiv>
-        {loginError ? (
+        {isLoginError ? (
           <StyledWarning>ID 또는 PW를 잘못 입력하셨습니다.</StyledWarning>
         ) : (
           <StyledWarning />
         )}
-        <StyledLoginBtn type="submit">로그인</StyledLoginBtn>
+        <StyledLoginBtn type="submit" disabled={!isSubmitAvailable()}>
+          로그인
+        </StyledLoginBtn>
       </StyledForm>
       <StyledLinkWrapper>
         <Link href="/">비밀번호 재설정</Link>
@@ -128,6 +131,11 @@ const StyledLoginBtn = styled.button`
   font-weight: bold;
   font-size: 1.5rem;
   line-height: 5rem;
+
+  &:disabled {
+    background-color: ${theme.colors.gray2};
+    cursor: default;
+  }
 `;
 
 const StyledLinkWrapper = styled.div`
