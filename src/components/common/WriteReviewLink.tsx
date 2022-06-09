@@ -1,25 +1,29 @@
+import Link from 'next/link';
 import writeIC from 'public/assets/ic_writeReview.svg';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 
 interface StyledWRBProps {
-  navigate: () => void;
+  href: string;
 }
-function WriteReviewBtn(props: StyledWRBProps) {
-  const { navigate } = props;
+function WriteReviewLink(props: StyledWRBProps) {
+  const { href } = props;
 
   return (
-    <StyledWriteBtn onClick={navigate}>
-      <span>리뷰 작성하기</span>
-      <WriteIcon />
-    </StyledWriteBtn>
+    <Link href={href} passHref>
+      <StyledWriteLink>
+        <span>리뷰 작성하기</span>
+        <WriteIcon />
+      </StyledWriteLink>
+    </Link>
   );
 }
 
-export default WriteReviewBtn;
+export default WriteReviewLink;
 
-const StyledWriteBtn = styled.button`
+const StyledWriteLink = styled.a`
+  text-decoration: none;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,12 +38,19 @@ const StyledWriteBtn = styled.button`
   font-size: 1.6rem;
   line-height: 2.3rem;
 
+  ${applyMediaQuery('desktop')} {
+    height: 3.2rem;
+    width: 13.6rem;
+
+    font-size: 1.2rem;
+    line-height: 1.7rem;
+    font-family: 'Noto Sans KR';
+  }
+
   ${applyMediaQuery('mobile')} {
-    & > span {
-      font-size: 0.8rem;
-      line-height: 1.2rem;
-      font-family: 'Noto Sans KR';
-    }
+    font-size: 0.8rem;
+    line-height: 1.2rem;
+    font-family: 'Noto Sans KR';
 
     border-radius: 5px;
     gap: 0.3rem;

@@ -1,4 +1,5 @@
 import { css } from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { Shop } from 'types/shop';
 
 export const miniTooltipStyle = css`
@@ -29,6 +30,34 @@ export const miniTooltipStyle = css`
       bottom: -0.9rem;
       left: 50%;
       transform: translateX(-50%);
+    }
+
+    ${applyMediaQuery('desktop')} {
+      padding: 0.4rem 1.6rem;
+      margin-top: -8rem;
+      &__title {
+        font-size: 1.1rem;
+        line-height: 2rem;
+      }
+    }
+    ${applyMediaQuery('tablet')} {
+      padding: 0.4rem 1.6rem;
+      margin-top: -7rem;
+      &__title {
+        font-size: 1.1rem;
+        line-height: 2rem;
+      }
+    }
+    ${applyMediaQuery('mobile')} {
+      padding: 0.4rem 0.7rem;
+      margin-top: -7rem;
+      filter: drop-shadow(0px 1px 1.5px rgba(149, 144, 140, 0.4));
+      &__title {
+        font-size: 0.6rem;
+        line-height: 2rem;
+      }
+
+      transform: translateY(15px);
     }
   }
 `;

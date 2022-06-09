@@ -4,7 +4,7 @@ import MainSlider from 'components/common/MainSlider';
 import PageNaviagator from 'components/common/PageNaviagator';
 import ReviewCard from 'components/common/ReviewCard';
 import ShopCard from 'components/common/ShopCard';
-import WriteReviewBtn from 'components/common/WriteReviewBtn';
+import WriteReviewLink from 'components/common/WriteReviewLink';
 import DetailImageGrid from 'components/ShopDetail/DetailImageGrid';
 import DetailInfo from 'components/ShopDetail/DetailInfo';
 import DetailShopAddress from 'components/ShopDetail/DetailShopAddress';
@@ -12,9 +12,9 @@ import { reviewApi, useGetReviewByShopIdQuery } from 'features/reviews/reviewApi
 import { useGetShopByShopIdQuery, useGetShopBySubwayQuery } from 'features/shops/shopApi';
 import useMap from 'hooks/useMap';
 import { NextParsedUrlQuery } from 'next/dist/server/request-meta';
-import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { ReviewByShopIdData, ReviewSortType } from 'types/review';
 
 const parseShopId = (shopID: string | string[] | undefined) => {
@@ -31,7 +31,6 @@ function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQu
   const SORT_TYPE = 'like';
 
   const mapRef = useRef<HTMLDivElement>(null);
-  const router = useRouter();
 
   const [currentPage, setCurrentPage] = useState(1);
   const { data: shopInfo } = useGetShopByShopIdQuery(SHOP_ID);
@@ -133,24 +132,18 @@ function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQu
     <StyledContainer>
       <ColoredBackground />
       <ImageGridWrapper>
-        {shopInfo && (
-          <>
-            <DetailImageGrid imageList={shopInfo.image || []} />
-            <DetailInfo shopInfo={shopInfo} />
-          </>
-        )}
-        <MapContainer ref={mapRef}>{showDetailShopAddress()}</MapContainer>
+        <DetailImageGrid imageList={shopInfo?.image || new Array(4)} />
+        {shopInfo && <DetailInfo shopInfo={shopInfo} />}
       </ImageGridWrapper>
       <Wrapper>
+        <MapContainer ref={mapRef}>{showDetailShopAddress()}</MapContainer>
         <LabelContentWrapper>
           <LabelWithOptions>
             <LabelWrapper>
               <Label>소품샵 리뷰</Label>
               {shopInfo && (
-                <WriteReviewBtn
-                  navigate={() => {
-                    router.push(`/review/write?shopId=${SHOP_ID}&shopName=${shopInfo.shopName}`);
-                  }}
+                <WriteReviewLink
+                  href={`/review/write?shopId=${SHOP_ID}&shopName=${shopInfo.shopName}`}
                 />
               )}
             </LabelWrapper>
@@ -192,15 +185,27 @@ const StyledContainer = styled.main`
   position: relative;
   gap: 8rem;
 
+  ${applyMediaQuery('desktop')} {
+    gap: 4rem;
+  }
+
+  ${applyMediaQuery('mobile', 'tablet')} {
+    gap: 3.5rem;
+  }
+
   padding-bottom: 8rem;
 `;
 
 const ImageGridWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 7.2rem 0 5.6rem 0;
+  padding-top: 6%;
   z-index: 2;
   gap: 5.6rem;
+
+  ${applyMediaQuery('mobile', 'tablet')} {
+    gap: 0.8rem;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -215,14 +220,45 @@ const MapContainer = styled.div`
   height: 32rem;
 
   position: relative;
+
+  ${applyMediaQuery('desktop')} {
+    height: 21.3rem;
+
+    & img[title] {
+      transform: scale(0.85) translateX(7.5%);
+    }
+  }
+
+  ${applyMediaQuery('tablet')} {
+    height: 18rem;
+    & img[title] {
+      transform: scale(0.75) translateX(12.5%);
+    }
+  }
+
+  ${applyMediaQuery('mobile')} {
+    height: 13.5rem;
+
+    & img[title] {
+      transform: scale(0.55) translate(20%, 25px);
+    }
+  }
 `;
 
 const ColoredBackground = styled.div`
+  ${applyMediaQuery('mobile', 'tablet')} {
+    display: none;
+  }
   position: absolute;
   width: 100%;
   height: 59rem;
+  ${applyMediaQuery('desktop')} {
+    height: 45rem;
+  }
   top: 0;
   background-color: ${({ theme }) => theme.colors.purpleBg};
+  transform: ${({ theme: { clientWidth, availableWidth } }) =>
+    `scaleX(${clientWidth / availableWidth})`};
 `;
 
 const Label = styled.h2`
@@ -234,12 +270,25 @@ const Label = styled.h2`
   & > em {
     color: ${({ theme }) => theme.colors.purpleText};
   }
+
+  ${applyMediaQuery('desktop')} {
+    font-size: 2.4rem;
+    line-height: 3.2rem;
+  }
+  ${applyMediaQuery('mobile', 'tablet')} {
+    font-size: 1.4rem;
+    line-height: 2rem;
+  }
 `;
 
 const LabelContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5.6rem;
+
+  ${applyMediaQuery('desktop')} {
+    gap: 4rem;
+  }
 `;
 
 const ReviewGrid = styled.div`
@@ -259,6 +308,10 @@ const LabelWrapper = styled.div`
   display: flex;
   gap: 2.4rem;
   align-items: center;
+
+  ${applyMediaQuery('mobile', 'tablet')} {
+    gap: 1.2rem;
+  }
 `;
 
 export default Detail;

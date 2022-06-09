@@ -1,7 +1,7 @@
 import { useAppSelector } from 'app/hook';
 import EmptyContent from 'components/common/EmptyContent';
 import ReviewCard from 'components/common/ReviewCard';
-import WriteReviewBtn from 'components/common/WriteReviewBtn';
+import WriteReviewLink from 'components/common/WriteReviewLink';
 import { useGetMyWriteReviewQuery } from 'features/reviews/reviewApi';
 import { selectIsLogin } from 'features/users/userSlice';
 import { useRouter } from 'next/router';
@@ -26,10 +26,6 @@ function Write() {
     skip: !isLogin,
   });
 
-  const navigate = () => {
-    router.push('/review/write');
-  };
-
   return (
     <StyledContainer>
       {!reviewMyWriteList?.length ? (
@@ -38,7 +34,7 @@ function Write() {
         <>
           <h2>내가 작성한 리뷰</h2>
           <StyledBtnWrapper>
-            <WriteReviewBtn navigate={navigate} />
+            <WriteReviewLink href="/review/write" />
           </StyledBtnWrapper>
           <StyledCardWrapper>
             {reviewMyWriteList &&

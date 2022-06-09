@@ -1,6 +1,7 @@
 import ImageDiv from 'components/common/ImageDiv';
 import shortid from 'shortid';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 
 function DetailImageGrid({ imageList }: { imageList: string[] }) {
   return (
@@ -28,6 +29,19 @@ const Container = styled.div`
   grid-template-columns: 3fr 1fr;
   grid-template-rows: repeat(3, 1fr);
   gap: 1.6rem 2.7rem;
+
+  ${applyMediaQuery('desktop')} {
+    height: 45rem;
+  }
+
+  ${applyMediaQuery('tablet')} {
+    height: 30rem;
+    gap: 1rem 1.5rem;
+  }
+  ${applyMediaQuery('mobile')} {
+    height: 15.6rem;
+    gap: 0.8rem 0.3rem;
+  }
 
   .detail-image {
     position: relative !important;
