@@ -141,7 +141,15 @@ const StyledRoot = styled.div<StyledProps>`
       height: 13.9rem;
     }
   }
-  ${applyMediaQuery('tablet', 'mobile')} {
+  ${applyMediaQuery('tablet')} {
+    width: 26.8rem;
+    height: 21.4rem;
+    .thumbnail__image {
+      width: 26.8rem;
+      height: 13.9rem;
+    }
+  }
+  ${applyMediaQuery('mobile')} {
     width: ${({ isMyReviewMobile }) => (isMyReviewMobile ? '31.2rem' : '15.3rem')};
     height: ${({ isMyReviewMobile }) => (isMyReviewMobile ? '17rem' : '22rem')};
     .thumbnail__image {
@@ -215,7 +223,7 @@ const StyledContents = styled.div<StyledProps>`
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
   }
-  ${applyMediaQuery('desktop')} {
+  ${applyMediaQuery('desktop', 'tablet')} {
     padding: 0.8rem 1.6rem 1.4rem 1.6rem;
     & > p {
       height: 2.6rem;
@@ -223,7 +231,7 @@ const StyledContents = styled.div<StyledProps>`
       line-height: 1.3rem;
     }
   }
-  ${applyMediaQuery('tablet', 'mobile')} {
+  ${applyMediaQuery('mobile')} {
     padding: ${({ isMyReviewMobile }) =>
       isMyReviewMobile ? '0.8rem 1.2rem' : '0.8rem 1rem 1.4rem 1rem'};
     & > p {
@@ -299,7 +307,7 @@ const StyledHeader = styled.div<StyledProps>`
       height: 1.4rem;
     }
   }
-  ${applyMediaQuery('desktop')} {
+  ${applyMediaQuery('desktop', 'tablet')} {
     margin-bottom: 0.5rem;
     .date {
       font-size: 1rem;
@@ -335,7 +343,9 @@ const StyledHeader = styled.div<StyledProps>`
       }
     }
   }
-  ${applyMediaQuery('tablet', 'mobile')} {
+  ${applyMediaQuery('tablet')} {
+  }
+  ${applyMediaQuery('mobile')} {
     margin-bottom: 0.3rem;
     height: ${({ isMyReviewMobile }) => (isMyReviewMobile ? '2rem' : 'auto')};
     .date {

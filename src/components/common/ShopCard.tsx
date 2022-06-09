@@ -61,7 +61,18 @@ const StyledRoot = styled.div`
       height: 13.8rem;
     }
   }
-  ${applyMediaQuery('tablet', 'mobile')} {
+  ${applyMediaQuery('tablet')} {
+    width: 17.3rem;
+    height: 17.3rem;
+    .shop__card {
+      width: 17.3rem;
+      height: 13.2rem;
+      img {
+        border-radius: 4px;
+      }
+    }
+  }
+  ${applyMediaQuery('mobile')} {
     width: 15.3rem;
     height: 15.3rem;
     .shop__card {
@@ -103,7 +114,18 @@ const StyledTitle = styled.div`
       line-height: 1.4rem;
     }
   }
-  ${applyMediaQuery('tablet', 'mobile')} {
+  ${applyMediaQuery('tablet')} {
+    h3 {
+      font-size: 1.3rem;
+      line-height: 1.8rem;
+    }
+    p {
+      font-size: 1rem;
+      margin-top: 0.2rem;
+      line-height: 1.2rem;
+    }
+  }
+  ${applyMediaQuery('mobile')} {
     h3 {
       font-size: 1.2rem;
       line-height: 1.7rem;

@@ -39,7 +39,7 @@ function MainSlider(props: MainSliderProps) {
   const getSpaceBetween = (): number => {
     if (isWide) return 24;
     if (isDesktop) return 11;
-    if (isTablet) return 6;
+    if (isTablet) return 15;
     if (isMobile) return 6;
     return 24;
   };
@@ -130,13 +130,43 @@ const StyledRoot = styled.div`
       visibility: hidden;
     }
   }
+  .inactive {
+    display: none !important;
+  }
+  .active {
+    background-color: ${theme.colors.purpleMain} !important;
+    opacity: 1 !important;
+  }
+  .swiper-pagination {
+    position: relative;
+    top: 0;
+    margin-top: 0.6rem;
+    &-bullet {
+      width: 0.4rem;
+      height: 0.4rem;
+      &-active {
+        background-color: ${theme.colors.purpleMain};
+      }
+    }
+  }
   ${applyMediaQuery('desktop')} {
     width: 83.8rem;
     .swiper-container {
       margin: 0 2.5rem;
     }
   }
-  ${applyMediaQuery('tablet', 'mobile')} {
+  ${applyMediaQuery('tablet')} {
+    width: 55rem;
+    .swiper-container {
+      margin: 0;
+      display: flex;
+      flex-direction: column-reverse;
+    }
+    .swiper-pagination {
+      margin-top: 1.6rem;
+    }
+  }
+  ${applyMediaQuery('mobile')} {
     width: 31.2rem;
     .swiper-container {
       margin: 0;
@@ -145,25 +175,6 @@ const StyledRoot = styled.div`
     }
     .swiper-slide {
       width: 15.3rem !important;
-    }
-    .swiper-pagination {
-      position: relative;
-      top: 0;
-      margin-top: 0.6rem;
-      &-bullet {
-        width: 0.4rem;
-        height: 0.4rem;
-        &-active {
-          background-color: ${theme.colors.purpleMain};
-        }
-      }
-    }
-    .inactive {
-      display: none !important;
-    }
-    .active {
-      background-color: ${theme.colors.purpleMain} !important;
-      opacity: 1 !important;
     }
   }
 `;

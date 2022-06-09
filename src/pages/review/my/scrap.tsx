@@ -53,7 +53,12 @@ const StyledCardWrapper = styled.div`
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 4rem 2.4rem;
   margin-top: 5.6rem;
-  ${applyMediaQuery('tablet', 'mobile')} {
+  ${applyMediaQuery('tablet')} {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.8rem 1.4rem;
+    margin-top: 2.1rem;
+  }
+  ${applyMediaQuery('mobile')} {
     grid-template-columns: repeat(1, 1fr);
     gap: 2rem;
     margin-top: 2rem;
