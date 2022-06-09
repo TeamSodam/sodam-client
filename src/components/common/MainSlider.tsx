@@ -55,7 +55,9 @@ function MainSlider(props: MainSliderProps) {
         pagination: {
           clickable: false,
           renderBullet: (index, className) =>
-            `<span class="${index % 2 === 0 ? className : `${className} inactive`}"></span>`,
+            `<span class="${
+              index % slidesPerView === 0 ? className : `${className} inactive`
+            }"></span>`,
         },
         scrollbar: { draggable: true, el: null },
         slidesPerView,
@@ -71,8 +73,10 @@ function MainSlider(props: MainSliderProps) {
         onActiveIndexChange(swiper: SwiperCore) {
           const bulletList = swiperRef.current?.querySelectorAll('.swiper-pagination-bullet');
           if (!bulletList) return;
-          if (swiper.activeIndex % 2 !== 0) {
-            bulletList[swiper.activeIndex - 1].classList.add('active');
+          if (swiper.activeIndex % slidesPerView !== 0) {
+            bulletList[swiper.activeIndex - (swiper.activeIndex % slidesPerView)].classList.add(
+              'active',
+            );
           } else {
             bulletList.forEach((bullet) => bullet.classList.remove('active'));
           }
