@@ -9,9 +9,9 @@ import SwiperCore, { Autoplay, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 const bannerList = [
-  { src: 'assets/banner/banner1.png', href: '/map' },
-  { src: 'assets/banner/banner2.png', href: '/shop/theme/아기자기한' },
-  { src: 'assets/banner/banner3.png' },
+  { src: '/assets/banner/banner1.png', href: '/map' },
+  { src: '/assets/banner/banner2.png', href: '/shop/theme/아기자기한' },
+  { src: '/assets/banner/banner3.png' },
 ];
 
 function BannerList() {
@@ -52,6 +52,9 @@ const Container = styled.div`
 
   ${applyMediaQuery('desktop')} {
     height: 345px;
+  }
+  ${applyMediaQuery('tablet')} {
+    height: 180px;
   }
   ${applyMediaQuery('mobile')} {
     height: 97px;

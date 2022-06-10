@@ -25,17 +25,15 @@ function Home() {
   const { data: reviewResultList } = useGetReviewRecentQuery();
   const { data: categoryShopList } = useGetShopByCategoryQuery(currentCategory.replace('·', ''));
 
-  const { isMobile, isTablet, isDesktop } = useMedia();
+  const { isMobile, isTablet } = useMedia();
 
   const getSlidesPerView = (type: 'shop' | 'review'): number => {
     switch (type) {
       case 'shop':
-        if (isDesktop) return 4;
         if (isTablet) return 3;
         if (isMobile) return 2;
         return 4;
       case 'review':
-        if (isDesktop) return 3;
         if (isTablet || isMobile) return 2;
         return 3;
       default:

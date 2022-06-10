@@ -1,4 +1,5 @@
 import 'swiper/swiper.min.css';
+import 'swiper/swiper-bundle.min.css';
 
 import useMedia from 'hooks/useMedia';
 import Image from 'next/image';
@@ -6,7 +7,8 @@ import { ReactElement, useEffect, useRef, useState } from 'react';
 import shortid from 'shortid';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
-import SwiperCore, { Navigation, Scrollbar } from 'swiper';
+import { theme } from 'styles/theme';
+import SwiperCore, { Navigation, Pagination, Scrollbar } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 interface MainSliderProps {
@@ -26,17 +28,20 @@ function MainSlider(props: MainSliderProps) {
 
   const { isMobile, isTablet, isDesktop, isWide } = useMedia();
 
-  SwiperCore.use([Navigation, Scrollbar]);
+  SwiperCore.use(
+    isMobile || isTablet ? [Navigation, Pagination, Scrollbar] : [Navigation, Scrollbar],
+  );
 
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
+  const swiperRef = useRef<HTMLDivElement>(null);
   const [swiperSetting, setSwiperSetting] = useState<Swiper | null>(null);
 
   const getSpaceBetween = (): number => {
     if (isWide) return 24;
     if (isDesktop) return 11;
-    if (isTablet) return 0;
-    if (isMobile) return 0;
+    if (isTablet) return 15;
+    if (isMobile) return 6;
     return 24;
   };
 
@@ -47,6 +52,13 @@ function MainSlider(props: MainSliderProps) {
         navigation: {
           prevEl: prevRef.current, // 이전 버튼
           nextEl: nextRef.current, // 다음 버튼
+        },
+        pagination: {
+          clickable: false,
+          renderBullet: (index, className) =>
+            `<span class="${
+              index % slidesPerView === 0 ? className : `${className} inactive`
+            }"></span>`,
         },
         scrollbar: { draggable: true, el: null },
         slidesPerView,
@@ -59,13 +71,24 @@ function MainSlider(props: MainSliderProps) {
           }
           swiper.navigation.update();
         },
+        onActiveIndexChange(swiper: SwiperCore) {
+          const bulletList = swiperRef.current?.querySelectorAll('.swiper-pagination-bullet');
+          if (!bulletList) return;
+          if (swiper.activeIndex % slidesPerView !== 0) {
+            bulletList[swiper.activeIndex - (swiper.activeIndex % slidesPerView)].classList.add(
+              'active',
+            );
+          } else {
+            bulletList.forEach((bullet) => bullet.classList.remove('active'));
+          }
+        },
       });
     }
   }, [swiperSetting, slidesPerView]);
 
   return (
     <StyledRoot>
-      <StyledSwiper>
+      <StyledSwiper ref={swiperRef}>
         {(isDesktop || isWide) && (
           <StyledButton ref={prevRef} isShopCard={isShopCard}>
             <StyledIcon type="prev">
@@ -112,10 +135,51 @@ const StyledRoot = styled.div`
       visibility: hidden;
     }
   }
+  .inactive {
+    display: none !important;
+  }
+  .active {
+    background-color: ${theme.colors.purpleMain} !important;
+    opacity: 1 !important;
+  }
+  .swiper-pagination {
+    position: relative;
+    top: 0;
+    margin-top: 0.6rem;
+    &-bullet {
+      width: 0.4rem;
+      height: 0.4rem;
+      &-active {
+        background-color: ${theme.colors.purpleMain};
+      }
+    }
+  }
   ${applyMediaQuery('desktop')} {
     width: 83.8rem;
     .swiper-container {
       margin: 0 2.5rem;
+    }
+  }
+  ${applyMediaQuery('tablet')} {
+    width: 55rem;
+    .swiper-container {
+      margin: 0;
+      display: flex;
+      flex-direction: column-reverse;
+    }
+    .swiper-pagination {
+      margin-top: 1.6rem;
+    }
+  }
+  ${applyMediaQuery('mobile')} {
+    width: 31.2rem;
+    .swiper-container {
+      margin: 0;
+      display: flex;
+      flex-direction: column-reverse;
+    }
+    .swiper-slide {
+      width: 15.3rem !important;
     }
   }
 `;
@@ -127,12 +191,14 @@ const StyledSwiper = styled.div`
   ${applyMediaQuery('desktop')} {
     margin-left: -3.3rem;
   }
+  ${applyMediaQuery('tablet', 'mobile')} {
+    margin-left: 0;
+  }
 `;
 const StyledButton = styled.button<StyledButtonProps>`
   margin-bottom: ${(props) => (props.isShopCard ? '6.2rem' : '0')};
   ${applyMediaQuery('desktop')} {
     margin-bottom: ${(props) => (props.isShopCard ? '4.1rem' : '0')};
-    /* transform: translateX(-1rem); */
   }
 `;
 const StyledIcon = styled.div<StyledIconProps>`
