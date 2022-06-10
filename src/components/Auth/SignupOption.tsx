@@ -34,7 +34,9 @@ function SignupOption(props: SignupOptionProps) {
     } else if (type === 'emailConfirm') {
       const verificationCode = localStorage.getItem('verificationCode');
       handleConfirm(type, value === verificationCode);
-      localStorage.removeItem('verificationCode');
+      if (value === verificationCode) {
+        localStorage.removeItem('verificationCode');
+      }
     }
   };
 
