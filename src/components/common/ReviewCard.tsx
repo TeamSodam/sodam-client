@@ -343,8 +343,6 @@ const StyledHeader = styled.div<StyledProps>`
       }
     }
   }
-  ${applyMediaQuery('tablet')} {
-  }
   ${applyMediaQuery('mobile')} {
     margin-bottom: 0.3rem;
     height: ${({ isMyReviewMobile }) => (isMyReviewMobile ? '2rem' : 'auto')};
@@ -388,21 +386,12 @@ const StyledHeader = styled.div<StyledProps>`
             ? css`
                 margin-right: 0.4rem;
                 margin-left: 0.8rem;
-              `
-            : css`
-                margin-right: 0.2rem;
-                margin-left: 0.5rem;
-              `}
-      }
-      &__icon--heart,
-      &__icon--save {
-        ${({ isMyReviewMobile }) =>
-          isMyReviewMobile
-            ? css`
                 width: 1rem;
                 height: 1rem;
               `
             : css`
+                margin-right: 0.2rem;
+                margin-left: 0.5rem;
                 width: 0.8rem;
                 height: 0.8rem;
               `}
