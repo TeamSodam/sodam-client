@@ -69,7 +69,7 @@ export const reviewApi = createApi({
         return {
           url: 'https://server.sodam.me/review',
           method: 'POST',
-          data: formData,
+          body: formData,
         };
       },
       transformResponse: (response: SodamResponse<Review>) => response.data,
