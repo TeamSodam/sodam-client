@@ -1,44 +1,63 @@
-import Image from 'next/image';
-import CameraIcon from 'public/assets/ic_camera.svg';
-import DeleteIcon from 'public/assets/ic_img_delete.svg';
-import MainIcon from 'public/assets/ic_img_main.svg';
-import ReplaceIcon from 'public/assets/ic_img_replace.svg';
+import ImageDiv from 'components/common/ImageDiv';
 import React from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 import { ReviewImage } from 'types/review';
 
 interface PreviewImageMainProps {
   mainImage: ReviewImage;
   handleImageUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleImageUpdate: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleImageDelete: (index: number) => void;
 }
 
 function PreviewImageMain(props: PreviewImageMainProps) {
-  const { mainImage, handleImageUpload, handleImageDelete } = props;
+  const { mainImage, handleImageUpload, handleImageUpdate, handleImageDelete } = props;
 
   return (
     <StyledRoot>
       {mainImage ? (
         <StyledPreview>
-          <Image
+          <ImageDiv
+            className="image-preview"
             src={mainImage.preview ? mainImage.preview : ''}
-            width={282}
-            height={246}
+            layout="fill"
             alt="preview"
           />
           <StyledIcons>
-            <MainIcon />
+            <ImageDiv
+              className="main-icon"
+              src={'/assets/ic_img_main.svg'}
+              layout="fill"
+              alt="main"
+            />
             <div>
-              <ReplaceIcon />
-              <StyledReplace type="file" accept="image/*" onChange={handleImageUpload} />
-              <DeleteIcon onClick={() => handleImageDelete(0)} />
+              <ImageDiv
+                className="replace-icon"
+                src={'/assets/ic_img_replace.svg'}
+                layout="fill"
+                alt="replace"
+              />
+              <StyledReplace type="file" accept="image/*" onChange={handleImageUpdate} />
+              <ImageDiv
+                className="delete-icon"
+                src={'/assets/ic_img_delete.svg'}
+                onClick={() => handleImageDelete(0)}
+                layout="fill"
+                alt="delete"
+              />
             </div>
           </StyledIcons>
         </StyledPreview>
       ) : (
         <StyledEmpty>
-          <CameraIcon />
+          <ImageDiv
+            className="camera-icon"
+            src={'/assets/ic_camera.svg'}
+            layout="fill"
+            alt="camera"
+          />
           <p>사진을 업로드 해 주세요!</p>
           <p>(최소 1장, 최대 10장)</p>
         </StyledEmpty>
@@ -54,6 +73,59 @@ const StyledRoot = styled.div`
   input[type='file'],
   input[type='file']::-webkit-file-upload-button {
     cursor: pointer;
+  }
+  .image-preview {
+    position: relative;
+    width: 28.2rem;
+    height: 24.6rem;
+  }
+  .camera-icon {
+    position: relative;
+    width: 5rem;
+    height: 3.8rem;
+  }
+  .main-icon {
+    position: relative;
+    width: 5rem;
+    height: 2.4rem;
+  }
+  .replace-icon {
+    position: relative;
+    width: 2rem;
+    height: 2rem;
+  }
+  .delete-icon {
+    position: relative;
+    width: 1.8rem;
+    height: 2rem;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  ${applyMediaQuery('desktop', 'tablet')} {
+    width: 18.8rem;
+    height: 16.4rem;
+    .image-preview {
+      width: 18.8rem;
+      height: 16.4rem;
+    }
+    .camera-icon {
+      width: 3.3rem;
+      height: 2.5rem;
+    }
+    .main-icon {
+      width: 3.3rem;
+      height: 1.6rem;
+    }
+    .replace-icon {
+      width: 1.4rem;
+      height: 1.4rem;
+    }
+    .delete-icon {
+      width: 1.2rem;
+      height: 1.4rem;
+      margin-left: 1rem;
+    }
   }
 `;
 const StyledIcons = styled.div`
@@ -76,6 +148,13 @@ const StyledIcons = styled.div`
       }
     }
   }
+  ${applyMediaQuery('desktop', 'tablet')} {
+    padding: 0.9rem;
+    margin-top: -16.4rem;
+    div svg {
+      margin-left: 10px;
+    }
+  }
 `;
 const StyledReplace = styled.input`
   width: 2rem;
@@ -84,6 +163,11 @@ const StyledReplace = styled.input`
   z-index: 3;
   margin-left: -2rem;
   opacity: 0;
+  ${applyMediaQuery('desktop', 'tablet')} {
+    width: 1.4rem;
+    height: 1.4rem;
+    margin-left: -1.4rem;
+  }
 `;
 const StyledInput = styled.input`
   width: inherit;
@@ -91,6 +175,9 @@ const StyledInput = styled.input`
   display: block;
   margin-top: -24.6rem;
   opacity: 0;
+  ${applyMediaQuery('desktop', 'tablet')} {
+    margin-top: -16.4rem;
+  }
 `;
 const StyledPreview = styled.div`
   width: inherit;
@@ -119,6 +206,18 @@ const StyledEmpty = styled.div`
   & p:nth-child(3) {
     font-size: 1.2rem;
     font-weight: 500;
+  }
+  ${applyMediaQuery('desktop', 'tablet')} {
+    padding-top: 0;
+    & p:nth-child(2) {
+      font-size: 1rem;
+      margin-top: 0.7rem;
+      margin-bottom: 0.3rem;
+    }
+    & p:nth-child(3) {
+      font-size: 1rem;
+      transform: scale(0.8);
+    }
   }
 `;
 

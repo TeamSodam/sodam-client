@@ -1,6 +1,7 @@
-import Image from 'next/image';
+import ImageDiv from 'components/common/ImageDiv';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 import { Item } from 'types/review';
 import { PriceOptionList, ShopCategoryType } from 'types/shop';
@@ -48,7 +49,12 @@ function DropdownPrice(props: StyledDPProps) {
       <StyledWrapper onClick={handleClick} isSelected={isSelected}>
         <span>{selectedItem}</span>
         <span>원</span>
-        <Image src={'/assets/ic_dropdown.svg'} width={14} height={10} alt="dropdown" />
+        <ImageDiv
+          className="dropdown-icon"
+          src={'/assets/ic_dropdown.svg'}
+          layout="fill"
+          alt="dropdown"
+        />
       </StyledWrapper>
       {isOpen && <PriceList onSelectedPrice={onSelectedPrice} />}
     </StyledRoot>
@@ -60,6 +66,15 @@ export default DropdownPrice;
 const StyledRoot = styled.div`
   display: flex;
   position: relative;
+  .dropdown-icon {
+    position: relative;
+    width: 1.4rem;
+    height: 1rem;
+    ${applyMediaQuery('desktop', 'tablet')} {
+      width: 0.9rem;
+      height: 0.6rem;
+    }
+  }
 `;
 
 const StyledWrapper = styled.div<{ isSelected: boolean }>`
@@ -83,5 +98,17 @@ const StyledWrapper = styled.div<{ isSelected: boolean }>`
     font-weight: 500;
     font-size: 1.4rem;
     line-height: 2rem;
+  }
+
+  ${applyMediaQuery('desktop', 'tablet')} {
+    width: 12.6rem;
+    height: 3.1rem;
+    padding: 0 1.2rem;
+    gap: 0.4rem;
+
+    & > span {
+      font-size: 1rem;
+      line-height: 1rem;
+    }
   }
 `;

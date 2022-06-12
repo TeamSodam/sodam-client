@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 
 interface TagListProps {
@@ -62,6 +63,11 @@ const StyledRoot = styled.div`
   padding: 0.8rem 1.4rem;
   display: flex;
   align-items: center;
+  ${applyMediaQuery('desktop', 'tablet')} {
+    width: 52.9rem;
+    height: 2.8rem;
+    padding: 0.5rem 1rem;
+  }
 `;
 const StyledInput = styled.input`
   font-family: 'Noto Sans KR';
@@ -75,6 +81,9 @@ const StyledInput = styled.input`
   }
   &:focus {
     outline: none;
+  }
+  ${applyMediaQuery('desktop', 'tablet')} {
+    font-size: 1rem;
   }
 `;
 const StyledTag = styled.div`
@@ -95,6 +104,14 @@ const StyledTag = styled.div`
 
   &:before {
     content: '#';
+  }
+
+  ${applyMediaQuery('desktop', 'tablet')} {
+    font-size: 1rem;
+    line-height: 1.6rem;
+    padding: 0 0.7rem;
+    height: 1.8rem;
+    margin-right: 0.5rem;
   }
 `;
 
