@@ -7,21 +7,18 @@ interface LayoutProps {
   children: ReactNode;
 }
 interface StyledProps {
-  isMypage: boolean;
   needFlex: boolean;
 }
 
 function Layout({ children }: LayoutProps) {
   const { pathname } = useRouter();
 
-  const isMypage = pathname === '/mypage';
-  const needFlex = pathname === '/shop/collect' || pathname.slice(0, 10) === '/review/my';
+  const needFlex =
+    pathname === '/mypage' ||
+    pathname === '/shop/collect' ||
+    pathname.slice(0, 10) === '/review/my';
 
-  return (
-    <LayoutWrapper isMypage={isMypage} needFlex={needFlex}>
-      {children}
-    </LayoutWrapper>
-  );
+  return <LayoutWrapper needFlex={needFlex}>{children}</LayoutWrapper>;
 }
 
 const LayoutWrapper = styled.div<StyledProps>`
@@ -32,14 +29,6 @@ const LayoutWrapper = styled.div<StyledProps>`
     width: 100%;
   }
 
-  ${({ isMypage }) =>
-    isMypage &&
-    css`
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: space-between;
-    `}
   ${({ needFlex }) =>
     needFlex &&
     css`

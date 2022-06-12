@@ -38,8 +38,8 @@ function MainSlider(props: MainSliderProps) {
   const [swiperSetting, setSwiperSetting] = useState<Swiper | null>(null);
 
   const getSpaceBetween = (): number => {
-    if (isWide) return 24;
-    if (isDesktop) return 11;
+    if (isWide) return 20;
+    if (isDesktop) return 16;
     if (isTablet) return 15;
     if (isMobile) return 6;
     return 24;
@@ -155,9 +155,9 @@ const StyledRoot = styled.div`
     }
   }
   ${applyMediaQuery('desktop')} {
-    width: 83.8rem;
+    width: 86.8rem;
     .swiper-container {
-      margin: 0 2.5rem;
+      margin: 0 2.6rem;
     }
   }
   ${applyMediaQuery('tablet')} {
@@ -187,7 +187,8 @@ const StyledSwiper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: -8.8rem;
+  margin-left: -4.4rem;
+  width: 100%;
   ${applyMediaQuery('desktop')} {
     margin-left: -3.3rem;
   }

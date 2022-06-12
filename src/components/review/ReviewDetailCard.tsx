@@ -333,7 +333,7 @@ const ReviewTag = styled.span`
   font-size: 1.2rem;
   ${applyMediaQuery('desktop', 'tablet')} {
     height: 2rem;
-    line-height: 1.8rem;
+    line-height: 1.6rem;
     margin-right: 0.8rem;
     padding: 0 0.7rem;
     font-size: 1rem;
