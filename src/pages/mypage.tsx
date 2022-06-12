@@ -20,7 +20,7 @@ function Mypage() {
   const { data: userInfo } = useGetUserInfoQuery();
   const { data: userImage } = useGetUserImageQuery();
   const { data: userThemeWrap } = useGetUserThemeQuery();
-  
+
   const handleClickLogout = () => {
     dispatch(logout());
     router.push('/');

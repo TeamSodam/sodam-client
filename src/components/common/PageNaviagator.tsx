@@ -3,6 +3,7 @@ import RightArrow from 'public/assets/ic_rightArrow.svg';
 import { Dispatch, SetStateAction } from 'react';
 import shortid from 'shortid';
 import styled, { css } from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 
 interface PageNaviagatorProps {
   pageLimit: number;
@@ -56,6 +57,10 @@ const Container = styled.nav`
   display: flex;
   justify-content: space-between;
   margin: 0 auto;
+
+  ${applyMediaQuery('desktop')} {
+    transform: scale(0.67);
+  }
 `;
 
 const PageList = styled.ol`

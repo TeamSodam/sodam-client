@@ -44,9 +44,8 @@ function AcceptTerms(props: AcceptTermsProps) {
 
     if (isChecked.allCheck !== isAllChecked)
       setIsChecked((prevIsChecked) => ({ ...prevIsChecked, allCheck: isAllChecked }));
-    if (isChecked.terms && isChecked.privacy) {
-      handleIsReady(isChecked.terms && isChecked.privacy);
-    }
+
+    handleIsReady(isChecked.terms && isChecked.privacy);
   }, [isChecked, handleIsReady]);
 
   return (

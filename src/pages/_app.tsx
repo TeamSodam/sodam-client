@@ -10,9 +10,9 @@ import GlobalStyles from 'styles/globalStyle';
 import { theme } from 'styles/theme';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const { clientWidth } = useWindowSize();
+  const { clientWidth, availableWidth } = useWindowSize();
   return (
-    <ThemeProvider theme={{ ...theme, clientWidth }}>
+    <ThemeProvider theme={{ ...theme, clientWidth, availableWidth }}>
       <GlobalStyles />
       <Head>
         <title>소담</title>

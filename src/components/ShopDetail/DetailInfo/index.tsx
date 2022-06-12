@@ -1,21 +1,22 @@
 import { usePostBookmarkMutation } from 'features/shops/shopApi';
+import useMedia from 'hooks/useMedia';
 import Blog from 'public/assets/ic_blog.svg';
-import StarIC from 'public/assets/ic_empty_star.svg';
 import Instagram from 'public/assets/ic_instagram.svg';
-import Phone from 'public/assets/ic_phone.svg';
-import ShareIC from 'public/assets/ic_share.svg';
 import SmartStore from 'public/assets/ic_smartstore.svg';
-import Sns from 'public/assets/ic_sns.svg';
-import Subway from 'public/assets/ic_subway.svg';
-import Time from 'public/assets/ic_time.svg';
-import Website from 'public/assets/ic_website.svg';
 import { useState } from 'react';
+import type { AnyStyledComponent } from 'styled-components';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
+import { getBackgroundImageCss } from 'styles/mixin';
 import { Shop } from 'types/shop';
 
+import DesktopLayout from './DesktopLayout';
 import IconContent, { IconContentProps } from './IconContent';
+import MobileLayout from './MobileLayout';
 
 function DetailInfo({ shopInfo }: { shopInfo: Shop }) {
+  const { isMobile, isTablet } = useMedia();
+  const isSmallDevice = isMobile || isTablet;
   const {
     shopName,
     category,
@@ -34,25 +35,29 @@ function DetailInfo({ shopInfo }: { shopInfo: Shop }) {
   const [currentBookmarked, setCurrentBookmarked] = useState(isBookmarked);
   const [bookmarkPost] = usePostBookmarkMutation();
 
-  const iconContentList: IconContentProps[] = [
+  const iconContents: IconContentProps[] = [
     {
-      mainIcon: Subway,
       iconName: '지하철역',
       content: subway,
+      iconUrl: '/assets/ic_subway.svg',
+      mobileOrder: 1,
     },
     {
-      mainIcon: Website,
       iconName: '홈페이지',
       content: homepage,
+      iconUrl: '/assets/ic_website.svg',
+      mobileOrder: 4,
     },
     {
-      mainIcon: Phone,
       iconName: '전화번호',
       content: phone,
+      iconUrl: '/assets/ic_phone.svg',
+      mobileOrder: 2,
     },
     {
-      mainIcon: Sns,
       iconName: 'SNS',
+      iconUrl: '/assets/ic_sns.svg',
+      mobileOrder: 5,
       content: [
         {
           icon: Instagram,
@@ -72,9 +77,10 @@ function DetailInfo({ shopInfo }: { shopInfo: Shop }) {
       ],
     },
     {
-      mainIcon: Time,
       iconName: '영업시간',
       content: time,
+      iconUrl: '/assets/ic_time.svg',
+      mobileOrder: 3,
     },
   ];
 
@@ -83,16 +89,21 @@ function DetailInfo({ shopInfo }: { shopInfo: Shop }) {
     return category.join(',');
   };
 
-  const showIconContent = () =>
-    iconContentList.map((iconContent) => (
+  const showIconContent = () => {
+    const orderedIconContents = isSmallDevice
+      ? [...iconContents].sort((a, b) => a.mobileOrder - b.mobileOrder)
+      : iconContents;
+
+    return orderedIconContents.map((iconContent) => (
       <IconContent key={iconContent.iconName} {...iconContent} />
     ));
+  };
 
-  const showTheme = () => {
+  const showTheme = (StTheme: AnyStyledComponent) => {
     if (typeof theme === 'string') {
-      return <Theme>{theme}</Theme>;
+      return <StTheme>{theme}</StTheme>;
     }
-    return theme.map((eachTheme) => <Theme key={eachTheme}>{eachTheme}</Theme>);
+    return theme.map((eachTheme) => <StTheme key={eachTheme}>{eachTheme}</StTheme>);
   };
 
   const toggleBookmark = () => setCurrentBookmarked((prevState) => !prevState);
@@ -102,125 +113,29 @@ function DetailInfo({ shopInfo }: { shopInfo: Shop }) {
     bookmarkPost({ shopId, isBookmarked: !currentBookmarked });
   };
 
-  return (
-    <Container>
-      <LeftWrapper>
-        <UpWrapper>
-          <h1>{shopName}</h1>
-          <p>{showCategory()}</p>
-        </UpWrapper>
-        <DownWrapper>
-          <ThemeList>{showTheme()}</ThemeList>
-          <IconWrapper>
-            <BookMarkBtn isBookmarked={currentBookmarked} onClick={handleClick} />
-            <ShareIC />
-          </IconWrapper>
-        </DownWrapper>
-      </LeftWrapper>
-      <RightWrapper>{showIconContent()}</RightWrapper>
-    </Container>
-  );
+  const layoutProps = {
+    shopName,
+    showCategory,
+    showTheme,
+    showIconContent,
+    BookMarkBtn: <BookMarkBtn isBookmarked={currentBookmarked} onClick={handleClick} />,
+  };
+
+  return isSmallDevice ? <MobileLayout {...layoutProps} /> : <DesktopLayout {...layoutProps} />;
 }
 
-const Container = styled.div`
-  display: flex;
-  height: 21.9rem;
-  gap: 10.7rem;
-`;
+const BookMarkBtn = styled.button<{ isBookmarked: boolean }>`
+  ${({ isBookmarked }) =>
+    getBackgroundImageCss(isBookmarked ? '/assets/ic_pin_star.svg' : '/assets/ic_empty_star.svg')};
 
-const LeftWrapper = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 2.4rem;
-
-  height: 100%;
-`;
-
-const UpWrapper = styled.div`
-  max-height: 75%;
-
-  padding-bottom: 3.2rem;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.purpleText};
-
-  & > h1 {
-    width: 95%;
-    font-size: 3rem;
-    line-height: 4.4rem;
-    color: ${({ theme }) => theme.colors.black2};
-    font-weight: 700;
-    margin-bottom: 0.8rem;
-    margin-top: -1rem;
-
-    display: -webkit-box;
-    white-space: normal;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  & > p {
-    font-weight: 500;
-    font-size: 1.8rem;
-    line-height: 2.6rem;
-    color: ${({ theme }) => theme.colors.gray1};
-  }
-`;
-
-const DownWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-`;
-
-const RightWrapper = styled.div`
-  flex: 1.7;
-  height: 72%;
-  display: grid;
-  grid-template-rows: repeat(3, 1fr);
-  grid-template-columns: repeat(2, 1fr);
-  gap: 4rem;
-`;
-
-const ThemeList = styled.ul`
-  display: flex;
-  gap: 0.8rem;
-`;
-
-const Theme = styled.li`
-  display: flex;
-  align-items: center;
-
-  background-color: ${({ theme }) => theme.colors.purpleText};
-  color: white;
-  border-radius: 3rem;
-
-  font-weight: 700;
-  font-size: 1.2rem;
-  line-height: 2rem;
-
-  padding: 0.2rem 1.2rem;
-
-  &:before {
-    content: '#';
-  }
-`;
-
-const IconWrapper = styled.div`
-  display: flex;
-  gap: 2.3rem;
-
-  & svg:hover {
-    cursor: pointer;
-  }
-`;
-
-const BookMarkBtn = styled(StarIC)<{ isBookmarked: boolean }>`
-  background-color: transparent;
   border: none;
+  width: 3.2rem;
+  height: 3.2rem;
 
-  fill: ${(props) => props.isBookmarked && props.theme.colors.purpleMain};
+  ${applyMediaQuery('mobile', 'tablet')} {
+    width: 1.78rem;
+    height: 1.78rem;
+  }
 `;
 
 export default DetailInfo;

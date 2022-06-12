@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import loadImageSafely from 'src/utils/loadImageSafely';
 import parseCategorySafely from 'src/utils/parseCategorySafely';
 import { parseDate } from 'src/utils/parseDate';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 import { ReviewCardData } from 'types/review';
@@ -14,10 +14,14 @@ interface ReviewCardProps {
   reviewData: ReviewCardData;
   isHoverAvailable?: boolean;
   isMyReview?: boolean;
+  isMyReviewMobile?: boolean;
+}
+interface StyledProps {
+  isMyReviewMobile: boolean | undefined;
 }
 
 function ReviewCard(props: ReviewCardProps) {
-  const { reviewData, isHoverAvailable, isMyReview } = props;
+  const { reviewData, isHoverAvailable, isMyReview, isMyReviewMobile } = props;
   const router = useRouter();
   const {
     image,
@@ -53,9 +57,12 @@ function ReviewCard(props: ReviewCardProps) {
     if (isMyReview) return <p className="date">{parseDate(date)}</p>;
     return (
       <div className="profile">
-        {writerThumbnail && (
-          <ImageDiv className="profile__image" src={writerThumbnail} layout="fill" alt="profile" />
-        )}
+        <ImageDiv
+          className="profile__image"
+          src={writerThumbnail ? writerThumbnail : '/assets/profile_default.svg'}
+          layout="fill"
+          alt="profile"
+        />
         <p>{writerName}</p>
       </div>
     );
@@ -66,6 +73,7 @@ function ReviewCard(props: ReviewCardProps) {
       onClick={navigateToDetail}
       onMouseOver={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      isMyReviewMobile={isMyReviewMobile}
     >
       {isHoverAvailable && isHovered && (
         <StyledHover>
@@ -81,8 +89,8 @@ function ReviewCard(props: ReviewCardProps) {
         placeholder="blur"
         blurDataURL={loadImageSafely(image)}
       />
-      <StyledContents>
-        <StyledHeader>
+      <StyledContents isMyReviewMobile={isMyReviewMobile}>
+        <StyledHeader isMyReviewMobile={isMyReviewMobile}>
           {toggleHeaderByIsMyReview()}
           <div className="figure">
             <ImageDiv
@@ -107,7 +115,7 @@ function ReviewCard(props: ReviewCardProps) {
   );
 }
 
-const StyledRoot = styled.div`
+const StyledRoot = styled.div<StyledProps>`
   display: flex;
   flex-direction: column;
   width: 38.4rem;
@@ -131,6 +139,22 @@ const StyledRoot = styled.div`
     .thumbnail__image {
       width: 25.6rem;
       height: 13.9rem;
+    }
+  }
+  ${applyMediaQuery('tablet')} {
+    width: 26.8rem;
+    height: 21.4rem;
+    .thumbnail__image {
+      width: 26.8rem;
+      height: 13.9rem;
+    }
+  }
+  ${applyMediaQuery('mobile')} {
+    width: ${({ isMyReviewMobile }) => (isMyReviewMobile ? '31.2rem' : '15.3rem')};
+    height: ${({ isMyReviewMobile }) => (isMyReviewMobile ? '17rem' : '22rem')};
+    .thumbnail__image {
+      width: ${({ isMyReviewMobile }) => (isMyReviewMobile ? '31.2rem' : '15.3rem')};
+      height: ${({ isMyReviewMobile }) => (isMyReviewMobile ? '11rem' : '13.4rem')};
     }
   }
 `;
@@ -166,7 +190,7 @@ const StyledHover = styled.div`
       opacity: 1;
     }
   }
-  ${applyMediaQuery('desktop')} {
+  ${applyMediaQuery('desktop', 'tablet', 'mobile')} {
     p:first-child {
       font-size: 1.4rem;
       line-height: 2rem;
@@ -178,7 +202,7 @@ const StyledHover = styled.div`
     }
   }
 `;
-const StyledContents = styled.div`
+const StyledContents = styled.div<StyledProps>`
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -199,7 +223,7 @@ const StyledContents = styled.div`
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
   }
-  ${applyMediaQuery('desktop')} {
+  ${applyMediaQuery('desktop', 'tablet')} {
     padding: 0.8rem 1.6rem 1.4rem 1.6rem;
     & > p {
       height: 2.6rem;
@@ -207,8 +231,27 @@ const StyledContents = styled.div`
       line-height: 1.3rem;
     }
   }
+  ${applyMediaQuery('mobile')} {
+    padding: ${({ isMyReviewMobile }) =>
+      isMyReviewMobile ? '0.8rem 1.2rem' : '0.8rem 1rem 1.4rem 1rem'};
+    & > p {
+      font-size: 1rem;
+      line-height: 1.3rem;
+      ${({ isMyReviewMobile }) =>
+        isMyReviewMobile
+          ? css`
+              height: 2.6rem;
+              -webkit-line-clamp: 2;
+            `
+          : css`
+              height: 4rem;
+              line-height: 1.3rem;
+              -webkit-line-clamp: 3;
+            `};
+    }
+  }
 `;
-const StyledHeader = styled.div`
+const StyledHeader = styled.div<StyledProps>`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -217,6 +260,7 @@ const StyledHeader = styled.div`
     font-size: 1.4rem;
     font-weight: 500;
     line-height: 2.3rem;
+    color: ${theme.colors.gray1};
   }
   .profile {
     display: flex;
@@ -263,11 +307,11 @@ const StyledHeader = styled.div`
       height: 1.4rem;
     }
   }
-  ${applyMediaQuery('desktop')} {
+  ${applyMediaQuery('desktop', 'tablet')} {
     margin-bottom: 0.5rem;
     .date {
       font-size: 1rem;
-      line-height: 2.2rem;
+      line-height: 1.3rem;
     }
     .profile {
       &__image {
@@ -296,6 +340,61 @@ const StyledHeader = styled.div`
       &__icon--save {
         width: 0.8rem;
         height: 0.93rem;
+      }
+    }
+  }
+  ${applyMediaQuery('mobile')} {
+    margin-bottom: 0.3rem;
+    height: ${({ isMyReviewMobile }) => (isMyReviewMobile ? '2rem' : 'auto')};
+    .date {
+      font-size: 1rem;
+      line-height: 1.3rem;
+      transform: scale(0.9);
+      transform-origin: center left;
+    }
+    .profile {
+      &__image {
+        ${({ isMyReviewMobile }) =>
+          isMyReviewMobile
+            ? css`
+                width: 1.8rem;
+                height: 1.8rem;
+              `
+            : css`
+                width: 1.4rem;
+                height: 1.4rem;
+              `}
+      }
+      p {
+        font-size: 1rem;
+        line-height: 1.2rem;
+        margin-left: 0.3rem;
+        transform: ${({ isMyReviewMobile }) => (isMyReviewMobile ? 'scale(0.9)' : 'scale(0.8)')};
+        transform-origin: bottom left;
+      }
+    }
+    .figure {
+      p {
+        font-size: 1rem;
+        transform: ${({ isMyReviewMobile }) => (isMyReviewMobile ? 'scale(0.9)' : 'scale(0.7)')};
+        transform-origin: center left;
+      }
+      &__icon--heart,
+      &__icon--save {
+        ${({ isMyReviewMobile }) =>
+          isMyReviewMobile
+            ? css`
+                margin-right: 0.4rem;
+                margin-left: 0.8rem;
+                width: 1rem;
+                height: 1rem;
+              `
+            : css`
+                margin-right: 0.2rem;
+                margin-left: 0.5rem;
+                width: 0.8rem;
+                height: 0.8rem;
+              `}
       }
     }
   }

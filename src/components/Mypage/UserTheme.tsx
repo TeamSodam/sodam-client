@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
+import { UserTheme as UserThemeType } from 'types/auth';
 import { ShopThemeType } from 'types/shop';
-import { UserTheme as UserThemeType } from 'types/user';
 
 import UserThemeItem from './UserThemeItem';
 

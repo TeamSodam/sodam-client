@@ -96,8 +96,15 @@ const ShopList = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 4rem 2.4rem;
-
   margin-bottom: 8.1rem;
+  ${applyMediaQuery('tablet')} {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3.2rem 1.6rem;
+  }
+  ${applyMediaQuery('mobile')} {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.6rem 2.6rem;
+  }
 `;
 
 const DropDownWrapper = styled.div`

@@ -10,7 +10,7 @@ import dataURItoBlob from 'src/utils/dataURItoBlob';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
-import { UserImage, UserInfo } from 'types/user';
+import { UserImage, UserInfo } from 'types/auth';
 
 import UserInfoInput from './UserInfoInput';
 
