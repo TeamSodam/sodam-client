@@ -8,12 +8,20 @@ interface LayoutProps {
 }
 interface StyledProps {
   isMypage: boolean;
+  needFlex: boolean;
 }
 
 function Layout({ children }: LayoutProps) {
-  const router = useRouter();
+  const { pathname } = useRouter();
 
-  return <LayoutWrapper isMypage={router.pathname === '/mypage'}>{children}</LayoutWrapper>;
+  const isMypage = pathname === '/mypage';
+  const needFlex = pathname === '/shop/collect' || pathname.slice(0, 10) === '/review/my';
+
+  return (
+    <LayoutWrapper isMypage={isMypage} needFlex={needFlex}>
+      {children}
+    </LayoutWrapper>
+  );
 }
 
 const LayoutWrapper = styled.div<StyledProps>`
@@ -31,6 +39,16 @@ const LayoutWrapper = styled.div<StyledProps>`
       display: flex;
       flex-direction: column;
       align-items: space-between;
+    `}
+  ${({ needFlex }) =>
+    needFlex &&
+    css`
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      & > div:nth-last-child(2) {
+        flex: 1;
+      }
     `}
 `;
 
