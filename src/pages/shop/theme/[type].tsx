@@ -92,6 +92,7 @@ const ThemeWrapper = styled.div`
 
 const Delimiter = styled.div`
   width: 100vw;
+  width: ${({ theme }) => theme.clientWidth}px;
   height: 0.5px;
   background-color: ${({ theme }) => theme.colors.navLine};
   padding: 0;
