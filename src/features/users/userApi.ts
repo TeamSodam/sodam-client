@@ -11,28 +11,28 @@ export const userApi = createApi({
     // builder.query<T, U>() --> T는 쿼리의 반환값 타입, U는 쿼리 파라미터의 타입.
     getUserInfo: builder.query<UserInfo, void>({
       query: () => ({
-        url: 'https://server.sodam.me/user/info',
+        url: '/user/info',
         method: 'GET',
       }),
       transformResponse: (response: SodamResponse<UserInfo>) => response.data,
     }),
     getUserImage: builder.query<UserImage, void>({
       query: () => ({
-        url: 'https://server.sodam.me/user/image',
+        url: '/user/image',
         method: 'GET',
       }),
       transformResponse: (response: SodamResponse<UserImage>) => response.data,
     }),
     getUserTheme: builder.query<{ theme: UserTheme }, void>({
       query: () => ({
-        url: 'https://server.sodam.me/user/theme',
+        url: '/user/theme',
         method: 'GET',
       }),
       transformResponse: (response: SodamResponse<{ theme: UserTheme }>) => response.data,
     }),
     editUserNickname: builder.mutation<Pick<UserInfo, 'nickname'>, Pick<UserInfo, 'nickname'>>({
       query: ({ nickname }) => ({
-        url: 'https://server.sodam.me/user/nickname',
+        url: '/user/nickname',
         method: 'PUT',
         body: {
           nickname,
@@ -42,7 +42,7 @@ export const userApi = createApi({
     }),
     editUserTheme: builder.mutation<UserTheme, UserTheme>({
       query: (theme) => ({
-        url: 'https://server.sodam.me/user/theme',
+        url: '/user/theme',
         method: 'PUT',
         body: {
           theme,
@@ -55,7 +55,7 @@ export const userApi = createApi({
         const formData = new FormData();
         formData.append('image', imageFile);
         return {
-          url: 'https://server.sodam.me/user/image',
+          url: '/user/image',
           method: 'PUT',
           body: formData,
         };
@@ -64,7 +64,7 @@ export const userApi = createApi({
     }),
     deleteUserImage: builder.mutation<void, void>({
       query: () => ({
-        url: 'https://server.sodam.me/user/image',
+        url: '/user/image',
         method: 'DELETE',
       }),
       transformResponse: (response: SodamResponse<void>) => response.data,
