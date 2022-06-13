@@ -66,6 +66,10 @@ const StyledRoot = styled.div<Pick<StyledELProps, 'isActive'>>`
       font-size: 1.6rem;
       line-height: 2.3rem;
     }
+    ${applyMediaQuery('tablet')} {
+      font-size: 1.2rem;
+      line-height: 1.8rem;
+    }
     ${applyMediaQuery('mobile')} {
       font-size: 0.7rem;
       line-height: 1rem;
@@ -91,6 +95,10 @@ const StyledImgWrapper = styled.div<StyledELProps>`
   ${applyMediaQuery('desktop')} {
     width: ${({ isActive }) => (isActive ? '19.1rem' : '14.8rem')};
     height: ${({ isActive }) => (isActive ? '21rem' : '11.4rem')};
+  }
+  ${applyMediaQuery('tablet')} {
+    width: ${({ isActive }) => (isActive ? '12rem' : '10rem')};
+    height: ${({ isActive }) => (isActive ? '14rem' : '7rem')};
   }
   ${applyMediaQuery('mobile')} {
     width: ${({ isActive }) => (isActive ? '7.6rem' : '6.6rem')};

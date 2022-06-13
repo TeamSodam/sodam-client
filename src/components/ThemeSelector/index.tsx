@@ -78,6 +78,10 @@ const StyledElWrapper = styled.div<StyledThemeELProps>`
     gap: 6rem;
     margin-top: 0;
   }
+  ${applyMediaQuery('tablet')} {
+    gap: 4.5rem;
+    margin-top: 0;
+  }
   ${applyMediaQuery('mobile')} {
     gap: 1.6rem;
 
