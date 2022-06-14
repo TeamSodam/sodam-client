@@ -31,7 +31,9 @@ export const menuList: MenuListType[] = [
 function GlobalNav() {
   const router = useRouter();
   const isLogin = useAppSelector(selectIsLogin);
-  const { data: userImage } = useGetUserImageQuery();
+  const { data: userImage } = useGetUserImageQuery(undefined, {
+    skip: !isLogin,
+  });
 
   const onClickMenu = (menu: MenuListType) => {
     if (menu.routeTo) return menu.routeTo;

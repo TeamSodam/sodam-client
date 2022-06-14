@@ -12,7 +12,7 @@ interface StyledMFProps {
 
 interface MoreFilterProps {
   currentCategory: string;
-  updateCategory: Dispatch<SetStateAction<ShopCategoryType>>;
+  updateCategory: Dispatch<SetStateAction<ShopCategoryType | undefined>>;
 }
 
 function MoreFilter(props: MoreFilterProps) {

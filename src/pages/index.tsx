@@ -10,20 +10,24 @@ import { useGetReviewRecentQuery } from 'features/reviews/reviewApi';
 import { useGetShopByCategoryQuery, useGetShopInfoQuery } from 'features/shops/shopApi';
 import { selectUserInfo } from 'features/users/userSlice';
 import useMedia from 'hooks/useMedia';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppSelector } from 'src/app/hook';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
-
-const randomCategory = MoreFilterList[Math.floor(Math.random() * 6)];
+import { ShopCategoryType } from 'types/shop';
 
 function Home() {
   const { nickname } = useAppSelector(selectUserInfo);
-  const [currentCategory, setCurrentCategory] = useState(randomCategory);
+  const [currentCategory, setCurrentCategory] = useState<ShopCategoryType>();
   const { data: randomShopList } = useGetShopInfoQuery('random');
   const { data: popularShopList } = useGetShopInfoQuery('popular');
   const { data: reviewResultList } = useGetReviewRecentQuery();
-  const { data: categoryShopList } = useGetShopByCategoryQuery(currentCategory.replace('·', ''));
+  const { data: categoryShopList } = useGetShopByCategoryQuery(
+    currentCategory?.replace('·', '') || '',
+    {
+      skip: !currentCategory,
+    },
+  );
 
   const { isMobile, isTablet } = useMedia();
 
@@ -82,6 +86,10 @@ function Home() {
     return <MainSlider slidesPerView={getSlidesPerView('shop')} cardList={cardList} isShopCard />;
   };
 
+  useEffect(() => {
+    setCurrentCategory(MoreFilterList[Math.floor(Math.random() * 6)]);
+  }, []);
+
   return (
     <Container>
       <BannerList />
@@ -107,7 +115,9 @@ function Home() {
           <Label>
             <em>{currentCategory}</em> 소품샵 리스트
           </Label>
-          <MoreFilter currentCategory={currentCategory} updateCategory={setCurrentCategory} />
+          {currentCategory && (
+            <MoreFilter currentCategory={currentCategory} updateCategory={setCurrentCategory} />
+          )}
         </LabelFilterWrapper>
         {showRandomCategorySlider()}
       </LabelContentWrapper>
