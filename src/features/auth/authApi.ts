@@ -13,7 +13,6 @@ import {
 export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: axiosBaseQuery(),
-  refetchOnFocus: true,
   endpoints: (builder) => ({
     // builder.query<T, U>() --> T는 쿼리의 반환값 타입, U는 쿼리 파라미터의 타입.
     postNickname: builder.mutation<NicknameResponseType, NicknameRequestType>({
