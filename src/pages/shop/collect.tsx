@@ -81,6 +81,13 @@ const StyledContainer = styled.div`
     color: ${theme.colors.black2};
   }
 
+  ${applyMediaQuery('desktop')} {
+    margin-top: 5.2rem;
+    & > h2 {
+      font-size: 2.6rem;
+      line-height: 3.8rem;
+    }
+  }
   ${applyMediaQuery('mobile')} {
     margin-top: 1.4rem;
     & > h2 {
@@ -99,6 +106,10 @@ const StyledCardWrapper = styled.div`
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 4rem 2.4rem;
   margin-top: 2.4rem;
+  ${applyMediaQuery('desktop')} {
+    gap: 2.5rem 1.6rem;
+    margin-top: 1.5rem;
+  }
   ${applyMediaQuery('tablet')} {
     grid-template-columns: repeat(3, 1fr);
     gap: 3.2rem 1.6rem;

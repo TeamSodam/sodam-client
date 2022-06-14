@@ -66,9 +66,15 @@ const LocalNavbar = styled.div`
   font-size: 1.6rem;
   color: ${({ theme }) => theme.colors.gray1};
 
+  ${applyMediaQuery('desktop', 'tablet')} {
+    font-size: 1.1rem;
+    line-height: 1.6rem;
+    height: 4.2rem;
+  }
   ${applyMediaQuery('mobile')} {
     font-size: 1rem;
     line-height: 1.4rem;
+    height: 3.6rem;
   }
 
   & > a {
@@ -101,6 +107,7 @@ const ReviewMenu = styled.a<{ isActive: boolean }>`
   color: ${(props) => props.isActive && props.theme.colors.purpleMain};
   font-weight: ${(props) => (props.isActive ? '600' : '400')};
   border-bottom: ${(props) => props.isActive && ('solid 2px' || props.theme.colors.purpleMain)};
+  margin-bottom: ${(props) => (props.isActive ? '-2px' : '0')};
 
   &:hover {
     cursor: pointer;

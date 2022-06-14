@@ -73,21 +73,21 @@ const StyledWrapper = styled.div`
     color: ${theme.colors.purpleText};
   }
 
-  ${applyMediaQuery('mobile')} {
-    & > span {
-      font-size: 0.9rem;
-      line-height: 1.3rem;
-    }
-  }
-
   ${applyMediaQuery('desktop')} {
+    gap: 0.4rem;
     & > span {
-      font-size: 1rem;
-      line-height: 1.4rem;
+      font-size: 1.1rem;
+      line-height: 1.6rem;
     }
 
     & img {
       transform: scale(0.85);
+    }
+  }
+  ${applyMediaQuery('mobile')} {
+    & > span {
+      font-size: 0.9rem;
+      line-height: 1.3rem;
     }
   }
 `;

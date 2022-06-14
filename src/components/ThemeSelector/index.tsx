@@ -50,6 +50,15 @@ const StyledRoot = styled.div`
     line-height: 4.3rem;
     color: ${theme.colors.black2};
   }
+
+  ${applyMediaQuery('desktop')} {
+    & > h4 {
+      font-size: 2.6rem;
+      line-height: 3.8rem;
+    }
+
+    gap: 3.8rem;
+  }
   ${applyMediaQuery('mobile')} {
     & > h4 {
       font-size: 1.4rem;
@@ -65,7 +74,14 @@ const StyledElWrapper = styled.div<StyledThemeELProps>`
   justify-content: center;
   gap: 5.8rem;
   margin-top: ${({ isMain }) => (isMain ? '5.4rem' : 0)};
-
+  ${applyMediaQuery('desktop')} {
+    gap: 6rem;
+    margin-top: 0;
+  }
+  ${applyMediaQuery('tablet')} {
+    gap: 4.5rem;
+    margin-top: 0;
+  }
   ${applyMediaQuery('mobile')} {
     gap: 1.6rem;
 

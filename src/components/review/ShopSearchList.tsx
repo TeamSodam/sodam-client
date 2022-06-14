@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 import { ShopSearchResponse } from 'types/shop';
 
@@ -65,5 +66,22 @@ const StyledUl = styled.ul`
   }
   & > li:hover {
     background-color: ${theme.colors.purpleBg};
+  }
+  ${applyMediaQuery('desktop', 'tablet')} {
+    top: 3.7rem;
+    width: 32.5rem;
+    max-height: 30rem;
+    padding: 0.6rem;
+    & > span {
+      height: 2.4rem;
+      line-height: 2.4rem;
+      font-size: 1rem;
+    }
+    & > li {
+      height: 2.4rem;
+      line-height: 2.4rem;
+      font-size: 1rem;
+      padding-left: 0.5rem;
+    }
   }
 `;

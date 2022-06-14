@@ -1,9 +1,9 @@
-import Image from 'next/image';
-import DeleteIcon from 'public/assets/ic_delete_round.svg';
-import PlusIcon from 'public/assets/ic_img_plus.svg';
+import ImageDiv from 'components/common/ImageDiv';
+import IcDeleteRound from 'components/Icons/IcDeleteRound';
 import React from 'react';
 import shortId from 'shortid';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 import { ReviewImage } from 'types/review';
 
@@ -31,20 +31,30 @@ function PreviewImageList(props: PreviewImageListProps) {
     <StyledRoot>
       {imageList.map((image, index) => (
         <StyledImageCard key={shortId.generate()}>
-          <Image
+          <ImageDiv
+            className="image-preview"
             src={image.preview ? image.preview : ''}
-            width={75}
-            height={75}
+            layout="fill"
             alt={`review${index}`}
             onClick={() => changeMainImage(index + 1)}
           />
-          <DeleteIcon onClick={() => handleImageDelete(index + 1)} />
+          <IcDeleteRound
+            width={16}
+            height={16}
+            color="white"
+            onClick={() => handleImageDelete(index + 1)}
+          />
         </StyledImageCard>
       ))}
       {imageList.length !== MAX_NUM && (
         <>
           <StyledEmptyCard>
-            <PlusIcon />
+            <ImageDiv
+              className="plus-icon"
+              src={'/assets/ic_img_plus.svg'}
+              layout="fill"
+              alt="plus"
+            />
           </StyledEmptyCard>
           <StyledInput type="file" accept="image/*" multiple onChange={handleImageUpload} />
         </>
@@ -63,6 +73,29 @@ const StyledRoot = styled.div`
   justify-content: space-between;
   align-items: center;
   padding-bottom: 0.9rem;
+  .plus-icon {
+    position: relative;
+    width: 1.6rem;
+    height: 1.6rem;
+  }
+  .image-preview {
+    position: relative;
+    width: 7.5rem;
+    height: 7.5rem;
+  }
+  ${applyMediaQuery('desktop', 'tablet')} {
+    width: 50.3rem;
+    height: 5rem;
+    padding-bottom: 0;
+    .plus-icon {
+      width: 1.1rem;
+      height: 1.1rem;
+    }
+    .image-preview {
+      width: 5rem;
+      height: 5rem;
+    }
+  }
 `;
 const StyledInput = styled.input`
   width: 7.5rem;
@@ -73,6 +106,11 @@ const StyledInput = styled.input`
   &:hover {
     cursor: pointer;
   }
+  ${applyMediaQuery('desktop', 'tablet')} {
+    width: 5rem;
+    height: 5rem;
+    margin-left: -5.6rem;
+  }
 `;
 const StyledImageCard = styled.div`
   width: 7.5rem;
@@ -81,20 +119,18 @@ const StyledImageCard = styled.div`
   img {
     border-radius: 1rem;
   }
-  svg {
-    position: absolute;
-    margin-top: 0.5rem;
-    margin-left: -2.1rem;
-    &:hover {
-      cursor: pointer;
-    }
-    path:hover {
-      fill: ${theme.colors.purpleText};
-    }
+  button {
+    transform: translate(3.1rem, -4.7rem);
+  }
+  svg path:hover {
+    fill: ${theme.colors.purpleText};
   }
   &:hover {
     box-shadow: 0px 0px 0px 2px ${theme.colors.purpleText};
     cursor: pointer;
+  }
+  ${applyMediaQuery('desktop', 'tablet')} {
+    width: 5rem;
   }
 `;
 const StyledEmptyCard = styled.div`
@@ -105,6 +141,9 @@ const StyledEmptyCard = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  ${applyMediaQuery('desktop', 'tablet')} {
+    width: 5rem;
+  }
 `;
 
 export default PreviewImageList;

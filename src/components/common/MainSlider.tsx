@@ -3,7 +3,7 @@ import 'swiper/swiper-bundle.min.css';
 
 import useMedia from 'hooks/useMedia';
 import Image from 'next/image';
-import { ReactElement, useEffect, useRef, useState } from 'react';
+import { ReactElement, useCallback, useEffect, useRef, useState } from 'react';
 import shortid from 'shortid';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
@@ -36,17 +36,18 @@ function MainSlider(props: MainSliderProps) {
   const nextRef = useRef<HTMLButtonElement>(null);
   const swiperRef = useRef<HTMLDivElement>(null);
   const [swiperSetting, setSwiperSetting] = useState<Swiper | null>(null);
+  const prevSlidesPerView = useRef(slidesPerView);
 
-  const getSpaceBetween = (): number => {
-    if (isWide) return 24;
-    if (isDesktop) return 11;
+  const getSpaceBetween = useCallback(() => {
+    if (isWide) return 20;
+    if (isDesktop) return 16;
     if (isTablet) return 15;
     if (isMobile) return 6;
     return 24;
-  };
+  }, [isWide, isDesktop, isTablet, isMobile]);
 
   useEffect(() => {
-    if (!swiperSetting) {
+    if (!swiperSetting || slidesPerView !== prevSlidesPerView.current) {
       setSwiperSetting({
         spaceBetween: getSpaceBetween(), // px
         navigation: {
@@ -73,9 +74,9 @@ function MainSlider(props: MainSliderProps) {
         },
         onActiveIndexChange(swiper: SwiperCore) {
           const bulletList = swiperRef.current?.querySelectorAll('.swiper-pagination-bullet');
-          if (!bulletList) return;
+          if (!bulletList || bulletList.length === 0) return;
           if (swiper.activeIndex % slidesPerView !== 0) {
-            bulletList[swiper.activeIndex - (swiper.activeIndex % slidesPerView)].classList.add(
+            bulletList[swiper.activeIndex - (swiper.activeIndex % slidesPerView)]?.classList.add(
               'active',
             );
           } else {
@@ -84,7 +85,11 @@ function MainSlider(props: MainSliderProps) {
         },
       });
     }
-  }, [swiperSetting, slidesPerView]);
+
+    return () => {
+      prevSlidesPerView.current = slidesPerView;
+    };
+  }, [swiperSetting, slidesPerView, getSpaceBetween]);
 
   return (
     <StyledRoot>
@@ -153,11 +158,15 @@ const StyledRoot = styled.div`
         background-color: ${theme.colors.purpleMain};
       }
     }
+
+    ${applyMediaQuery('desktop', 'wide')} {
+      display: none;
+    }
   }
   ${applyMediaQuery('desktop')} {
-    width: 83.8rem;
+    width: 86.8rem;
     .swiper-container {
-      margin: 0 2.5rem;
+      margin: 0 2.6rem;
     }
   }
   ${applyMediaQuery('tablet')} {
@@ -187,7 +196,8 @@ const StyledSwiper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: -8.8rem;
+  margin-left: -4.4rem;
+  width: 100%;
   ${applyMediaQuery('desktop')} {
     margin-left: -3.3rem;
   }

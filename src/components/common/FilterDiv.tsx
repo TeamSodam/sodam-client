@@ -1,5 +1,6 @@
 import { MouseEvent } from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 
 import { filterPropsType } from './DropDownFilter';
@@ -69,5 +70,16 @@ const StyledUl = styled.ul`
     margin-left: 1.2rem;
     color: ${theme.colors.gray1};
     cursor: pointer;
+  }
+
+  ${applyMediaQuery('desktop', 'tablet')} {
+    width: 8.3rem;
+    padding: 1.3rem 1rem;
+    gap: 0.5rem;
+    & > li {
+      font-size: 1rem;
+      line-height: 1.4rem;
+      margin-left: 0;
+    }
   }
 `;

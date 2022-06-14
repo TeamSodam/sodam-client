@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 import { ReviewWriteKey } from 'types/review';
 
@@ -37,6 +38,20 @@ const StyledRoot = styled.div`
     float: right;
     margin-right: 2.2rem;
   }
+  ${applyMediaQuery('desktop', 'tablet')} {
+    width: 52.9rem;
+    height: 17.3rem;
+    padding: 1.5rem;
+    padding-bottom: 3.2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+    p {
+      font-size: 1rem;
+      line-height: 1.1rem;
+      margin-right: 0;
+      margin-top: 0.6rem;
+    }
+  }
 `;
 const StyledTextArea = styled.textarea`
   width: 75.7rem;
@@ -66,6 +81,16 @@ const StyledTextArea = styled.textarea`
     border-radius: 0.25rem;
     &:hover {
       background: ${theme.colors.gray1};
+    }
+  }
+  ${applyMediaQuery('desktop', 'tablet')} {
+    width: 100%;
+    height: 100%;
+    font-size: 1.2rem;
+    margin: 0;
+    padding: 0;
+    ::-webkit-scrollbar {
+      width: 0.4rem;
     }
   }
 `;

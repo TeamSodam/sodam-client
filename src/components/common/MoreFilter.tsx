@@ -70,6 +70,11 @@ const StyledWrapper = styled.div`
     color: ${theme.colors.gray1};
   }
 
+  ${applyMediaQuery('desktop')} {
+    & > span {
+      font-size: 1.6rem;
+    }
+  }
   ${applyMediaQuery('mobile')} {
     & > span {
       font-size: 0.9rem;

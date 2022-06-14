@@ -41,6 +41,7 @@ const StyledWriteLink = styled.a`
   ${applyMediaQuery('desktop')} {
     height: 3.2rem;
     width: 13.6rem;
+    border-radius: 0.8rem;
 
     font-size: 1.2rem;
     line-height: 1.7rem;

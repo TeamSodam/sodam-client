@@ -1,11 +1,14 @@
+import ImageDiv from 'components/common/ImageDiv';
+import IcLikeReview from 'components/Icons/IcLikeReview';
+import IcScrapReview from 'components/Icons/IcScrapReview';
 import { usePostLikeMutation, usePostScrapMutation } from 'features/reviews/reviewApi';
-import Image from 'next/image';
-import LikeReviewIC from 'public/assets/ic_likeReview.svg';
-import ScrapReviewIC from 'public/assets/ic_scrapReview.svg';
+import useMedia from 'hooks/useMedia';
 import { useState } from 'react';
 import shortid from 'shortid';
 import { parseDate } from 'src/utils/parseDate';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
+import { theme } from 'styles/theme';
 import { Review } from 'types/review';
 
 import ImageSlider from './ImageSlider';
@@ -55,6 +58,8 @@ function ReviewDetailCard(props: ReviewDetailCardProps) {
     postApiFunc({ reviewId, isLiked: !isClicked, isScraped: !isClicked });
   };
 
+  const { isDesktop, isTablet } = useMedia();
+
   return (
     <StyledReviewDetailCardContainer>
       <Header>
@@ -64,9 +69,12 @@ function ReviewDetailCard(props: ReviewDetailCardProps) {
       <ReviewDetailCardContent>
         <ReviewDetailCardHeader>
           <div className="profile">
-            {writerThumbnail && (
-              <Image src={writerThumbnail} alt="profile" width={48} height={48} />
-            )}
+            <ImageDiv
+              className="profile-image"
+              src={writerThumbnail ? writerThumbnail : '/assets/profile_default.svg'}
+              layout="fill"
+              alt="profile"
+            />
             <ReviewInfo>
               <ReviewWriter>{writerName}</ReviewWriter>
               <ReviewWriteDate>{parseDate(date)}</ReviewWriteDate>
@@ -74,33 +82,43 @@ function ReviewDetailCard(props: ReviewDetailCardProps) {
           </div>
           <IconContainer>
             <LikeReview>
-              <LikeIcon onClick={() => getOnClickHandlerByType('like')} isLike={isLikeClicked}>
-                <LikeReviewIC />
-              </LikeIcon>
+              <IcLikeReview
+                fill={isLikeClicked ? theme.colors.purpleMain : 'white'}
+                width={isDesktop || isTablet ? 19 : 29}
+                height={isDesktop || isTablet ? 17 : 26}
+                onClick={() => getOnClickHandlerByType('like')}
+              />
               <p>{likedCount}</p>
             </LikeReview>
             <ScrapReview>
-              <ScrapIcon onClick={() => getOnClickHandlerByType('scrap')} isScrap={isScrapClicked}>
-                <ScrapReviewIC />
-              </ScrapIcon>
+              <IcScrapReview
+                fill={isScrapClicked ? theme.colors.purpleMain : 'white'}
+                width={isDesktop || isTablet ? 15 : 22}
+                height={isDesktop || isTablet ? 17 : 26}
+                onClick={() => getOnClickHandlerByType('scrap')}
+              />
               <p>{scrapedCount}</p>
             </ScrapReview>
           </IconContainer>
         </ReviewDetailCardHeader>
         <ImageSlider imageList={image || []} />
         <ReviewTextInfo>
-          <ReviewProductInfo>
-            {item.map((itemElement) => (
-              <p key={shortid.generate()}>{`${itemElement.itemName} : ${itemElement.price}`}</p>
-            ))}
-          </ReviewProductInfo>
+          {item.length > 0 && (
+            <ReviewProductInfo>
+              {item.map((itemElement) => (
+                <p key={shortid.generate()}>{`${itemElement.itemName} : ${itemElement.price}`}</p>
+              ))}
+            </ReviewProductInfo>
+          )}
           <ReviewContent>{content}</ReviewContent>
         </ReviewTextInfo>
-        <ReviewTagList>
-          {tag.map((eachTag) => (
-            <ReviewTag key={shortid.generate()}>{`#${eachTag}`}</ReviewTag>
-          ))}
-        </ReviewTagList>
+        {tag.length > 0 && (
+          <ReviewTagList>
+            {tag.map((eachTag) => (
+              <ReviewTag key={shortid.generate()}>{`#${eachTag}`}</ReviewTag>
+            ))}
+          </ReviewTagList>
+        )}
       </ReviewDetailCardContent>
     </StyledReviewDetailCardContainer>
   );
@@ -110,6 +128,9 @@ const StyledReviewDetailCardContainer = styled.div``;
 
 const Header = styled.header`
   margin-bottom: 4rem;
+  ${applyMediaQuery('desktop', 'tablet')} {
+    margin-bottom: 2.8rem;
+  }
 `;
 
 const ShopName = styled.h2`
@@ -117,38 +138,65 @@ const ShopName = styled.h2`
   font-weight: 600;
   color: ${({ theme }) => theme.colors.black2};
   margin-bottom: 0.7rem;
+  ${applyMediaQuery('desktop', 'tablet')} {
+    font-size: 2.6rem;
+    margin-bottom: 0.4rem;
+  }
 `;
 
 const ShopInfo = styled.h3`
   font-size: 1.8rem;
   font-weight: 400;
   color: ${({ theme }) => theme.colors.gray1};
+  ${applyMediaQuery('desktop', 'tablet')} {
+    font-size: 1.4rem;
+    line-height: 2rem;
+  }
 `;
 
 const ReviewDetailCardContent = styled.div`
   width: 100%;
-  height: 107.7rem;
+  height: max-content;
   border: solid 2px ${({ theme }) => theme.colors.gray2};
   border-radius: 10px;
   margin-bottom: 5.6rem;
+  ${applyMediaQuery('desktop', 'tablet')} {
+    margin-bottom: 4rem;
+  }
 `;
 const ReviewDetailCardHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 4.1rem 4.1rem 2.3rem 4.1rem;
+  .profile-image {
+    position: relative;
+    width: 4.8rem;
+    height: 4.8rem;
+  }
   .profile {
     display: flex;
     justify-content: flex-start;
     align-items: center;
     img {
-      border-radius: 50px;
+      border-radius: 50%;
+    }
+  }
+  ${applyMediaQuery('desktop', 'tablet')} {
+    margin: 0;
+    margin: 1.5rem 1.8rem;
+    .profile-image {
+      width: 3.2rem;
+      height: 3.2rem;
     }
   }
 `;
 
 const ReviewInfo = styled.div`
   margin-left: 1.6rem;
+  ${applyMediaQuery('desktop', 'tablet')} {
+    margin-left: 1.1rem;
+  }
 `;
 
 const ReviewWriter = styled.p`
@@ -157,6 +205,11 @@ const ReviewWriter = styled.p`
   line-height: 1.6rem;
   margin-bottom: 0.7rem;
   color: ${({ theme }) => theme.colors.black1};
+  ${applyMediaQuery('desktop', 'tablet')} {
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    margin-bottom: 0.2rem;
+  }
 `;
 
 const ReviewWriteDate = styled.p`
@@ -164,12 +217,19 @@ const ReviewWriteDate = styled.p`
   font-weight: 400;
   line-height: 1.6rem;
   color: ${({ theme }) => theme.colors.gray1};
+  ${applyMediaQuery('desktop', 'tablet')} {
+    font-size: 1rem;
+    line-height: 1rem;
+  }
 `;
 
 const IconContainer = styled.div`
   display: flex;
   font-size: 1.4rem;
   color: ${({ theme }) => theme.colors.purpleMain};
+  ${applyMediaQuery('desktop', 'tablet')} {
+    font-size: 1rem;
+  }
 `;
 
 const LikeReview = styled.div`
@@ -181,18 +241,9 @@ const LikeReview = styled.div`
   & > p {
     margin-top: 0.4rem;
   }
-`;
 
-const LikeIcon = styled.div<{ isLike: boolean | undefined }>`
-  width: 2.9rem;
-  height: 2.6rem;
-
-  &:hover {
-    cursor: pointer;
-  }
-
-  & > svg {
-    fill: ${(props) => props.isLike && props.theme.colors.purpleMain};
+  ${applyMediaQuery('desktop', 'tablet')} {
+    margin-right: 1.5rem;
   }
 `;
 const ScrapReview = styled.div`
@@ -205,27 +256,21 @@ const ScrapReview = styled.div`
   }
 `;
 
-const ScrapIcon = styled.div<{ isScrap: boolean | undefined }>`
-  width: 2.2rem;
-  height: 2.6rem;
-  &:hover {
-    cursor: pointer;
-  }
-
-  & > svg {
-    fill: ${(props) => props.isScrap && props.theme.colors.purpleMain};
-  }
-`;
-
 const ReviewTextInfo = styled.div`
-  width: 70.8rem;
-  margin: 0 auto 2.6rem;
+  width: 100%;
+  padding: 4.1rem 4.2rem;
+  padding-bottom: 2.6rem;
+
+  ${applyMediaQuery('desktop', 'tablet')} {
+    margin: 0;
+    padding: 2rem 2.5rem;
+  }
 `;
 
 const ReviewProductInfo = styled.div`
   display: flex;
-  justify-content: center;
-  margin: 4.1rem 0 2.1rem 0;
+  justify-content: flex-start;
+  margin-bottom: 2.1rem;
   font-size: 1.4rem;
   font-weight: 400;
   width: 100%;
@@ -240,6 +285,15 @@ const ReviewProductInfo = styled.div`
   & > p:last-child:after {
     content: unset;
   }
+  ${applyMediaQuery('desktop', 'tablet')} {
+    margin: 0;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+    gap: 0.6rem;
+    & > p:after {
+      margin-left: 0.6rem;
+    }
+  }
 `;
 
 const ReviewContent = styled.p`
@@ -247,13 +301,22 @@ const ReviewContent = styled.p`
   font-weight: 400;
   line-height: 3.2rem;
   width: 100%;
-  height: 28.5rem;
+  height: max-content;
   color: ${({ theme }) => theme.colors.gray1};
+  ${applyMediaQuery('desktop', 'tablet')} {
+    font-size: 1.2rem;
+    line-height: 2.5rem;
+  }
 `;
 
 const ReviewTagList = styled.div`
-  width: 70.8rem;
-  margin: 2.6rem auto 4.2rem;
+  width: 100%;
+  padding: 4.2rem;
+  padding-top: 0;
+  ${applyMediaQuery('desktop', 'tablet')} {
+    padding: 2.5rem;
+    padding-top: 0;
+  }
 `;
 
 const ReviewTag = styled.span`
@@ -268,6 +331,13 @@ const ReviewTag = styled.span`
   border-radius: 30px;
   color: ${({ theme }) => theme.colors.purpleText};
   font-size: 1.2rem;
+  ${applyMediaQuery('desktop', 'tablet')} {
+    height: 2rem;
+    line-height: 1.6rem;
+    margin-right: 0.8rem;
+    padding: 0 0.7rem;
+    font-size: 1rem;
+  }
 `;
 
 export default ReviewDetailCard;
