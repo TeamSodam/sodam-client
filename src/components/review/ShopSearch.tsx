@@ -1,5 +1,5 @@
 import { shopApi } from 'features/shops/shopApi';
-import { debounce } from 'lodash-es';
+import debounce from 'lodash-es/debounce';
 import Image from 'next/image';
 import searchDelIC from 'public/assets/ic_searchDel.svg';
 import { FormEvent, useRef, useState } from 'react';
