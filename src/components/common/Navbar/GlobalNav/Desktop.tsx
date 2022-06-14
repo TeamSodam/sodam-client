@@ -1,5 +1,4 @@
 import { useAppDispatch } from 'app/hook';
-import { clearObserver } from 'app/store';
 import LocalNav from 'components/common/Navbar/LocalNav';
 import { logout } from 'features/users/userSlice';
 import Image from 'next/image';
@@ -28,7 +27,6 @@ function GlobalNavDesktop(props: NavProps) {
   const dispatch = useAppDispatch();
   const handleLogout = () => {
     dispatch(logout());
-    clearObserver();
     router.push('/');
   };
 

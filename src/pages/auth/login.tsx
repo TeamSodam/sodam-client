@@ -1,6 +1,5 @@
 import { useAppDispatch } from 'app/hook';
 import { subscribeToken } from 'app/persistToken';
-import { isObserverExist } from 'app/store';
 import { usePostLoginMutation } from 'features/auth/authApi';
 import { setToken } from 'features/users/userSlice';
 import Link from 'next/link';
@@ -31,7 +30,7 @@ function Login() {
     try {
       const { accesstoken } = await postLogin(loginInfo).unwrap();
       dispatch(setToken(accesstoken));
-      if (!isObserverExist()) subscribeToken();
+      subscribeToken();
       router.back();
     } catch (e) {
       setIsLoginError(true);

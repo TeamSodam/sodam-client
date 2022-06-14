@@ -5,7 +5,7 @@ import { AppDispatch, subscribeState } from './store';
 const TOKEN_NAME = 'sodam-at';
 
 export const subscribeToken = () => {
-  subscribeState<ReturnType<typeof selectUserToken>>(
+  const unSubscribe = subscribeState<ReturnType<typeof selectUserToken>>(
     selectUserToken,
     (token: ReturnType<typeof selectUserToken>, dispatch: AppDispatch) => {
       if (typeof window === 'undefined') return;
@@ -20,6 +20,7 @@ export const subscribeToken = () => {
       const ls = window.localStorage;
 
       ls.removeItem(TOKEN_NAME);
+      unSubscribe();
     },
   );
 };
