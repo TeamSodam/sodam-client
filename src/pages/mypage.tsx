@@ -1,4 +1,5 @@
 import { useAppDispatch } from 'app/hook';
+import { clearObserver } from 'app/store';
 import UserInfoWrap from 'components/Mypage/UserInfoWrap';
 import UserTheme from 'components/Mypage/UserTheme';
 import {
@@ -23,6 +24,7 @@ function Mypage() {
 
   const handleClickLogout = () => {
     dispatch(logout());
+    clearObserver();
     router.push('/');
   };
 

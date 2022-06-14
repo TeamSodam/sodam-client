@@ -1,6 +1,5 @@
-import type { AnyAction, Reducer } from '@reduxjs/toolkit';
+import type { AnyAction, Reducer, Unsubscribe } from '@reduxjs/toolkit';
 import { configureStore } from '@reduxjs/toolkit';
-import { setupListeners } from '@reduxjs/toolkit/dist/query';
 import { authApi } from 'features/auth/authApi';
 import { reviewApi } from 'features/reviews/reviewApi';
 import { shopApi } from 'features/shops/shopApi';
@@ -8,30 +7,55 @@ import { userApi } from 'features/users/userApi';
 import { createWrapper } from 'next-redux-wrapper';
 import reducer, { RootReducerState } from 'reducers';
 
-export const makeStore = () =>
-  configureStore({
-    reducer: {
-      reducer: reducer as Reducer<RootReducerState, AnyAction>,
-      [shopApi.reducerPath]: shopApi.reducer,
-      [reviewApi.reducerPath]: reviewApi.reducer,
-      [userApi.reducerPath]: userApi.reducer,
-      [authApi.reducerPath]: authApi.reducer,
-    },
-    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat([
-        shopApi.middleware,
-        reviewApi.middleware,
-        userApi.middleware,
-        authApi.middleware,
-      ]),
-  });
+import { subscribeToken } from './persistToken';
 
-export const wrapper = createWrapper(makeStore, { debug: process.env.NODE_ENV !== 'production' });
+const store = configureStore({
+  reducer: {
+    reducer: reducer as Reducer<RootReducerState, AnyAction>,
+    [shopApi.reducerPath]: shopApi.reducer,
+    [reviewApi.reducerPath]: reviewApi.reducer,
+    [userApi.reducerPath]: userApi.reducer,
+    [authApi.reducerPath]: authApi.reducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat([
+      shopApi.middleware,
+      reviewApi.middleware,
+      userApi.middleware,
+      authApi.middleware,
+    ]),
+});
 
-const store = makeStore();
-setupListeners(store.dispatch);
+const observers: Unsubscribe[] = [];
 
-// Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<typeof store.getState>;
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
-export type AppDispatch = typeof store.dispatch;
+export const clearObserver = () => observers.splice(0, observers.length);
+export const isObserverExist = () => observers.length === 0;
+
+export const subscribeState = <T>(
+  selector: (state: RootState) => T,
+  onChange: (state: T, dispatch: AppDispatch) => void,
+  onDelete: (state: T, dispatch: AppDispatch) => void,
+) => {
+  let currentState: T | undefined = undefined;
+  const handleChange = () => {
+    const state = store.getState();
+    const nextState = selector(state);
+
+    if (currentState && !nextState) onDelete(nextState, store.dispatch);
+    else if (currentState !== nextState) onChange(nextState, store.dispatch);
+    currentState = nextState;
+  };
+
+  observers.push(store.subscribe(handleChange));
+  handleChange();
+};
+
+subscribeToken();
+
+export type AppStore = typeof store;
+export type RootState = ReturnType<AppStore['getState']>;
+export type AppDispatch = AppStore['dispatch'];
+
+export const wrapper = createWrapper(() => store, {
+  debug: process.env.NODE_ENV !== 'production',
+});
