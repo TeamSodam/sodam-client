@@ -1,5 +1,5 @@
 import { shopApi } from 'features/shops/shopApi';
-import { debounce } from 'lodash';
+import { debounce } from 'lodash-es';
 import Link from 'next/link';
 import SearchICDesktop from 'public/assets/ic_search_desktop.svg';
 import SearchICSmall from 'public/assets/ic_search_mobile.svg';
