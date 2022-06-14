@@ -8,7 +8,8 @@ import ThemeSelector from 'components/ThemeSelector';
 import { MoreFilterList } from 'constants/dropdownOptionList';
 import { useGetReviewRecentQuery } from 'features/reviews/reviewApi';
 import { useGetShopByCategoryQuery, useGetShopInfoQuery } from 'features/shops/shopApi';
-import { selectUserInfo } from 'features/users/userSlice';
+import { useGetUserInfoQuery } from 'features/users/userApi';
+import { selectIsLogin } from 'features/users/userSlice';
 import useMedia from 'hooks/useMedia';
 import { useEffect, useState } from 'react';
 import { useAppSelector } from 'src/app/hook';
@@ -17,7 +18,15 @@ import { applyMediaQuery } from 'styles/mediaQuery';
 import { ShopCategoryType } from 'types/shop';
 
 function Home() {
-  const { nickname } = useAppSelector(selectUserInfo);
+  /**
+   * TODO ::
+   * const { nickname } = useAppSelector(selectUserInfo);
+   * 액세스토큰 payload의 nickname userSlice에 반영하도록 변경 필요.
+   */
+  const isLogin = useAppSelector(selectIsLogin);
+  const { data: userInfo } = useGetUserInfoQuery(undefined, {
+    skip: !isLogin,
+  });
   const [currentCategory, setCurrentCategory] = useState<ShopCategoryType>();
   const { data: randomShopList } = useGetShopInfoQuery('random');
   const { data: popularShopList } = useGetShopInfoQuery('popular');
@@ -95,7 +104,7 @@ function Home() {
       <BannerList />
       <LabelContentWrapper>
         <Label>
-          <em>{nickname}</em>님, 이 소품샵은 어떠세요?
+          <em>{userInfo?.nickname || '소푸미'}</em>님, 이 소품샵은 어떠세요?
         </Label>
         {showRandomShopSlider()}
       </LabelContentWrapper>
