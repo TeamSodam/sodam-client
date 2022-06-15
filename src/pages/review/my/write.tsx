@@ -4,7 +4,6 @@ import ReviewCard from 'components/common/ReviewCard';
 import WriteReviewLink from 'components/common/WriteReviewLink';
 import { useGetMyWriteReviewQuery } from 'features/reviews/reviewApi';
 import { selectIsLogin } from 'features/users/userSlice';
-import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
@@ -20,10 +19,10 @@ const emptyContentData = {
 
 function Write() {
   const isLogin = useAppSelector(selectIsLogin);
-  const router = useRouter();
 
   const { data: reviewMyWriteList } = useGetMyWriteReviewQuery(undefined, {
     skip: !isLogin,
+    refetchOnMountOrArgChange: true,
   });
 
   return (
