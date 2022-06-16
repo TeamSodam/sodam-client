@@ -126,6 +126,9 @@ const Container = styled.main`
   ${applyMediaQuery('desktop')} {
     gap: 7.5rem;
   }
+  ${applyMediaQuery('tablet')} {
+    gap: 5.6rem;
+  }
   ${applyMediaQuery('mobile')} {
     gap: 3.6rem;
   }
@@ -145,6 +148,10 @@ const Label = styled.h2`
     font-size: 2.6rem;
     line-height: 3.8rem;
   }
+  ${applyMediaQuery('tablet')} {
+    font-size: 2rem;
+    line-height: 2.9rem;
+  }
   ${applyMediaQuery('mobile')} {
     font-size: 1.4rem;
     line-height: 2rem;
@@ -158,6 +165,9 @@ const LabelContentWrapper = styled.div`
 
   ${applyMediaQuery('desktop')} {
     gap: 2rem;
+  }
+  ${applyMediaQuery('tablet')} {
+    gap: 1.8rem;
   }
   ${applyMediaQuery('mobile')} {
     gap: 1.6rem;

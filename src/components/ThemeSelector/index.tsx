@@ -59,6 +59,14 @@ const StyledRoot = styled.div`
 
     gap: 3.8rem;
   }
+  ${applyMediaQuery('tablet')} {
+    & > h4 {
+      font-size: 2rem;
+      line-height: 2.9rem;
+    }
+
+    gap: 2.7rem;
+  }
   ${applyMediaQuery('mobile')} {
     & > h4 {
       font-size: 1.4rem;

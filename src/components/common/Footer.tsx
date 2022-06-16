@@ -60,9 +60,13 @@ const FooterWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 5.4rem 0;
+  ${applyMediaQuery('tablet')} {
+    padding: 3.8rem 0;
+    gap: 2rem;
+  }
   ${applyMediaQuery('mobile')} {
-    padding: 1.8rem 0;
-    gap: 3.7rem;
+    padding: 2.5rem 0;
+    gap: 1.7rem;
   }
   color: ${({ theme }) => theme.colors.black2};
 `;
@@ -71,6 +75,11 @@ const Logo = styled.div`
   flex: 1;
   ${applyMediaQuery('desktop')} {
     transform: scale(0.75);
+  }
+  ${applyMediaQuery('tablet')} {
+    transform: scale(0.6);
+    transform-origin: top left;
+    width: 11rem;
   }
 `;
 
@@ -83,6 +92,9 @@ const LeftFooter = styled.div`
   justify-content: space-between;
   margin-bottom: 1.5rem;
   gap: 2.4rem;
+  ${applyMediaQuery('tablet')} {
+    gap: 1rem;
+  }
 `;
 
 const MobileFontStyle = css`
@@ -95,8 +107,11 @@ const ContactTitle = styled.div`
   font-weight: 600;
   font-size: 1.4rem;
 
+  ${applyMediaQuery('tablet')} {
+    font-size: 1.3rem;
+  }
   ${applyMediaQuery('mobile')} {
-    width: 2.5rem;
+    width: 2.8rem;
     ${MobileFontStyle}
   }
 `;
@@ -112,6 +127,9 @@ const ContactContent = styled.li`
     color: inherit;
   }
 
+  ${applyMediaQuery('tablet')} {
+    font-size: 1.3rem;
+  }
   ${applyMediaQuery('mobile')} {
     ${MobileFontStyle}
   }
@@ -126,8 +144,12 @@ const RightFooterWrapper = styled.div`
   flex-direction: column;
   gap: 1.6rem;
 
+  ${applyMediaQuery('tablet')} {
+    font-size: 1.3rem;
+  }
   ${applyMediaQuery('mobile')} {
     ${MobileFontStyle}
+    gap: 1rem;
   }
 `;
 
@@ -139,6 +161,12 @@ const RightFooter = styled.li`
   & > a {
     text-decoration: none;
     color: inherit;
+  }
+
+  ${applyMediaQuery('mobile')} {
+    & > a {
+      line-height: 1rem;
+    }
   }
 `;
 
