@@ -1,3 +1,4 @@
+import ImageDiv from 'components/common/ImageDiv';
 import Image from 'next/image';
 import Link from 'next/link';
 import styled from 'styled-components';
@@ -21,7 +22,16 @@ function GlobalNavMobile(props: NavProps) {
           {isLogin ? (
             <Link href="/mypage" passHref>
               <StyledImage>
-                {userImage && <Image src={userImage} layout="fill" alt="profile" />}
+                {userImage ? (
+                  <Image src={userImage} layout="fill" alt="profile" />
+                ) : (
+                  <ImageDiv
+                    className="profile-icon"
+                    src={'/assets/profile.svg'}
+                    layout="fill"
+                    alt="profile"
+                  />
+                )}
               </StyledImage>
             </Link>
           ) : (
@@ -67,6 +77,11 @@ const NavTopRightWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 1.5rem;
+  .profile-icon {
+    position: relative;
+    width: 2rem;
+    height: 2rem;
+  }
 `;
 
 const StyledImage = styled.div`
