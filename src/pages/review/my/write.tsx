@@ -37,7 +37,13 @@ function Write() {
           <StyledCardWrapper>
             {reviewMyWriteList &&
               reviewMyWriteList.map((review) => (
-                <ReviewCard key={review.reviewId} reviewData={review} isHoverAvailable isMyReview />
+                <ReviewCard
+                  key={review.reviewId}
+                  reviewData={review}
+                  isHoverAvailable
+                  isMyReview
+                  isMyReviewMobile
+                />
               ))}
           </StyledCardWrapper>
         </>

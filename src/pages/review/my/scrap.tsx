@@ -32,7 +32,12 @@ function Scrap() {
           <h2>스크랩한 리뷰</h2>
           <StyledCardWrapper>
             {reviewMyScrapList.map((review) => (
-              <ReviewCard key={review.reviewId} reviewData={review} isHoverAvailable />
+              <ReviewCard
+                key={review.reviewId}
+                reviewData={review}
+                isHoverAvailable
+                isMyReviewMobile
+              />
             ))}
           </StyledCardWrapper>
         </>

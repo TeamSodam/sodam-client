@@ -112,5 +112,9 @@ const ReviewMenu = styled.a<{ isActive: boolean }>`
   &:hover {
     cursor: pointer;
   }
+
+  ${applyMediaQuery('mobile')} {
+    margin-top: -0.7rem;
+  }
 `;
 export default LocalNav;

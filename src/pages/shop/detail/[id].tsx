@@ -289,6 +289,8 @@ const LabelContentWrapper = styled.div`
   ${applyMediaQuery('desktop')} {
     gap: 4rem;
   }
+  ${applyMediaQuery('tablet', 'mobile')} {
+  }
 `;
 
 const ReviewGrid = styled.div`

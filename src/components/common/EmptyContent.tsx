@@ -43,10 +43,15 @@ const StyledContainer = styled.div`
     position: relative;
     width: 28.2rem;
     height: 28.1rem;
-    ${applyMediaQuery('desktop')} {
+    ${applyMediaQuery('desktop', 'tablet')} {
       width: 18.7rem;
       height: 18.7rem;
       margin-top: 3.2rem;
+    }
+    ${applyMediaQuery('mobile')} {
+      width: 12.4rem;
+      height: 12.3rem;
+      margin-top: 10rem;
     }
   }
 `;
@@ -55,9 +60,13 @@ const Header = styled.h2`
   line-height: 4.3rem;
   font-weight: 700;
   color: ${({ theme }) => theme.colors.black2};
-  ${applyMediaQuery('desktop')} {
+  ${applyMediaQuery('desktop', 'tablet')} {
     font-size: 2.6rem;
     line-height: 3.8rem;
+  }
+  ${applyMediaQuery('mobile')} {
+    font-size: 1.4rem;
+    line-height: 2rem;
   }
 `;
 const ContentWrapper = styled.div`
@@ -75,10 +84,16 @@ const Label = styled.p`
   line-height: 3.4rem;
   margin-bottom: 0.8rem;
   color: ${({ theme }) => theme.colors.purpleText};
-  ${applyMediaQuery('desktop')} {
+  ${applyMediaQuery('desktop', 'tablet')} {
     font-size: 2rem;
     line-height: 2.9rem;
     margin-top: 0.6rem;
+    margin-bottom: 0.4rem;
+  }
+  ${applyMediaQuery('mobile')} {
+    font-size: 1.4rem;
+    line-height: 2rem;
+    margin-top: 0.5rem;
     margin-bottom: 0.4rem;
   }
 `;
@@ -94,6 +109,11 @@ const SubLabel = styled.p`
     line-height: 2rem;
     margin-bottom: 3rem;
   }
+  ${applyMediaQuery('mobile')} {
+    font-size: 1.1rem;
+    line-height: 1.6rem;
+    margin-bottom: 2.2rem;
+  }
 `;
 const Button = styled.button`
   font-size: 1.6rem;
@@ -108,6 +128,11 @@ const Button = styled.button`
     font-size: 1.2rem;
     width: 25.5rem;
     height: 3.3rem;
+  }
+  ${applyMediaQuery('mobile')} {
+    font-size: 1rem;
+    width: 16.8rem;
+    height: 2.6rem;
   }
 `;
 
