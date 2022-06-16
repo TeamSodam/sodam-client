@@ -67,7 +67,7 @@ const StyledUl = styled.ul`
   & > li:hover {
     background-color: ${theme.colors.purpleBg};
   }
-  ${applyMediaQuery('desktop', 'tablet')} {
+  ${applyMediaQuery('desktop', 'tablet', 'mobile')} {
     top: 3.7rem;
     width: 32.5rem;
     max-height: 30rem;
@@ -83,5 +83,11 @@ const StyledUl = styled.ul`
       font-size: 1rem;
       padding-left: 0.5rem;
     }
+  }
+  ${applyMediaQuery('mobile')} {
+    top: 3.7rem;
+    width: 31.2rem;
+    max-height: 10.5rem;
+    padding: 0.6rem;
   }
 `;

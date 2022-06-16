@@ -14,6 +14,7 @@ import { parseShopId, parseShopName } from 'pages/review/detail/[reviewId]';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
+import Screen from 'styles/Screen';
 import { Item, ReviewImage, ReviewWriteKey, ReviewWriteRequest } from 'types/review';
 import { PriceOptionList, ShopCategoryType } from 'types/shop';
 
@@ -195,6 +196,14 @@ function Write(props: WriteProps) {
           handleImageDelete={handleImageDelete}
         />
         <StyledTopRight>
+          <Screen mobile>
+            <PreviewImageList
+              reviewImageList={reviewImageList}
+              handleImageUpload={handleImageUpload}
+              handleImageDelete={handleImageDelete}
+              changeMainImage={changeMainImage}
+            />
+          </Screen>
           <ShopSearch
             selectedShop={reviewData.shopName}
             handleDataChange={handleDataChange}
@@ -203,12 +212,14 @@ function Write(props: WriteProps) {
           <WriteItems selectedItemList={reviewData.item} handleItemSubmit={handleItemSubmit} />
         </StyledTopRight>
       </StyledTop>
-      <PreviewImageList
-        reviewImageList={reviewImageList}
-        handleImageUpload={handleImageUpload}
-        handleImageDelete={handleImageDelete}
-        changeMainImage={changeMainImage}
-      />
+      <Screen wide desktop tablet>
+        <PreviewImageList
+          reviewImageList={reviewImageList}
+          handleImageUpload={handleImageUpload}
+          handleImageDelete={handleImageDelete}
+          changeMainImage={changeMainImage}
+        />
+      </Screen>
       <ReviewText content={reviewData.content} handleDataChange={handleDataChange} />
       <TagList
         tag={reviewData.tag}
@@ -232,6 +243,9 @@ const StyledRoot = styled.div`
   ${applyMediaQuery('desktop', 'tablet')} {
     width: 52.9rem;
   }
+  ${applyMediaQuery('mobile')} {
+    width: 31.2rem;
+  }
 `;
 const StyledTop = styled.div`
   display: flex;
@@ -241,6 +255,11 @@ const StyledTop = styled.div`
   ${applyMediaQuery('desktop', 'tablet')} {
     padding-top: 3rem;
     padding-bottom: 1.3rem;
+  }
+  ${applyMediaQuery('mobile')} {
+    padding-top: 1.7rem;
+    padding-bottom: 0.8rem;
+    flex-direction: column;
   }
 `;
 const StyledTopRight = styled.div`

@@ -50,4 +50,7 @@ const StyledRoot = styled.div`
   ${applyMediaQuery('desktop', 'tablet')} {
     gap: 1.3rem;
   }
+  ${applyMediaQuery('mobile')} {
+    gap: 0.8rem;
+  }
 `;

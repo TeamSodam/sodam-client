@@ -127,6 +127,31 @@ const StyledRoot = styled.div`
       margin-left: 1rem;
     }
   }
+  ${applyMediaQuery('mobile')} {
+    width: 31.2rem;
+    height: 24.8rem;
+    margin-bottom: 0.8rem;
+    .image-preview {
+      width: 31.2rem;
+      height: 24.8rem;
+    }
+    .camera-icon {
+      width: 4.8rem;
+      height: 3.7rem;
+    }
+    .main-icon {
+      width: 4.3rem;
+    }
+    .replace-icon {
+      width: 2rem;
+      height: 2rem;
+    }
+    .delete-icon {
+      width: 2rem;
+      height: 2rem;
+      margin-left: 1.5rem;
+    }
+  }
 `;
 const StyledIcons = styled.div`
   position: relative;
@@ -155,6 +180,9 @@ const StyledIcons = styled.div`
       margin-left: 10px;
     }
   }
+  ${applyMediaQuery('mobile')} {
+    margin-top: -24.8rem;
+  }
 `;
 const StyledReplace = styled.input`
   width: 2rem;
@@ -177,6 +205,9 @@ const StyledInput = styled.input`
   opacity: 0;
   ${applyMediaQuery('desktop', 'tablet')} {
     margin-top: -16.4rem;
+  }
+  ${applyMediaQuery('mobile')} {
+    margin-top: -24.8rem;
   }
 `;
 const StyledPreview = styled.div`
@@ -207,7 +238,7 @@ const StyledEmpty = styled.div`
     font-size: 1.2rem;
     font-weight: 500;
   }
-  ${applyMediaQuery('desktop', 'tablet')} {
+  ${applyMediaQuery('desktop', 'tablet', 'mobile')} {
     padding-top: 0;
     & p:nth-child(2) {
       font-size: 1rem;
@@ -217,6 +248,12 @@ const StyledEmpty = styled.div`
     & p:nth-child(3) {
       font-size: 1rem;
       transform: scale(0.8);
+    }
+  }
+  ${applyMediaQuery('mobile')} {
+    & p:nth-child(2) {
+      margin-top: 1.6rem;
+      margin-bottom: 0.4rem;
     }
   }
 `;

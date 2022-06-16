@@ -70,7 +70,7 @@ const StyledRoot = styled.div`
     position: relative;
     width: 1.4rem;
     height: 1rem;
-    ${applyMediaQuery('desktop', 'tablet')} {
+    ${applyMediaQuery('desktop', 'tablet', 'mobile')} {
       width: 0.9rem;
       height: 0.6rem;
     }
@@ -100,7 +100,7 @@ const StyledWrapper = styled.div<{ isSelected: boolean }>`
     line-height: 2rem;
   }
 
-  ${applyMediaQuery('desktop', 'tablet')} {
+  ${applyMediaQuery('desktop', 'tablet', 'mobile')} {
     width: 12.6rem;
     height: 3.1rem;
     padding: 0 1.2rem;
@@ -110,5 +110,9 @@ const StyledWrapper = styled.div<{ isSelected: boolean }>`
       font-size: 1rem;
       line-height: 1rem;
     }
+  }
+  ${applyMediaQuery('mobile')} {
+    width: 12.5rem;
+    height: 3.6rem;
   }
 `;

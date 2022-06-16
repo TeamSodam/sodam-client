@@ -50,6 +50,21 @@ const StyledRoot = styled.div`
       line-height: 1.3rem;
     }
   }
+  ${applyMediaQuery('mobile')} {
+    h2 {
+      font-size: 1.4rem;
+      line-height: 2rem;
+      margin-top: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+    p {
+      font-size: 1rem;
+      line-height: 1.3rem;
+      transform: scale(0.9);
+      transform-origin: top left;
+      width: 34rem;
+    }
+  }
 `;
 
 export default Title;
