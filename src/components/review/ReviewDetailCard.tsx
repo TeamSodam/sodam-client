@@ -58,7 +58,7 @@ function ReviewDetailCard(props: ReviewDetailCardProps) {
     postApiFunc({ reviewId, isLiked: !isClicked, isScraped: !isClicked });
   };
 
-  const { isDesktop, isTablet } = useMedia();
+  const { isDesktop, isTablet, isMobile } = useMedia();
 
   return (
     <StyledReviewDetailCardContainer>
@@ -84,8 +84,8 @@ function ReviewDetailCard(props: ReviewDetailCardProps) {
             <LikeReview>
               <IcLikeReview
                 fill={isLikeClicked ? theme.colors.purpleMain : 'white'}
-                width={isDesktop || isTablet ? 19 : 29}
-                height={isDesktop || isTablet ? 17 : 26}
+                width={isDesktop || isTablet ? 19 : isMobile ? 16 : 29}
+                height={isDesktop || isTablet ? 17 : isMobile ? 14 : 26}
                 onClick={() => getOnClickHandlerByType('like')}
               />
               <p>{likedCount}</p>
@@ -93,8 +93,8 @@ function ReviewDetailCard(props: ReviewDetailCardProps) {
             <ScrapReview>
               <IcScrapReview
                 fill={isScrapClicked ? theme.colors.purpleMain : 'white'}
-                width={isDesktop || isTablet ? 15 : 22}
-                height={isDesktop || isTablet ? 17 : 26}
+                width={isDesktop || isTablet ? 15 : isMobile ? 12 : 22}
+                height={isDesktop || isTablet ? 17 : isMobile ? 14 : 26}
                 onClick={() => getOnClickHandlerByType('scrap')}
               />
               <p>{scrapedCount}</p>
@@ -131,6 +131,9 @@ const Header = styled.header`
   ${applyMediaQuery('desktop', 'tablet')} {
     margin-bottom: 2.8rem;
   }
+  ${applyMediaQuery('mobile')} {
+    margin-bottom: 1.3rem;
+  }
 `;
 
 const ShopName = styled.h2`
@@ -142,6 +145,10 @@ const ShopName = styled.h2`
     font-size: 2.6rem;
     margin-bottom: 0.4rem;
   }
+  ${applyMediaQuery('mobile')} {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+  }
 `;
 
 const ShopInfo = styled.h3`
@@ -151,6 +158,10 @@ const ShopInfo = styled.h3`
   ${applyMediaQuery('desktop', 'tablet')} {
     font-size: 1.4rem;
     line-height: 2rem;
+  }
+  ${applyMediaQuery('mobile')} {
+    font-size: 1rem;
+    line-height: 1.4rem;
   }
 `;
 
@@ -162,6 +173,9 @@ const ReviewDetailCardContent = styled.div`
   margin-bottom: 5.6rem;
   ${applyMediaQuery('desktop', 'tablet')} {
     margin-bottom: 4rem;
+  }
+  ${applyMediaQuery('mobile')} {
+    margin-bottom: 3.5rem;
   }
 `;
 const ReviewDetailCardHeader = styled.div`
@@ -190,11 +204,19 @@ const ReviewDetailCardHeader = styled.div`
       height: 3.2rem;
     }
   }
+  ${applyMediaQuery('mobile')} {
+    margin: 0;
+    margin: 1rem 1.3rem;
+    .profile-image {
+      width: 2.7rem;
+      height: 2.7rem;
+    }
+  }
 `;
 
 const ReviewInfo = styled.div`
   margin-left: 1.6rem;
-  ${applyMediaQuery('desktop', 'tablet')} {
+  ${applyMediaQuery('desktop', 'tablet', 'mobile')} {
     margin-left: 1.1rem;
   }
 `;
@@ -210,6 +232,11 @@ const ReviewWriter = styled.p`
     line-height: 1.6rem;
     margin-bottom: 0.2rem;
   }
+  ${applyMediaQuery('mobile')} {
+    font-size: 1rem;
+    line-height: 1.3rem;
+    margin-bottom: 0.2rem;
+  }
 `;
 
 const ReviewWriteDate = styled.p`
@@ -221,6 +248,12 @@ const ReviewWriteDate = styled.p`
     font-size: 1rem;
     line-height: 1rem;
   }
+  ${applyMediaQuery('mobile')} {
+    font-size: 1rem;
+    transform: scale(0.7);
+    height: 1rem;
+    transform-origin: top left;
+  }
 `;
 
 const IconContainer = styled.div`
@@ -229,6 +262,11 @@ const IconContainer = styled.div`
   color: ${({ theme }) => theme.colors.purpleMain};
   ${applyMediaQuery('desktop', 'tablet')} {
     font-size: 1rem;
+  }
+  ${applyMediaQuery('mobile')} {
+    font-size: 1rem;
+    transform: scale(0.9);
+    transform-origin: center center;
   }
 `;
 
@@ -243,6 +281,9 @@ const LikeReview = styled.div`
   }
 
   ${applyMediaQuery('desktop', 'tablet')} {
+    margin-right: 1.5rem;
+  }
+  ${applyMediaQuery('mobile')} {
     margin-right: 1.5rem;
   }
 `;
@@ -264,6 +305,10 @@ const ReviewTextInfo = styled.div`
   ${applyMediaQuery('desktop', 'tablet')} {
     margin: 0;
     padding: 2rem 2.5rem;
+  }
+  ${applyMediaQuery('mobile')} {
+    margin: 0;
+    padding: 1.2rem 1.4rem;
   }
 `;
 
@@ -294,6 +339,22 @@ const ReviewProductInfo = styled.div`
       margin-left: 0.6rem;
     }
   }
+  ${applyMediaQuery('mobile')} {
+    margin: 0;
+    margin-bottom: 0.7rem;
+    font-size: 1rem;
+    transform: scale(0.8);
+    transform-origin: bottom left;
+    flex-direction: column;
+    gap: 0.2rem;
+    & > p:after {
+      content: '';
+    }
+    & > p {
+      height: 1.4rem;
+      margin-bottom: 0.2rem;
+    }
+  }
 `;
 
 const ReviewContent = styled.p`
@@ -307,6 +368,10 @@ const ReviewContent = styled.p`
     font-size: 1.2rem;
     line-height: 2.5rem;
   }
+  ${applyMediaQuery('mobile')} {
+    font-size: 1rem;
+    line-height: 2rem;
+  }
 `;
 
 const ReviewTagList = styled.div`
@@ -315,6 +380,10 @@ const ReviewTagList = styled.div`
   padding-top: 0;
   ${applyMediaQuery('desktop', 'tablet')} {
     padding: 2.5rem;
+    padding-top: 0;
+  }
+  ${applyMediaQuery('mobile')} {
+    padding: 1.4rem;
     padding-top: 0;
   }
 `;
@@ -337,6 +406,15 @@ const ReviewTag = styled.span`
     margin-right: 0.8rem;
     padding: 0 0.7rem;
     font-size: 1rem;
+  }
+  ${applyMediaQuery('mobile')} {
+    height: 2rem;
+    line-height: 1.6rem;
+    margin-right: 0;
+    padding: 0 0.8rem;
+    font-size: 1rem;
+    transform: scale(0.8);
+    transform-origin: bottom left;
   }
 `;
 

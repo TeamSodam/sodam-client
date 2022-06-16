@@ -108,6 +108,11 @@ const StyledReviewDetailWrapper = styled.div`
     margin: 5.2rem auto;
     margin-bottom: 6rem;
   }
+  ${applyMediaQuery('mobile')} {
+    width: 31.2rem;
+    margin: 2.5rem auto;
+    margin-bottom: 3.5rem;
+  }
 `;
 
 const OtherReviewCardWrapper = styled.div``;
@@ -124,6 +129,9 @@ const HeaderTitle = styled.h3`
   ${applyMediaQuery('desktop', 'tablet')} {
     font-size: 2rem;
   }
+  ${applyMediaQuery('mobile')} {
+    font-size: 1.4rem;
+  }
 `;
 
 const ReviewListContent = styled.div`
@@ -131,6 +139,9 @@ const ReviewListContent = styled.div`
   width: 100%;
   ${applyMediaQuery('desktop', 'tablet')} {
     margin-top: 1.8rem;
+  }
+  ${applyMediaQuery('mobile')} {
+    margin-top: 1.6rem;
   }
 `;
 

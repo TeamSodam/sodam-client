@@ -34,6 +34,10 @@ const StyledRoot = styled.div`
     width: 5rem;
     height: 5rem;
   }
+  ${applyMediaQuery('mobile')} {
+    width: 4.2rem;
+    height: 4.2rem;
+  }
 `;
 
 export default ImageCard;

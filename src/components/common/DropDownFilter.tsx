@@ -1,11 +1,11 @@
 import { dropDownFilterList } from 'constants/dropdownOptionList';
-import Image from 'next/image';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 
 import FilterDiv from './FilterDiv';
+import ImageDiv from './ImageDiv';
 
 interface StyledDDFProps {
   pageType: 'detail' | 'theme' | 'collect';
@@ -47,7 +47,12 @@ function DropDownFilter(props: StyledDDFProps) {
       )}
       <StyledWrapper onClick={toggle}>
         <span>{selected}</span>
-        <Image src={'/assets/ic_dropdown.svg'} width={14} height={10} alt="dropdown" />
+        <ImageDiv
+          className="dropdown-icon"
+          src={'/assets/ic_dropdown.svg'}
+          layout="fill"
+          alt="dropdown"
+        />
       </StyledWrapper>
     </StyledRoot>
   );
@@ -59,6 +64,15 @@ const StyledRoot = styled.div`
   display: flex;
   position: relative;
   align-items: flex-end;
+  .dropdown-icon {
+    position: relative;
+    width: 1.4rem;
+    height: 1rem;
+    ${applyMediaQuery('mobile')} {
+      width: 1.1rem;
+      height: 0.8rem;
+    }
+  }
 `;
 const StyledWrapper = styled.div`
   display: flex;
@@ -85,6 +99,7 @@ const StyledWrapper = styled.div`
     }
   }
   ${applyMediaQuery('mobile')} {
+    gap: 0.4rem;
     & > span {
       font-size: 0.9rem;
       line-height: 1.3rem;

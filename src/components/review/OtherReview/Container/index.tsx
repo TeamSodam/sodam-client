@@ -16,8 +16,22 @@ const ReviewList = styled.div`
   grid-template-columns: repeat(2, 1fr);
   column-gap: 1.6rem;
   row-gap: 2.4rem;
-  ${applyMediaQuery('desktop', 'tablet')} {
+  ${applyMediaQuery('desktop')} {
     gap: 1.6rem 1rem;
+  }
+  ${applyMediaQuery('tablet')} {
+    gap: 1rem 0.2rem;
+    & > div {
+      transform: scale(0.96);
+      transform-origin: top left;
+    }
+  }
+  ${applyMediaQuery('mobile')} {
+    gap: 1.2rem 0.7rem;
+    & > div {
+      transform: scale(0.99);
+      transform-origin: top left;
+    }
   }
 `;
 

@@ -1,5 +1,6 @@
 import 'swiper/swiper.min.css';
 
+import useMedia from 'hooks/useMedia';
 import Image from 'next/image';
 import React, { useMemo, useState } from 'react';
 import shortId from 'shortid';
@@ -20,6 +21,8 @@ function ImageSlider(props: ImageSliderProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [slideImageList, setSlideImageList] = useState(imageList.slice(1));
 
+  const { isMobile } = useMedia();
+
   const emptyCardCount: number = 7 - imageList.length;
   const emptyCardList: string[] | null =
     emptyCardCount > 0 ? new Array(emptyCardCount).fill('') : null; // 빈 카드 내용은 '' 로 채움
@@ -28,7 +31,7 @@ function ImageSlider(props: ImageSliderProps) {
 
   const settings = useMemo<Swiper>(
     () => ({
-      spaceBetween: 10, // px
+      spaceBetween: isMobile ? 5 : 10, // px
       navigation: {
         prevEl: '.button__prev', // 이전 버튼
         nextEl: '.button__next', // 다음 버튼
@@ -96,6 +99,10 @@ const ImageWrapper = styled.div`
     width: 52.6rem;
     height: 27rem;
   }
+  ${applyMediaQuery('mobile')} {
+    width: 31.2rem;
+    height: 22.1rem;
+  }
 `;
 
 const StyledRoot = styled.div`
@@ -131,7 +138,7 @@ const StyledRoot = styled.div`
       z-index: 2;
     }
   }
-  ${applyMediaQuery('desktop', 'tablet')} {
+  ${applyMediaQuery('desktop', 'tablet', 'mobile')} {
     .swiper-container {
       width: 33.5rem;
     }
@@ -148,6 +155,15 @@ const StyledRoot = styled.div`
       margin-top: 1.2rem;
     }
   }
+  ${applyMediaQuery('mobile')} {
+    .swiper-container {
+      width: 28rem;
+    }
+    .button__prev,
+    .button__next {
+      margin-top: 0.9rem;
+    }
+  }
 `;
 const StyledButton = styled.button`
   background: none;
@@ -159,6 +175,9 @@ const StyledSwiper = styled.div`
   margin-top: 3.2rem;
   ${applyMediaQuery('desktop', 'tablet')} {
     margin-top: 2rem;
+  }
+  ${applyMediaQuery('mobile')} {
+    margin-top: 1.2rem;
   }
 `;
 

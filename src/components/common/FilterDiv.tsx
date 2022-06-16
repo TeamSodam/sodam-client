@@ -72,7 +72,7 @@ const StyledUl = styled.ul`
     cursor: pointer;
   }
 
-  ${applyMediaQuery('desktop', 'tablet')} {
+  ${applyMediaQuery('desktop', 'tablet', 'mobile')} {
     width: 8.3rem;
     padding: 1.3rem 1rem;
     gap: 0.5rem;
