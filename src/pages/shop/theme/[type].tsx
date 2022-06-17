@@ -69,6 +69,9 @@ const Wrapper = styled.div`
   ${applyMediaQuery('desktop')} {
     padding-top: 5.2rem;
   }
+  ${applyMediaQuery('tablet')} {
+    padding-top: 3rem;
+  }
   ${applyMediaQuery('mobile')} {
     padding: 1.4rem 0;
   }
@@ -81,7 +84,7 @@ const ThemeWrapper = styled.div`
   width: 100%;
   display: flex;
   height: calc(50.8rem - 7.2rem);
-  ${applyMediaQuery('desktop')} {
+  ${applyMediaQuery('desktop', 'tablet')} {
     height: max-content;
     margin-bottom: 0.5rem;
   }
@@ -125,6 +128,10 @@ const DropDownWrapper = styled.div`
   ${applyMediaQuery('desktop')} {
     margin-top: 6.8rem;
     margin-bottom: 2.4rem;
+  }
+  ${applyMediaQuery('tablet')} {
+    margin-top: 3rem;
+    margin-bottom: 1.6rem;
   }
 `;
 

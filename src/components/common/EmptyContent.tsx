@@ -48,6 +48,9 @@ const StyledContainer = styled.div`
       height: 18.7rem;
       margin-top: 3.2rem;
     }
+    ${applyMediaQuery('tablet')} {
+      margin-top: 10rem;
+    }
     ${applyMediaQuery('mobile')} {
       width: 12.4rem;
       height: 12.3rem;
@@ -60,9 +63,13 @@ const Header = styled.h2`
   line-height: 4.3rem;
   font-weight: 700;
   color: ${({ theme }) => theme.colors.black2};
-  ${applyMediaQuery('desktop', 'tablet')} {
+  ${applyMediaQuery('desktop')} {
     font-size: 2.6rem;
     line-height: 3.8rem;
+  }
+  ${applyMediaQuery('tablet')} {
+    font-size: 2rem;
+    line-height: 2.9rem;
   }
   ${applyMediaQuery('mobile')} {
     font-size: 1.4rem;
@@ -104,7 +111,7 @@ const SubLabel = styled.p`
   line-height: 2.6rem;
   margin-bottom: 4rem;
   color: ${({ theme }) => theme.colors.gray1};
-  ${applyMediaQuery('desktop')} {
+  ${applyMediaQuery('desktop', 'tablet')} {
     font-size: 1.4rem;
     line-height: 2rem;
     margin-bottom: 3rem;
@@ -124,7 +131,7 @@ const Button = styled.button`
   color: white;
   border: 0;
   border-radius: 5px;
-  ${applyMediaQuery('desktop')} {
+  ${applyMediaQuery('desktop', 'tablet')} {
     font-size: 1.2rem;
     width: 25.5rem;
     height: 3.3rem;

@@ -81,6 +81,9 @@ const StyledRoot = styled.div<Pick<StyledELProps, 'isActive'>>`
     ${applyMediaQuery('desktop')} {
       margin-top: ${({ isActive }) => (isActive ? '-3.3rem' : '1.3rem')};
     }
+    ${applyMediaQuery('tablet')} {
+      margin-top: ${({ isActive }) => (isActive ? '-2.5rem' : '0.7rem')};
+    }
     ${applyMediaQuery('mobile')} {
       margin-top: ${({ isActive }) => (isActive ? '-1.7rem' : '0.3rem')};
     }

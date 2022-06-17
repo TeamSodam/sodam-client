@@ -48,7 +48,7 @@ const StyledWriteLink = styled.a`
     font-family: 'Noto Sans KR';
   }
 
-  ${applyMediaQuery('mobile')} {
+  ${applyMediaQuery('mobile', 'tablet')} {
     font-size: 0.8rem;
     line-height: 1.2rem;
     font-family: 'Noto Sans KR';
@@ -67,7 +67,7 @@ const WriteIcon = styled(writeIC)`
   margin-left: 0.8rem;
   align-self: center;
 
-  ${applyMediaQuery('mobile')} {
+  ${applyMediaQuery('mobile', 'tablet')} {
     order: -1;
     transform: scale(0.5) translateY(1px);
     margin: 0;

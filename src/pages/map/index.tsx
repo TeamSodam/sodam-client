@@ -19,6 +19,9 @@ const StyledContainer = styled.main`
   flex-direction: column;
   margin: 7.2rem 0 13.4rem 0;
 
+  ${applyMediaQuery('tablet')} {
+    margin-top: 3rem;
+  }
   ${applyMediaQuery('mobile')} {
     margin: 1.4rem 0 13.4rem 0;
   }
@@ -36,6 +39,10 @@ const Header = styled.h1`
     color: ${({ theme }) => theme.colors.purpleText};
   }
 
+  ${applyMediaQuery('tablet')} {
+    font-size: 2rem;
+    line-height: 2.9rem;
+  }
   ${applyMediaQuery('mobile')} {
     font-size: 1.4rem;
     line-height: 2rem;
@@ -49,6 +56,11 @@ const SubHeader = styled.p`
   color: ${({ theme }) => theme.colors.black1};
   margin-bottom: 5.2rem;
 
+  ${applyMediaQuery('tablet')} {
+    font-size: 1.4rem;
+    line-height: 2rem;
+    margin-bottom: 10rem;
+  }
   ${applyMediaQuery('mobile')} {
     font-size: 1rem;
     line-height: 1.4rem;

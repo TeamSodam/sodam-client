@@ -31,7 +31,9 @@ function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQu
   const SHOP_ID = parseShopId(params.id);
   const SORT_TYPE = 'like';
 
-  const { isMobile } = useMedia();
+  const { isMobile, isTablet } = useMedia();
+  const getLimit = () => (isMobile ? 4 : isTablet ? 6 : 9);
+  const getSlidesPerView = () => (isMobile ? 2 : isTablet ? 3 : 4);
 
   const mapRef = useRef<HTMLDivElement>(null);
 
@@ -41,7 +43,7 @@ function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQu
     shopId: SHOP_ID,
     sortType: SORT_TYPE,
     offset: currentPage,
-    limit: isMobile ? 4 : 9,
+    limit: getLimit(),
   });
   const { data: subwayInfo } = useGetShopBySubwayQuery(SHOP_ID);
 
@@ -75,15 +77,13 @@ function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQu
     }
   };
 
-  const getSlidesPerView = () => (isMobile ? 2 : 4);
-
   const calcPageNum = () => {
     if (!reviewInfo) return 1;
 
     const { reviewCount } = reviewInfo;
     if (!reviewCount) return 1;
 
-    const divider = isMobile ? 4 : 9;
+    const divider = getLimit();
 
     const isElementRest = reviewCount % divider > 0;
     const page = Math.floor(reviewCount / divider);
@@ -109,7 +109,7 @@ function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQu
       shopId: SHOP_ID,
       sortType,
       offset: 1,
-      limit: isMobile ? 4 : 9,
+      limit: getLimit(),
     });
     setCurrentList(result?.data?.data);
   };
@@ -309,6 +309,10 @@ const ReviewGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 4rem 2.4rem;
+  ${applyMediaQuery('tablet')} {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.5rem 1.2rem;
+  }
   ${applyMediaQuery('mobile')} {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.6rem 0.6rem;

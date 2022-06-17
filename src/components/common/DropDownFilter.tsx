@@ -68,7 +68,7 @@ const StyledRoot = styled.div`
     position: relative;
     width: 1.4rem;
     height: 1rem;
-    ${applyMediaQuery('mobile')} {
+    ${applyMediaQuery('mobile', 'tablet')} {
       width: 1.1rem;
       height: 0.8rem;
     }
@@ -98,7 +98,7 @@ const StyledWrapper = styled.div`
       transform: scale(0.85);
     }
   }
-  ${applyMediaQuery('mobile')} {
+  ${applyMediaQuery('mobile', 'tablet')} {
     gap: 0.4rem;
     & > span {
       font-size: 0.9rem;

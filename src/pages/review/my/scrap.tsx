@@ -67,6 +67,13 @@ const StyledContainer = styled.div`
       line-height: 3.8rem;
     }
   }
+  ${applyMediaQuery('tablet')} {
+    margin-top: 3rem;
+    & > h2 {
+      font-size: 2rem;
+      line-height: 2.9rem;
+    }
+  }
   ${applyMediaQuery('mobile')} {
     margin-top: 2.4rem;
     & > h2 {
