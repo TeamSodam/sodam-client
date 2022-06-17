@@ -11,6 +11,7 @@ import DetailShopAddress from 'components/ShopDetail/DetailShopAddress';
 import { reviewApi, useGetReviewByShopIdQuery } from 'features/reviews/reviewApi';
 import { useGetShopByShopIdQuery, useGetShopBySubwayQuery } from 'features/shops/shopApi';
 import useMap from 'hooks/useMap';
+import useMedia from 'hooks/useMedia';
 import { NextParsedUrlQuery } from 'next/dist/server/request-meta';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
@@ -30,6 +31,8 @@ function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQu
   const SHOP_ID = parseShopId(params.id);
   const SORT_TYPE = 'like';
 
+  const { isMobile } = useMedia();
+
   const mapRef = useRef<HTMLDivElement>(null);
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -38,7 +41,7 @@ function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQu
     shopId: SHOP_ID,
     sortType: SORT_TYPE,
     offset: currentPage,
-    limit: 9,
+    limit: isMobile ? 4 : 9,
   });
   const { data: subwayInfo } = useGetShopBySubwayQuery(SHOP_ID);
 
@@ -68,9 +71,11 @@ function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQu
 
       const cardList = shopList.map((shop) => <ShopCard key={shop.shopId} cardData={shop} />);
 
-      return <MainSlider slidesPerView={4} cardList={cardList} />;
+      return <MainSlider slidesPerView={getSlidesPerView()} cardList={cardList} isShopCard />;
     }
   };
+
+  const getSlidesPerView = () => (isMobile ? 2 : 4);
 
   const calcPageNum = () => {
     if (!reviewInfo) return 1;
@@ -78,8 +83,10 @@ function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQu
     const { reviewCount } = reviewInfo;
     if (!reviewCount) return 1;
 
-    const isElementRest = reviewCount % 9 > 0;
-    const page = Math.floor(reviewCount / 9);
+    const divider = isMobile ? 4 : 9;
+
+    const isElementRest = reviewCount % divider > 0;
+    const page = Math.floor(reviewCount / divider);
 
     return isElementRest ? page + 1 : page;
   };
@@ -102,7 +109,7 @@ function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQu
       shopId: SHOP_ID,
       sortType,
       offset: 1,
-      limit: 9,
+      limit: isMobile ? 4 : 9,
     });
     setCurrentList(result?.data?.data);
   };
@@ -213,6 +220,9 @@ const Wrapper = styled.div`
   flex-direction: column;
   width: 100%;
   gap: 9.6rem;
+  ${applyMediaQuery('mobile', 'tablet')} {
+    gap: 3.5rem;
+  }
 `;
 
 const MapContainer = styled.div`
@@ -290,6 +300,7 @@ const LabelContentWrapper = styled.div`
     gap: 4rem;
   }
   ${applyMediaQuery('tablet', 'mobile')} {
+    gap: 1.5rem;
   }
 `;
 
@@ -298,6 +309,10 @@ const ReviewGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 4rem 2.4rem;
+  ${applyMediaQuery('mobile')} {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.6rem 0.6rem;
+  }
 `;
 
 const LabelWithOptions = styled.div`
