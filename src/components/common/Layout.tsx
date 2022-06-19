@@ -17,6 +17,7 @@ function Layout({ children }: LayoutProps) {
     pathname === '/mypage' ||
     pathname === '/shop/collect' ||
     pathname.slice(0, 10) === '/review/my' ||
+    pathname === '/review/write' ||
     pathname === '/map';
 
   return <LayoutWrapper needFlex={needFlex}>{children}</LayoutWrapper>;
