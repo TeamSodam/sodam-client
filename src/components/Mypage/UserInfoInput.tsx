@@ -116,6 +116,21 @@ const StyledRoot = styled.div`
     margin-top: 0.4rem;
     color: ${theme.colors.purpleText};
   }
+  ${applyMediaQuery('tablet')} {
+    margin-bottom: 2.4rem;
+    height: 2.4rem;
+    label {
+      width: 6.3rem;
+      font-size: 1.3rem;
+    }
+    input {
+      font-size: 1.3rem;
+      width: 18rem;
+    }
+    p {
+      transform: translateX(9.3rem);
+    }
+  }
   ${applyMediaQuery('mobile')} {
     margin-bottom: 1.6rem;
     height: 1.4rem;

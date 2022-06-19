@@ -43,9 +43,9 @@ const StyledRoot = styled.div`
   justify-content: center;
   align-items: center;
   margin: 11rem auto;
-  ${applyMediaQuery('mobile')} {
+  ${applyMediaQuery('mobile', 'tablet')} {
     min-height: 41.7rem;
-    margin: 3.1rem 0;
+    margin: 8rem 0;
     justify-content: flex-start;
   }
 `;

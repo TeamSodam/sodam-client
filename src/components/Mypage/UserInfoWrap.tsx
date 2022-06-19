@@ -10,7 +10,7 @@ import dataURItoBlob from 'src/utils/dataURItoBlob';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
-import { UserImage, UserInfo } from 'types/auth';
+import { UserImage, UserInfo } from 'types/user';
 
 import UserInfoInput from './UserInfoInput';
 
@@ -178,6 +178,18 @@ const StyledRoot = styled.section`
       margin-top: 1.2rem;
     }
   }
+  ${applyMediaQuery('tablet')} {
+    width: 55rem;
+    height: 28rem;
+    h2 {
+      font-size: 2rem;
+      line-height: 3rem;
+      margin-bottom: 3rem;
+    }
+    .button__profile {
+      font-size: 1.1rem;
+    }
+  }
   ${applyMediaQuery('mobile')} {
     width: 31.2rem;
     height: 22rem;
@@ -210,6 +222,10 @@ const StyledImage = styled.div`
   img {
     border-radius: 50%;
   }
+  ${applyMediaQuery('tablet')} {
+    width: 10rem;
+    height: 10rem;
+  }
   ${applyMediaQuery('mobile')} {
     width: 6.6rem;
     height: 6.6rem;
@@ -237,6 +253,14 @@ const StyledProfileToggle = styled.ul`
   }
   li:last-child button {
     color: ${theme.colors.gray1};
+  }
+  ${applyMediaQuery('tablet')} {
+    width: 12.4rem;
+    height: 5.4rem;
+    margin-top: 0.6rem;
+    li button {
+      font-size: 1.1rem;
+    }
   }
   ${applyMediaQuery('mobile')} {
     width: 8.4rem;
@@ -275,6 +299,9 @@ const StyledInput = styled.input`
   opacity: 0;
   &:hover {
     cursor: pointer;
+  }
+  ${applyMediaQuery('tablet')} {
+    width: 11rem;
   }
   ${applyMediaQuery('mobile')} {
     width: 7rem;
