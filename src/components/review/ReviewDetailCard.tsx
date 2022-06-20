@@ -1,8 +1,11 @@
+import { useAppSelector } from 'app/hook';
 import ImageDiv from 'components/common/ImageDiv';
 import IcLikeReview from 'components/Icons/IcLikeReview';
 import IcScrapReview from 'components/Icons/IcScrapReview';
 import { usePostLikeMutation, usePostScrapMutation } from 'features/reviews/reviewApi';
+import { selectIsLogin } from 'features/users/userSlice';
 import useMedia from 'hooks/useMedia';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import shortid from 'shortid';
 import { parseDate } from 'src/utils/parseDate';
@@ -19,7 +22,8 @@ interface ReviewDetailCardProps {
 
 function ReviewDetailCard(props: ReviewDetailCardProps) {
   const { reviewData } = props;
-
+  const isLogin = useAppSelector(selectIsLogin);
+  const router = useRouter();
   const {
     shopName,
     category,
@@ -47,15 +51,19 @@ function ReviewDetailCard(props: ReviewDetailCardProps) {
   const scrapedCount = currentScrapCount > 99 ? '99+' : currentScrapCount;
 
   const getOnClickHandlerByType = (type: 'scrap' | 'like') => {
-    const setter = type === 'scrap' ? setCurrentScrapCount : setCurrentLikeCount;
-    const isClicked = type === 'scrap' ? isScrapClicked : isLikeClicked;
-    const setIsClicked = type === 'scrap' ? setScrapClicked : setLikeClicked;
-    const postApiFunc = type === 'scrap' ? scrapPost : likePost;
-    const value = isClicked ? -1 : 1;
+    if (isLogin) {
+      const setter = type === 'scrap' ? setCurrentScrapCount : setCurrentLikeCount;
+      const isClicked = type === 'scrap' ? isScrapClicked : isLikeClicked;
+      const setIsClicked = type === 'scrap' ? setScrapClicked : setLikeClicked;
+      const postApiFunc = type === 'scrap' ? scrapPost : likePost;
+      const value = isClicked ? -1 : 1;
 
-    setter((prevState) => prevState + value);
-    setIsClicked((prevClickState) => !prevClickState);
-    postApiFunc({ reviewId, isLiked: !isClicked, isScraped: !isClicked });
+      setter((prevState) => prevState + value);
+      setIsClicked((prevClickState) => !prevClickState);
+      postApiFunc({ reviewId, isLiked: !isClicked, isScraped: !isClicked });
+    } else {
+      router.push(`/auth/login?from=${encodeURIComponent(router.asPath)}`);
+    }
   };
 
   const { isDesktop, isTablet, isMobile } = useMedia();
