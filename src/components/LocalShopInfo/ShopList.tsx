@@ -1,5 +1,7 @@
 import { useAppSelector } from 'app/hook';
 import { selectIsLogin } from 'features/users/userSlice';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import { ShopAreaResponse } from 'types/shop';
@@ -15,10 +17,11 @@ function ShopList({
   isSaveOption: boolean;
   moveByAddress: (landAddress: string, shopName: string) => void;
 }) {
+  const router = useRouter();
   const isLogin = useAppSelector(selectIsLogin);
 
   const emptyText = `선택 지역에 해당하는 ${isSaveOption ? '저장한 ' : ''}소품샵이 없어요`;
-  const loginText = '소품샵을 저장하기 위해 로그인이 필요해요.';
+  const loginText = '로그인하고 내 취향의 소품샵 저장하러 가요.';
 
   return shopList.length ? (
     <StyledShopList>
@@ -28,7 +31,11 @@ function ShopList({
     </StyledShopList>
   ) : (
     <EmptyShopList>
-      <span>{isLogin ? emptyText : loginText}</span>
+      {isLogin ? (
+        <span>{emptyText}</span>
+      ) : (
+        <Link href={`/auth/login?from=${encodeURIComponent(router.asPath)}`}>{loginText}</Link>
+      )}
     </EmptyShopList>
   );
 }
@@ -54,7 +61,9 @@ const EmptyShopList = styled.div`
   align-items: center;
   justify-content: center;
 
-  & > span {
+  & > span,
+  & > a {
+    text-decoration: none;
     max-width: 16rem;
     font-weight: 500;
     font-size: 1.6rem;
