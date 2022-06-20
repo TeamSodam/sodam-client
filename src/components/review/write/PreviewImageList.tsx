@@ -96,6 +96,20 @@ const StyledRoot = styled.div`
       height: 5rem;
     }
   }
+  ${applyMediaQuery('mobile')} {
+    width: 31.2rem;
+    height: 5.5rem;
+    margin-bottom: 0.6rem;
+    transform: translateY(0.4rem);
+    .plus-icon {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
+    .image-preview {
+      width: 3.3rem;
+      height: 3.3rem;
+    }
+  }
 `;
 const StyledInput = styled.input`
   width: 7.5rem;
@@ -110,6 +124,12 @@ const StyledInput = styled.input`
     width: 5rem;
     height: 5rem;
     margin-left: -5.6rem;
+  }
+  ${applyMediaQuery('mobile')} {
+    width: 3.3rem;
+    height: 3.3rem;
+    margin-left: -3.5rem;
+    transform: translateY(-1.3rem);
   }
 `;
 const StyledImageCard = styled.div`
@@ -132,6 +152,15 @@ const StyledImageCard = styled.div`
   ${applyMediaQuery('desktop', 'tablet')} {
     width: 5rem;
   }
+  ${applyMediaQuery('mobile')} {
+    width: 3.3rem;
+    button {
+      transform: translate(0.8rem, 0.4rem);
+    }
+    svg path {
+      fill: ${theme.colors.purpleText};
+    }
+  }
 `;
 const StyledEmptyCard = styled.div`
   width: 7.5rem;
@@ -143,6 +172,11 @@ const StyledEmptyCard = styled.div`
   align-items: center;
   ${applyMediaQuery('desktop', 'tablet')} {
     width: 5rem;
+  }
+  ${applyMediaQuery('mobile')} {
+    width: 3.3rem;
+    height: 3.3rem;
+    transform: translateY(-1.3rem);
   }
 `;
 

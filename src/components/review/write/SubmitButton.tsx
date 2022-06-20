@@ -44,6 +44,13 @@ const StyledButton = styled.button<StyledProps>`
     margin-top: 4.5rem;
     margin-bottom: 5.4rem;
   }
+  ${applyMediaQuery('mobile')} {
+    width: 31.2rem;
+    height: 4.3rem;
+    font-size: 1.2rem;
+    margin-top: 5rem;
+    margin-bottom: 6.4rem;
+  }
 `;
 
 export default SubmitButton;

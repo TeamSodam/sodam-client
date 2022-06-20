@@ -38,7 +38,7 @@ const StyledRoot = styled.div`
     float: right;
     margin-right: 2.2rem;
   }
-  ${applyMediaQuery('desktop', 'tablet')} {
+  ${applyMediaQuery('desktop', 'tablet', 'mobile')} {
     width: 52.9rem;
     height: 17.3rem;
     padding: 1.5rem;
@@ -50,6 +50,14 @@ const StyledRoot = styled.div`
       line-height: 1.1rem;
       margin-right: 0;
       margin-top: 0.6rem;
+    }
+  }
+  ${applyMediaQuery('mobile')} {
+    width: 31.2rem;
+    height: 26rem;
+    margin-top: 0%;
+    p {
+      line-height: 1.7rem;
     }
   }
 `;
@@ -83,7 +91,7 @@ const StyledTextArea = styled.textarea`
       background: ${theme.colors.gray1};
     }
   }
-  ${applyMediaQuery('desktop', 'tablet')} {
+  ${applyMediaQuery('desktop', 'tablet', 'mobile')} {
     width: 100%;
     height: 100%;
     font-size: 1.2rem;
@@ -92,6 +100,9 @@ const StyledTextArea = styled.textarea`
     ::-webkit-scrollbar {
       width: 0.4rem;
     }
+  }
+  ${applyMediaQuery('mobile')} {
+    font-size: 1rem;
   }
 `;
 

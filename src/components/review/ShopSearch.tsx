@@ -120,7 +120,7 @@ const StyledRoot = styled.div`
       cursor: pointer;
     }
   }
-  ${applyMediaQuery('desktop', 'tablet')} {
+  ${applyMediaQuery('desktop', 'tablet', 'mobile')} {
     .search-icon {
       width: 1.7rem;
       height: 1.7rem;
@@ -167,7 +167,7 @@ const StyledWrapper = styled.div`
       font-family: 'Noto Sans KR';
     }
   }
-  ${applyMediaQuery('desktop', 'tablet')} {
+  ${applyMediaQuery('desktop', 'tablet', 'mobile')} {
     width: 32.5rem;
     height: 3.2rem;
     padding: 0 1rem;
@@ -182,5 +182,11 @@ const StyledWrapper = styled.div`
         line-height: 1.3rem;
       }
     }
+  }
+  ${applyMediaQuery('mobile')} {
+    width: 31.2rem;
+    height: 3.6rem;
+    padding: 0 1.2rem;
+    margin-bottom: 0.8rem;
   }
 `;

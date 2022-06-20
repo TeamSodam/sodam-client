@@ -52,7 +52,7 @@ const StyledUl = styled.ul`
     background-color: ${theme.colors.purpleBg};
   }
 
-  ${applyMediaQuery('desktop', 'tablet')} {
+  ${applyMediaQuery('desktop', 'tablet', 'mobile')} {
     top: 3.6rem;
     width: 12.6rem;
     padding: 0.8rem 0.5rem;
@@ -62,6 +62,14 @@ const StyledUl = styled.ul`
       line-height: 1.9rem;
       font-size: 1rem;
       padding-left: 0.5rem;
+    }
+  }
+  ${applyMediaQuery('mobile')} {
+    width: 12.5rem;
+
+    & > li {
+      height: 2.4rem;
+      line-height: 2.4rem;
     }
   }
 `;

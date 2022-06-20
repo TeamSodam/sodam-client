@@ -32,7 +32,12 @@ function Scrap() {
           <h2>스크랩한 리뷰</h2>
           <StyledCardWrapper>
             {reviewMyScrapList.map((review) => (
-              <ReviewCard key={review.reviewId} reviewData={review} isHoverAvailable />
+              <ReviewCard
+                key={review.reviewId}
+                reviewData={review}
+                isHoverAvailable
+                isMyReviewMobile
+              />
             ))}
           </StyledCardWrapper>
         </>
@@ -60,6 +65,13 @@ const StyledContainer = styled.div`
     & > h2 {
       font-size: 2.6rem;
       line-height: 3.8rem;
+    }
+  }
+  ${applyMediaQuery('tablet')} {
+    margin-top: 3rem;
+    & > h2 {
+      font-size: 2rem;
+      line-height: 2.9rem;
     }
   }
   ${applyMediaQuery('mobile')} {
