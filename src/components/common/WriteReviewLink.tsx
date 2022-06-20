@@ -1,3 +1,5 @@
+import { useAppSelector } from 'app/hook';
+import { selectIsLogin } from 'features/users/userSlice';
 import Link from 'next/link';
 import writeIC from 'public/assets/ic_writeReview.svg';
 import styled from 'styled-components';
@@ -5,13 +7,24 @@ import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 
 interface StyledWRBProps {
-  href: string;
+  shopId?: number;
+  shopName?: string;
 }
 function WriteReviewLink(props: StyledWRBProps) {
-  const { href } = props;
+  const { shopId, shopName } = props;
+  const isLogin = useAppSelector(selectIsLogin);
+  const isSpecificShopReview = shopId && shopName;
+
+  const getReviewHref = () => {
+    let baseHref = '/review/write';
+    if (isSpecificShopReview) baseHref = `${baseHref}?shopId=${shopId}&shopName=${shopName}`;
+    if (!isLogin) baseHref = `/auth/login?from=${encodeURIComponent(baseHref)}`;
+
+    return baseHref;
+  };
 
   return (
-    <Link href={href} passHref>
+    <Link href={getReviewHref()} passHref>
       <StyledWriteLink>
         <span>리뷰 작성하기</span>
         <WriteIcon />
