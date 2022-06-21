@@ -9,6 +9,7 @@ export interface KakaoMarker {
 export interface KakaoLatLng {
   La: string;
   Ma: string;
+  equals: (latlng: KakaoLatLng) => boolean;
 }
 
 export interface ShopInfoInMarker {

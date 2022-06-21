@@ -5,7 +5,7 @@ import {
   selectCurrentMarkerList,
   setMarkerCilckState,
 } from 'features/map/mapSlice';
-import { displayMarker } from 'map/utils/display';
+import { displayMarker, displayMarkerWithArray } from 'map/utils/display';
 import { getLocationByAddress, searchAndMoveByAddress } from 'map/utils/search';
 import { RefObject, useCallback, useEffect, useState } from 'react';
 import { KakaoMap } from 'types/map';
@@ -28,22 +28,30 @@ function useMap<T>(
 
   const displayMarkerByAddress = useCallback(
     async (shopInfo: Pick<Shop, 'shopName' | 'category' | 'landAddress' | 'shopId'>) => {
+      if (map) {
+        await displayMarker(map, shopInfo);
+      }
+    },
+    [map],
+  );
+
+  const displayMarkerWithOverlay = useCallback(
+    async (shopList: Array<Pick<Shop, 'shopName' | 'category' | 'landAddress' | 'shopId'>>) => {
       const addMarkerToList = (markerInfo: MarkerInfo) => dispatch(addCurrentMarker(markerInfo));
       const changeClickState = (markerInfo: MarkerInfo) =>
         dispatch(setMarkerCilckState(markerInfo));
-
       if (map) {
-        await displayMarker(map, shopInfo, addMarkerToList, changeClickState, isStaticMarker);
+        await displayMarkerWithArray(map, shopList, addMarkerToList, changeClickState);
       }
     },
-    [map, dispatch, isStaticMarker],
+    [map, dispatch],
   );
 
   const moveByAddress = useCallback(
     (address: string, name: string) => {
       if (map) {
         searchAndMoveByAddress(map, address, isStaticMarker, name);
-        const targetMarker = currentMarkerList.find((marker) => marker.name === name);
+        const targetMarker = currentMarkerList.find((marker) => marker.name.includes(name));
         if (targetMarker) {
           const clickedMarkers = currentMarkerList.filter((marker) => marker.isClicked === true);
           clickedMarkers.forEach((marker) => {
@@ -81,7 +89,7 @@ function useMap<T>(
     })();
   }, []);
 
-  return { map, displayMarkerByAddress, moveByAddress };
+  return { map, displayMarkerByAddress, displayMarkerWithOverlay, moveByAddress };
 }
 
 export default useMap;

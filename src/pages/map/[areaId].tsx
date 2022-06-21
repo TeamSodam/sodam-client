@@ -54,7 +54,7 @@ function MapWithAreaId(props: { areaId: number }) {
 
   const initialLocation = currentList && currentList.length > 0 && currentList[0].landAddress;
 
-  const { displayMarkerByAddress, moveByAddress } = useMap(
+  const { displayMarkerByAddress, displayMarkerWithOverlay, moveByAddress } = useMap(
     mapRef,
     initialLocation || SEOUL_ENUM[AREA_ID],
   );
@@ -65,14 +65,11 @@ function MapWithAreaId(props: { areaId: number }) {
 
   useEffect(() => {
     if (currentList) {
-      (() => {
-        currentList.forEach(async (shopInfo) => {
-          const { category, landAddress, shopName, shopId } = shopInfo;
-          await displayMarkerByAddress({ landAddress, shopName, category, shopId });
-        });
+      (async () => {
+        await displayMarkerWithOverlay(currentList);
       })();
     }
-  }, [displayMarkerByAddress, currentList]);
+  }, [displayMarkerByAddress, displayMarkerWithOverlay, currentList]);
 
   return (
     <StyledContainer>

@@ -5,6 +5,8 @@ import { Shop } from 'types/shop';
 
 export const tooltipStyle = css`
   .marker-tooltip {
+    text-align: unset;
+    border: none;
     width: 27.3rem;
     position: relative;
     display: flex;
@@ -74,6 +76,23 @@ export const tooltipStyle = css`
     ${applyMediaQuery('mobile')} {
       transform: scale(0.65) translateY(50%);
     }
+
+    .tooltip-prev,
+    .tooltip-next {
+      all: unset;
+      position: absolute;
+      background-color: aqua;
+      padding: 1rem;
+    }
+
+    .tooltip-prev {
+      top: 50%;
+      left: 0;
+    }
+    .tooltip-next {
+      top: 50%;
+      right: 0;
+    }
   }
 `;
 
@@ -95,4 +114,55 @@ export const getToolTipTemplate = (
   `;
 
   return tooltipTemplate;
+};
+
+export const getPagedToolTipTemplate = (
+  shopList: Array<Pick<Shop, 'shopName' | 'category' | 'landAddress' | 'shopId'>>,
+): HTMLButtonElement => {
+  let page = 0;
+
+  const tooltip = document.createElement('button');
+  tooltip.className = 'marker-tooltip';
+  tooltip.onclick = () => (location.href = `/shop/detail/${shopList[page].shopId}`);
+
+  const attachEvent = () => {
+    const prevBtn = tooltip.querySelector('.tooltip-prev');
+    const nextBtn = tooltip.querySelector('.tooltip-next');
+
+    if (!prevBtn || !nextBtn) return tooltip;
+    if (!(prevBtn instanceof HTMLButtonElement) || !(nextBtn instanceof HTMLButtonElement))
+      return tooltip;
+
+    prevBtn.onclick = (e: MouseEvent) => onClickPagination(e, -1);
+    nextBtn.onclick = (e: MouseEvent) => onClickPagination(e, 1);
+  };
+
+  const onClickPagination = (e: MouseEvent, dir: -1 | 1) => {
+    e.stopPropagation();
+    if (page + dir < 0 || page + dir === shopList.length) return;
+    page += dir;
+    render();
+  };
+
+  const template = () => `
+      <div class="marker-tooltip__header">
+        <span class="marker-tooltip__title">${shopList[page].shopName}</span>
+        <span class="marker-tooltip__category">${parseCategorySafely(
+          shopList[page].category,
+        )}</span>
+      </div>
+      <p class="marker-tooltip__content">
+        ${shopList[page].landAddress}
+      </p>
+      <button class="tooltip-prev">&lsaquo;</button>  
+      <button class="tooltip-next">&rsaquo;</button>  
+    `;
+
+  const render = () => {
+    tooltip.innerHTML = template();
+    attachEvent();
+  };
+
+  render();
+  return tooltip;
 };
