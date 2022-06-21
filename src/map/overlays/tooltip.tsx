@@ -80,50 +80,72 @@ export const tooltipStyle = css`
     .tooltip-prev,
     .tooltip-next {
       all: unset;
+      font-size: 2.4rem;
       position: absolute;
-      background-color: aqua;
-      padding: 1rem;
+      color: white;
+      padding: 0 0.5rem 0.2rem 0.5rem;
+      top: 50%;
+      opacity: 0.85;
+      background-color: ${({ theme }) => theme.colors.purpleMain};
+
+      &:hover {
+        background-color: ${({ theme }) => theme.colors.purpleText};
+        opacity: 1;
+      }
     }
 
     .tooltip-prev {
-      top: 50%;
+      border-bottom-left-radius: 8px;
+      border-top-left-radius: 8px;
       left: 0;
+      transform: translate(-100%, -50%);
     }
     .tooltip-next {
-      top: 50%;
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
       right: 0;
+      transform: translate(100%, -50%);
     }
   }
 `;
 
 export const getToolTipTemplate = (
   shopInfo: Pick<Shop, 'shopName' | 'category' | 'landAddress' | 'shopId'>,
-): string => {
+  navigate: (path: string) => void,
+): HTMLAnchorElement => {
   const { shopName, category, landAddress, shopId } = shopInfo;
 
+  const tooltip = document.createElement('a');
+  tooltip.className = 'marker-tooltip';
+  tooltip.onclick = (e: MouseEvent) => {
+    e.preventDefault();
+    navigate(`/shop/detail/${shopId}`);
+  };
+
   const tooltipTemplate = `
-    <a class="marker-tooltip" href="/shop/detail/${shopId}">
-      <div class="marker-tooltip__header">
-        <span class="marker-tooltip__title">${shopName}</span>
-        <span class="marker-tooltip__category">${parseCategorySafely(category)}</span>
-      </div>
-      <p class="marker-tooltip__content">
-        ${landAddress}
-      </p>
-    </a>
+    <div class="marker-tooltip__header">
+      <span class="marker-tooltip__title">${shopName}</span>
+      <span class="marker-tooltip__category">${parseCategorySafely(category)}</span>
+    </div>
+    <p class="marker-tooltip__content">
+      ${landAddress}
+    </p>
   `;
 
-  return tooltipTemplate;
+  tooltip.innerHTML = tooltipTemplate;
+
+  return tooltip;
 };
 
 export const getPagedToolTipTemplate = (
   shopList: Array<Pick<Shop, 'shopName' | 'category' | 'landAddress' | 'shopId'>>,
+  navigate: (path: string) => void,
 ): HTMLButtonElement => {
   let page = 0;
 
   const tooltip = document.createElement('button');
   tooltip.className = 'marker-tooltip';
-  tooltip.onclick = () => (location.href = `/shop/detail/${shopList[page].shopId}`);
+  tooltip.onclick = () => navigate(`/shop/detail/${shopList[page].shopId}`);
 
   const attachEvent = () => {
     const prevBtn = tooltip.querySelector('.tooltip-prev');
@@ -145,18 +167,16 @@ export const getPagedToolTipTemplate = (
   };
 
   const template = () => `
-      <div class="marker-tooltip__header">
-        <span class="marker-tooltip__title">${shopList[page].shopName}</span>
-        <span class="marker-tooltip__category">${parseCategorySafely(
-          shopList[page].category,
-        )}</span>
-      </div>
-      <p class="marker-tooltip__content">
-        ${shopList[page].landAddress}
-      </p>
-      <button class="tooltip-prev">&lsaquo;</button>  
-      <button class="tooltip-next">&rsaquo;</button>  
-    `;
+    <div class="marker-tooltip__header">
+      <span class="marker-tooltip__title">${shopList[page].shopName}</span>
+      <span class="marker-tooltip__category">${parseCategorySafely(shopList[page].category)}</span>
+    </div>
+    <p class="marker-tooltip__content">
+      ${shopList[page].landAddress}
+    </p>
+    <button class="tooltip-prev">&lsaquo;</button>  
+    <button class="tooltip-next">&rsaquo;</button>  
+  `;
 
   const render = () => {
     tooltip.innerHTML = template();

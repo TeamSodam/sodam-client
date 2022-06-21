@@ -7,6 +7,7 @@ import {
 } from 'features/map/mapSlice';
 import { displayMarker, displayMarkerWithArray } from 'map/utils/display';
 import { getLocationByAddress, searchAndMoveByAddress } from 'map/utils/search';
+import { useRouter } from 'next/router';
 import { RefObject, useCallback, useEffect, useState } from 'react';
 import { KakaoMap } from 'types/map';
 import { Shop } from 'types/shop';
@@ -22,9 +23,14 @@ function useMap<T>(
   initialLocation?: string,
   isStaticMarker?: boolean,
 ) {
+  const router = useRouter();
   const [map, setMap] = useState<KakaoMap>(null);
   const currentMarkerList = useAppSelector(selectCurrentMarkerList);
   const dispatch = useAppDispatch();
+
+  const navigate = useCallback((path: string) => {
+    router.push(path);
+  }, []);
 
   const displayMarkerByAddress = useCallback(
     async (shopInfo: Pick<Shop, 'shopName' | 'category' | 'landAddress' | 'shopId'>) => {
@@ -41,7 +47,7 @@ function useMap<T>(
       const changeClickState = (markerInfo: MarkerInfo) =>
         dispatch(setMarkerCilckState(markerInfo));
       if (map) {
-        await displayMarkerWithArray(map, shopList, addMarkerToList, changeClickState);
+        await displayMarkerWithArray(map, shopList, addMarkerToList, changeClickState, navigate);
       }
     },
     [map, dispatch],

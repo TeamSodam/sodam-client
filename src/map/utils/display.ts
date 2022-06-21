@@ -47,6 +47,7 @@ export const displayMarkerWithArray = async (
   shopList: Array<Pick<Shop, 'shopName' | 'category' | 'landAddress' | 'shopId'>>,
   addMarkerToList: (markerInfo: MarkerInfo) => PayloadAction<MarkerInfo>,
   changeClickState: (markerInfo: MarkerInfo) => PayloadAction<MarkerInfo>,
+  navigate: (path: string) => void,
 ) => {
   const { kakao } = window;
   try {
@@ -123,9 +124,9 @@ export const displayMarkerWithArray = async (
       marker.setMap(map);
       customOverlay.setMap(null);
       if (groupedShopList.length === 1) {
-        customOverlay.setContent(getToolTipTemplate(groupedShopList[0]));
+        customOverlay.setContent(getToolTipTemplate(groupedShopList[0], navigate));
       } else {
-        customOverlay.setContent(getPagedToolTipTemplate(groupedShopList));
+        customOverlay.setContent(getPagedToolTipTemplate(groupedShopList, navigate));
       }
 
       let isClicked = false;
