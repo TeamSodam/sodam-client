@@ -123,10 +123,11 @@ export const displayMarkerWithArray = async (
 
       marker.setMap(map);
       customOverlay.setMap(null);
+      const { tooltip, setPage } = getPagedToolTipTemplate(groupedShopList, navigate);
       if (groupedShopList.length === 1) {
         customOverlay.setContent(getToolTipTemplate(groupedShopList[0], navigate));
       } else {
-        customOverlay.setContent(getPagedToolTipTemplate(groupedShopList, navigate));
+        customOverlay.setContent(tooltip);
       }
 
       let isClicked = false;
@@ -135,6 +136,7 @@ export const displayMarkerWithArray = async (
           marker,
           name: shopNameList,
           isClicked: !isClicked,
+          setPage: groupedShopList.length === 1 ? null : setPage,
         };
         if (isClicked) {
           marker.setImage(markerImage);
@@ -152,6 +154,7 @@ export const displayMarkerWithArray = async (
         marker,
         name: shopNameList,
         isClicked,
+        setPage: groupedShopList.length === 1 ? null : setPage,
       });
     });
   } catch (error) {

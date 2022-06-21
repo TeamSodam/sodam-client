@@ -50,14 +50,26 @@ function useMap<T>(
         await displayMarkerWithArray(map, shopList, addMarkerToList, changeClickState, navigate);
       }
     },
-    [map, dispatch],
+    [map, dispatch, navigate],
   );
 
   const moveByAddress = useCallback(
     (address: string, name: string) => {
       if (map) {
         searchAndMoveByAddress(map, address, isStaticMarker, name);
-        const targetMarker = currentMarkerList.find((marker) => marker.name.includes(name));
+        let targetMarkerIndex = -1;
+        let isFound = false;
+        const targetMarker = currentMarkerList.find((marker) => {
+          marker.name.forEach((markerName, idx) => {
+            if (isFound) return;
+            if (name === markerName) {
+              targetMarkerIndex = idx;
+              isFound = true;
+            }
+          });
+          return isFound;
+        });
+
         if (targetMarker) {
           const clickedMarkers = currentMarkerList.filter((marker) => marker.isClicked === true);
           clickedMarkers.forEach((marker) => {
@@ -65,6 +77,9 @@ function useMap<T>(
           });
 
           window.kakao.maps.event.trigger(targetMarker.marker, 'click');
+          if (targetMarker.setPage && targetMarkerIndex >= 0) {
+            targetMarker.setPage(targetMarkerIndex);
+          }
         }
       }
     },

@@ -140,12 +140,17 @@ export const getToolTipTemplate = (
 export const getPagedToolTipTemplate = (
   shopList: Array<Pick<Shop, 'shopName' | 'category' | 'landAddress' | 'shopId'>>,
   navigate: (path: string) => void,
-): HTMLButtonElement => {
+): { tooltip: HTMLButtonElement; setPage: (nextPage: number) => void } => {
   let page = 0;
 
   const tooltip = document.createElement('button');
   tooltip.className = 'marker-tooltip';
   tooltip.onclick = () => navigate(`/shop/detail/${shopList[page].shopId}`);
+
+  const setPage = (nextPage: number) => {
+    page = nextPage;
+    render();
+  };
 
   const attachEvent = () => {
     const prevBtn = tooltip.querySelector('.tooltip-prev');
@@ -184,5 +189,5 @@ export const getPagedToolTipTemplate = (
   };
 
   render();
-  return tooltip;
+  return { tooltip, setPage };
 };

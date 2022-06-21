@@ -7,6 +7,7 @@ export interface MarkerInfo {
   marker: KakaoMarker;
   isClicked: boolean;
   name: string[];
+  setPage: ((nextPage: number) => void) | null;
 }
 export interface MapState {
   currentMarkerList: MarkerInfo[];
