@@ -8,27 +8,33 @@ export const tooltipStyle = css`
     text-align: unset;
     border: none;
     width: 27.3rem;
+    max-width: 27.3rem;
     position: relative;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 
     background-color: white;
-    margin-top: calc(-50%);
+    margin-top: -52.5%;
     border-radius: 10px;
     padding: 1.6rem 2.4rem;
 
     text-decoration: none;
+    white-space: normal;
 
     filter: drop-shadow(0px 4px 6px rgba(149, 144, 140, 0.4));
+
+    &.paged {
+      margin-top: -55%;
+    }
 
     &__title {
       font-size: 1.6rem;
       line-height: 2.3rem;
       color: ${({ theme }) => theme.colors.purpleText};
       font-weight: 700;
-      word-wrap: break-word;
-      white-space: pre-wrap;
+      word-wrap: normal;
+      white-space: pre;
       margin-right: 0.8rem;
     }
 
@@ -56,6 +62,13 @@ export const tooltipStyle = css`
       word-wrap: break-all;
     }
 
+    &__footer {
+      display: inline-block;
+      margin: 0 auto;
+      font-size: 1rem;
+      color: ${({ theme }) => theme.colors.purpleMain};
+    }
+
     &::after {
       border-top: 1rem solid white;
       border-left: 0.5rem solid transparent;
@@ -70,20 +83,24 @@ export const tooltipStyle = css`
 
     &:hover {
       cursor: pointer;
-      transform: scale(1.05);
     }
 
     ${applyMediaQuery('mobile')} {
       transform: scale(0.65) translateY(50%);
+
+      &:hover {
+        transform: scale(0.65) translateY(50%);
+      }
     }
 
     .tooltip-prev,
     .tooltip-next {
       all: unset;
+      height: 90%;
       font-size: 2.4rem;
       position: absolute;
       color: white;
-      padding: 0 0.5rem 0.2rem 0.5rem;
+      padding: 0 1rem 0.2rem 1rem;
       top: 50%;
       opacity: 0.85;
       background-color: ${({ theme }) => theme.colors.purpleMain};
@@ -144,7 +161,7 @@ export const getPagedToolTipTemplate = (
   let page = 0;
 
   const tooltip = document.createElement('button');
-  tooltip.className = 'marker-tooltip';
+  tooltip.className = 'marker-tooltip paged';
   tooltip.onclick = () => navigate(`/shop/detail/${shopList[page].shopId}`);
 
   const setPage = (nextPage: number) => {
@@ -179,6 +196,7 @@ export const getPagedToolTipTemplate = (
     <p class="marker-tooltip__content">
       ${shopList[page].landAddress}
     </p>
+    <span class="marker-tooltip__footer">${page + 1} / ${shopList.length}</span>
     <button class="tooltip-prev">&lsaquo;</button>  
     <button class="tooltip-next">&rsaquo;</button>  
   `;

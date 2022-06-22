@@ -59,14 +59,14 @@ export const displayMarkerWithArray = async (
     const markerImage = new kakao.maps.MarkerImage(MARKER_SRC, imageSize, imageOption);
     const activeMarkerImage = new kakao.maps.MarkerImage(ACTIVE_MARKER_SRC, imageSize, imageOption);
 
-    const shopListWithMarkerPosition = await Promise.all(
-      shopList.map(async ({ landAddress, shopName, ...rest }) => ({
-        ...rest,
-        landAddress,
-        shopName,
-        latlng: await getLocationByAddress(landAddress, shopName),
-      })),
+    const locationPromiseList = shopList.map(async ({ landAddress, shopName }) =>
+      getLocationByAddress(landAddress, shopName),
     );
+    const locationList = await Promise.all(locationPromiseList);
+    const shopListWithMarkerPosition = shopList.map((shopInfo, infoIndex) => ({
+      ...shopInfo,
+      latlng: locationList[infoIndex],
+    }));
 
     /**
      * 동일한 좌표를 갖는 소품샵들을 배열로 그룹화하는 작업.

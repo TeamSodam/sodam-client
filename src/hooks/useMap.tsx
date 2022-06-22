@@ -58,16 +58,9 @@ function useMap<T>(
       if (map) {
         searchAndMoveByAddress(map, address, isStaticMarker, name);
         let targetMarkerIndex = -1;
-        let isFound = false;
         const targetMarker = currentMarkerList.find((marker) => {
-          marker.name.forEach((markerName, idx) => {
-            if (isFound) return;
-            if (name === markerName) {
-              targetMarkerIndex = idx;
-              isFound = true;
-            }
-          });
-          return isFound;
+          targetMarkerIndex = marker.name.findIndex((markerName) => markerName === name);
+          return targetMarkerIndex >= 0;
         });
 
         if (targetMarker) {
