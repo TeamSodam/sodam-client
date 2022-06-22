@@ -13,10 +13,11 @@ interface LocalShopInfoProps {
   shopList: ShopAreaResponse[];
   toggleOption: (option: OptionLabel) => void;
   moveByAddress: (landAddress: string, shopName: string) => void;
+  isLoading: boolean;
 }
 
 function LocalShopInfo(props: LocalShopInfoProps) {
-  const { currentOption, shopList, toggleOption, moveByAddress } = props;
+  const { currentOption, shopList, toggleOption, moveByAddress, isLoading } = props;
   const { isMobile, isTablet } = useMedia();
   const [isOpen, setIsOpen] = useState(true);
   const toggle = () => setIsOpen((prevState) => !prevState);
@@ -30,6 +31,7 @@ function LocalShopInfo(props: LocalShopInfoProps) {
         <>
           <OptionList currentOption={currentOption} toggleOption={toggleOption} />
           <ShopList
+            isLoading={isLoading}
             moveByAddress={moveByAddress}
             shopList={shopList}
             isSaveOption={currentOption === '내가 저장한'}

@@ -37,6 +37,7 @@ function MapWithAreaId(props: { areaId: number }) {
 
   const isLogin = useAppSelector(selectIsLogin);
 
+  const [isLoading, setIsLoading] = useState(false);
   const [currentOption, setCurrentOption] = useState<OptionLabel>('인기 순');
   const { data: currentList } = useGetShopByAreaQuery(
     {
@@ -66,7 +67,9 @@ function MapWithAreaId(props: { areaId: number }) {
   useEffect(() => {
     if (currentList) {
       (async () => {
+        setIsLoading(true);
         await displayMarkerWithOverlay(currentList);
+        setIsLoading(false);
       })();
     }
   }, [displayMarkerByAddress, displayMarkerWithOverlay, currentList]);
@@ -80,6 +83,7 @@ function MapWithAreaId(props: { areaId: number }) {
       <MapContainer ref={mapRef}>
         <Screen desktop wide>
           <LocalShopInfo
+            isLoading={isLoading}
             shopList={!isLogin && currentOption === '내가 저장한' ? [] : currentList || []}
             currentOption={currentOption}
             toggleOption={toggleOption}
@@ -89,6 +93,7 @@ function MapWithAreaId(props: { areaId: number }) {
       </MapContainer>
       <Screen mobile tablet>
         <LocalShopInfo
+          isLoading={isLoading}
           shopList={!isLogin && currentOption === '내가 저장한' ? [] : currentList || []}
           currentOption={currentOption}
           toggleOption={toggleOption}
