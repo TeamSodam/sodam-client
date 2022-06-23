@@ -1,5 +1,4 @@
 import { useAppDispatch } from 'app/hook';
-import { subscribeToken } from 'app/persistToken';
 import { usePostLoginMutation } from 'features/auth/authApi';
 import { setToken } from 'features/users/userSlice';
 import Link from 'next/link';

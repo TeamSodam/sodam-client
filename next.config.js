@@ -4,6 +4,9 @@ const path = require('path');
 
 module.exports = {
   reactStrictMode: true,
+  eslint: {
+    ignoreDuringBuilds: true
+  },
   images: {
     domains: [
       'sodam-bucket-2.s3.ap-northeast-2.amazonaws.com',

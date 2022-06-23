@@ -1,8 +1,6 @@
 import ImageDiv from 'components/common/ImageDiv';
 import { shopApi } from 'features/shops/shopApi';
 import debounce from 'lodash-es/debounce';
-import Image from 'next/image';
-import searchDelIC from 'public/assets/ic_searchDel.svg';
 import { FormEvent, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
