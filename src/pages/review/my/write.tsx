@@ -32,7 +32,7 @@ function Write() {
         <>
           <h2>내가 작성한 리뷰</h2>
           <StyledBtnWrapper>
-            <WriteReviewLink href="/review/write" />
+            <WriteReviewLink />
           </StyledBtnWrapper>
           <StyledCardWrapper>
             {reviewMyWriteList &&

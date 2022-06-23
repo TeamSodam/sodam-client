@@ -148,11 +148,7 @@ function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQu
           <LabelWithOptions>
             <LabelWrapper>
               <Label>소품샵 리뷰</Label>
-              {shopInfo && (
-                <WriteReviewLink
-                  href={`/review/write?shopId=${SHOP_ID}&shopName=${shopInfo.shopName}`}
-                />
-              )}
+              {shopInfo && <WriteReviewLink shopId={SHOP_ID} shopName={shopInfo.shopName} />}
             </LabelWrapper>
             {currentList && currentList.length > 0 && (
               <DropDownFilter pageType="detail" filterProps={filterProps} />
