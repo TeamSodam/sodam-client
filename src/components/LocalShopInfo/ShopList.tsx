@@ -1,4 +1,5 @@
 import { useAppSelector } from 'app/hook';
+import Loader from 'components/common/Loader';
 import { selectIsLogin } from 'features/users/userSlice';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
@@ -10,17 +11,23 @@ function ShopList({
   shopList,
   isSaveOption,
   moveByAddress,
+  isLoading,
 }: {
   shopList: ShopAreaResponse[];
   isSaveOption: boolean;
   moveByAddress: (landAddress: string, shopName: string) => void;
+  isLoading: boolean;
 }) {
   const isLogin = useAppSelector(selectIsLogin);
 
   const emptyText = `선택 지역에 해당하는 ${isSaveOption ? '저장한 ' : ''}소품샵이 없어요`;
   const loginText = '소품샵을 저장하기 위해 로그인이 필요해요.';
 
-  return shopList.length ? (
+  return isLoading ? (
+    <StyledShopList>
+      <Loader />
+    </StyledShopList>
+  ) : shopList.length ? (
     <StyledShopList>
       {shopList.map((shop) => (
         <ShopElement shopInfo={shop} key={shop.shopId} moveByAddress={moveByAddress} />
@@ -34,6 +41,8 @@ function ShopList({
 }
 
 const StyledShopList = styled.ul`
+  position: relative;
+
   flex: 5.22;
   display: flex;
   flex-direction: column;
@@ -45,6 +54,7 @@ const StyledShopList = styled.ul`
   ${applyMediaQuery('mobile', 'tablet')} {
     border: 0.1rem solid ${({ theme }) => theme.colors.gray2};
     margin-bottom: 1rem;
+    min-height: 20rem;
   }
 `;
 
