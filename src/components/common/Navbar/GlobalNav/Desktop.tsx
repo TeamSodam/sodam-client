@@ -123,10 +123,6 @@ const LeftNav = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  ${applyMediaQuery('desktop')} {
-    margin-right: 12.5%;
-  }
 `;
 
 const RightNav = styled.div`

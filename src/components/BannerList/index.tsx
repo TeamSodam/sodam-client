@@ -90,6 +90,10 @@ const Container = styled.div`
     left: 30px;
     color: white;
 
+    ${applyMediaQuery('tablet')} {
+      transform: scale(0.6);
+      left: 15px;
+    }
     ${applyMediaQuery('mobile')} {
       transform: scale(0.3);
       left: 5px;
@@ -102,6 +106,10 @@ const Container = styled.div`
     right: 30px;
     color: white;
 
+    ${applyMediaQuery('tablet')} {
+      transform: scale(0.6);
+      right: 15px;
+    }
     ${applyMediaQuery('mobile')} {
       transform: scale(0.3);
       right: 5px;

@@ -8,6 +8,7 @@ module.exports = {
     domains: [
       'sodam-bucket-2.s3.ap-northeast-2.amazonaws.com',
       'sodam-bucket.s3.ap-northeast-2.amazonaws.com',
+      'sodam-bucket-2.s3.ap-northeast-2.amazonaws.com',
       'search.pstatic.net',
       'source.unsplash.com',
     ],

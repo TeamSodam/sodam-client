@@ -16,6 +16,9 @@ interface EditOptions {
   onChange: (text: string) => void;
   onConfirm: () => Promise<boolean | null>;
 }
+interface StyledProps {
+  isEmail: boolean;
+}
 
 function UserInfoInput(props: Props) {
   const { label, initialValue, canEdit = false, editOptions } = props;
@@ -40,7 +43,7 @@ function UserInfoInput(props: Props) {
   };
 
   return (
-    <StyledRoot>
+    <StyledRoot isEmail={initialValue.includes('@')}>
       <div>
         <label>{label}</label>
         <input
@@ -60,7 +63,7 @@ function UserInfoInput(props: Props) {
   );
 }
 
-const StyledRoot = styled.div`
+const StyledRoot = styled.div<StyledProps>`
   margin-bottom: 2.8rem;
   height: 2.8rem;
   div {
@@ -116,6 +119,21 @@ const StyledRoot = styled.div`
     margin-top: 0.4rem;
     color: ${theme.colors.purpleText};
   }
+  ${applyMediaQuery('tablet')} {
+    margin-bottom: 2.4rem;
+    height: 2.4rem;
+    label {
+      width: 6.3rem;
+      font-size: 1.3rem;
+    }
+    input {
+      font-size: 1.3rem;
+      width: 18rem;
+    }
+    p {
+      transform: translateX(9.3rem);
+    }
+  }
   ${applyMediaQuery('mobile')} {
     margin-bottom: 1.6rem;
     height: 1.4rem;
@@ -123,13 +141,18 @@ const StyledRoot = styled.div`
       width: 4.8rem;
       font-size: 1rem;
       line-height: 1.4rem;
-      margin-right: 1.6rem;
+      margin-right: 1.3rem;
     }
     input {
       font-size: 1rem;
       line-height: 1.1rem;
-      width: 11.1rem;
+      width: ${({ isEmail }) => (isEmail ? 16 : 10.3)}rem;
       height: 1.3rem;
+      &::placeholder {
+        overflow: visible;
+        transform: scale(0.7);
+        transform-origin: left;
+      }
     }
     .outline {
       border-radius: 0.3rem;
@@ -137,17 +160,17 @@ const StyledRoot = styled.div`
       padding: 0.6rem;
     }
     button {
-      width: 4.5rem;
-      height: 1.5rem;
+      width: 6rem;
+      height: 1.8rem;
       border-radius: 0.3rem;
       font-size: 1rem;
       line-height: 1.5rem;
-      margin-left: 1.2rem;
+      margin-left: 0.5rem;
     }
     p {
       font-size: 1rem;
       transform: translateX(2rem) scale(0.6);
-      margin-top: 0.2rem;
+      margin-top: 0.1rem;
     }
   }
 `;
