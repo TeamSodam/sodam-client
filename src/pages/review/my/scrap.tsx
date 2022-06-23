@@ -33,7 +33,12 @@ function Scrap() {
           <h2>스크랩한 리뷰</h2>
           <StyledCardWrapper>
             {reviewMyScrapList.map((review) => (
-              <ReviewCard key={review.reviewId} reviewData={review} isHoverAvailable />
+              <ReviewCard
+                key={review.reviewId}
+                reviewData={review}
+                isHoverAvailable
+                isMyReviewMobile
+              />
             ))}
           </StyledCardWrapper>
         </>
@@ -56,9 +61,22 @@ const StyledContainer = styled.div`
     color: ${theme.colors.black2};
   }
 
+  ${applyMediaQuery('desktop')} {
+    margin-top: 5.3rem;
+    & > h2 {
+      font-size: 2.6rem;
+      line-height: 3.8rem;
+    }
+  }
+  ${applyMediaQuery('tablet')} {
+    margin-top: 3rem;
+    & > h2 {
+      font-size: 2rem;
+      line-height: 2.9rem;
+    }
+  }
   ${applyMediaQuery('mobile')} {
     margin-top: 2.4rem;
-
     & > h2 {
       font-size: 1.4rem;
       line-height: 2rem;
@@ -71,6 +89,10 @@ const StyledCardWrapper = styled.div`
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 4rem 2.4rem;
   margin-top: 5.6rem;
+  ${applyMediaQuery('desktop')} {
+    gap: 2.8rem 1.7rem;
+    margin-top: 5.6rem;
+  }
   ${applyMediaQuery('tablet')} {
     grid-template-columns: repeat(2, 1fr);
     gap: 2.8rem 1.4rem;

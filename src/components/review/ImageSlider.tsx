@@ -1,9 +1,11 @@
 import 'swiper/swiper.min.css';
 
+import useMedia from 'hooks/useMedia';
 import Image from 'next/image';
 import React, { useMemo, useState } from 'react';
 import shortId from 'shortid';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import SwiperCore, { Navigation, Scrollbar } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -19,6 +21,8 @@ function ImageSlider(props: ImageSliderProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [slideImageList, setSlideImageList] = useState(imageList.slice(1));
 
+  const { isMobile } = useMedia();
+
   const emptyCardCount: number = 7 - imageList.length;
   const emptyCardList: string[] | null =
     emptyCardCount > 0 ? new Array(emptyCardCount).fill('') : null; // 빈 카드 내용은 '' 로 채움
@@ -27,7 +31,7 @@ function ImageSlider(props: ImageSliderProps) {
 
   const settings = useMemo<Swiper>(
     () => ({
-      spaceBetween: 10, // px
+      spaceBetween: isMobile ? 5 : 10, // px
       navigation: {
         prevEl: '.button__prev', // 이전 버튼
         nextEl: '.button__next', // 다음 버튼
@@ -54,7 +58,7 @@ function ImageSlider(props: ImageSliderProps) {
       {imageList.length > 1 && (
         <StyledSwiper>
           <StyledButton className="button__prev">
-            <Image src={'/assets/ic_prev_round.svg'} width={48} height={48} alt="prev" />
+            <Image src={'/assets/ic_prev_round.svg'} layout="fill" alt="prev" />
           </StyledButton>
           <Swiper {...settings}>
             {slideImageList.map((image, index) => (
@@ -70,7 +74,7 @@ function ImageSlider(props: ImageSliderProps) {
               ))}
           </Swiper>
           <StyledButton className="button__next">
-            <Image src={'/assets/ic_next_round.svg'} width={48} height={48} alt="next" />
+            <Image src={'/assets/ic_next_round.svg'} layout="fill" alt="next" />
           </StyledButton>
         </StyledSwiper>
       )}
@@ -91,6 +95,14 @@ const ImageWrapper = styled.div`
   & img {
     width: 100% !important;
   }
+  ${applyMediaQuery('desktop', 'tablet')} {
+    width: 52.6rem;
+    height: 27rem;
+  }
+  ${applyMediaQuery('mobile')} {
+    width: 31.2rem;
+    height: 22.1rem;
+  }
 `;
 
 const StyledRoot = styled.div`
@@ -110,14 +122,46 @@ const StyledRoot = styled.div`
   }
   .button {
     &__prev {
+      position: relative;
+      width: 4.8rem;
+      height: 4.8rem;
       margin-right: -2.8rem;
       margin-top: 1.1rem;
       z-index: 2;
     }
     &__next {
+      position: relative;
+      width: 4.8rem;
+      height: 4.8rem;
       margin-left: -2.8rem;
       margin-top: 1.1rem;
       z-index: 2;
+    }
+  }
+  ${applyMediaQuery('desktop', 'tablet', 'mobile')} {
+    .swiper-container {
+      width: 33.5rem;
+    }
+    .button__prev {
+      width: 2.6rem;
+      height: 2.6rem;
+      margin-right: -1.3rem;
+      margin-top: 1.2rem;
+    }
+    .button__next {
+      width: 2.6rem;
+      height: 2.6rem;
+      margin-left: -1.3rem;
+      margin-top: 1.2rem;
+    }
+  }
+  ${applyMediaQuery('mobile')} {
+    .swiper-container {
+      width: 28rem;
+    }
+    .button__prev,
+    .button__next {
+      margin-top: 0.9rem;
     }
   }
 `;
@@ -129,6 +173,12 @@ const StyledButton = styled.button`
 const StyledSwiper = styled.div`
   display: flex;
   margin-top: 3.2rem;
+  ${applyMediaQuery('desktop', 'tablet')} {
+    margin-top: 2rem;
+  }
+  ${applyMediaQuery('mobile')} {
+    margin-top: 1.2rem;
+  }
 `;
 
 export default ImageSlider;

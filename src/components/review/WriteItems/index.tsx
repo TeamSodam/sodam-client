@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { Item } from 'types/review';
 import { PriceOptionList, ShopCategoryType } from 'types/shop';
 
@@ -46,4 +47,10 @@ const StyledRoot = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.8rem;
+  ${applyMediaQuery('desktop', 'tablet')} {
+    gap: 1.3rem;
+  }
+  ${applyMediaQuery('mobile')} {
+    gap: 0.8rem;
+  }
 `;

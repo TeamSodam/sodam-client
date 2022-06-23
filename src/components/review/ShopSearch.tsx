@@ -1,9 +1,11 @@
+import ImageDiv from 'components/common/ImageDiv';
 import { shopApi } from 'features/shops/shopApi';
 import debounce from 'lodash-es/debounce';
 import Image from 'next/image';
 import searchDelIC from 'public/assets/ic_searchDel.svg';
 import { FormEvent, useRef, useState } from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 import { ReviewWriteKey } from 'types/review';
 import { ShopSearchResponse } from 'types/shop';
@@ -64,7 +66,13 @@ function ShopSearch(props: ShopSearchProps) {
         {selectedShop !== '' ? (
           <>
             <span>{selectedShop}</span>
-            <SearchDelIcon onClick={handleDelete} />
+            <ImageDiv
+              className="delete-icon"
+              src={'/assets/ic_searchDel.svg'}
+              layout="fill"
+              alt="delete"
+              onClick={handleDelete}
+            />
           </>
         ) : (
           <>
@@ -76,10 +84,10 @@ function ShopSearch(props: ShopSearchProps) {
                 ref={inputRef}
               />
             </form>
-            <Image
+            <ImageDiv
+              className="search-icon"
               src={'/assets/searchIcon.svg'}
-              width={27}
-              height={27}
+              layout="fill"
               alt="search"
               onClick={requestSearch}
             />
@@ -98,6 +106,32 @@ export default ShopSearch;
 const StyledRoot = styled.div`
   display: flex;
   position: relative;
+  .search-icon {
+    position: relative;
+    width: 2.7rem;
+    height: 2.7rem;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  .delete-icon {
+    position: relative;
+    width: 1.6rem;
+    height: 1.6rem;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  ${applyMediaQuery('desktop', 'tablet', 'mobile')} {
+    .search-icon {
+      width: 1.7rem;
+      height: 1.7rem;
+    }
+    .delete-icon {
+      width: 1.1rem;
+      height: 1.1rem;
+    }
+  }
 `;
 
 const StyledWrapper = styled.div`
@@ -135,10 +169,26 @@ const StyledWrapper = styled.div`
       font-family: 'Noto Sans KR';
     }
   }
-`;
-
-const SearchDelIcon = styled(searchDelIC)`
-  cursor: pointer;
-  width: 1.6rem;
-  height: 1.6rem;
+  ${applyMediaQuery('desktop', 'tablet', 'mobile')} {
+    width: 32.5rem;
+    height: 3.2rem;
+    padding: 0 1rem;
+    & > span {
+      font-size: 1rem;
+      line-height: 1.3rem;
+    }
+    & > form {
+      & > input,
+      & > input::placeholder {
+        font-size: 1rem;
+        line-height: 1.3rem;
+      }
+    }
+  }
+  ${applyMediaQuery('mobile')} {
+    width: 31.2rem;
+    height: 3.6rem;
+    padding: 0 1.2rem;
+    margin-bottom: 0.8rem;
+  }
 `;

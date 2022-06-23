@@ -13,6 +13,8 @@ import { useRouter } from 'next/router';
 import { parseShopId, parseShopName } from 'pages/review/detail/[reviewId]';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
+import Screen from 'styles/Screen';
 import { Item, ReviewImage, ReviewWriteKey, ReviewWriteRequest } from 'types/review';
 import { PriceOptionList, ShopCategoryType } from 'types/shop';
 
@@ -88,6 +90,24 @@ function Write(props: WriteProps) {
     });
 
     setReviewImageList(tempImageList);
+  };
+
+  const handleImageUpdate = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files === null) return;
+
+    const tempImageList = [...reviewImageList];
+
+    const reader = new FileReader();
+    const data = e.target.files[0];
+    reader.readAsDataURL(data);
+
+    reader.onloadend = () => {
+      if (reader.result instanceof ArrayBuffer) {
+        return;
+      }
+      tempImageList[0] = { file: data, preview: reader.result };
+      setReviewImageList(tempImageList);
+    };
   };
 
   const handleResultSelect = (shopId: number) => {
@@ -172,9 +192,18 @@ function Write(props: WriteProps) {
         <PreviewImageMain
           mainImage={reviewImageList[0]}
           handleImageUpload={handleImageUpload}
+          handleImageUpdate={handleImageUpdate}
           handleImageDelete={handleImageDelete}
         />
         <StyledTopRight>
+          <Screen mobile>
+            <PreviewImageList
+              reviewImageList={reviewImageList}
+              handleImageUpload={handleImageUpload}
+              handleImageDelete={handleImageDelete}
+              changeMainImage={changeMainImage}
+            />
+          </Screen>
           <ShopSearch
             selectedShop={reviewData.shopName}
             handleDataChange={handleDataChange}
@@ -183,12 +212,14 @@ function Write(props: WriteProps) {
           <WriteItems selectedItemList={reviewData.item} handleItemSubmit={handleItemSubmit} />
         </StyledTopRight>
       </StyledTop>
-      <PreviewImageList
-        reviewImageList={reviewImageList}
-        handleImageUpload={handleImageUpload}
-        handleImageDelete={handleImageDelete}
-        changeMainImage={changeMainImage}
-      />
+      <Screen wide desktop tablet>
+        <PreviewImageList
+          reviewImageList={reviewImageList}
+          handleImageUpload={handleImageUpload}
+          handleImageDelete={handleImageDelete}
+          changeMainImage={changeMainImage}
+        />
+      </Screen>
       <ReviewText content={reviewData.content} handleDataChange={handleDataChange} />
       <TagList
         tag={reviewData.tag}
@@ -209,12 +240,27 @@ export const getServerSideProps = wrapper.getServerSideProps(() => async (contex
 const StyledRoot = styled.div`
   width: 79.2rem;
   margin: 0 auto;
+  ${applyMediaQuery('desktop', 'tablet')} {
+    width: 52.9rem;
+  }
+  ${applyMediaQuery('mobile')} {
+    width: 31.2rem;
+  }
 `;
 const StyledTop = styled.div`
   display: flex;
   justify-content: space-between;
   padding-top: 3.2rem;
   padding-bottom: 2rem;
+  ${applyMediaQuery('desktop', 'tablet')} {
+    padding-top: 3rem;
+    padding-bottom: 1.3rem;
+  }
+  ${applyMediaQuery('mobile')} {
+    padding-top: 1.7rem;
+    padding-bottom: 0.8rem;
+    flex-direction: column;
+  }
 `;
 const StyledTopRight = styled.div`
   display: flex;

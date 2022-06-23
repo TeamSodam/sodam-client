@@ -8,6 +8,12 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
 
+const getFromStateByQuery = (from: string | string[] | undefined) => {
+  if (typeof from === 'string') return from;
+
+  return undefined;
+};
+
 function Login() {
   const [postLogin] = usePostLoginMutation();
   const [loginInfo, setLoginInfo] = useState({
@@ -17,6 +23,8 @@ function Login() {
   const [isLoginError, setIsLoginError] = useState(false);
 
   const router = useRouter();
+  const { from } = router.query;
+  const routeLinkAfterLogin = getFromStateByQuery(from);
 
   const dispatch = useAppDispatch();
   const handleChange = (e: ChangeEvent, inputType: string) => {
@@ -30,8 +38,7 @@ function Login() {
     try {
       const { accesstoken } = await postLogin(loginInfo).unwrap();
       dispatch(setToken(accesstoken));
-      subscribeToken();
-      router.back();
+      routeLinkAfterLogin ? router.push(decodeURIComponent(routeLinkAfterLogin)) : router.back();
     } catch (e) {
       setIsLoginError(true);
     }

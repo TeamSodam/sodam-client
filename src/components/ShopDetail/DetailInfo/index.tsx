@@ -1,5 +1,8 @@
+import { useAppSelector } from 'app/hook';
 import { usePostBookmarkMutation } from 'features/shops/shopApi';
+import { selectIsLogin } from 'features/users/userSlice';
 import useMedia from 'hooks/useMedia';
+import { useRouter } from 'next/router';
 import Blog from 'public/assets/ic_blog.svg';
 import Instagram from 'public/assets/ic_instagram.svg';
 import SmartStore from 'public/assets/ic_smartstore.svg';
@@ -17,6 +20,8 @@ import MobileLayout from './MobileLayout';
 function DetailInfo({ shopInfo }: { shopInfo: Shop }) {
   const { isMobile, isTablet } = useMedia();
   const isSmallDevice = isMobile || isTablet;
+  const isLogin = useAppSelector(selectIsLogin);
+  const router = useRouter();
   const {
     shopName,
     category,
@@ -109,8 +114,12 @@ function DetailInfo({ shopInfo }: { shopInfo: Shop }) {
   const toggleBookmark = () => setCurrentBookmarked((prevState) => !prevState);
 
   const handleClick = () => {
-    toggleBookmark();
-    bookmarkPost({ shopId, isBookmarked: !currentBookmarked });
+    if (isLogin) {
+      toggleBookmark();
+      bookmarkPost({ shopId, isBookmarked: !currentBookmarked });
+    } else {
+      router.push(`/auth/login?from=${encodeURIComponent(router.asPath)}`);
+    }
   };
 
   const layoutProps = {

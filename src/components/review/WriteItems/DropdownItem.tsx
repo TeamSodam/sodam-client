@@ -1,6 +1,7 @@
-import Image from 'next/image';
+import ImageDiv from 'components/common/ImageDiv';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 import { Item } from 'types/review';
 import { PriceOptionList, ShopCategoryType } from 'types/shop';
@@ -53,7 +54,12 @@ function DropdownItem(props: StyledDDIProps) {
     <StyledRoot>
       <StyledWrapper onClick={handleClick} isSelected={isSelected}>
         <span>{selectedItem}</span>
-        <Image src={'/assets/ic_dropdown.svg'} width={14} height={10} alt="dropdown" />
+        <ImageDiv
+          className="dropdown-icon"
+          src={'/assets/ic_dropdown.svg'}
+          layout="fill"
+          alt="dropdown"
+        />
       </StyledWrapper>
       {isOpen && <ItemsListDiv onSelectedItem={onSelectedItem} />}
     </StyledRoot>
@@ -65,6 +71,15 @@ export default DropdownItem;
 const StyledRoot = styled.div`
   display: flex;
   position: relative;
+  .dropdown-icon {
+    position: relative;
+    width: 1.4rem;
+    height: 1rem;
+    ${applyMediaQuery('desktop', 'tablet', 'mobile')} {
+      width: 0.9rem;
+      height: 0.6rem;
+    }
+  }
 `;
 const StyledWrapper = styled.div<{ isSelected: boolean }>`
   display: flex;
@@ -82,5 +97,21 @@ const StyledWrapper = styled.div<{ isSelected: boolean }>`
     font-weight: 500;
     font-size: 1.4rem;
     line-height: 2rem;
+  }
+
+  ${applyMediaQuery('desktop', 'tablet', 'mobile')} {
+    width: 18.8rem;
+    height: 3.1rem;
+    padding: 0 1.2rem;
+
+    & > span {
+      font-size: 1rem;
+      line-height: 1.3rem;
+    }
+  }
+  ${applyMediaQuery('mobile')} {
+    width: 17.8rem;
+    height: 3.6rem;
+    padding: 0 1.2rem;
   }
 `;

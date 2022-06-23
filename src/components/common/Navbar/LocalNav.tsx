@@ -42,7 +42,7 @@ const LocalNavbarWrapper = styled.div`
   ${applyMediaQuery('desktop')} {
     height: 4.2rem;
   }
-  ${applyMediaQuery('mobile')} {
+  ${applyMediaQuery('mobile', 'tablet')} {
     height: 3.6rem;
   }
 `;
@@ -66,9 +66,15 @@ const LocalNavbar = styled.div`
   font-size: 1.6rem;
   color: ${({ theme }) => theme.colors.gray1};
 
-  ${applyMediaQuery('mobile')} {
+  ${applyMediaQuery('desktop')} {
+    font-size: 1.1rem;
+    line-height: 1.6rem;
+    height: 4.2rem;
+  }
+  ${applyMediaQuery('mobile', 'tablet')} {
     font-size: 1rem;
     line-height: 1.4rem;
+    height: 3.6rem;
   }
 
   & > a {
@@ -79,13 +85,13 @@ const LocalNavbar = styled.div`
 
   &::after {
     ${NavLineStyle}
-    ${applyMediaQuery('mobile')} {
+    ${applyMediaQuery('mobile', 'tablet')} {
       top: calc(5.9rem + 4.8rem + 3.6rem);
     }
   }
   &::before {
     ${NavLineStyle}
-    ${applyMediaQuery('mobile')} {
+    ${applyMediaQuery('mobile', 'tablet')} {
       top: calc(5.9rem + 4.8rem);
     }
   }
@@ -101,9 +107,17 @@ const ReviewMenu = styled.a<{ isActive: boolean }>`
   color: ${(props) => props.isActive && props.theme.colors.purpleMain};
   font-weight: ${(props) => (props.isActive ? '600' : '400')};
   border-bottom: ${(props) => props.isActive && ('solid 2px' || props.theme.colors.purpleMain)};
+  margin-bottom: ${(props) => (props.isActive ? '-2px' : '0')};
 
   &:hover {
     cursor: pointer;
+  }
+
+  ${applyMediaQuery('tablet')} {
+    margin-right: 4.5rem;
+  }
+  ${applyMediaQuery('mobile', 'tablet')} {
+    margin-top: -0.7rem;
   }
 `;
 export default LocalNav;

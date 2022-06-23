@@ -12,6 +12,7 @@ import { useGetShopReviewByIdQuery } from 'features/reviews/reviewApi';
 import { NextParsedUrlQuery } from 'next/dist/server/request-meta';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { ReviewSortType } from 'types/review';
 
 export const parseShopId = (shopId: string | string[] | undefined) => {
@@ -100,7 +101,18 @@ export const getServerSideProps = wrapper.getServerSideProps(() => async (contex
 
 const StyledReviewDetailWrapper = styled.div`
   width: 79.2rem;
-  margin: 7.2rem 56.4rem 8rem 56.4rem;
+  margin: 7.2rem auto;
+  margin-bottom: 8rem;
+  ${applyMediaQuery('desktop', 'tablet')} {
+    width: 52.8rem;
+    margin: 5.2rem auto;
+    margin-bottom: 6rem;
+  }
+  ${applyMediaQuery('mobile')} {
+    width: 31.2rem;
+    margin: 2.5rem auto;
+    margin-bottom: 3.5rem;
+  }
 `;
 
 const OtherReviewCardWrapper = styled.div``;
@@ -114,11 +126,23 @@ const HeaderTitle = styled.h3`
   font-size: 2.4rem;
   font-weight: 600;
   color: ${({ theme }) => theme.colors.black1};
+  ${applyMediaQuery('desktop', 'tablet')} {
+    font-size: 2rem;
+  }
+  ${applyMediaQuery('mobile')} {
+    font-size: 1.4rem;
+  }
 `;
 
 const ReviewListContent = styled.div`
   margin-top: 3.2rem;
   width: 100%;
+  ${applyMediaQuery('desktop', 'tablet')} {
+    margin-top: 1.8rem;
+  }
+  ${applyMediaQuery('mobile')} {
+    margin-top: 1.6rem;
+  }
 `;
 
 export default Detail;

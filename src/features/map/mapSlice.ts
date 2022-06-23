@@ -6,7 +6,8 @@ import { KakaoMarker } from 'types/map';
 export interface MarkerInfo {
   marker: KakaoMarker;
   isClicked: boolean;
-  name: string;
+  name: string[];
+  setPage: ((nextPage: number) => void) | null;
 }
 export interface MapState {
   currentMarkerList: MarkerInfo[];
@@ -21,7 +22,10 @@ export const mapSlice = createSlice({
   initialState,
   reducers: {
     addCurrentMarker: (state, action: PayloadAction<MarkerInfo>) => {
-      const target = state.currentMarkerList.find((marker) => marker.name === action.payload.name);
+      const target = state.currentMarkerList.find((marker) =>
+        marker.name.every((name) => action.payload.name.includes(name)),
+      );
+
       if (target) {
         target.marker = action.payload.marker;
         target.isClicked = action.payload.isClicked;
@@ -30,8 +34,8 @@ export const mapSlice = createSlice({
       }
     },
     setMarkerCilckState: (state, action: PayloadAction<MarkerInfo>) => {
-      const targetMarker = state.currentMarkerList.find(
-        (marker) => marker.name === action.payload.name,
+      const targetMarker = state.currentMarkerList.find((marker) =>
+        marker.name.every((name) => action.payload.name.includes(name)),
       );
       if (targetMarker) targetMarker.isClicked = action.payload.isClicked;
     },

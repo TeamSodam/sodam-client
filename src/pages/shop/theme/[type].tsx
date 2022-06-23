@@ -66,6 +66,12 @@ const Container = styled.main`
 
 const Wrapper = styled.div`
   padding-top: 7.2rem;
+  ${applyMediaQuery('desktop')} {
+    padding-top: 5.2rem;
+  }
+  ${applyMediaQuery('tablet')} {
+    padding-top: 3rem;
+  }
   ${applyMediaQuery('mobile')} {
     padding: 1.4rem 0;
   }
@@ -78,6 +84,10 @@ const ThemeWrapper = styled.div`
   width: 100%;
   display: flex;
   height: calc(50.8rem - 7.2rem);
+  ${applyMediaQuery('desktop', 'tablet')} {
+    height: max-content;
+    margin-bottom: 0.5rem;
+  }
   ${applyMediaQuery('mobile')} {
     height: unset;
   }
@@ -85,6 +95,7 @@ const ThemeWrapper = styled.div`
 
 const Delimiter = styled.div`
   width: 100vw;
+  width: ${({ theme }) => theme.clientWidth}px;
   height: 0.5px;
   background-color: ${({ theme }) => theme.colors.navLine};
   padding: 0;
@@ -97,6 +108,10 @@ const ShopList = styled.div`
   grid-template-columns: repeat(4, 1fr);
   gap: 4rem 2.4rem;
   margin-bottom: 8.1rem;
+  ${applyMediaQuery('desktop')} {
+    gap: 4rem 1.6rem;
+    margin-bottom: 8rem;
+  }
   ${applyMediaQuery('tablet')} {
     grid-template-columns: repeat(3, 1fr);
     gap: 3.2rem 1.6rem;
@@ -110,6 +125,14 @@ const ShopList = styled.div`
 const DropDownWrapper = styled.div`
   margin-left: auto;
   margin: 4rem 0 2.4rem auto;
+  ${applyMediaQuery('desktop')} {
+    margin-top: 6.8rem;
+    margin-bottom: 2.4rem;
+  }
+  ${applyMediaQuery('tablet')} {
+    margin-top: 3rem;
+    margin-bottom: 1.6rem;
+  }
 `;
 
 export default ThemePage;

@@ -33,12 +33,18 @@ function Write() {
         <>
           <h2>내가 작성한 리뷰</h2>
           <StyledBtnWrapper>
-            <WriteReviewLink href="/review/write" />
+            <WriteReviewLink />
           </StyledBtnWrapper>
           <StyledCardWrapper>
             {reviewMyWriteList &&
               reviewMyWriteList.map((review) => (
-                <ReviewCard key={review.reviewId} reviewData={review} isHoverAvailable isMyReview />
+                <ReviewCard
+                  key={review.reviewId}
+                  reviewData={review}
+                  isHoverAvailable
+                  isMyReview
+                  isMyReviewMobile
+                />
               ))}
           </StyledCardWrapper>
         </>
@@ -61,6 +67,20 @@ const StyledContainer = styled.div`
     color: ${theme.colors.black2};
   }
 
+  ${applyMediaQuery('desktop')} {
+    margin-top: 5.3rem;
+    & > h2 {
+      font-size: 2.6rem;
+      line-height: 3.8rem;
+    }
+  }
+  ${applyMediaQuery('tablet')} {
+    margin-top: 3rem;
+    & > h2 {
+      font-size: 2rem;
+      line-height: 2.9rem;
+    }
+  }
   ${applyMediaQuery('mobile')} {
     margin: 2.5rem 0;
     & > h2 {
@@ -78,6 +98,10 @@ const StyledCardWrapper = styled.div`
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 4rem 2.4rem;
   margin-top: 2.5rem;
+  ${applyMediaQuery('desktop')} {
+    gap: 2.8rem 1.7rem;
+    margin-top: 2.4rem;
+  }
   ${applyMediaQuery('tablet')} {
     grid-template-columns: repeat(2, 1fr);
     gap: 2.8rem 1.4rem;

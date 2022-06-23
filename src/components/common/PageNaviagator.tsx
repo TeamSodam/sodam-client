@@ -61,11 +61,17 @@ const Container = styled.nav`
   ${applyMediaQuery('desktop')} {
     transform: scale(0.67);
   }
+  ${applyMediaQuery('mobile', 'tablet')} {
+    width: 31.2rem;
+  }
 `;
 
 const PageList = styled.ol`
   display: flex;
   gap: 8rem;
+  ${applyMediaQuery('mobile', 'tablet')} {
+    gap: 2.5rem;
+  }
 `;
 
 const Page = styled.li<{ isCurrent: boolean }>`
@@ -75,14 +81,23 @@ const Page = styled.li<{ isCurrent: boolean }>`
   font-weight: 500;
   font-size: 2rem;
   line-height: 2.9rem;
+  ${applyMediaQuery('mobile', 'tablet')} {
+    font-size: 1.2rem;
+  }
 `;
 
 const LeftBtn = styled(LeftArrow)`
   ${hoverPointer}
+  ${applyMediaQuery('mobile', 'tablet')} {
+    transform: scale(0.5);
+  }
 `;
 
 const RightBtn = styled(RightArrow)`
   ${hoverPointer}
+  ${applyMediaQuery('mobile', 'tablet')} {
+    transform: scale(0.5);
+  }
 `;
 
 export default PageNaviagator;

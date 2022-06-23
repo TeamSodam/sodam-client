@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 
 interface TitleProps {
@@ -36,6 +37,33 @@ const StyledRoot = styled.div`
     font-weight: 500;
     line-height: 2rem;
     color: ${theme.colors.gray1};
+  }
+  ${applyMediaQuery('desktop', 'tablet')} {
+    h2 {
+      font-size: 2.6rem;
+      line-height: 2.6rem;
+      margin-top: 5rem;
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 1rem;
+      line-height: 1.3rem;
+    }
+  }
+  ${applyMediaQuery('mobile')} {
+    h2 {
+      font-size: 1.4rem;
+      line-height: 2rem;
+      margin-top: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+    p {
+      font-size: 1rem;
+      line-height: 1.3rem;
+      transform: scale(0.9);
+      transform-origin: top left;
+      width: 34rem;
+    }
   }
 `;
 

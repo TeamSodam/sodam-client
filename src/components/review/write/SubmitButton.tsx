@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 
 interface SubmitButtonProps {
@@ -34,6 +35,21 @@ const StyledButton = styled.button<StyledProps>`
     props.isSubmitAvailable ? theme.colors.purpleMain : theme.colors.gray2};
   &:hover {
     cursor: ${(props) => (props.isSubmitAvailable ? 'pointer' : 'default')};
+  }
+
+  ${applyMediaQuery('desktop', 'tablet')} {
+    width: 52.9rem;
+    height: 4rem;
+    font-size: 1.4rem;
+    margin-top: 4.5rem;
+    margin-bottom: 5.4rem;
+  }
+  ${applyMediaQuery('mobile')} {
+    width: 31.2rem;
+    height: 4.3rem;
+    font-size: 1.2rem;
+    margin-top: 5rem;
+    margin-bottom: 6.4rem;
   }
 `;
 

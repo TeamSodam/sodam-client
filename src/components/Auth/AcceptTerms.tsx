@@ -1,10 +1,10 @@
-import Link from 'next/link';
+import { termsContents } from 'constants/TermsContents';
 import CheckIC from 'public/assets/ic_check.svg';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { theme } from 'styles/theme';
 
-import { termsContents } from './TermsContents';
+import DetailTerms from './DetailTerms';
 
 interface CheckedKeysType {
   [key: string]: boolean;
@@ -23,6 +23,8 @@ function AcceptTerms(props: AcceptTermsProps) {
     event: false,
   });
 
+  const [termsType, setTermsType] = useState('');
+
   const handleClick = (type: string) => {
     if (type === 'allCheck') {
       setIsChecked({
@@ -39,6 +41,9 @@ function AcceptTerms(props: AcceptTermsProps) {
     }
   };
 
+  const handleTerms = (termsType: string) => {
+    setTermsType(termsType);
+  };
   useEffect(() => {
     const isAllChecked = isChecked.terms && isChecked.privacy && isChecked.event;
 
@@ -51,25 +56,40 @@ function AcceptTerms(props: AcceptTermsProps) {
   return (
     <StyledWrapper>
       <h3>약관동의</h3>
-      <StyledTermsWrapper>
-        <StyledLine />
-        {termsContents.map((items, idx) => (
-          <StyledList key={items.title} order={idx} isNecessary={items.isNecessary}>
-            <StyledCheckBtn
-              onClick={() => handleClick(items.type)}
-              isChecked={isChecked[items.type]}
+      {termsType ? (
+        <DetailTerms termsType={termsType} handleTerms={handleTerms} />
+      ) : (
+        <StyledTermsWrapper>
+          <StyledLine />
+          {Object.keys(termsContents).map((items, idx) => (
+            <StyledList
+              key={termsContents[items].title}
+              order={idx}
+              isNecessary={termsContents[items].isNecessary}
             >
-              <CheckIC />
-            </StyledCheckBtn>
-            <StyledListContent>
-              {items.content ? <Link href={'/'}>{items.title}</Link> : items.title}
-            </StyledListContent>
-            <span>
-              {items.type !== 'allCheck' ? (items.isNecessary ? '(필수)' : '(선택)') : null}
-            </span>
-          </StyledList>
-        ))}
-      </StyledTermsWrapper>
+              <StyledCheckBtn onClick={() => handleClick(items)} isChecked={isChecked[items]}>
+                <CheckIC />
+              </StyledCheckBtn>
+              <StyledListContent>
+                {termsContents[items].isNecessary ? (
+                  <StyledTermsContent onClick={() => handleTerms(items)}>
+                    {termsContents[items].title}
+                  </StyledTermsContent>
+                ) : (
+                  termsContents[items].title
+                )}
+              </StyledListContent>
+              <span>
+                {items !== 'allCheck'
+                  ? termsContents[items].isNecessary
+                    ? '(필수)'
+                    : '(선택)'
+                  : null}
+              </span>
+            </StyledList>
+          ))}
+        </StyledTermsWrapper>
+      )}
     </StyledWrapper>
   );
 }
@@ -144,4 +164,9 @@ const StyledLine = styled.div`
   margin: 0 2.4rem;
   background-color: ${theme.colors.grayBg};
   order: 1;
+`;
+
+const StyledTermsContent = styled.span`
+  text-decoration: underline;
+  cursor: pointer;
 `;

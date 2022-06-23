@@ -70,6 +70,16 @@ const StyledWrapper = styled.div`
     color: ${theme.colors.gray1};
   }
 
+  ${applyMediaQuery('desktop')} {
+    & > span {
+      font-size: 1.6rem;
+    }
+  }
+  ${applyMediaQuery('tablet')} {
+    & > span {
+      font-size: 1.3rem;
+    }
+  }
   ${applyMediaQuery('mobile')} {
     & > span {
       font-size: 0.9rem;
@@ -101,6 +111,9 @@ const StyledLi = styled.li<StyledMFProps>`
   color: ${({ isActive }) => (isActive ? theme.colors.purpleText : theme.colors.gray1)};
   cursor: pointer;
 
+  ${applyMediaQuery('tablet')} {
+    font-size: 1.3rem;
+  }
   ${applyMediaQuery('mobile')} {
     font-size: 0.9rem;
     line-height: 1.3rem;

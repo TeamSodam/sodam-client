@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 
 interface ImageCardProps {
@@ -28,6 +29,14 @@ const StyledRoot = styled.div`
     &:hover {
       cursor: pointer;
     }
+  }
+  ${applyMediaQuery('desktop', 'tablet')} {
+    width: 5rem;
+    height: 5rem;
+  }
+  ${applyMediaQuery('mobile')} {
+    width: 4.2rem;
+    height: 4.2rem;
   }
 `;
 

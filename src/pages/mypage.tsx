@@ -38,12 +38,11 @@ function Mypage() {
 
 const StyledRoot = styled.div`
   width: 100%;
-  height: 100%;
-  min-height: 78.8rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: 11rem auto;
   ${applyMediaQuery('mobile')} {
     min-height: 41.7rem;
     margin: 3.1rem 0;

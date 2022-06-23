@@ -11,6 +11,7 @@ export interface MenuListType {
   menuName: string;
   menuURL: string;
   routeTo?: string;
+  fallback?: string;
 }
 
 export interface NavProps {
@@ -24,8 +25,13 @@ export interface NavProps {
 export const menuList: MenuListType[] = [
   { menuName: '소품샵 지도', menuURL: '/map' },
   { menuName: '테마별 소품샵', menuURL: '/shop/theme', routeTo: '/shop/theme/아기자기한' },
-  { menuName: '저장한 소품샵', menuURL: '/shop/collect' },
-  { menuName: 'MY REVIEW', menuURL: '/review/my', routeTo: '/review/my/write' },
+  { menuName: '저장한 소품샵', menuURL: '/shop/collect', fallback: '/auth/login' },
+  {
+    menuName: 'MY REVIEW',
+    menuURL: '/review/my',
+    routeTo: '/review/my/write',
+    fallback: '/auth/login',
+  },
 ];
 
 function GlobalNav() {
@@ -36,8 +42,12 @@ function GlobalNav() {
   });
 
   const onClickMenu = (menu: MenuListType) => {
-    if (menu.routeTo) return menu.routeTo;
-    return menu.menuURL;
+    let routeUrl = menu.menuURL;
+    if (menu.routeTo) routeUrl = menu.routeTo;
+    if (!isLogin && menu.fallback)
+      routeUrl = `${menu.fallback}?from=${encodeURIComponent(routeUrl)}`;
+
+    return routeUrl;
   };
 
   const isCurrentPathIncludesMyReview = () => router.asPath.includes('/review/my');

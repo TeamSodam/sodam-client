@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { Item } from 'types/review';
 import { PriceOptionList, ShopCategoryType } from 'types/shop';
 
@@ -43,4 +44,10 @@ export default BuyList;
 const StyledRoot = styled.div`
   display: flex;
   gap: 1.6rem;
+  ${applyMediaQuery('desktop', 'tablet')} {
+    gap: 1.1rem;
+  }
+  ${applyMediaQuery('mobile')} {
+    gap: 1rem;
+  }
 `;

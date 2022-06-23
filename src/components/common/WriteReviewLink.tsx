@@ -1,3 +1,5 @@
+import { useAppSelector } from 'app/hook';
+import { selectIsLogin } from 'features/users/userSlice';
 import Link from 'next/link';
 import writeIC from 'public/assets/ic_writeReview.svg';
 import styled from 'styled-components';
@@ -5,13 +7,24 @@ import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 
 interface StyledWRBProps {
-  href: string;
+  shopId?: number;
+  shopName?: string;
 }
 function WriteReviewLink(props: StyledWRBProps) {
-  const { href } = props;
+  const { shopId, shopName } = props;
+  const isLogin = useAppSelector(selectIsLogin);
+  const isSpecificShopReview = shopId && shopName;
+
+  const getReviewHref = () => {
+    let baseHref = '/review/write';
+    if (isSpecificShopReview) baseHref = `${baseHref}?shopId=${shopId}&shopName=${shopName}`;
+    if (!isLogin) baseHref = `/auth/login?from=${encodeURIComponent(baseHref)}`;
+
+    return baseHref;
+  };
 
   return (
-    <Link href={href} passHref>
+    <Link href={getReviewHref()} passHref>
       <StyledWriteLink>
         <span>리뷰 작성하기</span>
         <WriteIcon />
@@ -41,13 +54,14 @@ const StyledWriteLink = styled.a`
   ${applyMediaQuery('desktop')} {
     height: 3.2rem;
     width: 13.6rem;
+    border-radius: 0.8rem;
 
     font-size: 1.2rem;
     line-height: 1.7rem;
     font-family: 'Noto Sans KR';
   }
 
-  ${applyMediaQuery('mobile')} {
+  ${applyMediaQuery('mobile', 'tablet')} {
     font-size: 0.8rem;
     line-height: 1.2rem;
     font-family: 'Noto Sans KR';
@@ -66,7 +80,7 @@ const WriteIcon = styled(writeIC)`
   margin-left: 0.8rem;
   align-self: center;
 
-  ${applyMediaQuery('mobile')} {
+  ${applyMediaQuery('mobile', 'tablet')} {
     order: -1;
     transform: scale(0.5) translateY(1px);
     margin: 0;
