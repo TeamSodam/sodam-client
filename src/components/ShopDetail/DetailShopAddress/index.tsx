@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import { getBackgroundImageCss } from 'styles/mixin';
@@ -28,6 +28,11 @@ function DetailShopAddress({ roadAddress, landAddress }: AddressProps) {
   };
 
   const copyAddressToClipboard = async () => await navigator.clipboard.writeText(currentAddress);
+
+  useEffect(() => {
+    setCurrentAddress(roadAddress);
+    setCurrentAddressType(ROAD);
+  }, [roadAddress]);
 
   return (
     <Container>
@@ -124,9 +129,8 @@ const Address = styled.span`
     word-break: keep-all;
     font-size: 0.6rem;
     line-height: 1.5rem;
-    /* width: fit-content; */
     transform: scale(0.6);
-    margin: 0 -4rem;
+    margin: 0 -3.5rem;
   }
 `;
 
