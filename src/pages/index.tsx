@@ -8,22 +8,35 @@ import ThemeSelector from 'components/ThemeSelector';
 import { MoreFilterList } from 'constants/dropdownOptionList';
 import { useGetReviewRecentQuery } from 'features/reviews/reviewApi';
 import { useGetShopByCategoryQuery, useGetShopInfoQuery } from 'features/shops/shopApi';
-import { selectUserInfo } from 'features/users/userSlice';
+import { useGetUserInfoQuery } from 'features/users/userApi';
+import { selectIsLogin } from 'features/users/userSlice';
 import useMedia from 'hooks/useMedia';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppSelector } from 'src/app/hook';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
-
-const randomCategory = MoreFilterList[Math.floor(Math.random() * 6)];
+import { ShopCategoryType } from 'types/shop';
 
 function Home() {
-  const { nickname } = useAppSelector(selectUserInfo);
-  const [currentCategory, setCurrentCategory] = useState(randomCategory);
+  /**
+   * TODO ::
+   * const { nickname } = useAppSelector(selectUserInfo);
+   * 액세스토큰 payload의 nickname userSlice에 반영하도록 변경 필요.
+   */
+  const isLogin = useAppSelector(selectIsLogin);
+  const { data: userInfo } = useGetUserInfoQuery(undefined, {
+    skip: !isLogin,
+  });
+  const [currentCategory, setCurrentCategory] = useState<ShopCategoryType>();
   const { data: randomShopList } = useGetShopInfoQuery('random');
   const { data: popularShopList } = useGetShopInfoQuery('popular');
   const { data: reviewResultList } = useGetReviewRecentQuery();
-  const { data: categoryShopList } = useGetShopByCategoryQuery(currentCategory.replace('·', ''));
+  const { data: categoryShopList } = useGetShopByCategoryQuery(
+    currentCategory?.replace('·', '') || '',
+    {
+      skip: !currentCategory,
+    },
+  );
 
   const { isMobile, isTablet } = useMedia();
 
@@ -82,12 +95,16 @@ function Home() {
     return <MainSlider slidesPerView={getSlidesPerView('shop')} cardList={cardList} isShopCard />;
   };
 
+  useEffect(() => {
+    setCurrentCategory(MoreFilterList[Math.floor(Math.random() * 6)]);
+  }, []);
+
   return (
     <Container>
       <BannerList />
       <LabelContentWrapper>
         <Label>
-          <em>{nickname}</em>님, 이 소품샵은 어떠세요?
+          <em>{userInfo?.nickname || '소푸미'}</em>님, 이 소품샵은 어떠세요?
         </Label>
         {showRandomShopSlider()}
       </LabelContentWrapper>
@@ -107,7 +124,9 @@ function Home() {
           <Label>
             <em>{currentCategory}</em> 소품샵 리스트
           </Label>
-          <MoreFilter currentCategory={currentCategory} updateCategory={setCurrentCategory} />
+          {currentCategory && (
+            <MoreFilter currentCategory={currentCategory} updateCategory={setCurrentCategory} />
+          )}
         </LabelFilterWrapper>
         {showRandomCategorySlider()}
       </LabelContentWrapper>

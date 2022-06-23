@@ -13,12 +13,11 @@ import {
 export const authApi = createApi({
   reducerPath: 'authApi',
   baseQuery: axiosBaseQuery(),
-  refetchOnFocus: true,
   endpoints: (builder) => ({
     // builder.query<T, U>() --> T는 쿼리의 반환값 타입, U는 쿼리 파라미터의 타입.
     postNickname: builder.mutation<NicknameResponseType, NicknameRequestType>({
       query: ({ nickname }) => ({
-        url: 'https://server.sodam.me/auth/signup/nickname',
+        url: '/auth/signup/nickname',
         method: 'POST',
         data: {
           nickname,
@@ -28,7 +27,7 @@ export const authApi = createApi({
     }),
     postEmail: builder.mutation<EmailResponseType, Pick<EmailPWRequestType, 'email'>>({
       query: ({ email }) => ({
-        url: 'https://server.sodam.me/auth/signup/sendmail',
+        url: '/auth/signup/sendmail',
         method: 'POST',
         data: {
           email,
@@ -38,7 +37,7 @@ export const authApi = createApi({
     }),
     postSignup: builder.mutation<Pick<AuthResponseType, 'accesstoken'>, SignupRequest>({
       query: (signupForm) => ({
-        url: 'https://server.sodam.me/auth/signup',
+        url: '/auth/signup',
         method: 'POST',
         data: signupForm,
       }),
@@ -47,7 +46,7 @@ export const authApi = createApi({
     }),
     postLogin: builder.mutation<AuthResponseType, EmailPWRequestType>({
       query: (loginInfo) => ({
-        url: 'https://server.sodam.me/auth/login',
+        url: '/auth/login',
         method: 'POST',
         data: loginInfo,
       }),

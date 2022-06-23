@@ -12,6 +12,16 @@ module.exports = {
       'source.unsplash.com',
     ],
   },
+  async rewrites() {
+    return process.env.NODE_ENV === 'development'
+      ? [
+          {
+            source: '/api/:path*',
+            destination: 'https://server.sodam.me/:path*',
+          },
+        ]
+      : [];
+  },
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,

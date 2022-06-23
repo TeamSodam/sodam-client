@@ -1,6 +1,8 @@
 import ImageDiv from 'components/common/ImageDiv';
 import { shopApi } from 'features/shops/shopApi';
-import _ from 'lodash';
+import debounce from 'lodash-es/debounce';
+import Image from 'next/image';
+import searchDelIC from 'public/assets/ic_searchDel.svg';
 import { FormEvent, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
@@ -78,7 +80,7 @@ function ShopSearch(props: ShopSearchProps) {
               <input
                 type="text"
                 placeholder="소품샵명을 입력해주세요 (필수)"
-                onChange={_.debounce(requestSearch, 500)}
+                onChange={debounce(requestSearch, 500)}
                 ref={inputRef}
               />
             </form>

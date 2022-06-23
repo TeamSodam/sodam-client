@@ -17,26 +17,25 @@ import {
 export const reviewApi = createApi({
   reducerPath: 'reviewApi',
   baseQuery: fetchBaseQueryWithToken,
-  refetchOnFocus: true,
   endpoints: (builder) => ({
     // builder.query<T, U>() --> T는 쿼리의 반환값 타입, U는 쿼리 파라미터의 타입.
     getReviewRecent: builder.query<ReviewRecentResponse[], void>({
-      query: () => ({ url: 'https://server.sodam.me/review/recent', method: 'GET' }),
+      query: () => ({ url: '/review/recent', method: 'GET' }),
       transformResponse: (response: SodamResponse<ReviewRecentResponse[]>) => response.data,
     }),
     getMyWriteReview: builder.query<ReviewMyWriteResponse[], void>({
-      query: () => ({ url: 'https://server.sodam.me/my/review/write', method: 'GET' }),
+      query: () => ({ url: '/my/review/write', method: 'GET' }),
       transformResponse: (response: SodamResponse<ReviewMyWriteResponse[]>) => response.data,
     }),
     getMyScrapReview: builder.query<ReviewMyScrapResponse[], void>({
-      query: () => ({ url: 'https://server.sodam.me/my/review/scrap', method: 'GET' }),
+      query: () => ({ url: '/my/review/scrap', method: 'GET' }),
       transformResponse: (response: SodamResponse<ReviewMyScrapResponse[]>) => response.data,
     }),
     getReviewByShopId: builder.query<ReviewByShopIdResponse, ReviewShopIdRequestParams>({
       query: (shopInfo: ReviewShopIdRequestParams) => {
         const { shopId, sortType, offset, limit } = shopInfo;
         return {
-          url: `https://server.sodam.me/review/${shopId}`,
+          url: `/review/${shopId}`,
           method: 'GET',
           params: {
             sort: sortType,
@@ -49,7 +48,7 @@ export const reviewApi = createApi({
     }),
     getShopReviewById: builder.query<Review, ReviewInfoRequestById>({
       query: ({ reviewId, shopId }) => ({
-        url: `https://server.sodam.me/shop/${shopId}/review/${reviewId}`,
+        url: `/shop/${shopId}/review/${reviewId}`,
         method: 'GET',
       }),
       transformResponse: (response: SodamResponse<Review>) => response.data,
@@ -67,7 +66,7 @@ export const reviewApi = createApi({
           } else formData.append(key, val);
         });
         return {
-          url: 'https://server.sodam.me/review',
+          url: '/review',
           method: 'POST',
           body: formData,
         };
@@ -76,7 +75,7 @@ export const reviewApi = createApi({
     }),
     postLike: builder.mutation<ReviewLikeScrapResponse, ReviewLikeScrapRequest>({
       query: ({ reviewId, isLiked }) => ({
-        url: `https://server.sodam.me/review/${reviewId}/like`,
+        url: `/review/${reviewId}/like`,
         method: 'POST',
         body: {
           isLiked,
@@ -86,7 +85,7 @@ export const reviewApi = createApi({
     }),
     postScrap: builder.mutation<ReviewLikeScrapResponse, ReviewLikeScrapRequest>({
       query: ({ reviewId, isScraped }) => ({
-        url: `https://server.sodam.me/review/${reviewId}/scrap`,
+        url: `/review/${reviewId}/scrap`,
         method: 'POST',
         body: {
           isScraped,

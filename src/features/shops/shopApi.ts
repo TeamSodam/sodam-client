@@ -18,12 +18,11 @@ import {
 export const shopApi = createApi({
   reducerPath: 'shopApi',
   baseQuery: fetchBaseQueryWithToken,
-  refetchOnFocus: true,
   endpoints: (builder) => ({
     // builder.query<T, U>() --> T는 쿼리의 반환값 타입, U는 쿼리 파라미터의 타입.
     getShopByCategory: builder.query<ShopResponse[], string>({
       query: (type) => ({
-        url: 'https://server.sodam.me/shop/category',
+        url: '/shop/category',
         method: 'GET',
         params: {
           type,
@@ -33,7 +32,7 @@ export const shopApi = createApi({
     }),
     getShopByTheme: builder.query<ShopResponse[], ShopThemeRequestType>({
       query: ({ theme, sortType, offset, limit }) => ({
-        url: 'https://server.sodam.me/shop',
+        url: '/shop',
         params: {
           theme,
           sort: sortType,
@@ -46,14 +45,14 @@ export const shopApi = createApi({
     }),
     getShopByShopId: builder.query<Shop, number>({
       query: (shopId) => ({
-        url: `https://server.sodam.me/shop/${shopId}`,
+        url: `/shop/${shopId}`,
         method: 'GET',
       }),
       transformResponse: (response: SodamResponse<Shop>) => response.data,
     }),
     getShopByArea: builder.query<ShopAreaResponse[], ShopAreaRequestType>({
       query: ({ area, sort }) => ({
-        url: 'https://server.sodam.me/shop',
+        url: '/shop',
         method: 'GET',
         params: {
           area,
@@ -64,35 +63,35 @@ export const shopApi = createApi({
     }),
     getShopInfo: builder.query<ShopResponse[], ShopMainSortType>({
       query: (type) => ({
-        url: `https://server.sodam.me/shop/recommend?type=${type}`,
+        url: `/shop/recommend?type=${type}`,
         method: 'GET',
       }),
       transformResponse: (response: SodamResponse<ShopAreaResponse[]>) => response.data,
     }),
     getShopSearchResult: builder.query<ShopSearchResponse[], string>({
       query: (keyword) => ({
-        url: `https://server.sodam.me/shop/search?keyword=${keyword}`,
+        url: `/shop/search?keyword=${keyword}`,
         method: 'GET',
       }),
       transformResponse: (response: SodamResponse<ShopSearchResponse[]>) => response.data,
     }),
     getShopBySubway: builder.query<ShopSubwayResponse, number>({
       query: (shopId) => ({
-        url: `https://server.sodam.me/shop/${shopId}/location`,
+        url: `/shop/${shopId}/location`,
         method: 'GET',
       }),
       transformResponse: (response: SodamResponse<ShopSubwayResponse>) => response.data,
     }),
     getShopByBookmark: builder.query<ShopResponse[], ShopBookmarkRequestType>({
       query: ({ sort, offset, limit }) => ({
-        url: `https://server.sodam.me/shop/bookmark?sort=${sort}&offset=${offset}&limit=${limit}`,
+        url: `/shop/bookmark?sort=${sort}&offset=${offset}&limit=${limit}`,
         method: 'GET',
       }),
       transformResponse: (response: SodamResponse<ShopResponse[]>) => response.data,
     }),
     postBookmark: builder.mutation<SodamResponse<BookmarkResponseType>, BookmarkResquestType>({
       query: ({ shopId, isBookmarked }) => ({
-        url: 'https://server.sodam.me/shop/bookmark',
+        url: '/shop/bookmark',
         method: 'POST',
         body: {
           shopId,

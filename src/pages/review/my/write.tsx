@@ -22,6 +22,7 @@ function Write() {
 
   const { data: reviewMyWriteList } = useGetMyWriteReviewQuery(undefined, {
     skip: !isLogin,
+    refetchOnMountOrArgChange: true,
   });
 
   return (

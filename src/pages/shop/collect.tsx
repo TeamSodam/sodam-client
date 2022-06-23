@@ -30,6 +30,7 @@ function Collect() {
     },
     {
       skip: !isLogin,
+      refetchOnMountOrArgChange: true,
     },
   );
 

@@ -21,6 +21,7 @@ function Scrap() {
   const isLogin = useAppSelector(selectIsLogin);
   const { data: reviewMyScrapList } = useGetMyScrapReviewQuery(undefined, {
     skip: !isLogin,
+    refetchOnMountOrArgChange: true,
   });
 
   return (
