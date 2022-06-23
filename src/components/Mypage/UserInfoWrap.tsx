@@ -208,8 +208,7 @@ const StyledRoot = styled.section`
       padding: 0;
       font-size: 1rem;
       line-height: 1.2rem;
-      margin-top: 1rem;
-      transform: scale(0.8);
+      margin-top: 0.4rem;
       transform-origin: top center;
     }
   }
@@ -263,21 +262,22 @@ const StyledProfileToggle = styled.ul`
     }
   }
   ${applyMediaQuery('mobile')} {
-    width: 8.4rem;
-    height: 4rem;
+    width: 12.1rem;
+    height: 5.1rem;
     border-radius: 0.4rem;
     margin-top: 0.5rem;
-    padding: 0.8rem;
+    padding: 0.9rem;
+    transform: translateX(2.7rem);
+    animation-name: fadeInMobile;
     li {
       height: 1.2rem;
-      width: 7rem;
+      width: 10rem;
     }
     li > button {
       height: 1.2rem;
-      width: 9.5rem;
+      width: 10rem;
       font-size: 1rem;
-      transform: scale(0.7);
-      transform-origin: top left;
+      text-align: left;
     }
   }
   @keyframes fadeIn {
@@ -287,6 +287,16 @@ const StyledProfileToggle = styled.ul`
     }
     to {
       transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  @keyframes fadeInMobile {
+    from {
+      transform: translate(2.7rem, -10%);
+      opacity: 0.5;
+    }
+    to {
+      transform: translateY(2.7rem, 0);
       opacity: 1;
     }
   }
@@ -304,9 +314,9 @@ const StyledInput = styled.input`
     width: 11rem;
   }
   ${applyMediaQuery('mobile')} {
-    width: 7rem;
+    width: 10rem;
     height: 1.2rem;
-    margin-top: -1.5rem;
+    margin-top: -1.2rem;
   }
 `;
 

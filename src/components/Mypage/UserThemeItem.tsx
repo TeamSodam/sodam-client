@@ -90,7 +90,7 @@ const StyledRoot = styled.button<StyledProps>`
       width: 1.4rem;
       height: 1.4rem;
       padding: 0.2rem;
-      transform: translate(0.7rem, -0.7rem);
+      transform: translate(0.6rem, -0.7rem);
     }
   }
 `;
@@ -110,8 +110,8 @@ const StyledIcon = styled.div`
   width: 1.6rem;
   height: 1.6rem;
   ${applyMediaQuery('mobile')} {
-    width: 1rem;
-    height: 1rem;
+    width: 1.3rem;
+    height: 1.3rem;
   }
 `;
 

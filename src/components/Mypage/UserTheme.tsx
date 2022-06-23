@@ -113,8 +113,8 @@ const StyledRoot = styled.div`
       width: 31.2rem;
       margin-bottom: 2.3rem;
       button {
-        width: 4rem;
-        height: 1.5rem;
+        width: 5.2rem;
+        height: 1.8rem;
         border-radius: 0.3rem;
         line-height: 1.5rem;
         font-size: 1rem;
