@@ -1,4 +1,4 @@
-import { useAppDispatch } from 'app/hook';
+import { useAppDispatch, useAppSelector } from 'app/hook';
 import UserInfoWrap from 'components/Mypage/UserInfoWrap';
 import UserTheme from 'components/Mypage/UserTheme';
 import {
@@ -6,15 +6,16 @@ import {
   useGetUserInfoQuery,
   useGetUserThemeQuery,
 } from 'features/users/userApi';
-import { logout } from 'features/users/userSlice';
+import { logout, selectIsLogin } from 'features/users/userSlice';
 import useMedia from 'hooks/useMedia';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 
 function Mypage() {
   const { isMobile, isTablet } = useMedia();
+  const isLogin = useAppSelector(selectIsLogin);
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { data: userInfo } = useGetUserInfoQuery();
@@ -26,7 +27,21 @@ function Mypage() {
     router.push('/');
   };
 
-  if (!userInfo || !userImage || !userThemeWrap) return null;
+  useEffect(() => {
+    if (!isLogin) {
+      router.push('/');
+    }
+  }, [isLogin]);
+
+  if (!userInfo || !userImage || !userThemeWrap)
+    return (
+      <StyledRoot>
+        {(isMobile || isTablet) && (
+          <LogoutButton onClick={handleClickLogout}>로그아웃</LogoutButton>
+        )}
+      </StyledRoot>
+    );
+
   return (
     <StyledRoot>
       <UserInfoWrap userInfo={userInfo} userImage={userImage} />
@@ -44,7 +59,6 @@ const StyledRoot = styled.div`
   align-items: center;
   margin: 11rem auto;
   ${applyMediaQuery('mobile', 'tablet')} {
-    min-height: 41.7rem;
     margin: 0;
     margin-top: 3rem;
     justify-content: flex-start;
@@ -58,7 +72,7 @@ const LogoutButton = styled.button`
   all: unset;
 
   align-self: flex-end;
-  margin-top: auto;
+  margin-top: 10.5rem;
   margin-bottom: 5rem;
 
   padding: 0 1.2rem;
