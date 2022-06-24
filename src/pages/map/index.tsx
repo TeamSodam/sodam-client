@@ -34,6 +34,8 @@ const Header = styled.h1`
   font-size: 3rem;
   line-height: 4.3rem;
   font-weight: 700;
+  font-style: normal;
+  color: ${({ theme }) => theme.colors.black2};
 
   & > b {
     color: ${({ theme }) => theme.colors.purpleText};
@@ -53,6 +55,7 @@ const SubHeader = styled.p`
   font-size: 1.8rem;
   line-height: 2.6rem;
   font-weight: 500;
+  font-style: normal;
   color: ${({ theme }) => theme.colors.black1};
   margin-bottom: 5.2rem;
 

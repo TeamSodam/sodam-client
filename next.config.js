@@ -14,6 +14,7 @@ module.exports = {
       'sodam-bucket-2.s3.ap-northeast-2.amazonaws.com',
       'search.pstatic.net',
       'source.unsplash.com',
+      'pcmap.place.naver.com'
     ],
   },
   async rewrites() {
