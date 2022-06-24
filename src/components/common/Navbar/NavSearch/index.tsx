@@ -84,7 +84,7 @@ const SearchTab = styled.div`
     border: none;
     outline: none;
     font-size: 1.6rem;
-    font-family: 'Noto Sans CJK KR';
+    font-family: 'Noto Sans KR';
     padding-left: 1rem;
   }
   ${applyMediaQuery('desktop')} {

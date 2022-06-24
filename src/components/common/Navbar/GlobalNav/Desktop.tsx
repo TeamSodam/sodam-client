@@ -183,7 +183,7 @@ const Menu = styled.a<{ isActive: boolean }>`
 `;
 
 const Logout = styled.button`
-  font-family: 'Noto Sans CJK KR';
+  font-family: 'Noto Sans KR';
   padding: 0;
   border: none;
   background-color: transparent;

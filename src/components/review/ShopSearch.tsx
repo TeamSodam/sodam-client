@@ -164,7 +164,7 @@ const StyledWrapper = styled.div`
       font-weight: 500;
       font-size: 1.4rem;
       line-height: 2rem;
-      font-family: 'Noto Sans CJK KR';
+      font-family: 'Noto Sans KR';
     }
   }
   ${applyMediaQuery('desktop', 'tablet', 'mobile')} {

@@ -67,7 +67,7 @@ const StyledTextArea = styled.textarea`
   outline: none;
   border: none;
   resize: none;
-  font-family: 'Noto Sans CJK KR';
+  font-family: 'Noto Sans KR';
   font-size: 1.4rem;
   font-weight: 500;
   background-color: ${theme.colors.grayBg};

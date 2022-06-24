@@ -58,13 +58,13 @@ const StyledWriteLink = styled.a`
 
     font-size: 1.2rem;
     line-height: 1.7rem;
-    font-family: 'Noto Sans CJK KR';
+    font-family: 'Noto Sans KR';
   }
 
   ${applyMediaQuery('mobile', 'tablet')} {
     font-size: 0.8rem;
     line-height: 1.2rem;
-    font-family: 'Noto Sans CJK KR';
+    font-family: 'Noto Sans KR';
 
     border-radius: 5px;
     gap: 0.3rem;
