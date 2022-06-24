@@ -157,6 +157,8 @@ const Label = styled.h2`
   font-size: 3rem;
   line-height: 4.3rem;
   font-weight: 700;
+
+  font-family: 'Noto Sans CJK KR', sans-serif;
   color: ${({ theme }) => theme.colors.black2};
 
   & > em {

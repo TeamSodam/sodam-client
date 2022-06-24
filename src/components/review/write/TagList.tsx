@@ -79,7 +79,7 @@ const StyledRoot = styled.div`
   }
 `;
 const StyledInput = styled.input`
-  font-family: 'Noto Sans KR';
+  font-family: 'Noto Sans CJK KR';
   font-size: 1.4rem;
   font-weight: 500;
   color: ${theme.colors.gray1};
