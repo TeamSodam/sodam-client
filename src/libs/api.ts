@@ -60,8 +60,9 @@ export const fetchBaseQueryWithToken: BaseQueryFn<
     });
 
     if (refreshResult.statusText === 'OK') {
-      const { accesstoken } = await refreshResult.json();
-      api.dispatch(setToken(accesstoken));
+      const { data } = await refreshResult.json();
+
+      api.dispatch(setToken(data.accesstoken));
       result = await baseQuery(args, api, extraOptions);
     } else api.dispatch(logout());
   }
