@@ -247,6 +247,7 @@ const StyledProfileToggle = styled.ul`
     font-size: 1.2rem;
     font-weight: 500;
     padding: 0;
+    white-space: nowrap;
   }
   li:first-child button {
     color: ${theme.colors.purpleText};

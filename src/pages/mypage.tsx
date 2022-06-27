@@ -18,9 +18,15 @@ function Mypage() {
   const isLogin = useAppSelector(selectIsLogin);
   const dispatch = useAppDispatch();
   const router = useRouter();
-  const { data: userInfo } = useGetUserInfoQuery();
-  const { data: userImage } = useGetUserImageQuery();
-  const { data: userThemeWrap } = useGetUserThemeQuery();
+  const { data: userInfo } = useGetUserInfoQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  });
+  const { data: userImage } = useGetUserImageQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  });
+  const { data: userThemeWrap } = useGetUserThemeQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  });
 
   const handleClickLogout = () => {
     dispatch(logout());

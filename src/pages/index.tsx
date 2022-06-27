@@ -26,6 +26,7 @@ function Home() {
   const isLogin = useAppSelector(selectIsLogin);
   const { data: userInfo } = useGetUserInfoQuery(undefined, {
     skip: !isLogin,
+    refetchOnMountOrArgChange: true,
   });
   const [currentCategory, setCurrentCategory] = useState<ShopCategoryType>();
   const { data: randomShopList } = useGetShopInfoQuery('random');
