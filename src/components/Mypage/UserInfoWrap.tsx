@@ -3,8 +3,9 @@ import {
   useEditUserImageMutation,
   useEditUserNicknameMutation,
 } from 'features/users/userApi';
+import useClickOutside from 'hooks/useClickOutside';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import cropImage from 'src/utils/cropImage';
 import dataURItoBlob from 'src/utils/dataURItoBlob';
 import styled from 'styled-components';
@@ -34,6 +35,9 @@ function UserInfoWrap(props: Props) {
   const [profileImg, setProfileImg] = useState(
     userImage.image === '' ? profileDefaultImg : userImage.image,
   );
+  const profileToggleRef = useRef<HTMLUListElement>(null);
+  const closeProfileFilter = useCallback(() => setProfileToggle(false), []);
+  useClickOutside(profileToggleRef, closeProfileFilter, profileToggle);
 
   const onChangeNickname = (text: string) => {
     setNicknameData(text);
@@ -101,7 +105,7 @@ function UserInfoWrap(props: Props) {
               프로필 사진 설정
             </button>
             {profileToggle && (
-              <StyledProfileToggle>
+              <StyledProfileToggle ref={profileToggleRef}>
                 <li>
                   <button>새로운 프로필 사진 등록</button>
                   <StyledInput type="file" accept="image/*" multiple onChange={onEditProfile} />

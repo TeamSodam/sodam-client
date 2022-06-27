@@ -18,11 +18,6 @@ import { applyMediaQuery } from 'styles/mediaQuery';
 import { ShopCategoryType } from 'types/shop';
 
 function Home() {
-  /**
-   * TODO ::
-   * const { nickname } = useAppSelector(selectUserInfo);
-   * 액세스토큰 payload의 nickname userSlice에 반영하도록 변경 필요.
-   */
   const isLogin = useAppSelector(selectIsLogin);
   const { data: userInfo } = useGetUserInfoQuery(undefined, {
     skip: !isLogin,
