@@ -2,7 +2,7 @@
 name: HOTFIX 생성/등록
 about: 핫픽스 가자!
 title: "[HOTFIX] HOTFIX 항목 상세"
-labels: :fire: hotfix
+labels: hotfix
 assignees: ''
 
 ---
