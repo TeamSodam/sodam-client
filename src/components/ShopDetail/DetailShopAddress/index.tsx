@@ -20,7 +20,7 @@ type AddressProps = Pick<Shop, 'roadAddress' | 'landAddress'>;
 
 function DetailShopAddress({ roadAddress, landAddress }: AddressProps) {
   const [currentAddress, setCurrentAddress] = useState(roadAddress);
-  const [currentAddressType, setCurrentAddressType] = useState<keyof typeof ADDRESS_ICON_MAP>(ROAD);
+  const [currentAddressType, setCurrentAddressType] = useState<keyof typeof ADDRESS_ICON_MAP>(LAND);
 
   const toggleAddressType = () => {
     setCurrentAddress(currentAddressType === ROAD ? landAddress : roadAddress);
@@ -45,7 +45,7 @@ function DetailShopAddress({ roadAddress, landAddress }: AddressProps) {
           id="address-toggle"
           type="button"
         />
-        <label htmlFor="address-toggle">{currentAddressType}</label>
+        <label htmlFor="address-toggle">{currentAddressType === ROAD ? LAND : ROAD}</label>
       </ButtonWrapper>
 
       <ButtonWrapper>

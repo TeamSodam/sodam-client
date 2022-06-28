@@ -23,8 +23,8 @@ function IconContent(props: IconContentProps) {
     if (typeof content === 'string') {
       if (iconName === '홈페이지') {
         return (
-          <a target="_blank" rel="noopener noreferrer" href={content}>
-            공식 홈페이지 바로가기
+          <a target="_blank" rel="noopener noreferrer" href={content || undefined}>
+            {content !== '' ? '공식 홈페이지 바로가기' : '홈페이지 준비중'}
           </a>
         );
       }
