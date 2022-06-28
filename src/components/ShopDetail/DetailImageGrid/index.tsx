@@ -3,10 +3,21 @@ import shortid from 'shortid';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 
-function DetailImageGrid({ imageList }: { imageList: string[] }) {
+const altImages: string[] = new Array(4).fill('/assets/alt-image.png');
+
+function DetailImageGrid({ imageList }: { imageList: string[] | undefined | null }) {
+  const imageListToDisplay = altImages.map((altImage, index) => {
+    if (!imageList) return altImage;
+    const targetImage = imageList.at(index);
+
+    if (!targetImage) return altImage;
+
+    return targetImage;
+  });
+
   return (
     <Container>
-      {imageList.map((imageSrc) => (
+      {imageListToDisplay.map((imageSrc) => (
         <ImageDiv
           key={shortid.generate()}
           className="detail-image"
@@ -15,6 +26,7 @@ function DetailImageGrid({ imageList }: { imageList: string[] }) {
           alt="main-img"
           blurDataURL={imageSrc}
           placeholder="blur"
+          objectFit="cover"
         />
       ))}
     </Container>
