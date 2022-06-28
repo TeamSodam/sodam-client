@@ -158,6 +158,32 @@ const StyledRoot = styled.div<StyledProps>`
     }
   }
 `;
+
+export const EmptyReview = styled(StyledRoot)`
+  background-color: ${({ theme }) => theme.colors.gray2};
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: 'Noto Sans KR';
+  font-size: 1.8rem;
+  font-weight: 700;
+
+  ${applyMediaQuery('desktop')} {
+    font-size: 1.4rem;
+  }
+
+  ${applyMediaQuery('tablet', 'mobile')} {
+    font-size: 1rem;
+  }
+
+  &:hover {
+    cursor: default;
+  }
+`;
+
 const StyledHover = styled.div`
   position: absolute;
   z-index: 2;
