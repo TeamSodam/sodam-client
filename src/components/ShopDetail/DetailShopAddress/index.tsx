@@ -1,4 +1,6 @@
+import useToast from 'hooks/useToast';
 import { useEffect, useState } from 'react';
+import { copyToClipboard } from 'src/utils/copyToClipboard';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import { getBackgroundImageCss } from 'styles/mixin';
@@ -19,6 +21,7 @@ const ADDRESS_ICON_MAP = {
 type AddressProps = Pick<Shop, 'roadAddress' | 'landAddress'>;
 
 function DetailShopAddress({ roadAddress, landAddress }: AddressProps) {
+  const { toast, fireToast } = useToast();
   const [currentAddress, setCurrentAddress] = useState(roadAddress);
   const [currentAddressType, setCurrentAddressType] = useState<keyof typeof ADDRESS_ICON_MAP>(LAND);
 
@@ -27,7 +30,17 @@ function DetailShopAddress({ roadAddress, landAddress }: AddressProps) {
     setCurrentAddressType((prevAddressType) => (prevAddressType === ROAD ? LAND : ROAD));
   };
 
-  const copyAddressToClipboard = async () => await navigator.clipboard.writeText(currentAddress);
+  const copyAddressToClipboard = async () => {
+    await copyToClipboard(
+      currentAddress,
+      () => {
+        fireToast('주소를 복사했어요.');
+      },
+      () => {
+        fireToast('주소 복사에 실패했어요.');
+      },
+    );
+  };
 
   useEffect(() => {
     setCurrentAddress(roadAddress);
@@ -35,29 +48,32 @@ function DetailShopAddress({ roadAddress, landAddress }: AddressProps) {
   }, [roadAddress]);
 
   return (
-    <Container>
-      <AddressLabel url={ADDRESS_ICON_MAP[currentAddressType]} />
-      <Address>{currentAddress}</Address>
-      <ButtonWrapper>
-        <ToggleButton
-          onClick={toggleAddressType}
-          url="/assets/ic_address_toggle.svg"
-          id="address-toggle"
-          type="button"
-        />
-        <label htmlFor="address-toggle">{currentAddressType === ROAD ? LAND : ROAD}</label>
-      </ButtonWrapper>
+    <>
+      <Container>
+        <AddressLabel url={ADDRESS_ICON_MAP[currentAddressType]} />
+        <Address>{currentAddress}</Address>
+        <ButtonWrapper>
+          <ToggleButton
+            onClick={toggleAddressType}
+            url="/assets/ic_address_toggle.svg"
+            id="address-toggle"
+            type="button"
+          />
+          <label htmlFor="address-toggle">{currentAddressType === ROAD ? LAND : ROAD}</label>
+        </ButtonWrapper>
 
-      <ButtonWrapper>
-        <CopyBtn
-          onClick={copyAddressToClipboard}
-          url="/assets/ic_copy.svg"
-          id="address-copy"
-          type="button"
-        />
-        <label htmlFor="address-copy">복사</label>
-      </ButtonWrapper>
-    </Container>
+        <ButtonWrapper>
+          <CopyBtn
+            onClick={copyAddressToClipboard}
+            url="/assets/ic_copy.svg"
+            id="address-copy"
+            type="button"
+          />
+          <label htmlFor="address-copy">복사</label>
+        </ButtonWrapper>
+      </Container>
+      {toast}
+    </>
   );
 }
 

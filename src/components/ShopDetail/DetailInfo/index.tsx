@@ -132,8 +132,8 @@ function DetailInfo({
   const copyCurrentLink = async () => {
     await copyToClipboard(
       location.href,
-      () => fireToast('클립보드에 복사했어요.'),
-      () => fireToast('복사에 실패했어요.'),
+      () => fireToast('링크를 복사했어요.'),
+      () => fireToast('링크 복사에 실패했어요.'),
     );
   };
 
