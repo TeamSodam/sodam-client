@@ -104,7 +104,7 @@ const Container = styled.div`
     gap: 1rem;
   }
   ${applyMediaQuery('mobile')} {
-    height: 3rem;
+    height: 1.7rem;
     padding: 0 0.5rem;
   }
 `;
@@ -146,7 +146,7 @@ const Address = styled.span`
     font-size: 0.6rem;
     line-height: 1.5rem;
     transform: scale(0.6);
-    margin: 0 -3.5rem;
+    margin: 0 -10%;
   }
 `;
 

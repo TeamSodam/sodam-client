@@ -54,7 +54,11 @@ const LeftWrapper = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 2.4rem;
+  gap: 1.4rem;
+
+  ${applyMediaQuery('desktop')} {
+    gap: 0.9rem;
+  }
 
   height: 100%;
 `;
@@ -90,6 +94,7 @@ const UpWrapper = styled.div`
   }
 
   ${applyMediaQuery('desktop')} {
+    padding-bottom: 1.98rem;
     & > h1 {
       font-size: 2.4rem;
       line-height: 3.2rem;
@@ -112,7 +117,7 @@ const DownWrapper = styled.div`
 const IconContents = styled.ul`
   list-style: none;
   flex: 1.7;
-  height: 72%;
+  height: 75%;
   display: grid;
   grid-template-rows: repeat(3, 1fr);
   grid-template-columns: repeat(2, 1fr);
@@ -122,9 +127,11 @@ const IconContents = styled.ul`
     height: 2.2rem;
   }
 
+  transform: translateY(-1.5rem);
+
   ${applyMediaQuery('desktop')} {
-    gap: 2rem 1rem;
-    height: 100%;
+    gap: 2.5rem 1rem;
+    transform: unset;
   }
 `;
 
@@ -136,6 +143,7 @@ const ThemeList = styled.ul`
 
 const Theme = styled.li`
   display: flex;
+  justify-content: center;
   align-items: center;
 
   background-color: ${({ theme }) => theme.colors.purpleText};
@@ -143,16 +151,17 @@ const Theme = styled.li`
   border-radius: 3rem;
 
   font-weight: 700;
+  font-style: normal;
   font-size: 1.2rem;
   line-height: 2rem;
 
-  padding: 0.7rem 1.2rem;
+  padding: 0.2rem 1.2rem;
   height: fit-content;
 
   ${applyMediaQuery('desktop')} {
     font-size: 1rem;
     line-height: 1.5rem;
-    padding: 0.7rem 1rem;
+    padding: 0.432rem 0.916rem 0.415rem 0.847rem;
   }
 
   &:before {
