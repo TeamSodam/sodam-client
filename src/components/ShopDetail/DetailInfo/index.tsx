@@ -7,6 +7,7 @@ import Blog from 'public/assets/ic_blog.svg';
 import Instagram from 'public/assets/ic_instagram.svg';
 import SmartStore from 'public/assets/ic_smartstore.svg';
 import { useState } from 'react';
+import { copyToClipboard } from 'src/utils/copyToClipboard';
 import type { AnyStyledComponent } from 'styled-components';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
@@ -17,7 +18,13 @@ import DesktopLayout from './DesktopLayout';
 import IconContent, { IconContentProps } from './IconContent';
 import MobileLayout from './MobileLayout';
 
-function DetailInfo({ shopInfo }: { shopInfo: Shop }) {
+function DetailInfo({
+  shopInfo,
+  fireToast,
+}: {
+  shopInfo: Shop;
+  fireToast: (text: string) => void;
+}) {
   const { isMobile, isTablet } = useMedia();
   const isSmallDevice = isMobile || isTablet;
   const isLogin = useAppSelector(selectIsLogin);
@@ -122,12 +129,21 @@ function DetailInfo({ shopInfo }: { shopInfo: Shop }) {
     }
   };
 
+  const copyCurrentLink = async () => {
+    await copyToClipboard(
+      location.href,
+      () => fireToast('클립보드에 복사했어요.'),
+      () => fireToast('복사에 실패했어요.'),
+    );
+  };
+
   const layoutProps = {
     shopName,
     showCategory,
     showTheme,
     showIconContent,
     BookMarkBtn: <BookMarkBtn isBookmarked={currentBookmarked} onClick={handleClick} />,
+    copyCurrentLink,
   };
 
   return isSmallDevice ? <MobileLayout {...layoutProps} /> : <DesktopLayout {...layoutProps} />;

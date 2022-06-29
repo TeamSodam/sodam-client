@@ -12,6 +12,7 @@ import { reviewApi, useGetReviewByShopIdQuery } from 'features/reviews/reviewApi
 import { useGetShopByShopIdQuery, useGetShopBySubwayQuery } from 'features/shops/shopApi';
 import useMap from 'hooks/useMap';
 import useMedia from 'hooks/useMedia';
+import useToast from 'hooks/useToast';
 import { NextParsedUrlQuery } from 'next/dist/server/request-meta';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
@@ -34,6 +35,7 @@ function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQu
   const { isMobile, isTablet } = useMedia();
   const getLimit = () => (isMobile ? 4 : isTablet ? 6 : 9);
   const getSlidesPerView = () => (isMobile ? 2 : isTablet ? 3 : 4);
+  const { fireToast, toast } = useToast();
 
   const mapRef = useRef<HTMLDivElement>(null);
 
@@ -141,9 +143,10 @@ function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQu
   return (
     <StyledContainer>
       <ColoredBackground />
+      {toast}
       <ImageGridWrapper>
         <DetailImageGrid imageList={shopInfo?.image} />
-        {shopInfo && <DetailInfo shopInfo={shopInfo} />}
+        {shopInfo && <DetailInfo shopInfo={shopInfo} fireToast={fireToast} />}
       </ImageGridWrapper>
       <Wrapper>
         <MapContainer ref={mapRef}>{showDetailShopAddress()}</MapContainer>

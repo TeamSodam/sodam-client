@@ -9,10 +9,12 @@ interface DetailInfoData {
   showTheme: (StTheme: AnyStyledComponent) => JSX.Element | JSX.Element[];
   showIconContent: () => JSX.Element[];
   BookMarkBtn: JSX.Element;
+  copyCurrentLink: () => void;
 }
 
 function DesktopLayout(props: DetailInfoData) {
-  const { shopName, showCategory, showTheme, BookMarkBtn, showIconContent } = props;
+  const { shopName, showCategory, showTheme, BookMarkBtn, showIconContent, copyCurrentLink } =
+    props;
   return (
     <Container>
       <LeftWrapper>
@@ -24,7 +26,9 @@ function DesktopLayout(props: DetailInfoData) {
           <ThemeList>{showTheme(Theme)}</ThemeList>
           <IconWrapper>
             {BookMarkBtn}
-            <ShareIC />
+            <button type="button" onClick={copyCurrentLink} style={{ all: 'unset' }}>
+              <ShareIC />
+            </button>
           </IconWrapper>
         </DownWrapper>
       </LeftWrapper>

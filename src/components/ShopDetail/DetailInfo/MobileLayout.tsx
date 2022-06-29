@@ -8,10 +8,12 @@ interface DetailInfoData {
   showTheme: (StTheme: AnyStyledComponent) => JSX.Element | JSX.Element[];
   showIconContent: () => JSX.Element[];
   BookMarkBtn: JSX.Element;
+  copyCurrentLink: () => void;
 }
 
 function MobileLayout(props: DetailInfoData) {
-  const { shopName, showCategory, showTheme, BookMarkBtn, showIconContent } = props;
+  const { shopName, showCategory, showTheme, BookMarkBtn, showIconContent, copyCurrentLink } =
+    props;
   return (
     <Container>
       <ThemeList>{showTheme(Theme)}</ThemeList>
@@ -22,7 +24,7 @@ function MobileLayout(props: DetailInfoData) {
         </StyledNames>
         <IconWrapper>
           {BookMarkBtn}
-          <ShareButton />
+          <ShareButton onClick={copyCurrentLink} />
         </IconWrapper>
       </StyledWrapper>
       <IconContents>{showIconContent()}</IconContents>
@@ -36,10 +38,13 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
+  position: relative;
 `;
 
-const ShareButton = styled.div`
+const ShareButton = styled.button`
   ${getBackgroundImageCss('/assets/ic_share.svg')};
+
+  border: none;
   width: 1.7rem;
   height: 1.7rem;
 `;
