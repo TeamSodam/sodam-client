@@ -5,7 +5,7 @@ import { getBackgroundImageCss } from 'styles/mixin';
 
 export interface IconContentProps {
   iconUrl: string;
-  iconName: string;
+  iconName: '지하철역' | '홈페이지' | '전화번호' | 'SNS' | '영업시간';
   mobileOrder: number;
   content:
     | string
@@ -21,7 +21,7 @@ function IconContent(props: IconContentProps) {
 
   const showContent = () => {
     if (typeof content === 'string') {
-      if (iconName === '홈페이지') {
+      if (iconName === '홈페이지' && content !== '') {
         return (
           <a
             target="_blank"
@@ -33,6 +33,12 @@ function IconContent(props: IconContentProps) {
           </a>
         );
       }
+
+      if (iconName === '전화번호' && content !== '') {
+        return <a href={`tel:${content}`}>{content}</a>;
+      }
+
+      if (content === '') return `${iconName} 준비중`;
 
       return content;
     }

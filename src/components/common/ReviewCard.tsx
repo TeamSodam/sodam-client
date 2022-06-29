@@ -128,10 +128,10 @@ const StyledRoot = styled.div<StyledProps>`
     position: relative;
     width: 38.4rem;
     height: 20.8rem;
-    & img {
-      border-top-left-radius: 5px;
-      border-top-right-radius: 5px;
-    }
+    border: 1px solid ${theme.colors.gray2};
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    overflow: hidden;
   }
   ${applyMediaQuery('desktop')} {
     width: 25.6rem;
