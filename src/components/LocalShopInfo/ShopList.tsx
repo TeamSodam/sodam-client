@@ -24,7 +24,7 @@ function ShopList({
   const isLogin = useAppSelector(selectIsLogin);
 
   const emptyText = `선택 지역에 해당하는 ${isSaveOption ? '저장한 ' : ''}소품샵이 없어요`;
-  const loginText = '로그인하고 내 취향의 소품샵 저장하러 가요.';
+  const loginText = '로그인하고 내 취향의 소품샵 저장하러 가요!';
 
   return isLoading ? (
     <StyledShopList>
@@ -79,9 +79,9 @@ const EmptyShopList = styled.div`
     font-size: 1.6rem;
     line-height: 2.3rem;
     color: ${({ theme }) => theme.colors.gray1};
-    word-wrap: break-word;
     opacity: 0.5;
     text-align: center;
+    word-break: keep-all;
   }
 
   ${applyMediaQuery('mobile')} {

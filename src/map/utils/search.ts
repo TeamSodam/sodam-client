@@ -15,8 +15,7 @@ export const getLocationByAddress = async (
       } else {
         if (shopName && shopName in latlngList) {
           resolve(new window.kakao.maps.LatLng(latlngList[shopName].y, latlngList[shopName].x));
-        }
-        reject(Error(`${address} 에 대한 검색에 실패했어요.`));
+        } else reject(Error(`${address} 에 대한 검색에 실패했어요.`));
       }
     });
   });
@@ -26,6 +25,7 @@ export const getLocationByAddress = async (
 export const searchAndMoveByAddress = (
   map: KakaoMap,
   address: string,
+  isSmallDevice: boolean,
   isStaticMarker?: boolean,
   shopName?: string,
 ) => {
@@ -36,10 +36,19 @@ export const searchAndMoveByAddress = (
       coords = new window.kakao.maps.LatLng(result[0].y, result[0].x);
     } else if (shopName && shopName in latlngList) {
       coords = new window.kakao.maps.LatLng(latlngList[shopName].y, latlngList[shopName].x);
+    } else {
+      const splitAddress = address.split(' ');
+      const maybeShopname = splitAddress[splitAddress.length - 1];
+      if (maybeShopname in latlngList) {
+        coords = new window.kakao.maps.LatLng(
+          latlngList[maybeShopname].y,
+          latlngList[maybeShopname].x,
+        );
+      }
     }
     if (coords) {
       map.setCenter(coords);
-      if (!isStaticMarker) map.panBy(-65, 0);
+      if (!isStaticMarker && !isSmallDevice) map.panBy(-150, 0);
     }
   });
 };

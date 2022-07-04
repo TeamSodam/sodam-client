@@ -94,13 +94,21 @@ const Option = styled.li<{ isActive: boolean }>`
   }
 
   ${applyMediaQuery('mobile', 'tablet')} {
-    width: 9rem;
-    min-height: 2.4rem;
-    max-height: 3.5rem;
-    gap: unset;
+    & > span {
+      font-size: 1rem;
+    }
+
+    & > svg {
+      transform: scale(0.312);
+      margin: 0 -10%;
+    }
+
+    width: unset;
+    height: 2.4rem;
+    gap: 0.4rem;
     flex-direction: row;
     justify-content: center;
-    padding: 10px 3px;
+    padding: 0.5rem 0rem;
     box-shadow: unset;
     ${({ isActive, theme }) =>
       isActive
@@ -111,14 +119,6 @@ const Option = styled.li<{ isActive: boolean }>`
             border: 0.1rem solid ${theme.colors.gray2};
             border-bottom: unset;
           `};
-
-    & > * {
-      transform: scale(0.65);
-    }
-
-    & > span {
-      transform: scale(0.85);
-    }
   }
 `;
 

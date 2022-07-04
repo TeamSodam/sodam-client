@@ -124,6 +124,7 @@ const StyledContainer = styled.main`
   }
 
   ${applyMediaQuery('mobile')} {
+    padding-bottom: 6.3rem;
     margin-top: 2.1rem;
   }
 `;
@@ -162,7 +163,6 @@ const StyledGoBack = styled.button`
 `;
 
 const LeftArrIC = styled(LeftArr)`
-  height: 2rem;
   fill: ${({ theme }) => theme.colors.black2};
 `;
 
