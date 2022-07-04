@@ -95,6 +95,7 @@ const StyledTitle = styled.div`
     font-weight: 700;
     line-height: 2.6rem;
     text-align: center;
+    color: ${({ theme }) => theme.colors.black2};
   }
   p {
     font-size: 1.4rem;

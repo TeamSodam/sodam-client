@@ -26,6 +26,7 @@ function Home() {
   const isLogin = useAppSelector(selectIsLogin);
   const { data: userInfo } = useGetUserInfoQuery(undefined, {
     skip: !isLogin,
+    refetchOnMountOrArgChange: true,
   });
   const [currentCategory, setCurrentCategory] = useState<ShopCategoryType>();
   const { data: randomShopList } = useGetShopInfoQuery('random');
@@ -157,6 +158,8 @@ const Label = styled.h2`
   font-size: 3rem;
   line-height: 4.3rem;
   font-weight: 700;
+
+  font-family: 'Noto Sans KR', sans-serif;
   color: ${({ theme }) => theme.colors.black2};
 
   & > em {

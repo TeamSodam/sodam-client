@@ -1,6 +1,6 @@
 import { selectUserToken, setToken } from 'features/users/userSlice';
 
-import { AppDispatch, subscribeState } from './store';
+import { AppDispatch, removeAllSubscriptions, subscribeState } from './store';
 
 const TOKEN_NAME = 'sodam-at';
 
@@ -21,6 +21,7 @@ export const subscribeToken = () => {
 
       ls.removeItem(TOKEN_NAME);
       unSubscribe();
+      removeAllSubscriptions();
     },
   );
 };

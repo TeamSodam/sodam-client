@@ -201,15 +201,16 @@ const StyledRoot = styled.section`
     }
     .inner-wrap__left {
       margin-right: 1.6rem;
-      width: 6.6rem;
+      width: 6.9rem;
     }
     .button__profile {
-      width: 6.7rem;
+      width: 6.9rem;
       padding: 0;
       font-size: 1rem;
       line-height: 1.2rem;
       margin-top: 0.4rem;
       transform-origin: top center;
+      white-space: nowrap;
     }
   }
 `;
@@ -246,6 +247,7 @@ const StyledProfileToggle = styled.ul`
     font-size: 1.2rem;
     font-weight: 500;
     padding: 0;
+    white-space: nowrap;
   }
   li:first-child button {
     color: ${theme.colors.purpleText};
@@ -270,11 +272,9 @@ const StyledProfileToggle = styled.ul`
     transform: translateX(2.7rem);
     animation-name: fadeInMobile;
     li {
-      height: 1.2rem;
       width: 10rem;
     }
     li > button {
-      height: 1.2rem;
       width: 10rem;
       font-size: 1rem;
       text-align: left;

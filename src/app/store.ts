@@ -1,4 +1,4 @@
-import type { AnyAction, Reducer } from '@reduxjs/toolkit';
+import type { AnyAction, Reducer, Unsubscribe } from '@reduxjs/toolkit';
 import { configureStore } from '@reduxjs/toolkit';
 import { authApi } from 'features/auth/authApi';
 import { reviewApi } from 'features/reviews/reviewApi';
@@ -26,6 +26,14 @@ const store = configureStore({
     ]),
 });
 
+const subscriptions: Unsubscribe[] = [];
+
+export const isSubscriptionsEmpty = () => subscriptions.length === 0;
+
+export const removeAllSubscriptions = () => {
+  subscriptions.splice(0, subscriptions.length);
+};
+
 export const subscribeState = <T>(
   selector: (state: RootState) => T,
   onChange: (state: T, dispatch: AppDispatch) => void,
@@ -41,6 +49,7 @@ export const subscribeState = <T>(
     currentState = nextState;
   };
   const unSubscribe = store.subscribe(handleChange);
+  subscriptions.push(unSubscribe);
   handleChange();
   return unSubscribe;
 };

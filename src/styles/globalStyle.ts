@@ -7,8 +7,7 @@ const GlobalStyles = createGlobalStyle`
   ${reset}
   * {
     box-sizing: border-box;
-    font-family: 'Noto Sans KR';
-    font-style: normal;
+    font-family: 'Noto Sans KR', sans-serif !important;
   }
 
   html, body {
