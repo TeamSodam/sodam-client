@@ -1,4 +1,5 @@
 import { shopApi } from 'features/shops/shopApi';
+import useClickOutside from 'hooks/useClickOutside';
 import debounce from 'lodash-es/debounce';
 import Link from 'next/link';
 import SearchICDesktop from 'public/assets/ic_search_desktop.svg';
@@ -15,6 +16,8 @@ function NavSearch() {
   const searchKeywordRef = useRef<HTMLInputElement>(null);
   const [results, setResults] = useState<Array<Pick<Shop, 'shopName' | 'shopId'>>>([]);
   const [isOpen, setIsOpen] = useState(false);
+  const searchRef = useRef(null);
+  useClickOutside(searchRef, () => setIsOpen(false));
   const getSearchKeyword = () => searchKeywordRef?.current?.value || '';
 
   const handleChangeSearch = async () => {
@@ -33,6 +36,7 @@ function NavSearch() {
       setIsOpen(true);
     } catch (error) {
       setResults([]);
+      setIsOpen(true);
     }
   };
 
@@ -56,7 +60,7 @@ function NavSearch() {
       </Screen>
       <input type="text" ref={searchKeywordRef} onChange={debounce(handleChangeSearch, 500)} />
       {isOpen && (
-        <ResultList>
+        <ResultList ref={searchRef}>
           {results.length > 0 ? (
             results.map(({ shopId, shopName }) => (
               <Link key={shopId} href={`/shop/detail/${shopId}`} passHref>

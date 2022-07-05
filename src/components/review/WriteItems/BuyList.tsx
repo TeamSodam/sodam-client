@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import { Item } from 'types/review';
-import { PriceOptionList, ShopCategoryType } from 'types/shop';
+import { PriceList, ShopCategoryType } from 'types/shop';
 
 import DropdownItem from './DropdownItem';
 import DropdownPrice from './DropdownPrice';
@@ -11,11 +11,7 @@ interface StyledBLProps {
   currentOpen: number;
   onSetCurrentOpen: (idx: number) => void;
   selectedItemList: Item[];
-  handleItemSubmit: (
-    data: ShopCategoryType | PriceOptionList,
-    index: number,
-    type: keyof Item,
-  ) => void;
+  handleItemSubmit: (data: ShopCategoryType | PriceList, index: number, type: keyof Item) => void;
 }
 function BuyList(props: StyledBLProps) {
   const { idx, currentOpen, onSetCurrentOpen, selectedItemList, handleItemSubmit } = props;

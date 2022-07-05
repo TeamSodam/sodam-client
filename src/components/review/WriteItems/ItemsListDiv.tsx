@@ -1,4 +1,5 @@
 import { MoreFilterList } from 'constants/dropdownOptionList';
+import { MutableRefObject } from 'react';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
@@ -6,16 +7,17 @@ import { ShopCategoryType } from 'types/shop';
 
 interface StyledILDProps {
   onSelectedItem: (item: ShopCategoryType) => void;
+  listRef: MutableRefObject<null>;
 }
 
 function ItemsListDiv(props: StyledILDProps) {
-  const { onSelectedItem } = props;
+  const { onSelectedItem, listRef } = props;
 
   const handleClick = (item: ShopCategoryType) => {
     onSelectedItem(item);
   };
   return (
-    <StyledUl>
+    <StyledUl ref={listRef}>
       {MoreFilterList.map((item) => (
         <li key={item} onClick={() => handleClick(item)} role="presentation">
           {item}
