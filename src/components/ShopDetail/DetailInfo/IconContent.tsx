@@ -5,7 +5,7 @@ import { getBackgroundImageCss } from 'styles/mixin';
 
 export interface IconContentProps {
   iconUrl: string;
-  iconName: string;
+  iconName: '지하철역' | '홈페이지' | '전화번호' | 'SNS' | '영업시간';
   mobileOrder: number;
   content:
     | string
@@ -21,13 +21,24 @@ function IconContent(props: IconContentProps) {
 
   const showContent = () => {
     if (typeof content === 'string') {
-      if (iconName === '홈페이지') {
+      if (iconName === '홈페이지' && content !== '') {
         return (
-          <a target="_blank" rel="noopener noreferrer" href={content}>
-            공식 홈페이지 바로가기
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={content || undefined}
+            style={{ letterSpacing: '-0.05em' }}
+          >
+            {content !== '' ? '공식 홈페이지 바로가기' : '홈페이지 준비중'}
           </a>
         );
       }
+
+      if (iconName === '전화번호' && content !== '') {
+        return <a href={`tel:${content}`}>{content}</a>;
+      }
+
+      if (content === '') return `${iconName} 준비중`;
 
       return content;
     }
@@ -39,9 +50,8 @@ function IconContent(props: IconContentProps) {
           index={index}
           key={shortid.generate()}
           isFilled={isFilled}
-          onClick={() => {
-            if (isFilled) window.open(link, '_blank');
-          }}
+          target="_blank"
+          href={isFilled ? link : undefined}
         >
           <Icon />
         </FillableIcon>
@@ -70,11 +80,9 @@ const Container = styled.li`
 `;
 
 const SvgWrapper = styled.div<{ url: string }>`
-  ${applyMediaQuery('desktop')} {
-    width: 2.2rem;
-    height: 2.2rem;
-  }
-  ${applyMediaQuery('mobile', 'tablet')} {
+  width: 2.2rem;
+  height: 2.2rem;
+  ${applyMediaQuery('mobile', 'tablet', 'desktop')} {
     width: 1.4rem;
     height: 1.4rem;
   }
@@ -152,7 +160,7 @@ const ContentWrapper = styled.div<{ isCenter: boolean }>`
   }
 `;
 
-const FillableIcon = styled.button<{ isFilled: boolean; index: number }>`
+const FillableIcon = styled.a<{ isFilled: boolean; index: number }>`
   &:hover {
     cursor: ${(props) => (props.isFilled ? 'pointer' : 'default')};
   }
@@ -163,6 +171,9 @@ const FillableIcon = styled.button<{ isFilled: boolean; index: number }>`
   & circle {
     fill: ${(props) => props.isFilled && props.theme.colors.purpleMain};
   }
+
+  position: relative;
+  top: 12.5%;
 
   ${applyMediaQuery('desktop')} {
     transform: scale(0.75);

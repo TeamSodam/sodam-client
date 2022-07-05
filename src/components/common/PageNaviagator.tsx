@@ -1,8 +1,8 @@
 import LeftArrow from 'public/assets/ic_leftArrow.svg';
 import RightArrow from 'public/assets/ic_rightArrow.svg';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useCallback } from 'react';
 import shortid from 'shortid';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 
 interface PageNaviagatorProps {
@@ -14,19 +14,30 @@ interface PageNaviagatorProps {
 const PREV = 'PREV';
 const NEXT = 'NEXT';
 
+const SELECTABLE_NUM = 5;
+
 function PageNaviagator(props: PageNaviagatorProps) {
   const { pageLimit, currentPage, setCurrentPage } = props;
 
+  const getSelectablePages = useCallback(() => {
+    const first = currentPage > 2 ? currentPage - 2 : 1;
+    const last = first + SELECTABLE_NUM;
+
+    const pages = [];
+    for (let pageNum = first; pageNum < last; pageNum++) {
+      if (pageNum > pageLimit) break;
+      pages.push(pageNum);
+    }
+
+    return pages;
+  }, [currentPage, pageLimit]);
+
   const showPages = () =>
-    [...Array(pageLimit)].map((_, index) => {
-      const isCurrent = index + 1 === currentPage;
+    getSelectablePages().map((_) => {
+      const isCurrent = _ === currentPage;
       return (
-        <Page
-          key={shortid.generate()}
-          isCurrent={isCurrent}
-          onClick={() => setCurrentPage(index + 1)}
-        >
-          {index + 1}
+        <Page key={shortid.generate()} isCurrent={isCurrent} onClick={() => setCurrentPage(_)}>
+          {_}
         </Page>
       );
     });
@@ -39,18 +50,16 @@ function PageNaviagator(props: PageNaviagatorProps) {
 
   return (
     <Container>
-      <LeftBtn onClick={() => naviagtePage(PREV)} />
+      <LeftBtn disabled={currentPage === 1} onClick={() => naviagtePage(PREV)}>
+        <LeftArr />
+      </LeftBtn>
       <PageList>{showPages()}</PageList>
-      <RightBtn onClick={() => naviagtePage(NEXT)} />
+      <RightBtn disabled={currentPage === pageLimit} onClick={() => naviagtePage(NEXT)}>
+        <RightArr />
+      </RightBtn>
     </Container>
   );
 }
-
-const hoverPointer = css`
-  &:hover {
-    cursor: pointer;
-  }
-`;
 
 const Container = styled.nav`
   width: 58rem;
@@ -75,7 +84,6 @@ const PageList = styled.ol`
 `;
 
 const Page = styled.li<{ isCurrent: boolean }>`
-  ${hoverPointer}
   color: ${(props) =>
     props.isCurrent ? props.theme.colors.purpleText : props.theme.colors.black2};
   font-weight: 500;
@@ -84,17 +92,32 @@ const Page = styled.li<{ isCurrent: boolean }>`
   ${applyMediaQuery('mobile', 'tablet')} {
     font-size: 1.2rem;
   }
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
-const LeftBtn = styled(LeftArrow)`
-  ${hoverPointer}
+const LeftArr = styled(LeftArrow)`
   ${applyMediaQuery('mobile', 'tablet')} {
     transform: scale(0.5);
   }
 `;
 
-const RightBtn = styled(RightArrow)`
-  ${hoverPointer}
+const Button = styled.button`
+  all: unset;
+  &:disabled {
+    cursor: default;
+    & > svg > path {
+      stroke: lightgray;
+    }
+  }
+`;
+
+const LeftBtn = styled(Button)``;
+const RightBtn = styled(Button)``;
+
+const RightArr = styled(RightArrow)`
   ${applyMediaQuery('mobile', 'tablet')} {
     transform: scale(0.5);
   }

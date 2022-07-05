@@ -1,4 +1,6 @@
+import useToast from 'hooks/useToast';
 import { useEffect, useState } from 'react';
+import { copyToClipboard } from 'src/utils/copyToClipboard';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import { getBackgroundImageCss } from 'styles/mixin';
@@ -19,15 +21,26 @@ const ADDRESS_ICON_MAP = {
 type AddressProps = Pick<Shop, 'roadAddress' | 'landAddress'>;
 
 function DetailShopAddress({ roadAddress, landAddress }: AddressProps) {
+  const { toast, fireToast } = useToast();
   const [currentAddress, setCurrentAddress] = useState(roadAddress);
-  const [currentAddressType, setCurrentAddressType] = useState<keyof typeof ADDRESS_ICON_MAP>(ROAD);
+  const [currentAddressType, setCurrentAddressType] = useState<keyof typeof ADDRESS_ICON_MAP>(LAND);
 
   const toggleAddressType = () => {
     setCurrentAddress(currentAddressType === ROAD ? landAddress : roadAddress);
     setCurrentAddressType((prevAddressType) => (prevAddressType === ROAD ? LAND : ROAD));
   };
 
-  const copyAddressToClipboard = async () => await navigator.clipboard.writeText(currentAddress);
+  const copyAddressToClipboard = async () => {
+    await copyToClipboard(
+      currentAddress,
+      () => {
+        fireToast('주소를 복사했어요.');
+      },
+      () => {
+        fireToast('주소 복사에 실패했어요.');
+      },
+    );
+  };
 
   useEffect(() => {
     setCurrentAddress(roadAddress);
@@ -35,34 +48,38 @@ function DetailShopAddress({ roadAddress, landAddress }: AddressProps) {
   }, [roadAddress]);
 
   return (
-    <Container>
-      <AddressLabel url={ADDRESS_ICON_MAP[currentAddressType]} />
-      <Address>{currentAddress}</Address>
-      <ButtonWrapper>
-        <ToggleButton
-          onClick={toggleAddressType}
-          url="/assets/ic_address_toggle.svg"
-          id="address-toggle"
-          type="button"
-        />
-        <label htmlFor="address-toggle">{currentAddressType}</label>
-      </ButtonWrapper>
+    <>
+      <Container>
+        <AddressLabel url={ADDRESS_ICON_MAP[currentAddressType]} />
+        <Address>{currentAddress}</Address>
+        <ButtonWrapper>
+          <ToggleButton
+            onClick={toggleAddressType}
+            url="/assets/ic_address_toggle.svg"
+            id="address-toggle"
+            type="button"
+          />
+          <label htmlFor="address-toggle">{currentAddressType === ROAD ? LAND : ROAD}</label>
+        </ButtonWrapper>
 
-      <ButtonWrapper>
-        <CopyBtn
-          onClick={copyAddressToClipboard}
-          url="/assets/ic_copy.svg"
-          id="address-copy"
-          type="button"
-        />
-        <label htmlFor="address-copy">복사</label>
-      </ButtonWrapper>
-    </Container>
+        <ButtonWrapper>
+          <CopyBtn
+            onClick={copyAddressToClipboard}
+            url="/assets/ic_copy.svg"
+            id="address-copy"
+            type="button"
+          />
+          <label htmlFor="address-copy">복사</label>
+        </ButtonWrapper>
+      </Container>
+      {toast}
+    </>
   );
 }
 
 const Container = styled.div`
   width: calc(100% - 4rem);
+  min-width: 0;
   height: 6.7rem;
   background-color: white;
   border-radius: 5px;
@@ -88,12 +105,15 @@ const Container = styled.div`
     gap: 1rem;
   }
   ${applyMediaQuery('mobile')} {
-    height: 3rem;
-    padding: 0 0.5rem;
+    width: calc(100% - 1.4rem);
+    height: fit-content;
+    padding: 0.2rem 0.5rem;
+    gap: 0.7rem;
   }
 `;
 
 const ButtonWrapper = styled.div`
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   gap: 0.4rem;
@@ -108,7 +128,6 @@ const ButtonWrapper = styled.div`
     gap: 0.2rem;
 
     & > label {
-      transform: scale(0.6);
       font-size: 0.6rem;
       line-height: 1.5rem;
     }
@@ -126,11 +145,12 @@ const Address = styled.span`
     line-height: 2rem;
   }
   ${applyMediaQuery('mobile')} {
-    word-break: keep-all;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
     font-size: 0.6rem;
     line-height: 1.5rem;
-    transform: scale(0.6);
-    margin: 0 -3.5rem;
   }
 `;
 
@@ -150,8 +170,6 @@ const CopyBtn = styled(BackgroundButton)`
     width: 1.2rem;
     min-width: 1.2rem;
     height: 1.2rem;
-    margin-right: -0.5rem;
-    margin-left: -1rem;
   }
 `;
 
@@ -162,7 +180,6 @@ const ToggleButton = styled(BackgroundButton)`
     width: 1.2rem;
     min-width: 1.2rem;
     height: 1.2rem;
-    margin-right: -0.5rem;
   }
 `;
 
@@ -172,9 +189,9 @@ const AddressLabel = styled.span<StButtonprops>`
   height: 2.6rem;
 
   ${applyMediaQuery('mobile')} {
-    min-width: 2.7rem;
-    width: 2.7rem;
-    height: 1.1rem;
+    min-width: 3.5rem;
+    width: 3.5rem;
+    height: 1.3rem;
     background-size: contain;
   }
 `;

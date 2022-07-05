@@ -7,7 +7,7 @@ export const miniTooltipStyle = css`
     position: relative;
     background-color: white;
     margin-top: -10rem;
-    border-radius: 10px;
+    border-radius: 8px;
     padding: 1.1rem 2.4rem;
     text-align: center;
 
@@ -49,7 +49,8 @@ export const miniTooltipStyle = css`
       }
     }
     ${applyMediaQuery('mobile')} {
-      padding: 0.4rem 0.7rem;
+      border-radius: 2px;
+      padding: 0.4rem 0.83rem;
       margin-top: -7rem;
       filter: drop-shadow(0px 1px 1.5px rgba(149, 144, 140, 0.4));
       &__title {

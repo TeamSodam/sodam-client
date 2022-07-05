@@ -2,7 +2,7 @@ import { wrapper } from 'app/store';
 import DropDownFilter from 'components/common/DropDownFilter';
 import MainSlider from 'components/common/MainSlider';
 import PageNaviagator from 'components/common/PageNaviagator';
-import ReviewCard from 'components/common/ReviewCard';
+import ReviewCard, { EmptyReview } from 'components/common/ReviewCard';
 import ShopCard from 'components/common/ShopCard';
 import WriteReviewLink from 'components/common/WriteReviewLink';
 import DetailImageGrid from 'components/ShopDetail/DetailImageGrid';
@@ -12,6 +12,7 @@ import { reviewApi, useGetReviewByShopIdQuery } from 'features/reviews/reviewApi
 import { useGetShopByShopIdQuery, useGetShopBySubwayQuery } from 'features/shops/shopApi';
 import useMap from 'hooks/useMap';
 import useMedia from 'hooks/useMedia';
+import useToast from 'hooks/useToast';
 import { NextParsedUrlQuery } from 'next/dist/server/request-meta';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
@@ -34,6 +35,7 @@ function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQu
   const { isMobile, isTablet } = useMedia();
   const getLimit = () => (isMobile ? 4 : isTablet ? 6 : 9);
   const getSlidesPerView = () => (isMobile ? 2 : isTablet ? 3 : 4);
+  const { fireToast, toast } = useToast();
 
   const mapRef = useRef<HTMLDivElement>(null);
 
@@ -60,16 +62,19 @@ function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQu
   };
 
   const showReviewList = () => {
-    if (!currentList) return [];
     if (currentList && currentList.length > 0) {
       return currentList.map((review) => <ReviewCard key={review.reviewId} reviewData={review} />);
     }
-    return [];
+
+    return <EmptyReview isMyReviewMobile={false}>아직 등록된 리뷰가 없어요</EmptyReview>;
   };
 
   const showSubwayShopList = () => {
     if (subwayInfo) {
       const { shopList } = subwayInfo;
+
+      if (shopList.length === 0)
+        return <EmptyReview isMyReviewMobile={false}>아직 등록된 소품샵이 없어요</EmptyReview>;
 
       const cardList = shopList.map((shop) => <ShopCard key={shop.shopId} cardData={shop} />);
 
@@ -138,9 +143,10 @@ function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQu
   return (
     <StyledContainer>
       <ColoredBackground />
+      {toast}
       <ImageGridWrapper>
-        <DetailImageGrid imageList={shopInfo?.image || new Array(4)} />
-        {shopInfo && <DetailInfo shopInfo={shopInfo} />}
+        <DetailImageGrid imageList={shopInfo?.image} />
+        {shopInfo && <DetailInfo shopInfo={shopInfo} fireToast={fireToast} />}
       </ImageGridWrapper>
       <Wrapper>
         <MapContainer ref={mapRef}>{showDetailShopAddress()}</MapContainer>
