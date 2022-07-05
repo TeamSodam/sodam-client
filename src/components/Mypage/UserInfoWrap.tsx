@@ -1,7 +1,9 @@
+import { useAppDispatch } from 'app/hook';
 import {
   useDeleteUserImageMutation,
   useEditUserImageMutation,
   useEditUserNicknameMutation,
+  userApi,
 } from 'features/users/userApi';
 import useClickOutside from 'hooks/useClickOutside';
 import Image from 'next/image';
@@ -25,6 +27,8 @@ function UserInfoWrap(props: Props) {
   const { name, nickname, email } = userInfo;
 
   const profileDefaultImg = '/assets/profile_default.svg';
+
+  const dispatch = useAppDispatch();
 
   const [editNickname] = useEditUserNicknameMutation();
   const [editProfile] = useEditUserImageMutation();
@@ -62,7 +66,16 @@ function UserInfoWrap(props: Props) {
       lastModified: new Date().getTime(),
       type: 'image/png',
     });
-    await editProfile(imageFile);
+    try {
+      const result = await editProfile(imageFile).unwrap();
+      dispatch(
+        userApi.util.updateQueryData('getUserImage', undefined, (draft) =>
+          Object.assign(draft, result),
+        ),
+      );
+    } catch (error) {
+      await editProfile(imageFile);
+    }
   };
 
   const onEditProfile = async (e: React.ChangeEvent<HTMLInputElement>) => {
