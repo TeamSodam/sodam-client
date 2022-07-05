@@ -51,16 +51,18 @@ export const fetchBaseQueryWithToken: BaseQueryFn<
       return result;
     }
 
-    const refreshResult = await client.post('/auth/refresh', null, {
-      withCredentials: true,
+    const refreshResult = await fetch('/api/auth/refresh', {
+      method: 'POST',
+      credentials: 'include',
       headers: {
         accesstoken: prevToken,
       },
     });
 
     if (refreshResult.statusText === 'OK') {
-      const { accesstoken } = refreshResult.data.data;
-      api.dispatch(setToken(accesstoken));
+      const { data } = await refreshResult.json();
+
+      api.dispatch(setToken(data.accesstoken));
       result = await baseQuery(args, api, extraOptions);
     } else api.dispatch(logout());
   }

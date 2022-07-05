@@ -147,7 +147,6 @@ const StyledRoot = styled.div<StyledProps>`
       font-size: 1rem;
       line-height: 1.1rem;
       width: ${({ isEmail }) => (isEmail ? 16 : 10.3)}rem;
-      height: 1.3rem;
       &::placeholder {
         overflow: visible;
         transform: scale(0.7);
@@ -160,12 +159,14 @@ const StyledRoot = styled.div<StyledProps>`
       padding: 0.6rem;
     }
     button {
+      font-family: 'Noto Sans KR', sans-serif;
       width: 6rem;
       height: 1.8rem;
       border-radius: 0.3rem;
       font-size: 1rem;
-      line-height: 1.5rem;
+      line-height: 1.4rem;
       margin-left: 0.5rem;
+      white-space: nowrap;
     }
     p {
       font-size: 1rem;

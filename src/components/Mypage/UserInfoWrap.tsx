@@ -3,8 +3,9 @@ import {
   useEditUserImageMutation,
   useEditUserNicknameMutation,
 } from 'features/users/userApi';
+import useClickOutside from 'hooks/useClickOutside';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import cropImage from 'src/utils/cropImage';
 import dataURItoBlob from 'src/utils/dataURItoBlob';
 import styled from 'styled-components';
@@ -34,6 +35,9 @@ function UserInfoWrap(props: Props) {
   const [profileImg, setProfileImg] = useState(
     userImage.image === '' ? profileDefaultImg : userImage.image,
   );
+  const profileToggleRef = useRef<HTMLUListElement>(null);
+  const closeProfileFilter = useCallback(() => setProfileToggle(false), []);
+  useClickOutside(profileToggleRef, closeProfileFilter, profileToggle);
 
   const onChangeNickname = (text: string) => {
     setNicknameData(text);
@@ -101,7 +105,7 @@ function UserInfoWrap(props: Props) {
               프로필 사진 설정
             </button>
             {profileToggle && (
-              <StyledProfileToggle>
+              <StyledProfileToggle ref={profileToggleRef}>
                 <li>
                   <button>새로운 프로필 사진 등록</button>
                   <StyledInput type="file" accept="image/*" multiple onChange={onEditProfile} />
@@ -201,15 +205,16 @@ const StyledRoot = styled.section`
     }
     .inner-wrap__left {
       margin-right: 1.6rem;
-      width: 6.6rem;
+      width: 6.9rem;
     }
     .button__profile {
-      width: 6.7rem;
+      width: 6.9rem;
       padding: 0;
       font-size: 1rem;
       line-height: 1.2rem;
       margin-top: 0.4rem;
       transform-origin: top center;
+      white-space: nowrap;
     }
   }
 `;
@@ -246,6 +251,7 @@ const StyledProfileToggle = styled.ul`
     font-size: 1.2rem;
     font-weight: 500;
     padding: 0;
+    white-space: nowrap;
   }
   li:first-child button {
     color: ${theme.colors.purpleText};
@@ -270,11 +276,9 @@ const StyledProfileToggle = styled.ul`
     transform: translateX(2.7rem);
     animation-name: fadeInMobile;
     li {
-      height: 1.2rem;
       width: 10rem;
     }
     li > button {
-      height: 1.2rem;
       width: 10rem;
       font-size: 1rem;
       text-align: left;

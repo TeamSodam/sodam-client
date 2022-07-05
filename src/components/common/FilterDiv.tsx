@@ -1,4 +1,5 @@
-import { MouseEvent } from 'react';
+import useClickOutside from 'hooks/useClickOutside';
+import { MouseEvent, useRef } from 'react';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
@@ -17,6 +18,8 @@ interface StyledFDProps {
 function FilterDiv(props: StyledFDProps) {
   const { selected, unselected, saveSelectedOption, saveUnselectedOption, toggle, filterProps } =
     props;
+  const filterRef = useRef<HTMLUListElement>(null);
+  useClickOutside(filterRef, toggle);
 
   const handleClick = (e: MouseEvent) => {
     if (!(e.target instanceof HTMLElement)) return;
@@ -31,7 +34,7 @@ function FilterDiv(props: StyledFDProps) {
   };
 
   return (
-    <StyledUl>
+    <StyledUl ref={filterRef}>
       <li onClick={handleClick} role="presentation">
         {selected}
       </li>
@@ -52,7 +55,7 @@ const StyledUl = styled.ul`
   flex-direction: column;
   z-index: 3;
   width: 11.5rem;
-  top: 0;
+  top: 100%;
   right: 0;
   box-shadow: 0px 3px 8px rgba(87, 82, 76, 0.15);
   border-radius: 0.5rem;
