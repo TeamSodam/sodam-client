@@ -92,19 +92,19 @@ const StyledRoot = styled.div<Pick<StyledELProps, 'isActive'>>`
 
 const StyledImgWrapper = styled.div<StyledELProps>`
   display: flex;
-  width: ${({ isActive }) => (isActive ? '28.2rem' : '22.2rem')};
+  width: 22.2rem;
   height: ${({ isActive }) => (isActive ? '31.8rem' : '17.8rem')};
 
   ${applyMediaQuery('desktop')} {
-    width: ${({ isActive }) => (isActive ? '19.1rem' : '14.8rem')};
+    width: 14.8rem;
     height: ${({ isActive }) => (isActive ? '21rem' : '11.4rem')};
   }
   ${applyMediaQuery('tablet')} {
-    width: ${({ isActive }) => (isActive ? '12rem' : '10rem')};
+    width: 10rem;
     height: ${({ isActive }) => (isActive ? '14rem' : '7rem')};
   }
   ${applyMediaQuery('mobile')} {
-    width: ${({ isActive }) => (isActive ? '7.6rem' : '6.6rem')};
+    width: 6.6rem;
     height: ${({ isActive }) => (isActive ? '8.7rem' : '5.2rem')};
   }
   background-image: ${({ imgSrc }) => `url(${imgSrc})`};
