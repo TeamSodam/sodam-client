@@ -85,6 +85,8 @@ function ReviewCard(props: ReviewCardProps) {
         className="thumbnail__image"
         src={loadImageSafely(image)}
         layout="fill"
+        objectFit="cover"
+        objectPosition="center"
         alt="thumbnail"
         placeholder="blur"
         blurDataURL={loadImageSafely(image)}

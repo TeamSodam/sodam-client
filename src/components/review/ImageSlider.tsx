@@ -39,7 +39,7 @@ function ImageSlider(props: ImageSliderProps) {
       scrollbar: { draggable: true, el: null },
       slidesPerView: 6,
     }),
-    [],
+    [isMobile],
   );
 
   const changeImage = (index: number): void => {
@@ -53,7 +53,7 @@ function ImageSlider(props: ImageSliderProps) {
   return (
     <StyledRoot>
       <ImageWrapper>
-        <Image src={imageList[currentIndex]} layout="fill" alt="review" />
+        <Image src={imageList[currentIndex]} layout="fill" alt="review" objectFit="cover" />
       </ImageWrapper>
       {imageList.length > 1 && (
         <StyledSwiper>

@@ -81,6 +81,8 @@ function ReviewDetailCard(props: ReviewDetailCardProps) {
               className="profile-image"
               src={writerThumbnail ? writerThumbnail : '/assets/profile_default.svg'}
               layout="fill"
+              objectFit="fill"
+              objectPosition="center"
               alt="profile"
             />
             <ReviewInfo>
