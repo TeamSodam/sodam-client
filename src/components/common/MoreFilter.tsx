@@ -1,5 +1,6 @@
 import { MoreFilterList } from 'constants/dropdownOptionList';
-import { Dispatch, MouseEvent, SetStateAction, useState } from 'react';
+import useClickOutside from 'hooks/useClickOutside';
+import { Dispatch, MouseEvent, SetStateAction, useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
@@ -19,6 +20,9 @@ function MoreFilter(props: MoreFilterProps) {
   const { currentCategory, updateCategory } = props;
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen((prevIsOpen) => !prevIsOpen);
+  const filterRef = useRef<HTMLUListElement>(null);
+  const closeModal = useCallback(() => setIsOpen(false), []);
+  useClickOutside(filterRef, closeModal, isOpen);
 
   const handleClick = (e: MouseEvent, option: ShopCategoryType) => {
     if (!(e.target instanceof HTMLElement)) return;
@@ -32,7 +36,7 @@ function MoreFilter(props: MoreFilterProps) {
       <StyledWrapper onClick={toggle}>
         <span>더보기</span>
         {isOpen && (
-          <StyledUl>
+          <StyledUl ref={filterRef}>
             {MoreFilterList.map((option) => (
               <StyledLi
                 key={option}
@@ -94,7 +98,7 @@ const StyledUl = styled.ul`
   flex-direction: column;
   z-index: 5;
   width: 11.5rem;
-  top: 0;
+  top: 100%;
   right: 0;
   box-shadow: 0px 3px 8px rgba(87, 82, 76, 0.15);
   border-radius: 0.5rem;
