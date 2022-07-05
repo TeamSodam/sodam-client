@@ -8,7 +8,7 @@ function MapLandingPage() {
       <Header>
         <b>서울</b> 지역 소품샵 한 눈에 보기
       </Header>
-      <SubHeader>원하는 지역을 클릭해 자세한 소품샵 위치를 확인할 수 있어요.</SubHeader>
+      <SubHeader>원하는 지역을 클릭해 자세한 소품샵 위치를 확인할 수 있어요</SubHeader>
       <ImageMap />
     </StyledContainer>
   );
@@ -36,6 +36,7 @@ const Header = styled.h1`
   font-weight: 700;
   font-style: normal;
   color: ${({ theme }) => theme.colors.black2};
+  margin-bottom: 1.2rem;
 
   & > b {
     color: ${({ theme }) => theme.colors.purpleText};
@@ -46,6 +47,7 @@ const Header = styled.h1`
     line-height: 2.9rem;
   }
   ${applyMediaQuery('mobile')} {
+    margin-bottom: 0.8rem;
     font-size: 1.4rem;
     line-height: 2rem;
   }

@@ -72,7 +72,8 @@ const StyledShopElement = styled.li<StyledShopElementProps>`
 
   ${applyMediaQuery('mobile')} {
     max-height: 11.6rem;
-    padding: 2rem;
+
+    padding: 2.1rem 2.1rem 2rem 1.8rem;
   }
 
   background-color: ${(props) => props.isSelected && props.theme.colors.grayBg};
@@ -111,6 +112,7 @@ const ShopMainInfo = styled.div`
     font-size: 1.2rem;
     line-height: 1.7rem;
     color: ${({ theme }) => theme.colors.gray1};
+    white-space: nowrap;
   }
 
   ${applyMediaQuery('desktop')} {
@@ -132,6 +134,13 @@ const ShopAddress = styled.p`
   color: ${({ theme }) => theme.colors.black1};
   font-weight: 400;
   margin-top: 0.8rem;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   ${applyMediaQuery('desktop')} {
     font-size: 0.8rem;

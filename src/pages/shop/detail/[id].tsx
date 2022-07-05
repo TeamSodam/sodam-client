@@ -51,7 +51,7 @@ function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQu
 
   const [currentList, setCurrentList] = useState<ReviewByShopIdData[]>();
 
-  const initialLocation = shopInfo && shopInfo.landAddress;
+  const initialLocation = shopInfo && (shopInfo.landAddress || shopInfo?.roadAddress);
 
   const { displayMarkerByAddress } = useMap(mapRef, initialLocation, true);
 

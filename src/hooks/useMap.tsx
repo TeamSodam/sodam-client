@@ -12,6 +12,8 @@ import { RefObject, useCallback, useEffect, useState } from 'react';
 import { KakaoMap } from 'types/map';
 import { Shop } from 'types/shop';
 
+import useMedia from './useMedia';
+
 declare global {
   interface Window {
     kakao: KakaoMap;
@@ -24,6 +26,8 @@ function useMap<T>(
   isStaticMarker?: boolean,
 ) {
   const router = useRouter();
+  const { isMobile, isTablet } = useMedia();
+  const isSmallDevice = isMobile || isTablet;
   const [map, setMap] = useState<KakaoMap>(null);
   const currentMarkerList = useAppSelector(selectCurrentMarkerList);
   const dispatch = useAppDispatch();
@@ -56,7 +60,7 @@ function useMap<T>(
   const moveByAddress = useCallback(
     (address: string, name: string) => {
       if (map) {
-        searchAndMoveByAddress(map, address, isStaticMarker, name);
+        searchAndMoveByAddress(map, address, isSmallDevice, isStaticMarker, name);
         let targetMarkerIndex = -1;
         const targetMarker = currentMarkerList.find((marker) => {
           targetMarkerIndex = marker.name.findIndex((markerName) => markerName === name);
@@ -76,16 +80,16 @@ function useMap<T>(
         }
       }
     },
-    [map, currentMarkerList, isStaticMarker],
+    [map, currentMarkerList, isStaticMarker, isSmallDevice],
   );
 
   useEffect(() => {
     (async () => {
       if (map && initialLocation) {
-        searchAndMoveByAddress(map, initialLocation, isStaticMarker);
+        searchAndMoveByAddress(map, initialLocation, isSmallDevice, isStaticMarker);
       }
     })();
-  }, [map, initialLocation, isStaticMarker]);
+  }, [map, initialLocation, isStaticMarker, isSmallDevice]);
 
   useEffect(() => {
     (async () => {

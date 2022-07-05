@@ -3,6 +3,8 @@ import { css } from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import { Shop } from 'types/shop';
 
+const LONG_CONTENT = 52;
+
 export const tooltipStyle = css`
   .marker-tooltip {
     text-align: unset;
@@ -15,7 +17,7 @@ export const tooltipStyle = css`
     gap: 0.5rem;
 
     background-color: white;
-    margin-top: -52.5%;
+    margin-top: -47.5%;
     border-radius: 10px;
     padding: 1.6rem 2.4rem;
 
@@ -26,6 +28,14 @@ export const tooltipStyle = css`
 
     &.paged {
       margin-top: -55%;
+    }
+
+    &.long {
+      margin-top: -52.5%;
+    }
+
+    &.paged.long {
+      margin-top: -62%;
     }
 
     &__title {
@@ -43,6 +53,7 @@ export const tooltipStyle = css`
       font-size: 1.2rem;
       line-height: 1.7rem;
       color: ${({ theme }) => theme.colors.gray1};
+      white-space: nowrap;
     }
 
     &__content {
@@ -59,7 +70,6 @@ export const tooltipStyle = css`
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: normal;
-      word-wrap: break-all;
     }
 
     &__footer {
@@ -138,6 +148,10 @@ export const getToolTipTemplate = (
     e.preventDefault();
     navigate(`/shop/detail/${shopId}`);
   };
+  console.log(shopName, new Blob([shopName + parseCategorySafely(category)]).size);
+  if (new Blob([shopName + parseCategorySafely(category)]).size > LONG_CONTENT) {
+    tooltip.classList.add('long');
+  }
 
   const tooltipTemplate = `
     <div class="marker-tooltip__header">
@@ -204,6 +218,12 @@ export const getPagedToolTipTemplate = (
   const render = () => {
     tooltip.innerHTML = template();
     attachEvent();
+    if (
+      new Blob([shopList[page].shopName + parseCategorySafely(shopList[page].category)]).size >
+      LONG_CONTENT
+    ) {
+      tooltip.classList.add('long');
+    } else tooltip.classList.remove('long');
   };
 
   render();
