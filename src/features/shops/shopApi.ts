@@ -18,6 +18,7 @@ import {
 export const shopApi = createApi({
   reducerPath: 'shopApi',
   baseQuery: fetchBaseQueryWithToken,
+  tagTypes: ['ThemeShop'],
   endpoints: (builder) => ({
     // builder.query<T, U>() --> T는 쿼리의 반환값 타입, U는 쿼리 파라미터의 타입.
     getShopByCategory: builder.query<ShopResponse[], string>({
@@ -41,6 +42,7 @@ export const shopApi = createApi({
         },
         method: 'GET',
       }),
+      providesTags: ['ThemeShop'],
       transformResponse: (response: SodamResponse<ShopResponse[]>) => response.data,
     }),
     getShopByShopId: builder.query<Shop, number>({
