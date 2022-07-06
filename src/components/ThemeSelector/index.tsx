@@ -45,7 +45,7 @@ const StyledRoot = styled.div`
   width: 100%;
 
   & > h4 {
-    font-weight: bold;
+    font-weight: 700;
     font-size: 3rem;
     line-height: 4.3rem;
     color: ${theme.colors.black2};
