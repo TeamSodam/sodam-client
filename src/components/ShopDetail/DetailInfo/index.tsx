@@ -1,12 +1,12 @@
-import { useAppSelector } from 'app/hook';
-import { usePostBookmarkMutation } from 'features/shops/shopApi';
+import { useAppDispatch, useAppSelector } from 'app/hook';
+import { shopApi, usePostBookmarkMutation } from 'features/shops/shopApi';
 import { selectIsLogin } from 'features/users/userSlice';
 import useMedia from 'hooks/useMedia';
 import { useRouter } from 'next/router';
 import Blog from 'public/assets/ic_blog.svg';
 import Instagram from 'public/assets/ic_instagram.svg';
 import SmartStore from 'public/assets/ic_smartstore.svg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { copyToClipboard } from 'src/utils/copyToClipboard';
 import type { AnyStyledComponent } from 'styled-components';
 import styled from 'styled-components';
@@ -29,6 +29,7 @@ function DetailInfo({
   const isSmallDevice = isMobile || isTablet;
   const isLogin = useAppSelector(selectIsLogin);
   const router = useRouter();
+  const dispatch = useAppDispatch();
   const {
     shopName,
     category,
@@ -46,6 +47,10 @@ function DetailInfo({
 
   const [currentBookmarked, setCurrentBookmarked] = useState(isBookmarked);
   const [bookmarkPost] = usePostBookmarkMutation();
+
+  useEffect(() => {
+    setCurrentBookmarked(isBookmarked);
+  }, [isBookmarked]);
 
   const iconContents: IconContentProps[] = [
     {
@@ -124,6 +129,11 @@ function DetailInfo({
     if (isLogin) {
       toggleBookmark();
       bookmarkPost({ shopId, isBookmarked: !currentBookmarked });
+      dispatch(
+        shopApi.util.updateQueryData('getShopByShopId', shopId, (shopInfo) => {
+          shopInfo.isBookmarked = !currentBookmarked;
+        }),
+      );
     } else {
       router.push(`/auth/login?from=${encodeURIComponent(router.asPath)}`);
     }
