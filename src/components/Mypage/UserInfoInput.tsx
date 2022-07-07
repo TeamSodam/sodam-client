@@ -113,6 +113,7 @@ const StyledRoot = styled.div<StyledProps>`
     font-weight: 500;
     line-height: 2.2rem;
     margin-left: 1.5rem;
+    padding: 0;
   }
   p {
     transform: translateX(9.9rem);
