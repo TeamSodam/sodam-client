@@ -179,6 +179,16 @@ const Delimiter = styled.div`
   background-color: ${({ theme }) => theme.colors.navLine};
   padding: 0;
   margin: 0;
+
+  margin-top: 3.3rem;
+
+  ${applyMediaQuery('tablet')} {
+    margin-top: 2.5rem;
+  }
+
+  ${applyMediaQuery('mobile')} {
+    margin-top: 2rem;
+  }
 `;
 
 const ShopList = styled.div`
