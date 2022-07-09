@@ -31,8 +31,8 @@ function Write() {
         <EmptyContent emptyContentData={emptyContentData} />
       ) : (
         <>
-          <h2>내가 작성한 리뷰</h2>
           <StyledBtnWrapper>
+            <h2>내가 작성한 리뷰</h2>
             <WriteReviewLink />
           </StyledBtnWrapper>
           <StyledCardWrapper>
@@ -60,6 +60,21 @@ const StyledContainer = styled.div`
   flex-direction: column;
   margin: 7.2rem 0;
 
+  ${applyMediaQuery('desktop')} {
+    margin-top: 5.3rem;
+  }
+  ${applyMediaQuery('tablet')} {
+    margin-top: 3rem;
+  }
+  ${applyMediaQuery('mobile')} {
+    margin: 2.5rem 0;
+  }
+`;
+const StyledBtnWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+
   & > h2 {
     font-weight: bold;
     font-size: 3rem;
@@ -68,30 +83,23 @@ const StyledContainer = styled.div`
   }
 
   ${applyMediaQuery('desktop')} {
-    margin-top: 5.3rem;
     & > h2 {
       font-size: 2.6rem;
       line-height: 3.8rem;
     }
   }
   ${applyMediaQuery('tablet')} {
-    margin-top: 3rem;
     & > h2 {
       font-size: 2rem;
       line-height: 2.9rem;
     }
   }
   ${applyMediaQuery('mobile')} {
-    margin: 2.5rem 0;
     & > h2 {
       font-size: 1.4rem;
       line-height: 2rem;
     }
   }
-`;
-const StyledBtnWrapper = styled.div`
-  display: flex;
-  justify-content: flex-end;
 `;
 const StyledCardWrapper = styled.div`
   display: grid;

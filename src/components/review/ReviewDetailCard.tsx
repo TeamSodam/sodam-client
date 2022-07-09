@@ -421,7 +421,7 @@ const ReviewTag = styled.span`
   padding: 0 1rem;
   text-align: center;
   background-color: ${({ theme }) => theme.colors.white};
-  border: solid 2px ${({ theme }) => theme.colors.purpleText};
+  border: solid 1px ${({ theme }) => theme.colors.purpleText};
   border-radius: 30px;
   color: ${({ theme }) => theme.colors.purpleText};
   font-size: 1.2rem;

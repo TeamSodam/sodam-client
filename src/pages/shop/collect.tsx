@@ -53,8 +53,8 @@ function Collect() {
     <StyledContainer>
       {collectShopList?.length ? (
         <>
-          <h2>저장한 소품샵</h2>
           <StyledFilterWrapper>
+            <h2>저장한 소품샵</h2>
             <DropDownFilter pageType="collect" filterProps={filterProps} />
           </StyledFilterWrapper>
           <StyledCardWrapper>
@@ -75,6 +75,21 @@ const StyledContainer = styled.div`
   flex-direction: column;
   margin: 7.2rem 0;
 
+  ${applyMediaQuery('desktop')} {
+    margin-top: 4.8rem;
+  }
+  ${applyMediaQuery('tablet')} {
+    margin-top: 3rem;
+  }
+  ${applyMediaQuery('mobile')} {
+    margin-top: 1.4rem;
+  }
+`;
+
+const StyledFilterWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+
   & > h2 {
     font-weight: bold;
     font-size: 3rem;
@@ -83,46 +98,41 @@ const StyledContainer = styled.div`
   }
 
   ${applyMediaQuery('desktop')} {
-    margin-top: 5.2rem;
     & > h2 {
       font-size: 2.6rem;
       line-height: 3.8rem;
     }
   }
   ${applyMediaQuery('tablet')} {
-    margin-top: 3rem;
     & > h2 {
       font-size: 2rem;
       line-height: 2.9rem;
     }
   }
   ${applyMediaQuery('mobile')} {
-    margin-top: 1.4rem;
     & > h2 {
       font-size: 1.4rem;
       line-height: 2rem;
     }
   }
 `;
-
-const StyledFilterWrapper = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`;
 const StyledCardWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 4rem 2.4rem;
-  margin-top: 2.4rem;
+  margin-top: 5.6rem;
+
   ${applyMediaQuery('desktop')} {
+    margin-top: 3rem;
     gap: 2.5rem 1.6rem;
-    margin-top: 1.5rem;
   }
   ${applyMediaQuery('tablet')} {
+    margin-top: 2.4rem;
     grid-template-columns: repeat(3, 1fr);
     gap: 3.2rem 1.6rem;
   }
   ${applyMediaQuery('mobile')} {
+    margin-top: 1.6rem;
     grid-template-columns: repeat(2, 1fr);
     gap: 1.6rem 0.6rem;
   }
