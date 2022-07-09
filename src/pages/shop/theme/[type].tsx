@@ -1,9 +1,11 @@
+import { useAppDispatch } from 'app/hook';
 import DropDownFilter from 'components/common/DropDownFilter';
+import Loader from 'components/common/Loader';
 import ShopCard from 'components/common/ShopCard';
 import ThemeSelector from 'components/ThemeSelector';
-import { useGetShopByThemeQuery } from 'features/shops/shopApi';
+import { shopApi, useGetShopByThemeQuery } from 'features/shops/shopApi';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import { ShopThemeSortType, ShopThemeType } from 'types/shop';
@@ -26,6 +28,12 @@ function ThemePage() {
 
   const parsedThemeType = parseThemeType(type);
   const [currentSortType, setCurrentSortType] = useState<ShopThemeSortType>('popular');
+  const dispatch = useAppDispatch();
+  const infiniteOffset = useRef(1);
+  const loadPoint = useRef(null);
+  const containerRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [getNextShop] = shopApi.endpoints.getShopByTheme.useLazyQuery();
   const { data: themeShopList } = useGetShopByThemeQuery({
     theme: parsedThemeType || '아기자기한',
     sortType: currentSortType,
@@ -37,13 +45,83 @@ function ThemePage() {
     { filterName: '리뷰 많은 순', onClick: () => setCurrentSortType('review') },
     { filterName: '저장 많은 순', onClick: () => setCurrentSortType('popular') },
   ];
+
   const showCurrentThemeList2 = () => {
     if (!parsedThemeType && themeShopList) return;
     return themeShopList?.map((shop) => <ShopCard key={shop.shopId} cardData={shop} />);
   };
 
+  const loadNewShop = useCallback(
+    (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
+      entries.forEach(async (entry) => {
+        if (entry.target && entry.isIntersecting && !isLoading) {
+          try {
+            infiniteOffset.current += 1;
+            observer.unobserve(entry.target);
+            setIsLoading(true);
+
+            const result = await getNextShop({
+              theme: parsedThemeType || '아기자기한',
+              sortType: currentSortType,
+              offset: infiniteOffset.current,
+              limit: 16,
+            }).unwrap();
+
+            if (result.length === 0) {
+              observer.disconnect();
+              return;
+            }
+
+            const toUpdate = shopApi.util.updateQueryData(
+              'getShopByTheme',
+              {
+                theme: parsedThemeType || '아기자기한',
+                sortType: currentSortType,
+                offset: 1,
+                limit: 16,
+              },
+              (draftShop) => {
+                const refinedResult = result.filter(
+                  ({ shopId }, index) =>
+                    draftShop.every(({ shopId: draftShopId }) => draftShopId !== shopId) &&
+                    result
+                      .slice(index + 1)
+                      .every(({ shopId: otherResultShopId }) => shopId !== otherResultShopId),
+                );
+
+                draftShop.push(...refinedResult);
+              },
+            );
+
+            dispatch(toUpdate);
+            observer.observe(entry.target);
+          } catch (error) {
+            shopApi.util.invalidateTags(['ThemeShop']);
+          } finally {
+            setIsLoading(false);
+          }
+        }
+      });
+    },
+    [parsedThemeType, currentSortType],
+  );
+
+  useEffect(() => {
+    const io = new IntersectionObserver(loadNewShop, {
+      threshold: 1,
+    });
+
+    if (loadPoint.current) io.observe(loadPoint.current);
+
+    return () => {
+      io.disconnect();
+      shopApi.util.invalidateTags(['ThemeShop']);
+      infiniteOffset.current = 1;
+    };
+  }, [loadNewShop]);
+
   return (
-    <Container>
+    <Container ref={containerRef}>
       <Wrapper>
         <ThemeWrapper>
           <ThemeSelector />
@@ -54,6 +132,7 @@ function ThemePage() {
         <DropDownFilter pageType="theme" filterProps={filterProps} />
       </DropDownWrapper>
       <ShopList>{showCurrentThemeList2()}</ShopList>
+      <LoadPoint ref={loadPoint}>{isLoading && <Loader />}</LoadPoint>
     </Container>
   );
 }
@@ -100,9 +179,21 @@ const Delimiter = styled.div`
   background-color: ${({ theme }) => theme.colors.navLine};
   padding: 0;
   margin: 0;
+
+  margin-top: 3.3rem;
+
+  ${applyMediaQuery('tablet')} {
+    margin-top: 2.5rem;
+  }
+
+  ${applyMediaQuery('mobile')} {
+    margin-top: 2rem;
+  }
 `;
 
 const ShopList = styled.div`
+  min-height: 50vh;
+
   position: relative;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -133,6 +224,12 @@ const DropDownWrapper = styled.div`
     margin-top: 3rem;
     margin-bottom: 1.6rem;
   }
+`;
+
+const LoadPoint = styled.div`
+  position: relative;
+  height: 100px;
+  margin-bottom: 8rem;
 `;
 
 export default ThemePage;

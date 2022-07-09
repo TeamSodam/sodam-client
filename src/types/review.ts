@@ -1,8 +1,8 @@
-import { PriceOptionList, ShopCategoryType } from './shop';
+import { PriceList, ShopCategoryType } from './shop';
 
 export interface Item {
   itemName: ShopCategoryType;
-  price: PriceOptionList;
+  price: PriceList;
 }
 export interface Review {
   shopId: number;

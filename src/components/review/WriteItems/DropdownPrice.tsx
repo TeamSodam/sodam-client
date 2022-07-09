@@ -1,23 +1,20 @@
 import ImageDiv from 'components/common/ImageDiv';
-import { useEffect, useState } from 'react';
+import useClickOutside from 'hooks/useClickOutside';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 import { Item } from 'types/review';
-import { PriceOptionList, ShopCategoryType } from 'types/shop';
+import { PriceList, ShopCategoryType } from 'types/shop';
 
-import PriceList from './PriceList';
+import DDPriceList from './PriceList';
 
 interface StyledDPProps {
   idx: number;
   currentOpen: number;
   onSetCurrentOpen: (idx: number) => void;
-  selectedItem: PriceOptionList | undefined;
-  handleItemSubmit: (
-    data: ShopCategoryType | PriceOptionList,
-    index: number,
-    type: keyof Item,
-  ) => void;
+  selectedItem: PriceList | undefined;
+  handleItemSubmit: (data: ShopCategoryType | PriceList, index: number, type: keyof Item) => void;
 }
 
 function DropdownPrice(props: StyledDPProps) {
@@ -26,8 +23,10 @@ function DropdownPrice(props: StyledDPProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
   const toggle = () => setIsOpen((prevIsOpen) => !prevIsOpen);
+  const listRef = useRef(null);
+  useClickOutside(listRef, () => setIsOpen(false), isOpen);
 
-  const onSelectedPrice = (price: PriceOptionList) => {
+  const onSelectedPrice = (price: PriceList) => {
     handleItemSubmit(price, idx, 'price');
     toggle();
     setIsSelected(true);
@@ -56,7 +55,7 @@ function DropdownPrice(props: StyledDPProps) {
           alt="dropdown"
         />
       </StyledWrapper>
-      {isOpen && <PriceList onSelectedPrice={onSelectedPrice} />}
+      {isOpen && <DDPriceList listRef={listRef} onSelectedPrice={onSelectedPrice} />}
     </StyledRoot>
   );
 }

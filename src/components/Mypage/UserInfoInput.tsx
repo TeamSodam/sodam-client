@@ -161,6 +161,7 @@ const StyledRoot = styled.div<StyledProps>`
     button {
       font-family: 'Noto Sans KR', sans-serif;
       width: 6rem;
+      width: unset;
       height: 1.8rem;
       border-radius: 0.3rem;
       font-size: 1rem;

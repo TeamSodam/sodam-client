@@ -63,6 +63,7 @@ function MainSlider(props: MainSliderProps) {
         },
         scrollbar: { draggable: true, el: null },
         slidesPerView,
+        slidesPerGroup: slidesPerView,
         onBeforeInit: (swiper: SwiperCore) => {
           if (typeof swiper.params.navigation !== 'boolean') {
             if (swiper.params.navigation) {

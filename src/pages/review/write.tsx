@@ -16,7 +16,7 @@ import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import Screen from 'styles/Screen';
 import { Item, ReviewImage, ReviewWriteKey, ReviewWriteRequest } from 'types/review';
-import { PriceOptionList, ShopCategoryType } from 'types/shop';
+import { PriceList, ShopCategoryType } from 'types/shop';
 
 interface WriteProps {
   userName: string;
@@ -147,7 +147,7 @@ function Write(props: WriteProps) {
   };
 
   const handleItemSubmit = (
-    data: ShopCategoryType | PriceOptionList,
+    data: ShopCategoryType | PriceList,
     index: number,
     type: keyof Item,
   ) => {

@@ -1,10 +1,11 @@
 import ImageDiv from 'components/common/ImageDiv';
-import { useEffect, useState } from 'react';
+import useClickOutside from 'hooks/useClickOutside';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 import { Item } from 'types/review';
-import { PriceOptionList, ShopCategoryType } from 'types/shop';
+import { PriceList, ShopCategoryType } from 'types/shop';
 
 import ItemsListDiv from './ItemsListDiv';
 
@@ -13,11 +14,7 @@ interface StyledDDIProps {
   currentOpen: number;
   onSetCurrentOpen: (idx: number) => void;
   selectedItem: ShopCategoryType | undefined;
-  handleItemSubmit: (
-    data: ShopCategoryType | PriceOptionList,
-    index: number,
-    type: keyof Item,
-  ) => void;
+  handleItemSubmit: (data: ShopCategoryType | PriceList, index: number, type: keyof Item) => void;
 }
 
 function DropdownItem(props: StyledDDIProps) {
@@ -32,6 +29,8 @@ function DropdownItem(props: StyledDDIProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isSelected, setIsSelected] = useState(false);
   const toggle = () => setIsOpen((prevIsOpen) => !prevIsOpen);
+  const listRef = useRef(null);
+  useClickOutside(listRef, () => setIsOpen(false), isOpen);
 
   const onSelectedItem = (item: ShopCategoryType) => {
     handleItemSubmit(item, idx, 'itemName');
@@ -61,7 +60,7 @@ function DropdownItem(props: StyledDDIProps) {
           alt="dropdown"
         />
       </StyledWrapper>
-      {isOpen && <ItemsListDiv onSelectedItem={onSelectedItem} />}
+      {isOpen && <ItemsListDiv listRef={listRef} onSelectedItem={onSelectedItem} />}
     </StyledRoot>
   );
 }

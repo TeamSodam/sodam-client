@@ -1,21 +1,23 @@
 import { PriceFilterList } from 'constants/dropdownOptionList';
+import { MutableRefObject } from 'react';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
-import { PriceOptionList } from 'types/shop';
+import { PriceList as PriceOptionList } from 'types/shop';
 
 interface StyledPLProps {
   onSelectedPrice: (price: PriceOptionList) => void;
+  listRef: MutableRefObject<null>;
 }
 function PriceList(props: StyledPLProps) {
-  const { onSelectedPrice } = props;
+  const { onSelectedPrice, listRef } = props;
 
   const handleClick = (price: PriceOptionList) => {
     onSelectedPrice(price);
   };
 
   return (
-    <StyledUl>
+    <StyledUl ref={listRef}>
       {PriceFilterList.map((price) => (
         <li key={price} onClick={() => handleClick(price)} role="presentation">
           {price}
@@ -40,6 +42,9 @@ const StyledUl = styled.ul`
   background-color: ${theme.colors.grayBg};
   padding: 1.2rem 0.8rem;
 
+  height: 14rem;
+  overflow: auto;
+
   & > li {
     height: 2.8rem;
     line-height: 2.8rem;
@@ -57,6 +62,8 @@ const StyledUl = styled.ul`
     width: 12.6rem;
     padding: 0.8rem 0.5rem;
 
+    height: 9.5rem;
+
     & > li {
       height: 1.9rem;
       line-height: 1.9rem;
@@ -66,6 +73,8 @@ const StyledUl = styled.ul`
   }
   ${applyMediaQuery('mobile')} {
     width: 12.5rem;
+
+    height: 12rem;
 
     & > li {
       height: 2.4rem;

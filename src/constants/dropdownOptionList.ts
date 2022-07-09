@@ -1,4 +1,4 @@
-import { PriceOptionList, ShopCategoryType } from 'types/shop';
+import { PriceList, ShopCategoryType } from 'types/shop';
 
 export const dropDownFilterList = {
   detail: ['좋아요 많은 순', '스크랩 많은 순', '최신 순'],
@@ -15,10 +15,18 @@ export const MoreFilterList: ShopCategoryType[] = [
   '인형·장난감',
 ];
 
-export const PriceFilterList: PriceOptionList[] = [
-  '~ 2,900',
-  '3,000 - 4,900',
-  '5,000 - 9,900',
-  '10,000 - 14,900',
-  '20,000 ~',
+export const PriceFilterList: PriceList[] = [
+  '2,900원 이하',
+  '3,000원-4,900원',
+  '5,000원-9,900원',
+  '10,000원-19,900원',
+  '20,000원-29,900원',
+  '30,000원-39,900원',
+  '40,000원-49,900원',
+  '50,000원-59,900원',
+  '60,000원-69,900원',
+  '70,000원-79,900원',
+  '80,000원-89,900원',
+  '90,000원-99,900원',
+  '100,000원 이상',
 ];

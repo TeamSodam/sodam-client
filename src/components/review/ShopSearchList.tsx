@@ -1,3 +1,5 @@
+import useClickOutside from 'hooks/useClickOutside';
+import { useRef } from 'react';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
@@ -12,6 +14,10 @@ interface StyledSSLProps {
 function ShopSearchList(props: StyledSSLProps) {
   const { shopList, toggle, onSetSelected } = props;
 
+  const listRef = useRef(null);
+
+  useClickOutside(listRef, toggle);
+
   const handleClick = (item: ShopSearchResponse) => {
     const { shopId, shopName } = item;
     toggle();
@@ -19,7 +25,7 @@ function ShopSearchList(props: StyledSSLProps) {
   };
 
   return (
-    <StyledUl>
+    <StyledUl ref={listRef}>
       {shopList?.length === 0 ? (
         <span>등록된 소품샵이 없습니다.</span>
       ) : (

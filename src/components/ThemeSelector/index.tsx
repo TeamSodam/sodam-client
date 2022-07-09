@@ -79,7 +79,7 @@ const StyledRoot = styled.div`
 
 const StyledElWrapper = styled.div<StyledThemeELProps>`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   gap: 5.8rem;
   margin-top: ${({ isMain }) => (isMain ? '5.4rem' : 0)};
   ${applyMediaQuery('desktop')} {

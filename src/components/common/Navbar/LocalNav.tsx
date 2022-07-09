@@ -101,7 +101,7 @@ const ReviewMenu = styled.a<{ isActive: boolean }>`
   display: flex;
   align-items: center;
   margin-right: 3.2rem;
-  height: 100%;
+  height: calc(100% - 2px);
   font-weight: 500;
   cursor: pointer;
   color: ${(props) => props.isActive && props.theme.colors.purpleMain};

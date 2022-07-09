@@ -91,7 +91,7 @@ const StyledCardWrapper = styled.div`
   margin-top: 5.6rem;
   ${applyMediaQuery('desktop')} {
     gap: 2.8rem 1.7rem;
-    margin-top: 5.6rem;
+    margin-top: 5.2rem;
   }
   ${applyMediaQuery('tablet')} {
     grid-template-columns: repeat(2, 1fr);

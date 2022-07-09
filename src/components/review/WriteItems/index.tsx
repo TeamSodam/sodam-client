@@ -2,17 +2,13 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import { Item } from 'types/review';
-import { PriceOptionList, ShopCategoryType } from 'types/shop';
+import { PriceList, ShopCategoryType } from 'types/shop';
 
 import BuyList from './BuyList';
 
 interface WriteItemsProps {
   selectedItemList: Item[];
-  handleItemSubmit: (
-    data: ShopCategoryType | PriceOptionList,
-    index: number,
-    type: keyof Item,
-  ) => void;
+  handleItemSubmit: (data: ShopCategoryType | PriceList, index: number, type: keyof Item) => void;
 }
 
 function WriteItems(props: WriteItemsProps) {

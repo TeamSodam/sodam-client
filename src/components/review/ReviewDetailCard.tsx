@@ -6,7 +6,7 @@ import { usePostLikeMutation, usePostScrapMutation } from 'features/reviews/revi
 import { selectIsLogin } from 'features/users/userSlice';
 import useMedia from 'hooks/useMedia';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import shortid from 'shortid';
 import { parseDate } from 'src/utils/parseDate';
 import styled from 'styled-components';
@@ -50,6 +50,8 @@ function ReviewDetailCard(props: ReviewDetailCardProps) {
   const likedCount = currentLikeCount > 99 ? '99+' : currentLikeCount;
   const scrapedCount = currentScrapCount > 99 ? '99+' : currentScrapCount;
 
+  const prevReviewId = useRef<number>();
+
   const getOnClickHandlerByType = (type: 'scrap' | 'like') => {
     if (isLogin) {
       const setter = type === 'scrap' ? setCurrentScrapCount : setCurrentLikeCount;
@@ -68,6 +70,19 @@ function ReviewDetailCard(props: ReviewDetailCardProps) {
 
   const { isDesktop, isTablet, isMobile } = useMedia();
 
+  useEffect(() => {
+    if (prevReviewId.current !== reviewId) {
+      setLikeClicked(isLiked);
+      setScrapClicked(isScraped);
+      setCurrentLikeCount(likeCount);
+      setCurrentScrapCount(scrapCount);
+    }
+
+    return () => {
+      prevReviewId.current = reviewId;
+    };
+  }, [reviewId]);
+
   return (
     <StyledReviewDetailCardContainer>
       <Header>
@@ -81,6 +96,8 @@ function ReviewDetailCard(props: ReviewDetailCardProps) {
               className="profile-image"
               src={writerThumbnail ? writerThumbnail : '/assets/profile_default.svg'}
               layout="fill"
+              objectFit="fill"
+              objectPosition="center"
               alt="profile"
             />
             <ReviewInfo>
@@ -404,7 +421,7 @@ const ReviewTag = styled.span`
   padding: 0 1rem;
   text-align: center;
   background-color: ${({ theme }) => theme.colors.white};
-  border: solid 2px ${({ theme }) => theme.colors.purpleText};
+  border: solid 1px ${({ theme }) => theme.colors.purpleText};
   border-radius: 30px;
   color: ${({ theme }) => theme.colors.purpleText};
   font-size: 1.2rem;
