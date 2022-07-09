@@ -67,8 +67,6 @@ function ThemePage() {
               limit: 16,
             }).unwrap();
 
-            console.log('result.length :>> ', result.length);
-
             if (result.length === 0) {
               observer.disconnect();
               return;
@@ -134,9 +132,7 @@ function ThemePage() {
         <DropDownFilter pageType="theme" filterProps={filterProps} />
       </DropDownWrapper>
       <ShopList>{showCurrentThemeList2()}</ShopList>
-      <div style={{ position: 'relative', height: '100px' }} ref={loadPoint}>
-        {isLoading && <Loader />}
-      </div>
+      <LoadPoint ref={loadPoint}>{isLoading && <Loader />}</LoadPoint>
     </Container>
   );
 }
@@ -218,6 +214,12 @@ const DropDownWrapper = styled.div`
     margin-top: 3rem;
     margin-bottom: 1.6rem;
   }
+`;
+
+const LoadPoint = styled.div`
+  position: relative;
+  height: 100px;
+  margin-bottom: 8rem;
 `;
 
 export default ThemePage;
