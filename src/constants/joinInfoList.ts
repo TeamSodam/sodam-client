@@ -19,6 +19,7 @@ export const joinInfoList: ObjectsType = {
     placeholder: 'example@naver.com',
     notice: '입력 형식에 맞지 않습니다',
     unCompleteNotice: '이미 가입된 이메일입니다.',
+    sentNotice: '인증번호가 전송되었습니다.',
   },
   emailConfirm: {
     title: 'ID (이메일) 인증번호',

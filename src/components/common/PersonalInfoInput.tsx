@@ -20,6 +20,7 @@ function PersonalInfoInput(props: PersonalInfoInputProps) {
   const inputInfo = joinInfoList[inputType];
   const { isError, ...inputValue } = useInput(inputType, handleOnChange);
   const [isConfirm, setIsConfirm] = useState(false);
+  const [isEmailConfirmSent, setIsEmailConfirmSent] = useState(false);
 
   useEffect(() => {
     if (inputType === 'name' || inputType === 'password') {
@@ -34,6 +35,9 @@ function PersonalInfoInput(props: PersonalInfoInputProps) {
 
   const handleConfirm = (type: keyof UserSignupRequest, value: boolean) => {
     setIsConfirm(true);
+
+    if (type === 'email') setIsEmailConfirmSent(true);
+
     handleComplete(type, value);
   };
 
@@ -42,27 +46,24 @@ function PersonalInfoInput(props: PersonalInfoInputProps) {
       return inputInfo.notice;
     }
 
-    if (type === 'nickname' && isConfirm) {
-      if (isCompleteList.nickname) {
-        return inputInfo.completeNotice;
-      }
-      return inputInfo.unCompleteNotice;
-    }
+    if (!isConfirm) return null;
 
-    if (type === 'email' && isConfirm) {
-      if (!isCompleteList.email) {
+    switch (type) {
+      case 'nickname':
+        if (isCompleteList.nickname) return inputInfo.completeNotice;
         return inputInfo.unCompleteNotice;
-      }
+      case 'email':
+        if (!isCompleteList.email) return inputInfo.unCompleteNotice;
+        if (!isCompleteList.emailConfirm) return inputInfo.sentNotice;
+        return null;
+      case 'emailConfirm':
+        if (isCompleteList.emailConfirm) {
+          return inputInfo.completeNotice;
+        }
+        return inputInfo.unCompleteNotice;
+      default:
+        return null;
     }
-
-    if (type === 'emailConfirm' && isConfirm) {
-      if (isCompleteList.emailConfirm) {
-        return inputInfo.completeNotice;
-      }
-      return inputInfo.unCompleteNotice;
-    }
-
-    return null;
   };
 
   return (
@@ -88,6 +89,7 @@ function PersonalInfoInput(props: PersonalInfoInputProps) {
           isCompleteList={isCompleteList}
           value={inputValue.value}
           handleConfirm={handleConfirm}
+          isEmailConfirmSent={isEmailConfirmSent}
         />
       </StyledInputWrapper>
       <StyledNoticeErr>{getNotice(inputType, isConfirm)}</StyledNoticeErr>

@@ -10,11 +10,13 @@ interface SignupOptionProps {
   value: string;
   isCompleteList: { [key: string]: boolean };
   handleConfirm: (type: keyof UserSignupRequest, value: boolean) => void;
+  isEmailConfirmSent: boolean;
 }
 function SignupOption(props: SignupOptionProps) {
-  const { type, error, value, handleConfirm, isCompleteList } = props;
+  const { type, error, value, handleConfirm, isCompleteList, isEmailConfirmSent } = props;
   const [checkNickname] = usePostNicknameMutation();
   const [checkEmail] = usePostEmailMutation();
+
   const handleClick = async () => {
     if (type === 'nickname') {
       try {
@@ -45,7 +47,7 @@ function SignupOption(props: SignupOptionProps) {
       case 'email':
         return {
           disabled: error,
-          label: '인증번호 전송',
+          label: isEmailConfirmSent ? '인증번호 재전송' : '인증번호 전송',
         };
       case 'nickname':
         return {
