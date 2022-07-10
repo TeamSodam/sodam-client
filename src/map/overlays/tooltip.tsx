@@ -148,7 +148,6 @@ export const getToolTipTemplate = (
     e.preventDefault();
     navigate(`/shop/detail/${shopId}`);
   };
-  console.log(shopName, new Blob([shopName + parseCategorySafely(category)]).size);
   if (new Blob([shopName + parseCategorySafely(category)]).size > LONG_CONTENT) {
     tooltip.classList.add('long');
   }

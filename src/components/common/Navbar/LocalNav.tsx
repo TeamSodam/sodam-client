@@ -117,7 +117,7 @@ const ReviewMenu = styled.a<{ isActive: boolean }>`
     margin-right: 4.5rem;
   }
   ${applyMediaQuery('mobile', 'tablet')} {
-    margin-top: -0.7rem;
+    margin-top: -1.4rem;
   }
 `;
 export default LocalNav;
