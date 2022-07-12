@@ -29,8 +29,8 @@ function UserThemeItem(props: Props) {
   };
   const buttonType = isSelected ? 'minus' : 'plus';
 
-  const getCategoryOnIcon = (): string => `/assets/ic_theme_${Category[themeType]}_on.png`;
-  const getCategoryOffIcon = (): string => `/assets/ic_theme_${Category[themeType]}_off.png`;
+  const getCategoryOnIcon = (): string => `/assets/ic_theme_${Category[themeType]}_on.svg`;
+  const getCategoryOffIcon = (): string => `/assets/ic_theme_${Category[themeType]}_off.svg`;
   const getButtonIcon = (): string => `/assets/ic_${buttonType}.png`;
 
   return (

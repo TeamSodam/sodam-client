@@ -24,8 +24,10 @@ function ThemeSelector(props: ThemeSelectorProps) {
 
   const getThemeIcon = (theme: string, isSelected: boolean) =>
     isSelected
-      ? `/assets/ic_theme${ThemeSelect[theme]}Join.png`
-      : `/assets/ic_theme${ThemeSelect[theme]}JoinOff.png`;
+      ? // ? `/assets/ic_theme${ThemeSelect[theme]}Join.png`
+        // : `/assets/ic_theme${ThemeSelect[theme]}JoinOff.png`;
+        `/assets/ic_theme${ThemeSelect[theme]}Join.svg`
+      : `/assets/ic_theme${ThemeSelect[theme]}JoinOff.svg`;
 
   return (
     <StyledRoot>

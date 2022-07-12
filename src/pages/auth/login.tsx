@@ -72,7 +72,7 @@ function Login() {
         </StyledLoginBtn>
       </StyledForm>
       <StyledLinkWrapper>
-        <Link href="/">비밀번호 재설정</Link>
+        {/* <Link href="/">비밀번호 재설정</Link> */}
         <Link href="/auth/join">회원가입</Link>
       </StyledLinkWrapper>
     </StyledRoot>
