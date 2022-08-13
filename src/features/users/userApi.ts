@@ -6,6 +6,7 @@ import { UserImage, UserInfo, UserTheme } from 'types/user';
 export const userApi = createApi({
   reducerPath: 'userApi',
   baseQuery: fetchBaseQueryWithToken,
+  tagTypes: ['UserInfo', 'UserImage', 'UserTheme', 'UserNickname'],
   endpoints: (builder) => ({
     // builder.query<T, U>() --> T는 쿼리의 반환값 타입, U는 쿼리 파라미터의 타입.
     getUserInfo: builder.query<UserInfo, void>({
@@ -13,6 +14,7 @@ export const userApi = createApi({
         url: '/user/info',
         method: 'GET',
       }),
+      providesTags: ['UserInfo', 'UserImage', 'UserNickname', 'UserTheme'],
       transformResponse: (response: SodamResponse<UserInfo>) => response.data,
     }),
     getUserImage: builder.query<UserImage, void>({
@@ -20,6 +22,7 @@ export const userApi = createApi({
         url: '/user/image',
         method: 'GET',
       }),
+      providesTags: ['UserImage'],
       transformResponse: (response: SodamResponse<UserImage>) => response.data,
     }),
     getUserTheme: builder.query<{ theme: UserTheme }, void>({
@@ -27,6 +30,7 @@ export const userApi = createApi({
         url: '/user/theme',
         method: 'GET',
       }),
+      providesTags: ['UserTheme'],
       transformResponse: (response: SodamResponse<{ theme: UserTheme }>) => response.data,
     }),
     editUserNickname: builder.mutation<Pick<UserInfo, 'nickname'>, Pick<UserInfo, 'nickname'>>({
@@ -37,6 +41,7 @@ export const userApi = createApi({
           nickname,
         },
       }),
+      invalidatesTags: ['UserNickname'],
       transformResponse: (response: SodamResponse<Pick<UserInfo, 'nickname'>>) => response.data,
     }),
     editUserTheme: builder.mutation<UserTheme, UserTheme>({
@@ -47,6 +52,7 @@ export const userApi = createApi({
           theme,
         },
       }),
+      invalidatesTags: ['UserTheme'],
       transformResponse: (response: SodamResponse<UserTheme>) => response.data,
     }),
     editUserImage: builder.mutation<UserImage, File>({
@@ -59,6 +65,7 @@ export const userApi = createApi({
           body: formData,
         };
       },
+      invalidatesTags: ['UserImage'],
       transformResponse: (response: SodamResponse<UserImage>) => response.data,
     }),
     deleteUserImage: builder.mutation<void, void>({
@@ -66,6 +73,7 @@ export const userApi = createApi({
         url: '/user/image',
         method: 'DELETE',
       }),
+      invalidatesTags: ['UserImage'],
       transformResponse: (response: SodamResponse<void>) => response.data,
     }),
   }),
