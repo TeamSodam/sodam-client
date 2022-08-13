@@ -30,9 +30,7 @@ function ThemeSelector(props: ThemeSelectorProps) {
 
   return (
     <StyledRoot>
-      <h1>
-        선호 소품샵 테마 <em>*</em>
-      </h1>
+      <h1>선호 소품샵 테마</h1>
       <StyledThemeWrapper>
         {Object.keys(ThemeSelect).map((theme) => (
           <ThemeItem
