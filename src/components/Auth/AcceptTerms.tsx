@@ -2,6 +2,7 @@ import { termsContents } from 'constants/TermsContents';
 import CheckIC from 'public/assets/ic_check.svg';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 
 import DetailTerms from './DetailTerms';
@@ -100,24 +101,36 @@ const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 5.6rem;
+  width: 100%;
   & > h3 {
     font-weight: 500;
     font-size: 1.5rem;
     line-height: 2.2rem;
     color: ${theme.colors.black2};
   }
+  ${applyMediaQuery('mobile', 'tablet')} {
+    margin-top: 5rem;
+    & > h3 {
+      font-size: 1.1rem;
+    }
+  }
 `;
 const StyledTermsWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 52.8rem;
+  width: 100%;
   height: 23.4rem;
   background-color: white;
   border: 1px solid ${theme.colors.purpleText};
   border-radius: 5px;
   margin-top: 2rem;
   gap: 2rem;
+  ${applyMediaQuery('mobile', 'tablet')} {
+    height: 16.2rem;
+    gap: 1.5rem;
+    margin-top: 1.6rem;
+  }
 `;
 
 const StyledList = styled.div<{ order: number; isNecessary: boolean }>`
@@ -132,6 +145,12 @@ const StyledList = styled.div<{ order: number; isNecessary: boolean }>`
     line-height: 1.9rem;
     color: ${({ isNecessary }) => (isNecessary ? theme.colors.purpleText : theme.colors.gray2)};
   }
+  ${applyMediaQuery('mobile', 'tablet')} {
+    margin-left: 1.6rem;
+    & > span {
+      font-size: 0.9rem;
+    }
+  }
 `;
 
 const StyledCheckBtn = styled.div<{ isChecked: boolean }>`
@@ -145,6 +164,11 @@ const StyledCheckBtn = styled.div<{ isChecked: boolean }>`
   border: 1px solid ${theme.colors.purpleText};
   border-radius: 5px;
   cursor: pointer;
+  ${applyMediaQuery('mobile', 'tablet')} {
+    font-weight: 500;
+    width: 1.6rem;
+    height: 1.6rem;
+  }
 `;
 
 const StyledListContent = styled.div`
@@ -156,6 +180,9 @@ const StyledListContent = styled.div`
 
   & > a {
     color: ${theme.colors.black2};
+  }
+  ${applyMediaQuery('mobile', 'tablet')} {
+    font-size: 0.9rem;
   }
 `;
 

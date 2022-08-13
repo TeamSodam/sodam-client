@@ -1,6 +1,7 @@
 import { privacyPolicy, termsContents, termsOfService } from 'constants/TermsContents';
 import CloseIC from 'public/assets/ic_termsClose.svg';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 
 interface DetailTermsProps {
@@ -35,7 +36,7 @@ export default DetailTerms;
 
 const StyledRoot = styled.div`
   position: relative;
-  width: 52.8rem;
+  width: 100%;
   height: 23.4rem;
   background-color: white;
   border: 1px solid ${theme.colors.purpleText};
@@ -43,6 +44,10 @@ const StyledRoot = styled.div`
   margin-top: 2rem;
   padding: 0 2.5rem;
   color: ${theme.colors.black1};
+
+  ${applyMediaQuery('mobile', 'tablet')} {
+    height: 16.2rem;
+  }
 `;
 
 const StyledContentsWrapper = styled.div`
@@ -61,6 +66,9 @@ const StyledTitle = styled.span`
   font-size: 1.3rem;
   line-height: 1.9rem;
   margin-top: 0.3rem;
+  ${applyMediaQuery('mobile', 'tablet')} {
+    font-size: 1rem;
+  }
 `;
 
 const StyledContents = styled.div`
@@ -72,16 +80,29 @@ const StyledContents = styled.div`
     font-weight: 400;
     font-size: 1.2rem;
     line-height: 1.7rem;
-    margin-top: 1.8rem;
+    margin-top: 0.3rem;
   }
   & > pre {
     font-weight: 400;
     font-size: 1.1rem;
     line-height: 1.6rem;
     white-space: pre-wrap;
+    margin: 1.8rem 0;
   }
   & b {
     font-weight: bold;
+  }
+
+  ${applyMediaQuery('mobile', 'tablet')} {
+    font-size: 1rem;
+    & > p {
+      font-size: 0.9rem;
+      margin-top: 0.2rem;
+    }
+    & > pre {
+      font-size: 0.8rem;
+      margin: 1rem 0;
+    }
   }
 `;
 

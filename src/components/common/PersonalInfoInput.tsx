@@ -3,6 +3,7 @@ import { joinInfoList } from 'constants/joinInfoList';
 import useInput from 'hooks/useInput';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 import { UserSignupRequest } from 'types/auth';
 
@@ -120,6 +121,14 @@ const StyledTitle = styled.h3<{ type: string }>`
     margin-left: 0.2rem;
     color: ${theme.colors.purpleText};
   }
+
+  ${applyMediaQuery('mobile', 'tablet')} {
+    font-size: 1.1rem;
+    & > em {
+      font-size: 1.1rem;
+      line-height: 1.6rem;
+    }
+  }
 `;
 
 const StyledInputWrapper = styled.div`
@@ -145,6 +154,13 @@ const StyledInputWrapper = styled.div`
   & > input :disabled {
     background-color: white;
   }
+  ${applyMediaQuery('mobile', 'tablet')} {
+    margin-top: 0.5rem;
+    height: 4rem;
+    & > input {
+      font-size: 0.9rem;
+    }
+  }
 `;
 
 const StyledNotice = styled.span`
@@ -152,6 +168,9 @@ const StyledNotice = styled.span`
   font-size: 1rem;
   line-height: 1.4rem;
   color: ${theme.colors.purpleText};
+  ${applyMediaQuery('mobile', 'tablet')} {
+    font-size: 0.8rem;
+  }
 `;
 
 const StyledNoticeErr = styled.div`
@@ -160,4 +179,7 @@ const StyledNoticeErr = styled.div`
   line-height: 1.7rem;
   color: ${theme.colors.purpleText};
   margin-top: 0.4rem;
+  ${applyMediaQuery('mobile', 'tablet')} {
+    font-size: 0.8rem;
+  }
 `;
