@@ -56,7 +56,7 @@ function OtherShopReview({
       {reviewResponse
         .filter((_) => _.reviewId !== reviewId)
         .map((reviewInfo) => (
-          <ReviewCard key={reviewInfo.shopId} reviewData={reviewInfo} />
+          <ReviewCard key={reviewInfo.content} reviewData={reviewInfo} />
         ))}
       <div ref={bottomRef} />
     </>
