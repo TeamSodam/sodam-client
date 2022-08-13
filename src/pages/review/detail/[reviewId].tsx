@@ -82,9 +82,9 @@ function Detail({ params, query }: { params: NextParsedUrlQuery; query: NextPars
       <Head>
         <meta
           property="og:title"
-          content={`소담 :: ${reviewData?.shopName || '소품샵 여정의 이야기를 담다'}`}
+          content={`소담 :: ${reviewData?.shopName || '소품샵 여정의 이야기를 담다'} 리뷰`}
         />
-        <title>소담 :: {reviewData?.shopName || '소품샵 여정의 이야기를 담다'}</title>
+        <title>소담 :: {reviewData?.shopName || '소품샵 여정의 이야기를 담다'} 리뷰</title>
       </Head>
       {reviewData && <ReviewDetailCard reviewData={reviewData} />}
       <OtherReviewCardWrapper>
