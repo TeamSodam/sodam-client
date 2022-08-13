@@ -14,7 +14,7 @@ export const userApi = createApi({
         url: '/user/info',
         method: 'GET',
       }),
-      providesTags: ['UserInfo', 'UserImage', 'UserNickname', 'UserTheme'],
+      providesTags: ['UserInfo'],
       transformResponse: (response: SodamResponse<UserInfo>) => response.data,
     }),
     getUserImage: builder.query<UserImage, void>({
