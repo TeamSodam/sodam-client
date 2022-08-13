@@ -147,9 +147,6 @@ const StyledRoot = styled.div`
       width: 4.8rem;
       height: 3.7rem;
     }
-    .main-icon {
-      width: 4.3rem;
-    }
     .replace-icon {
       width: 2rem;
       height: 2rem;
