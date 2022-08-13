@@ -8,6 +8,7 @@ import TagList from 'components/review/write/TagList';
 import Title from 'components/review/write/Title';
 import WriteItems from 'components/review/WriteItems/index';
 import { usePostReviewMutation } from 'features/reviews/reviewApi';
+import { useGetUserInfoQuery } from 'features/users/userApi';
 import { NextParsedUrlQuery } from 'next/dist/server/request-meta';
 import { useRouter } from 'next/router';
 import { parseShopId, parseShopName } from 'pages/review/detail/[reviewId]';
@@ -19,13 +20,14 @@ import { Item, ReviewImage, ReviewWriteKey, ReviewWriteRequest } from 'types/rev
 import { PriceList, ShopCategoryType } from 'types/shop';
 
 interface WriteProps {
-  userName: string;
   query: NextParsedUrlQuery;
 }
 
 function Write(props: WriteProps) {
-  const { userName = '소푸미', query } = props;
+  const { query } = props;
   const router = useRouter();
+
+  const { data: userInfo } = useGetUserInfoQuery();
 
   const [isSubmitAvailable, setIsSubmitAvailable] = useState(false);
   const [reviewImageList, setReviewImageList] = useState<ReviewImage[]>([]);
@@ -89,6 +91,7 @@ function Write(props: WriteProps) {
       tempImageList.push(resolvedData);
     });
 
+    e.target.value = '';
     setReviewImageList(tempImageList);
   };
 
@@ -187,7 +190,7 @@ function Write(props: WriteProps) {
 
   return (
     <StyledRoot>
-      <Title name={userName} />
+      <Title name={userInfo?.name || '소푸미'} />
       <StyledTop>
         <PreviewImageMain
           mainImage={reviewImageList[0]}

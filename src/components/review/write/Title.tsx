@@ -59,6 +59,7 @@ const StyledRoot = styled.div`
     }
     p {
       font-size: 1rem;
+      font-weight: 400;
       line-height: 1.3rem;
       transform: scale(0.9);
       transform-origin: top left;

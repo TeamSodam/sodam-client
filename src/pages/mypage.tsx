@@ -21,7 +21,9 @@ function Mypage() {
   const { data: userInfo } = useGetUserInfoQuery(undefined, {
     refetchOnMountOrArgChange: true,
   });
-  const { data: userImage } = useGetUserImageQuery();
+  const { data: userImage } = useGetUserImageQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  });
   const { data: userThemeWrap } = useGetUserThemeQuery(undefined, {
     refetchOnMountOrArgChange: true,
   });

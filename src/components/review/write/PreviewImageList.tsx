@@ -69,6 +69,7 @@ function PreviewImageList(props: PreviewImageListProps) {
 const StyledRoot = styled.div`
   width: 75.5rem;
   height: 7.5rem;
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -82,6 +83,10 @@ const StyledRoot = styled.div`
     position: relative;
     width: 7.5rem;
     height: 7.5rem;
+  }
+  input::file-selector-button {
+    width: 0;
+    height: 0;
   }
   ${applyMediaQuery('desktop', 'tablet')} {
     width: 50.3rem;
@@ -98,16 +103,19 @@ const StyledRoot = styled.div`
   }
   ${applyMediaQuery('mobile')} {
     width: 31.2rem;
-    height: 5.5rem;
-    margin-bottom: 0.6rem;
-    transform: translateY(0.4rem);
+    height: 11.8rem;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 1rem;
+    padding-bottom: 0;
+    margin-bottom: 1.1rem;
     .plus-icon {
-      width: 1.2rem;
-      height: 1.2rem;
+      width: 1.5rem;
+      height: 1.5rem;
     }
     .image-preview {
-      width: 3.3rem;
-      height: 3.3rem;
+      width: 5.4rem;
+      height: 5.4rem;
     }
   }
 `;
@@ -126,10 +134,10 @@ const StyledInput = styled.input`
     margin-left: -5.6rem;
   }
   ${applyMediaQuery('mobile')} {
-    width: 3.3rem;
-    height: 3.3rem;
-    margin-left: -3.5rem;
-    transform: translateY(-1.3rem);
+    width: 5.4rem;
+    height: 5.4rem;
+    position: relative;
+    margin-left: -6.4rem;
   }
 `;
 const StyledImageCard = styled.div`
@@ -138,6 +146,7 @@ const StyledImageCard = styled.div`
   border-radius: 1rem;
   img {
     border-radius: 1rem;
+    object-fit: cover;
   }
   button {
     transform: translate(3.1rem, -4.7rem);
@@ -153,12 +162,10 @@ const StyledImageCard = styled.div`
     width: 5rem;
   }
   ${applyMediaQuery('mobile')} {
-    width: 3.3rem;
+    width: 5.4rem;
+    height: 5.4rem;
     button {
-      transform: translate(0.8rem, 0.4rem);
-    }
-    svg path {
-      fill: ${theme.colors.purpleText};
+      transform: translate(3.4rem, -5rem);
     }
   }
 `;
@@ -174,9 +181,8 @@ const StyledEmptyCard = styled.div`
     width: 5rem;
   }
   ${applyMediaQuery('mobile')} {
-    width: 3.3rem;
-    height: 3.3rem;
-    transform: translateY(-1.3rem);
+    width: 5.4rem;
+    height: 5.4rem;
   }
 `;
 

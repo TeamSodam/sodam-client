@@ -14,7 +14,7 @@ interface EditOptions {
   confirmText: string;
   failText: string;
   onChange: (text: string) => void;
-  onConfirm: () => Promise<boolean | null>;
+  onConfirm: () => Promise<boolean>;
 }
 interface StyledProps {
   isEmail: boolean;
@@ -30,7 +30,6 @@ function UserInfoInput(props: Props) {
   const onClickHandler = async () => {
     if (editMode && onConfirm) {
       const result = await onConfirm();
-      if (typeof result !== 'boolean') return;
       if (result) {
         setEditMode(false);
         setIsFail(false);
