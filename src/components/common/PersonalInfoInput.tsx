@@ -51,9 +51,10 @@ function PersonalInfoInput(props: PersonalInfoInputProps) {
     }
 
     if (type === 'email' && isConfirm) {
-      if (!isCompleteList.email) {
-        return inputInfo.unCompleteNotice;
+      if (isCompleteList.email) {
+        return inputInfo.completeNotice;
       }
+      return inputInfo.unCompleteNotice;
     }
 
     if (type === 'emailConfirm' && isConfirm) {
