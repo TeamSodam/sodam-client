@@ -138,6 +138,7 @@ const StyledImageCard = styled.div`
   border-radius: 1rem;
   img {
     border-radius: 1rem;
+    object-fit: cover;
   }
   button {
     transform: translate(3.1rem, -4.7rem);

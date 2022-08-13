@@ -102,6 +102,10 @@ const StyledRoot = styled.div`
       cursor: pointer;
     }
   }
+  input::file-selector-button {
+    width: 2rem;
+    height: 2rem;
+  }
   ${applyMediaQuery('desktop', 'tablet')} {
     width: 18.8rem;
     height: 16.4rem;
@@ -125,6 +129,10 @@ const StyledRoot = styled.div`
       width: 1.2rem;
       height: 1.4rem;
       margin-left: 1rem;
+    }
+    input::file-selector-button {
+      width: 1.4rem;
+      height: 1.4rem;
     }
   }
   ${applyMediaQuery('mobile')} {
@@ -186,6 +194,7 @@ const StyledIcons = styled.div`
 `;
 const StyledReplace = styled.input`
   width: 2rem;
+  height: 2rem;
   display: block;
   position: relative;
   z-index: 3;
@@ -215,6 +224,7 @@ const StyledPreview = styled.div`
   height: inherit;
   img {
     border-radius: 0.5rem;
+    object-fit: cover;
   }
 `;
 const StyledEmpty = styled.div`

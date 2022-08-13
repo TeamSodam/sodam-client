@@ -91,6 +91,7 @@ function Write(props: WriteProps) {
       tempImageList.push(resolvedData);
     });
 
+    e.target.value = '';
     setReviewImageList(tempImageList);
   };
 
