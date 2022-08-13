@@ -114,7 +114,7 @@ const StyledTitle = styled.h3<{ type: string }>`
   font-weight: 500;
   font-size: 1.5rem;
   line-height: 2.2rem;
-  color: ${({ type }) => (type === 'emailConfirm' ? theme.colors.gray1 : theme.colors.black2)};
+  color: ${theme.colors.black2};
   & > em {
     font-size: 1.2rem;
     margin-left: 0.2rem;
