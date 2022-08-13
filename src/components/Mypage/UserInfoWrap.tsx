@@ -261,7 +261,7 @@ const StyledImage = styled.div`
   }
 `;
 const StyledProfileToggle = styled.ul`
-  width: 13.9rem;
+  width: 14.2rem;
   height: 5.8rem;
   border-radius: 0.5rem;
   box-shadow: 0 3px 8px 0 rgba(87, 82, 76, 0.15);
@@ -285,7 +285,7 @@ const StyledProfileToggle = styled.ul`
     color: ${theme.colors.gray1};
   }
   ${applyMediaQuery('tablet')} {
-    width: 12.4rem;
+    width: 13rem;
     height: 5.4rem;
     margin-top: 0.6rem;
     li button {
