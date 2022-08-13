@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 
 const getFromStateByQuery = (from: string | string[] | undefined) => {
@@ -88,24 +89,35 @@ const StyledRoot = styled.div`
   margin-top: 12rem;
   align-items: center;
   & > h1 {
-    width: 39.1rem;
+    width: 100%;
     font-weight: bold;
     font-size: 2.6rem;
     line-height: 3.8rem;
     margin-bottom: 4.5rem;
     color: ${theme.colors.purpleText};
   }
+
+  ${applyMediaQuery('mobile', 'tablet')} {
+    margin-top: 10rem;
+    & > h1 {
+      font-size: 2rem;
+      margin-bottom: 3.6rem;
+    }
+  }
 `;
 
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
-  width: 39.1rem;
+  width: 100%;
   & > span {
     font-weight: 500;
     font-size: 1.5rem;
     line-height: 2.2rem;
     color: ${theme.colors.black2};
+    ${applyMediaQuery('mobile', 'tablet')} {
+      font-size: 1.1rem;
+    }
   }
 `;
 
@@ -126,6 +138,14 @@ const StyledInputDiv = styled.div`
     font-size: 1.3rem;
     font-weight: 500;
     margin-left: 1.6rem;
+  }
+  ${applyMediaQuery('mobile', 'tablet')} {
+    height: 4rem;
+    margin-top: 0.7rem;
+    margin-bottom: 1.3rem;
+    & > input {
+      font-size: 0.9rem;
+    }
   }
 `;
 
@@ -149,6 +169,11 @@ const StyledLoginBtn = styled.button`
     background-color: ${theme.colors.gray2};
     cursor: default;
   }
+  ${applyMediaQuery('mobile', 'tablet')} {
+    height: 3.7rem;
+    font-size: 1.1rem;
+    margin-bottom: 2.4rem;
+  }
 `;
 
 const StyledLinkWrapper = styled.div`
@@ -161,6 +186,15 @@ const StyledLinkWrapper = styled.div`
     line-height: 1.7rem;
     color: ${theme.colors.gray1};
     text-decoration: none;
+    ${applyMediaQuery('mobile', 'tablet')} {
+      font-size: 1rem;
+    }
+  }
+  ${applyMediaQuery('mobile', 'tablet')} {
+    margin-bottom: 13.5rem;
+    & > a {
+      font-size: 1rem;
+    }
   }
 `;
 
@@ -173,4 +207,9 @@ const StyledWarning = styled.div`
   text-align: center;
   margin-top: 0.8rem;
   margin-bottom: 1.6rem;
+  ${applyMediaQuery('mobile', 'tablet')} {
+    font-size: 1rem;
+    margin-top: 2.1rem;
+    margin-bottom: 1.2rem;
+  }
 `;
