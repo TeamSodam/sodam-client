@@ -76,6 +76,7 @@ function PersonalInfoInput(props: PersonalInfoInputProps) {
         {inputType === 'password' && (
           <StyledNotice>‘영문 소문자 + 숫자’ 포함하여 8글자 이상 15자 미만</StyledNotice>
         )}
+        {inputType === 'nickname' && <StyledNotice>2자 이상 11자 미만</StyledNotice>}
       </StyledTitleWrapper>
       <StyledInputWrapper>
         <input
