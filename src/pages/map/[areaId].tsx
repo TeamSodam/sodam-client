@@ -6,6 +6,7 @@ import { initMap } from 'features/map/mapSlice';
 import { useGetShopByAreaQuery } from 'features/shops/shopApi';
 import { selectIsLogin } from 'features/users/userSlice';
 import useMap from 'hooks/useMap';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import LeftArr from 'public/assets/ic_leftArr.svg';
 import { useEffect, useRef, useState } from 'react';
@@ -76,6 +77,10 @@ function MapWithAreaId(props: { areaId: number }) {
 
   return (
     <StyledContainer>
+      <Head>
+        <meta property="og:title" content={'소담 :: 소품샵 지도'} />
+        <title>소담 :: 소품샵 지도</title>
+      </Head>
       <StyledGoBack onClick={onClickGoBack}>
         <LeftArrIC />
         <span>지역 다시 선택하기</span>

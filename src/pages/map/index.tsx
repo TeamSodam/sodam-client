@@ -1,10 +1,15 @@
 import ImageMap from 'components/ImageMap';
+import Head from 'next/head';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 
 function MapLandingPage() {
   return (
     <StyledContainer>
+      <Head>
+        <meta property="og:title" content={'소담 :: 소품샵 지도'} />
+        <title>소담 :: 소품샵 지도</title>
+      </Head>
       <Header>
         <b>서울</b> 지역 소품샵 한 눈에 보기
       </Header>

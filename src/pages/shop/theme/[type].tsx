@@ -4,6 +4,7 @@ import Loader from 'components/common/Loader';
 import ShopCard from 'components/common/ShopCard';
 import ThemeSelector from 'components/ThemeSelector';
 import { shopApi, useGetShopByThemeQuery } from 'features/shops/shopApi';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
@@ -122,6 +123,10 @@ function ThemePage() {
 
   return (
     <Container ref={containerRef}>
+      <Head>
+        <meta property="og:title" content={'소담 :: 테마별 소품샵'} />
+        <title>소담 :: 테마별 소품샵</title>
+      </Head>
       <Wrapper>
         <ThemeWrapper>
           <ThemeSelector />

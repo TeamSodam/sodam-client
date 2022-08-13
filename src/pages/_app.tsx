@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <ThemeProvider theme={{ ...theme, clientWidth, availableWidth }}>
       <GlobalStyles />
       <Head>
-        <title>소담</title>
+        <title>소담 :: 소품샵 여정의 이야기를 담다</title>
       </Head>
       <Layout>
         <NavBar />
