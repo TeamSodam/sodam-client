@@ -1,5 +1,5 @@
 import { useEditUserThemeMutation } from 'features/users/userApi';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
@@ -21,6 +21,10 @@ function UserTheme(props: Props) {
 
   const [editMode, setEditMode] = useState(false);
   const [selected, setSelected] = useState<UserThemeType>(userTheme);
+
+  useEffect(() => {
+    setSelected(userTheme);
+  }, [userTheme]);
 
   const onSubmit = async () => {
     await editUserTheme(selected);
@@ -86,6 +90,7 @@ const StyledRoot = styled.div`
       line-height: 1.4rem;
       font-size: 1rem;
       font-weight: 500;
+      padding: 0;
     }
   }
   & > div:last-child {
