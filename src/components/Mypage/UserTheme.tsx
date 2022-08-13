@@ -83,7 +83,7 @@ const StyledRoot = styled.div`
       border-radius: 0.5rem;
       color: white;
       background-color: ${theme.colors.purpleMain};
-      line-height: 1.4rem;
+      line-height: 1.5;
       font-size: 1rem;
       font-weight: 500;
     }
@@ -116,7 +116,7 @@ const StyledRoot = styled.div`
         width: 5.2rem;
         height: 1.8rem;
         border-radius: 0.3rem;
-        line-height: 1.5rem;
+        line-height: 1.3;
         font-size: 1rem;
       }
     }

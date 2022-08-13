@@ -110,7 +110,7 @@ const StyledRoot = styled.div<StyledProps>`
     background-color: ${theme.colors.purpleMain} !important;
     font-size: 1rem;
     font-weight: 500;
-    line-height: 2.2rem;
+    line-height: 1.5;
     margin-left: 1.5rem;
   }
   p {
@@ -164,7 +164,7 @@ const StyledRoot = styled.div<StyledProps>`
       height: 1.8rem;
       border-radius: 0.3rem;
       font-size: 1rem;
-      line-height: 1.4rem;
+      line-height: 1.3;
       margin-left: 0.5rem;
       white-space: nowrap;
     }
