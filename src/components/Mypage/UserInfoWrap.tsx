@@ -34,7 +34,7 @@ function UserInfoWrap(props: Props) {
   const [editProfile] = useEditUserImageMutation();
   const [deleteProfile] = useDeleteUserImageMutation();
 
-  const [nicknameData, setNicknameData] = useState(nickname);
+  const [nicknameData, setNicknameData] = useState({ nickname, failText: '' });
   const [profileToggle, setProfileToggle] = useState(false);
   const [profileImg, setProfileImg] = useState(
     userImage.image === '' ? profileDefaultImg : userImage.image,
@@ -44,15 +44,27 @@ function UserInfoWrap(props: Props) {
   useClickOutside(profileToggleRef, closeProfileFilter, profileToggle);
 
   const onChangeNickname = (text: string) => {
-    setNicknameData(text);
+    setNicknameData({ ...nicknameData, nickname: text });
   };
 
-  const onSubmitNickname = async (): Promise<boolean | null> => {
-    if (nicknameData.length === 0) return null;
+  const checkNicknameValidation = (name: string): boolean => {
+    if (name.length < 2 || name.length > 10) return false;
+    if (name.includes(' ')) return false;
+    const regEx = new RegExp(/^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]+$/);
+    if (!regEx.test(name)) return false;
+    return true;
+  };
+
+  const onSubmitNickname = async (): Promise<boolean> => {
     try {
-      await editNickname({ nickname: nicknameData }).unwrap();
+      if (!checkNicknameValidation(nicknameData.nickname)) {
+        setNicknameData({ ...nicknameData, failText: '입력 형식에 맞지 않습니다' });
+        return false;
+      }
+      await editNickname({ nickname: nicknameData.nickname }).unwrap();
       return true;
     } catch (e) {
+      setNicknameData({ ...nicknameData, failText: '이미 사용 중인 닉네임입니다' });
       return false;
     }
   };
@@ -133,12 +145,12 @@ function UserInfoWrap(props: Props) {
             <UserInfoInput label="이름" initialValue={name} />
             <UserInfoInput
               label="닉네임"
-              initialValue={nicknameData}
+              initialValue={nicknameData.nickname}
               canEdit
               editOptions={{
                 editText: '닉네임 수정',
                 confirmText: '수정 완료',
-                failText: '이미 사용 중인 닉네임입니다',
+                failText: nicknameData.failText,
                 onChange: onChangeNickname,
                 onConfirm: onSubmitNickname,
               }}
