@@ -1,6 +1,7 @@
 import { usePostEmailMutation, usePostNicknameMutation } from 'features/auth/authApi';
 import React from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 import { UserSignupRequest } from 'types/auth';
 
@@ -94,6 +95,13 @@ const StyledBtn = styled.button<{ inputType: string }>`
   &:disabled {
     background-color: ${theme.colors.gray2};
     cursor: default;
+  }
+  ${applyMediaQuery('mobile', 'tablet')} {
+    width: ${({ inputType }) => inputType !== 'email' && '5.5rem'};
+    padding: 0 ${({ inputType }) => inputType === 'email' && '0.8rem'};
+    height: 2rem;
+    font-size: 1rem;
+    margin-right: 0.8rem;
   }
 `;
 

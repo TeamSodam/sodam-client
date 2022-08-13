@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 
 import ThemeItem from './ThemeItem';
@@ -31,9 +32,7 @@ function ThemeSelector(props: ThemeSelectorProps) {
 
   return (
     <StyledRoot>
-      <h1>
-        선호 소품샵 테마 <em>*</em>
-      </h1>
+      <h1>선호 소품샵 테마</h1>
       <StyledThemeWrapper>
         {Object.keys(ThemeSelect).map((theme) => (
           <ThemeItem
@@ -51,7 +50,8 @@ function ThemeSelector(props: ThemeSelectorProps) {
 const StyledRoot = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 4rem;
+  margin-top: 5.6rem;
+  width: 100%;
   & > h1 {
     font-weight: 500;
     font-size: 1.5rem;
@@ -64,11 +64,19 @@ const StyledRoot = styled.div`
     margin-left: 0.2rem;
     color: ${theme.colors.purpleText};
   }
+  ${applyMediaQuery('mobile', 'tablet')} {
+    margin-top: 4.6rem;
+    & > h1 {
+      font-size: 1.1rem;
+      margin-bottom: 2.1rem;
+    }
+  }
 `;
 const StyledThemeWrapper = styled.div`
   display: flex;
-  width: 52.8rem;
+  width: 100%;
   justify-content: space-between;
+  align-items: center;
 `;
 
 export default ThemeSelector;

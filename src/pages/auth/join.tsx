@@ -7,6 +7,7 @@ import { setToken } from 'features/users/userSlice';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 import { UserSignupRequest } from 'types/auth';
 
@@ -115,14 +116,22 @@ const StyledRoot = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 11rem;
+  padding: 0 13.6rem;
   align-items: center;
+  ${applyMediaQuery('mobile', 'tablet')} {
+    margin-top: 3.1rem;
+    padding: 0;
+  }
+  ${applyMediaQuery('tablet')} {
+    padding: 0 7rem;
+  }
 `;
 
 const StyledSumitBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 52.8rem;
+  width: 100%;
   height: 5rem;
   border-radius: 5px;
   border: 0;
@@ -138,11 +147,16 @@ const StyledSumitBtn = styled.button`
     background-color: ${theme.colors.gray2};
     cursor: default;
   }
+  ${applyMediaQuery('mobile', 'tablet')} {
+    font-size: 1.1rem;
+    line-height: 1.6rem;
+    height: 3.7rem;
+  }
 `;
 
 const StyledTitleWrapper = styled.div`
   display: flex;
-  width: 52.8rem;
+  width: 100%;
   justify-content: space-between;
   margin-bottom: 4.5rem;
 
@@ -159,6 +173,17 @@ const StyledTitleWrapper = styled.div`
     line-height: 1.7rem;
     font-weight: 500;
     color: ${theme.colors.purpleText};
+  }
+  ${applyMediaQuery('mobile', 'tablet')} {
+    margin-bottom: 2.5rem;
+    & > h1 {
+      font-size: 1.6rem;
+      line-height: 2.3rem;
+    }
+    & > span {
+      font-size: 0.8rem;
+      line-height: 1.2rem;
+    }
   }
 `;
 export default Join;

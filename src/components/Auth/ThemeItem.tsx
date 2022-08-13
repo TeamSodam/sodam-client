@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 
 interface ThemeItemProps {
@@ -42,6 +43,10 @@ const StyledSelectorWrapper = styled.div<{ isSelected: boolean }>`
     text-align: center;
     color: ${({ isSelected }) => (isSelected ? theme.colors.purpleText : theme.colors.gray3)};
     margin-top: 1.8rem;
+    ${applyMediaQuery('mobile', 'tablet')} {
+      font-size: 0.7rem;
+      margin-top: 0.6rem;
+    }
   }
 `;
 
@@ -53,18 +58,27 @@ const StyledImgWrapper = styled.div<{ imgSrc: string }>`
   background-repeat: no-repeat;
   background-position: center center;
   background-size: contain;
+  ${applyMediaQuery('mobile', 'tablet')} {
+    width: 5rem;
+    height: 5rem;
+  }
 `;
 
 const StyledBtnDiv = styled.div<{ imgSrc: string }>`
   position: absolute;
   width: 1.6rem;
   height: 1.6rem;
-  top: -0.8rem;
-  right: -0.8rem;
+  top: 0rem;
+  right: 0rem;
+  transform: translate(50%, -50%);
   background-repeat: no-repeat;
   background-position: center center;
   background-size: contain;
   background-image: ${({ imgSrc }) => `url(${imgSrc})`};
   cursor: pointer;
+  ${applyMediaQuery('mobile', 'tablet')} {
+    width: 1rem;
+    height: 1rem;
+  }
 `;
 export default ThemeItem;

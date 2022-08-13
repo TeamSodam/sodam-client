@@ -1,6 +1,7 @@
 import PersonalInfoInput from 'components/common/PersonalInfoInput';
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 import { UserSignupRequest } from 'types/auth';
 
@@ -52,7 +53,10 @@ const StyledRoot = styled.div`
   flex-direction: column;
   gap: 2rem;
   align-items: center;
-  width: 52.8rem;
+  width: 100%;
+  ${applyMediaQuery('mobile', 'tablet')} {
+    gap: 1rem;
+  }
 `;
 
 const StyledLine = styled.div`
@@ -60,7 +64,13 @@ const StyledLine = styled.div`
   order: 4;
   width: 59.1rem;
   height: 0.2rem;
-  margin: 1.2rem 0 0 0.2rem;
+  margin: 1.9rem 0 4rem 0;
   background-color: ${theme.colors.grayBg};
+
+  ${applyMediaQuery('mobile', 'tablet')} {
+    height: 0.1rem;
+    width: 100%;
+    margin: 1.6rem 0 3rem 0;
+  }
 `;
 export default SignupForm;

@@ -3,6 +3,7 @@ import { joinInfoList } from 'constants/joinInfoList';
 import useInput from 'hooks/useInput';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 import { UserSignupRequest } from 'types/auth';
 
@@ -50,9 +51,10 @@ function PersonalInfoInput(props: PersonalInfoInputProps) {
     }
 
     if (type === 'email' && isConfirm) {
-      if (!isCompleteList.email) {
-        return inputInfo.unCompleteNotice;
+      if (isCompleteList.email) {
+        return inputInfo.completeNotice;
       }
+      return inputInfo.unCompleteNotice;
     }
 
     if (type === 'emailConfirm' && isConfirm) {
@@ -74,6 +76,7 @@ function PersonalInfoInput(props: PersonalInfoInputProps) {
         {inputType === 'password' && (
           <StyledNotice>‘영문 소문자 + 숫자’ 포함하여 8글자 이상 15자 미만</StyledNotice>
         )}
+        {inputType === 'nickname' && <StyledNotice>2자 이상 11자 미만</StyledNotice>}
       </StyledTitleWrapper>
       <StyledInputWrapper>
         <input
@@ -120,6 +123,14 @@ const StyledTitle = styled.h3<{ type: string }>`
     margin-left: 0.2rem;
     color: ${theme.colors.purpleText};
   }
+
+  ${applyMediaQuery('mobile', 'tablet')} {
+    font-size: 1.1rem;
+    & > em {
+      font-size: 1.1rem;
+      line-height: 1.6rem;
+    }
+  }
 `;
 
 const StyledInputWrapper = styled.div`
@@ -145,6 +156,13 @@ const StyledInputWrapper = styled.div`
   & > input :disabled {
     background-color: white;
   }
+  ${applyMediaQuery('mobile', 'tablet')} {
+    margin-top: 0.5rem;
+    height: 4rem;
+    & > input {
+      font-size: 0.9rem;
+    }
+  }
 `;
 
 const StyledNotice = styled.span`
@@ -152,6 +170,9 @@ const StyledNotice = styled.span`
   font-size: 1rem;
   line-height: 1.4rem;
   color: ${theme.colors.purpleText};
+  ${applyMediaQuery('mobile', 'tablet')} {
+    font-size: 0.8rem;
+  }
 `;
 
 const StyledNoticeErr = styled.div`
@@ -160,4 +181,7 @@ const StyledNoticeErr = styled.div`
   line-height: 1.7rem;
   color: ${theme.colors.purpleText};
   margin-top: 0.4rem;
+  ${applyMediaQuery('mobile', 'tablet')} {
+    font-size: 0.8rem;
+  }
 `;
