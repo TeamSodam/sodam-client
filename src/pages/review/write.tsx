@@ -190,7 +190,7 @@ function Write(props: WriteProps) {
 
   return (
     <StyledRoot>
-      <Title name={userInfo ? userInfo.nickname : '소푸미'} />
+      <Title name={userInfo?.name || '소푸미'} />
       <StyledTop>
         <PreviewImageMain
           mainImage={reviewImageList[0]}
