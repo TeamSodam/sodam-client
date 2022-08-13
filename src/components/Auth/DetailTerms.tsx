@@ -42,11 +42,13 @@ const StyledRoot = styled.div`
   border: 1px solid ${theme.colors.purpleText};
   border-radius: 5px;
   margin-top: 2rem;
-  padding: 0 2.5rem;
+  padding-left: 2.5rem;
+  padding-right: 3.5rem;
   color: ${theme.colors.black1};
 
   ${applyMediaQuery('mobile', 'tablet')} {
     height: 16.2rem;
+    margin-top: 1.6rem;
   }
 `;
 
@@ -58,6 +60,10 @@ const StyledContentsWrapper = styled.div`
   padding: 2rem 0;
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  ${applyMediaQuery('mobile', 'tablet')} {
+    padding: 1.4rem 0;
   }
 `;
 
@@ -113,4 +119,8 @@ const CloseIcon = styled(CloseIC)`
   width: 1rem;
   height: 1rem;
   cursor: pointer;
+  ${applyMediaQuery('mobile', 'tablet')} {
+    top: 1.8rem;
+    right: 2rem;
+  }
 `;
