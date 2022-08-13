@@ -97,10 +97,10 @@ const StyledBtn = styled.button<{ inputType: string }>`
     cursor: default;
   }
   ${applyMediaQuery('mobile', 'tablet')} {
-    width: ${({ inputType }) => inputType !== 'email' && '5.3rem'};
-    padding: 0 ${({ inputType }) => inputType === 'email' && '0.9rem'};
+    width: ${({ inputType }) => inputType !== 'email' && '5.5rem'};
+    padding: 0 ${({ inputType }) => inputType === 'email' && '0.8rem'};
     height: 2rem;
-    font-size: 0.8rem;
+    font-size: 1rem;
     margin-right: 0.8rem;
   }
 `;
