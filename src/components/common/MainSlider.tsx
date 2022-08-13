@@ -151,7 +151,7 @@ const StyledRoot = styled.div`
   .swiper-pagination {
     position: relative;
     top: 0;
-    margin-top: 0.6rem;
+    margin-top: 1.2rem;
     &-bullet {
       width: 0.4rem;
       height: 0.4rem;
