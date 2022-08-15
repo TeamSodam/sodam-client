@@ -2,9 +2,7 @@ import Loader from 'components/common/Loader';
 import ReviewCard from 'components/common/ReviewCard';
 import { useGetMyWriteReviewQuery } from 'features/reviews/reviewApi';
 import useInfiniteQuery from 'hooks/useInfiniteQuery';
-import { LoadPoint as PrevLoadPoint } from 'pages/shop/theme/[type]';
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import { ReviewMyWriteResponse } from 'types/review';
 
 const PAGE_LIMIT = 4;
@@ -21,11 +19,11 @@ function OtherMyWriteReview({ reviewId }: { reviewId: number }) {
     return paginatedData[offset + 1];
   };
 
-  const {
-    data: infiniteMyWriteData,
-    isLoading,
-    loadPointRef,
-  } = useInfiniteQuery(paginatedData[0], fetchNextData, {});
+  const { renderCurrentData } = useInfiniteQuery(paginatedData[0], fetchNextData, {}, (writeList) =>
+    writeList
+      .filter((_) => _.reviewId !== reviewId)
+      .map((myWriteReview) => <ReviewCard key={myWriteReview.shopId} reviewData={myWriteReview} />),
+  );
 
   useEffect(() => {
     if (myWriteResponse) {
@@ -42,25 +40,9 @@ function OtherMyWriteReview({ reviewId }: { reviewId: number }) {
     }
   }, [myWriteResponse]);
 
-  if (!myWriteResponse) return <div />; // 로더 삽입하면 좋을 것 같음.
+  if (!myWriteResponse) return <Loader />;
 
-  return (
-    <>
-      {infiniteMyWriteData
-        .filter((_) => _.reviewId !== reviewId)
-        .map((myWriteReview) => (
-          <ReviewCard key={myWriteReview.shopId} reviewData={myWriteReview} />
-        ))}
-      <LoadPoint ref={loadPointRef}>{isLoading && <Loader />}</LoadPoint>
-    </>
-  );
+  return renderCurrentData();
 }
-
-const LoadPoint = styled(PrevLoadPoint)`
-  position: absolute;
-  bottom: 0;
-
-  transform: translateY(-100%);
-`;
 
 export default OtherMyWriteReview;

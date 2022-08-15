@@ -2,9 +2,7 @@ import Loader from 'components/common/Loader';
 import ReviewCard from 'components/common/ReviewCard';
 import { useGetMyScrapReviewQuery } from 'features/reviews/reviewApi';
 import useInfiniteQuery from 'hooks/useInfiniteQuery';
-import { LoadPoint as PrevLoadPoint } from 'pages/shop/theme/[type]';
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import { ReviewMyScrapResponse } from 'types/review';
 
 const PAGE_LIMIT = 6;
@@ -21,11 +19,11 @@ function OtherMyScrapReview({ reviewId }: { reviewId: number }) {
     return paginatedData[offset + 1];
   };
 
-  const {
-    data: infiteMyScrapData,
-    isLoading,
-    loadPointRef,
-  } = useInfiniteQuery(paginatedData[0], fetchNextData, {});
+  const { renderCurrentData } = useInfiniteQuery(paginatedData[0], fetchNextData, {}, (scrapList) =>
+    scrapList
+      .filter((_) => _.reviewId !== reviewId)
+      .map((myScrapReview) => <ReviewCard key={myScrapReview.shopId} reviewData={myScrapReview} />),
+  );
 
   useEffect(() => {
     if (myScrapResponse) {
@@ -42,25 +40,9 @@ function OtherMyScrapReview({ reviewId }: { reviewId: number }) {
     }
   }, [myScrapResponse]);
 
-  if (!myScrapResponse) return <div />; // 로더 삽입하면 좋을 것 같음.
+  if (!myScrapResponse) return <Loader />;
 
-  return (
-    <>
-      {infiteMyScrapData
-        .filter((_) => _.reviewId !== reviewId)
-        .map((myScrapReview) => (
-          <ReviewCard key={myScrapReview.shopId} reviewData={myScrapReview} />
-        ))}
-      <LoadPoint ref={loadPointRef}>{isLoading && <Loader />}</LoadPoint>
-    </>
-  );
+  return renderCurrentData();
 }
-
-const LoadPoint = styled(PrevLoadPoint)`
-  position: absolute;
-  bottom: 0;
-
-  transform: translateY(-100%);
-`;
 
 export default OtherMyScrapReview;

@@ -1,7 +1,6 @@
 import { useAppSelector } from 'app/hook';
 import DropDownFilter from 'components/common/DropDownFilter';
 import EmptyContent from 'components/common/EmptyContent';
-import Loader from 'components/common/Loader';
 import ShopCard from 'components/common/ShopCard';
 import { shopApi, useGetShopByBookmarkQuery } from 'features/shops/shopApi';
 import { selectIsLogin } from 'features/users/userSlice';
@@ -11,8 +10,6 @@ import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
 import { ShopBookMarkRequestType, ShopResponse } from 'types/shop';
-
-import { LoadPoint as PrevLoadPoint } from './theme/[type]';
 
 const emptyContentData = {
   src: '/assets/img_shopNoContent.png',
@@ -49,10 +46,11 @@ function Collect() {
     [currentSort],
   );
 
-  const { data, isLoading, loadPointRef } = useInfiniteQuery<ShopResponse>(
+  const { data, renderCurrentData } = useInfiniteQuery<ShopResponse>(
     collectShopList,
     fetchFn,
     {},
+    (shopList) => shopList.map((shop) => <ShopCard key={shop.shopId} cardData={shop} />),
   );
 
   const filterProps = [
@@ -77,16 +75,7 @@ function Collect() {
           <h2>저장한 소품샵</h2>
           <DropDownFilter pageType="collect" filterProps={filterProps} />
         </StyledFilterWrapper>
-        <StyledCardWrapper>
-          {data && data.length > 0 && (
-            <>
-              {data.map((shop) => (
-                <ShopCard key={shop.shopId} cardData={shop} />
-              ))}
-            </>
-          )}
-          <LoadPoint ref={loadPointRef}>{isLoading && <Loader />}</LoadPoint>
-        </StyledCardWrapper>
+        <StyledCardWrapper>{renderCurrentData()}</StyledCardWrapper>
         {!data && <EmptyContent emptyContentData={emptyContentData} />}
       </>
     </StyledContainer>
@@ -165,12 +154,4 @@ const StyledCardWrapper = styled.div`
     grid-template-columns: repeat(2, 1fr);
     gap: 1.6rem 0.6rem;
   }
-`;
-
-const LoadPoint = styled(PrevLoadPoint)`
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-
-  transform: translate(-50%, 200%);
 `;

@@ -1,4 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import Loader from 'components/common/Loader';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
 
 interface IUseObserver {
   root?: HTMLElement;
@@ -16,6 +18,7 @@ const useInfiniteQuery = <DataType,>(
   initialData: InitialDataType<DataType>,
   fetchFn: (offset: number) => Promise<InitialDataType<DataType>> | InitialDataType<DataType>,
   props: IUseObserver,
+  renderFn?: (currentData: DataType[]) => React.ReactNode,
 ) => {
   const isWrappedData = (data: InitialDataType<DataType>): data is WrappedData<DataType> =>
     data !== undefined && 'data' in data;
@@ -35,7 +38,7 @@ const useInfiniteQuery = <DataType,>(
     return wrappedData;
   };
 
-  const onIntersect: IntersectionObserverCallback = async ([entry]) => {
+  const onIntersect: IntersectionObserverCallback = useCallback(async ([entry]) => {
     if (entry.isIntersecting) {
       setIsLoading(true);
       offsetIndex.current += 1;
@@ -53,6 +56,16 @@ const useInfiniteQuery = <DataType,>(
 
       setIsLoading(false);
     }
+  }, []);
+
+  const renderCurrentData = () => {
+    if (!renderFn) return;
+    return (
+      <>
+        {data && data.length > 0 && renderFn(data)}
+        <LoadPoint ref={loadPointRef}>{isLoading && <Loader />}</LoadPoint>
+      </>
+    );
   };
 
   useEffect(() => {
@@ -77,9 +90,20 @@ const useInfiniteQuery = <DataType,>(
     }
 
     return () => observer && observer.disconnect();
-  }, [rootMargin, threshold, initialData, fetchFn, isLastData]);
+  }, [root, rootMargin, threshold, initialData, fetchFn, isLastData, onIntersect]);
 
-  return { loadPointRef, isLoading, data };
+  return { loadPointRef, isLoading, data, renderCurrentData };
 };
+
+const LoadPoint = styled.span`
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  height: 100px;
+
+  margin-bottom: 8rem;
+`;
 
 export default useInfiniteQuery;
