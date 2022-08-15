@@ -1,17 +1,20 @@
 import { useAppSelector } from 'app/hook';
 import DropDownFilter from 'components/common/DropDownFilter';
 import EmptyContent from 'components/common/EmptyContent';
+import Loader from 'components/common/Loader';
 import ShopCard from 'components/common/ShopCard';
-import { useGetShopByBookmarkQuery } from 'features/shops/shopApi';
+import { shopApi, useGetShopByBookmarkQuery } from 'features/shops/shopApi';
 import { selectIsLogin } from 'features/users/userSlice';
-import { useState } from 'react';
+import useInfiniteQuery from 'hooks/useInfiniteQuery';
+import { useCallback, useState } from 'react';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
 import { theme } from 'styles/theme';
-import { ShopBookMarkRequestType } from 'types/shop';
+import { ShopBookMarkRequestType, ShopResponse } from 'types/shop';
+
+import { LoadPoint as PrevLoadPoint } from './theme/[type]';
 
 const emptyContentData = {
-  title: '저장한 소품샵',
   src: '/assets/img_shopNoContent.png',
   label: '아직 저장한 소품샵이 없어요',
   subLabel: '취향저격 소품샵 찾으러 가볼까요?',
@@ -33,6 +36,24 @@ function Collect() {
       refetchOnMountOrArgChange: true,
     },
   );
+  const [getShopByBookmark] = shopApi.endpoints.getShopByBookmark.useLazyQuery();
+  const fetchFn = useCallback(
+    async (offset: number) => {
+      const result = await getShopByBookmark({
+        sort: currentSort,
+        limit: 12,
+        offset,
+      });
+      return result?.data || [];
+    },
+    [currentSort],
+  );
+
+  const { data, isLoading, loadPointRef } = useInfiniteQuery<ShopResponse>(
+    collectShopList,
+    fetchFn,
+    {},
+  );
 
   const filterProps = [
     {
@@ -51,29 +72,35 @@ function Collect() {
 
   return (
     <StyledContainer>
-      {collectShopList?.length ? (
-        <>
-          <StyledFilterWrapper>
-            <h2>저장한 소품샵</h2>
-            <DropDownFilter pageType="collect" filterProps={filterProps} />
-          </StyledFilterWrapper>
-          <StyledCardWrapper>
-            {collectShopList &&
-              collectShopList.map((shop) => <ShopCard key={shop.shopId} cardData={shop} />)}
-          </StyledCardWrapper>
-        </>
-      ) : (
-        <EmptyContent emptyContentData={emptyContentData} />
-      )}
+      <>
+        <StyledFilterWrapper>
+          <h2>저장한 소품샵</h2>
+          <DropDownFilter pageType="collect" filterProps={filterProps} />
+        </StyledFilterWrapper>
+        <StyledCardWrapper>
+          {data && data.length > 0 && (
+            <>
+              {data.map((shop) => (
+                <ShopCard key={shop.shopId} cardData={shop} />
+              ))}
+            </>
+          )}
+          <LoadPoint ref={loadPointRef}>{isLoading && <Loader />}</LoadPoint>
+        </StyledCardWrapper>
+        {!data && <EmptyContent emptyContentData={emptyContentData} />}
+      </>
     </StyledContainer>
   );
 }
 
 export default Collect;
+
 const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin: 7.2rem 0;
+
+  position: relative;
 
   ${applyMediaQuery('desktop')} {
     margin-top: 4.8rem;
@@ -122,6 +149,8 @@ const StyledCardWrapper = styled.div`
   gap: 4rem 2.4rem;
   margin-top: 5.6rem;
 
+  min-height: 50vh;
+
   ${applyMediaQuery('desktop')} {
     margin-top: 3rem;
     gap: 2.5rem 1.6rem;
@@ -136,4 +165,12 @@ const StyledCardWrapper = styled.div`
     grid-template-columns: repeat(2, 1fr);
     gap: 1.6rem 0.6rem;
   }
+`;
+
+const LoadPoint = styled(PrevLoadPoint)`
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+
+  transform: translate(-50%, 200%);
 `;

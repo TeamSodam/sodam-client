@@ -2,11 +2,12 @@ import Loader from 'components/common/Loader';
 import ReviewCard from 'components/common/ReviewCard';
 import { useGetMyScrapReviewQuery } from 'features/reviews/reviewApi';
 import useInfiniteQuery from 'hooks/useInfiniteQuery';
-import { LoadPoint } from 'pages/shop/theme/[type]';
+import { LoadPoint as PrevLoadPoint } from 'pages/shop/theme/[type]';
 import { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import { ReviewMyScrapResponse } from 'types/review';
 
-const PAGE_LIMIT = 4;
+const PAGE_LIMIT = 6;
 
 function OtherMyScrapReview({ reviewId }: { reviewId: number }) {
   const { data: myScrapResponse } = useGetMyScrapReviewQuery();
@@ -54,5 +55,12 @@ function OtherMyScrapReview({ reviewId }: { reviewId: number }) {
     </>
   );
 }
+
+const LoadPoint = styled(PrevLoadPoint)`
+  position: absolute;
+  bottom: 0;
+
+  transform: translateY(-100%);
+`;
 
 export default OtherMyScrapReview;

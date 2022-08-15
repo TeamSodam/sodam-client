@@ -19,6 +19,7 @@ const useInfiniteQuery = <DataType,>(
 ) => {
   const isWrappedData = (data: InitialDataType<DataType>): data is WrappedData<DataType> =>
     data !== undefined && 'data' in data;
+
   const { root = null, rootMargin = '0px', threshold = 1 } = props;
   const [data, setData] = useState(() =>
     isWrappedData(initialData) ? initialData?.data || [] : initialData || [],
@@ -36,21 +37,20 @@ const useInfiniteQuery = <DataType,>(
 
   const onIntersect: IntersectionObserverCallback = async ([entry]) => {
     if (entry.isIntersecting) {
-      const fetchResult = await fetchFn(offsetIndex.current);
+      setIsLoading(true);
       offsetIndex.current += 1;
-      const nextData = isWrappedData(fetchResult) ? fetchResult.data : fetchResult;
+      const fetchResult = await fetchFn(offsetIndex.current);
+      const nextData = unwrapDataIfWrapped(fetchResult);
 
       if (!nextData) {
-        setIsLoading(true);
+        setIsLoading(false);
         return;
       }
 
       if (nextData.length === 0) {
         setIsLastData(true);
-        return;
-      }
+      } else setData((prevData) => [...prevData, ...nextData]);
 
-      nextData.length > 0 && setData((prevData) => [...prevData, ...nextData]);
       setIsLoading(false);
     }
   };
@@ -58,13 +58,15 @@ const useInfiniteQuery = <DataType,>(
   useEffect(() => {
     if (initialData) {
       const nextData = unwrapDataIfWrapped(initialData);
-      setData(nextData || []);
+      setData(nextData ? [...nextData] : []);
+      setIsLastData(false);
+      offsetIndex.current = 1;
     }
   }, [initialData]);
 
   useEffect(() => {
+    if (!initialData) return;
     let observer: IntersectionObserver | undefined = undefined;
-
     if (loadPointRef && loadPointRef.current) {
       observer = new IntersectionObserver(onIntersect, { root, rootMargin, threshold });
       observer.observe(loadPointRef.current);
