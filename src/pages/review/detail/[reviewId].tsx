@@ -10,6 +10,7 @@ import ReviewDetailCard from 'components/review/ReviewDetailCard';
 import { REVIEW_MAP } from 'constants/reviewActiveMap';
 import { useGetShopReviewByIdQuery } from 'features/reviews/reviewApi';
 import { NextParsedUrlQuery } from 'next/dist/server/request-meta';
+import Head from 'next/head';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
@@ -78,6 +79,13 @@ function Detail({ params, query }: { params: NextParsedUrlQuery; query: NextPars
 
   return (
     <StyledReviewDetailWrapper>
+      <Head>
+        <meta
+          property="og:title"
+          content={`소담 :: ${reviewData?.shopName || '소품샵 여정의 이야기를 담다'} 리뷰`}
+        />
+        <title>소담 :: {reviewData?.shopName || '소품샵 여정의 이야기를 담다'} 리뷰</title>
+      </Head>
       {reviewData && <ReviewDetailCard reviewData={reviewData} />}
       <OtherReviewCardWrapper>
         <ReviewListHeader>

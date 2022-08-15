@@ -9,11 +9,11 @@ const sodamDocList = [
   },
   {
     docTitle: '서비스 이용 문의',
-    docURL: 'https://forms.gle/5nY6F1dJ63K4rhd58',
+    docURL: 'https://forms.gle/6pXsk9BMUFYNByBQ7',
   },
   {
     docTitle: '소품샵 등록/삭제 문의',
-    docURL: 'https://forms.gle/jVFECFWTSR7C5xVm8',
+    docURL: 'https://forms.gle/AbDitha7zVXJktXr9',
   },
 ];
 

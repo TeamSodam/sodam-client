@@ -49,7 +49,13 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
             rel="stylesheet"
           />
-          <meta name="description" content="소담, 소품샵 여정의 이야기를 담다" />
+          <meta property="og:title" content="소담 :: 소품샵 여정의 이야기를 담다" />
+          <meta property="og:description" content="소담의 소품샵 큐레이션을 만나보세요" />
+          <meta property="og:url" content="sodam.me" />
+          <meta property="og:image" content="/assets/sodam_thumbnail.png" />
+          <meta property="og:image:width" content="820" />
+          <meta property="og:image:height" content="400" />
+          <link rel="shortcut icon" href="/favicon.ico" />
         </Head>
         <Main />
         <NextScript />

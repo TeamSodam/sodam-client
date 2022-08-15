@@ -79,7 +79,7 @@ function NavSearch() {
 const SearchTab = styled.div`
   position: relative;
 
-  border: 2px solid ${({ theme }) => theme.colors.purpleMain};
+  border: 1.5px solid ${({ theme }) => theme.colors.purpleMain};
   border-radius: 2rem;
   padding: 0.7rem 0.7rem 0.7rem 1rem;
 
@@ -131,16 +131,16 @@ const ResultList = styled.ul`
   box-shadow: 0px 3px 8px rgba(87, 82, 76, 0.15);
   border-radius: 0.5rem;
 
-  max-height: 12rem;
+  max-height: 16rem;
   overflow-y: auto;
 
   ${applyMediaQuery('desktop')} {
-    max-height: 8.8rem;
+    max-height: 12.9rem;
     gap: 0.5rem;
   }
 
   ${applyMediaQuery('tablet', 'mobile')} {
-    max-height: 7rem;
+    max-height: 12.3rem;
     gap: 0.3rem;
   }
 `;

@@ -217,6 +217,8 @@ const StyledRoot = styled.section`
     }
     .button__profile {
       font-size: 1.1rem;
+      padding: 0;
+      margin-top: 1rem;
     }
   }
   ${applyMediaQuery('mobile')} {
@@ -237,7 +239,7 @@ const StyledRoot = styled.section`
       padding: 0;
       font-size: 1rem;
       line-height: 1.2rem;
-      margin-top: 0.4rem;
+      margin-top: 0.8rem;
       transform-origin: top center;
       white-space: nowrap;
     }

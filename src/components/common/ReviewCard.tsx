@@ -287,7 +287,7 @@ const StyledHeader = styled.div<StyledProps>`
   .date {
     font-size: 1.4rem;
     font-weight: 500;
-    line-height: 2.3rem;
+    line-height: 1;
     color: ${theme.colors.gray1};
   }
   .profile {
@@ -305,7 +305,7 @@ const StyledHeader = styled.div<StyledProps>`
     p {
       font-size: 1.4rem;
       font-weight: 500;
-      line-height: 2.3rem;
+      line-height: 1;
       margin-left: 0.8rem;
     }
   }
@@ -316,7 +316,7 @@ const StyledHeader = styled.div<StyledProps>`
     p {
       font-size: 1.2rem;
       font-weight: 400;
-      line-height: 2.2rem;
+      line-height: 1;
     }
     &__icon--heart,
     &__icon--save {
@@ -339,7 +339,6 @@ const StyledHeader = styled.div<StyledProps>`
     margin-bottom: 0.5rem;
     .date {
       font-size: 1rem;
-      line-height: 1.3rem;
     }
     .profile {
       &__image {
@@ -348,13 +347,14 @@ const StyledHeader = styled.div<StyledProps>`
       }
       p {
         font-size: 1rem;
-        line-height: 2.2rem;
+        margin-bottom: 0.1rem;
         margin-left: 0.5rem;
       }
     }
     .figure {
       p {
         font-size: 1rem;
+        margin-bottom: 0.1rem;
       }
       &__icon--heart,
       &__icon--save {
@@ -376,7 +376,6 @@ const StyledHeader = styled.div<StyledProps>`
     height: ${({ isMyReviewMobile }) => (isMyReviewMobile ? '2rem' : 'auto')};
     .date {
       font-size: 1rem;
-      line-height: 1.3rem;
       transform: scale(0.9);
       transform-origin: center left;
     }
@@ -395,7 +394,7 @@ const StyledHeader = styled.div<StyledProps>`
       }
       p {
         font-size: 1rem;
-        line-height: 1.2rem;
+        margin-bottom: 0.2rem;
         margin-left: 0.3rem;
         transform: ${({ isMyReviewMobile }) => (isMyReviewMobile ? 'scale(0.9)' : 'scale(0.8)')};
         transform-origin: bottom left;
@@ -404,6 +403,7 @@ const StyledHeader = styled.div<StyledProps>`
     .figure {
       p {
         font-size: 1rem;
+        margin-bottom: 0.1rem;
         transform: ${({ isMyReviewMobile }) => (isMyReviewMobile ? 'scale(0.9)' : 'scale(0.7)')};
         transform-origin: center left;
       }

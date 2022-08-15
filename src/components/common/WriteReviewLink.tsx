@@ -52,7 +52,7 @@ const StyledWriteLink = styled.a`
   line-height: 2.3rem;
 
   ${applyMediaQuery('desktop')} {
-    height: 3.2rem;
+    height: 2.9rem;
     width: 13.6rem;
     border-radius: 0.8rem;
 
@@ -62,16 +62,18 @@ const StyledWriteLink = styled.a`
   }
 
   ${applyMediaQuery('mobile', 'tablet')} {
-    font-size: 0.8rem;
+    font-size: 1rem;
     line-height: 1.2rem;
     font-family: 'Noto Sans KR';
 
     border-radius: 5px;
     gap: 0.3rem;
 
-    width: unset;
-    height: 1.9rem;
+    width: 9.5rem;
+    height: 2.3rem;
     padding: 0.5rem 0.8rem;
+    transform: scale(0.85);
+    transform-origin: center left;
   }
 `;
 const WriteIcon = styled(writeIC)`
@@ -80,9 +82,13 @@ const WriteIcon = styled(writeIC)`
   margin-left: 0.8rem;
   align-self: center;
 
+  ${applyMediaQuery('desktop')} {
+    transform: scale(0.8);
+    margin-left: 1rem;
+  }
   ${applyMediaQuery('mobile', 'tablet')} {
     order: -1;
-    transform: scale(0.5) translateY(1px);
+    transform: scale(0.65) translateY(1px);
     margin: 0;
   }
 `;

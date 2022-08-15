@@ -14,6 +14,7 @@ import useMap from 'hooks/useMap';
 import useMedia from 'hooks/useMedia';
 import useToast from 'hooks/useToast';
 import { NextParsedUrlQuery } from 'next/dist/server/request-meta';
+import Head from 'next/head';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
@@ -142,6 +143,13 @@ function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQu
 
   return (
     <StyledContainer>
+      <Head>
+        <meta
+          property="og:title"
+          content={`소담 :: ${shopInfo?.shopName || '소품샵 여정의 이야기를 담다'}`}
+        />
+        <title>소담 :: {shopInfo?.shopName || '소품샵 여정의 이야기를 담다'}</title>
+      </Head>
       <ColoredBackground />
       {toast}
       <ImageGridWrapper>
