@@ -49,7 +49,6 @@ function Collect() {
   const { data, renderCurrentData } = useInfiniteQuery<ShopResponse>(
     collectShopList,
     fetchFn,
-    {},
     (shopList) => shopList.map((shop) => <ShopCard key={shop.shopId} cardData={shop} />),
   );
 

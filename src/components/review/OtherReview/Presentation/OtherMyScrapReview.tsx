@@ -19,7 +19,7 @@ function OtherMyScrapReview({ reviewId }: { reviewId: number }) {
     return paginatedData[offset + 1];
   };
 
-  const { renderCurrentData } = useInfiniteQuery(paginatedData[0], fetchNextData, {}, (scrapList) =>
+  const { renderCurrentData } = useInfiniteQuery(paginatedData[0], fetchNextData, (scrapList) =>
     scrapList
       .filter((_) => _.reviewId !== reviewId)
       .map((myScrapReview) => <ReviewCard key={myScrapReview.shopId} reviewData={myScrapReview} />),

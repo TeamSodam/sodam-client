@@ -29,7 +29,6 @@ function OtherShopReview({
   const { data: infiniteData, renderCurrentData } = useInfiniteQuery<ReviewByShopIdData>(
     reviewResponseFirst,
     fetchFn,
-    {},
     (reviewList) =>
       reviewList
         .filter((_) => _.reviewId !== reviewId)

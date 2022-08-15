@@ -19,7 +19,7 @@ function OtherMyWriteReview({ reviewId }: { reviewId: number }) {
     return paginatedData[offset + 1];
   };
 
-  const { renderCurrentData } = useInfiniteQuery(paginatedData[0], fetchNextData, {}, (writeList) =>
+  const { renderCurrentData } = useInfiniteQuery(paginatedData[0], fetchNextData, (writeList) =>
     writeList
       .filter((_) => _.reviewId !== reviewId)
       .map((myWriteReview) => <ReviewCard key={myWriteReview.shopId} reviewData={myWriteReview} />),

@@ -17,8 +17,8 @@ interface WrappedData<DataType> {
 const useInfiniteQuery = <DataType,>(
   initialData: InitialDataType<DataType>,
   fetchFn: (offset: number) => Promise<InitialDataType<DataType>> | InitialDataType<DataType>,
-  props: IUseObserver,
-  renderFn?: (currentData: DataType[]) => React.ReactNode,
+  renderFn: (currentData: DataType[]) => React.ReactNode,
+  props: IUseObserver = {},
 ) => {
   const isWrappedData = (data: InitialDataType<DataType>): data is WrappedData<DataType> =>
     data !== undefined && 'data' in data;
@@ -32,11 +32,11 @@ const useInfiniteQuery = <DataType,>(
   const loadPointRef = useRef(null);
   const offsetIndex = useRef(1);
 
-  const unwrapDataIfWrapped = (wrappedData: InitialDataType<DataType>) => {
+  const unwrapDataIfWrapped = useCallback((wrappedData: InitialDataType<DataType>) => {
     if (isWrappedData(wrappedData)) return wrappedData?.data;
 
     return wrappedData;
-  };
+  }, []);
 
   const onIntersect: IntersectionObserverCallback = useCallback(async ([entry]) => {
     if (entry.isIntersecting) {
@@ -75,7 +75,7 @@ const useInfiniteQuery = <DataType,>(
       setIsLastData(false);
       offsetIndex.current = 1;
     }
-  }, [initialData]);
+  }, [initialData, unwrapDataIfWrapped]);
 
   useEffect(() => {
     if (!initialData) return;
