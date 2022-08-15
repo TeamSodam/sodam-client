@@ -19,10 +19,15 @@ function OtherMyWriteReview({ reviewId }: { reviewId: number }) {
     return paginatedData[offset + 1];
   };
 
-  const { renderCurrentData } = useInfiniteQuery(paginatedData[0], fetchNextData, (writeList) =>
-    writeList
-      .filter((_) => _.reviewId !== reviewId)
-      .map((myWriteReview) => <ReviewCard key={myWriteReview.shopId} reviewData={myWriteReview} />),
+  const { renderCurrentData, loadPoint } = useInfiniteQuery(
+    paginatedData[0],
+    fetchNextData,
+    (writeList) =>
+      writeList
+        .filter((_) => _.reviewId !== reviewId)
+        .map((myWriteReview) => (
+          <ReviewCard key={myWriteReview.shopId} reviewData={myWriteReview} />
+        )),
   );
 
   useEffect(() => {
@@ -42,7 +47,12 @@ function OtherMyWriteReview({ reviewId }: { reviewId: number }) {
 
   if (!myWriteResponse) return <Loader />;
 
-  return renderCurrentData();
+  return (
+    <>
+      {renderCurrentData()}
+      {loadPoint}
+    </>
+  );
 }
 
 export default OtherMyWriteReview;

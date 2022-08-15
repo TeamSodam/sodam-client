@@ -19,10 +19,15 @@ function OtherMyScrapReview({ reviewId }: { reviewId: number }) {
     return paginatedData[offset + 1];
   };
 
-  const { renderCurrentData } = useInfiniteQuery(paginatedData[0], fetchNextData, (scrapList) =>
-    scrapList
-      .filter((_) => _.reviewId !== reviewId)
-      .map((myScrapReview) => <ReviewCard key={myScrapReview.shopId} reviewData={myScrapReview} />),
+  const { renderCurrentData, loadPoint } = useInfiniteQuery(
+    paginatedData[0],
+    fetchNextData,
+    (scrapList) =>
+      scrapList
+        .filter((_) => _.reviewId !== reviewId)
+        .map((myScrapReview) => (
+          <ReviewCard key={myScrapReview.shopId} reviewData={myScrapReview} />
+        )),
   );
 
   useEffect(() => {
@@ -42,7 +47,12 @@ function OtherMyScrapReview({ reviewId }: { reviewId: number }) {
 
   if (!myScrapResponse) return <Loader />;
 
-  return renderCurrentData();
+  return (
+    <>
+      {renderCurrentData()}
+      {loadPoint}
+    </>
+  );
 }
 
 export default OtherMyScrapReview;

@@ -60,13 +60,10 @@ const useInfiniteQuery = <DataType,>(
 
   const renderCurrentData = () => {
     if (!renderFn) return;
-    return (
-      <>
-        {data && data.length > 0 && renderFn(data)}
-        <LoadPoint ref={loadPointRef}>{isLoading && <Loader />}</LoadPoint>
-      </>
-    );
+    return data && data.length > 0 && renderFn(data);
   };
+
+  const loadPoint = <LoadPoint ref={loadPointRef}>{isLoading && <Loader />}</LoadPoint>;
 
   useEffect(() => {
     if (initialData) {
@@ -92,18 +89,11 @@ const useInfiniteQuery = <DataType,>(
     return () => observer && observer.disconnect();
   }, [root, rootMargin, threshold, initialData, fetchFn, isLastData, onIntersect]);
 
-  return { loadPointRef, isLoading, data, renderCurrentData };
+  return { isLoading, data, renderCurrentData, loadPoint };
 };
 
 const LoadPoint = styled.span`
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  height: 100px;
-
-  margin-bottom: 8rem;
+  position: relative;
 `;
 
 export default useInfiniteQuery;

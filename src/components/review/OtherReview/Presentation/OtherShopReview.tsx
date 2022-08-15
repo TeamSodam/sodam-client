@@ -26,17 +26,23 @@ function OtherShopReview({
     [reqInfo],
   );
 
-  const { data: infiniteData, renderCurrentData } = useInfiniteQuery<ReviewByShopIdData>(
-    reviewResponseFirst,
-    fetchFn,
-    (reviewList) =>
-      reviewList
-        .filter((_) => _.reviewId !== reviewId)
-        .map((reviewInfo) => <ReviewCard key={reviewInfo.reviewId} reviewData={reviewInfo} />),
+  const {
+    data: infiniteData,
+    renderCurrentData,
+    loadPoint,
+  } = useInfiniteQuery<ReviewByShopIdData>(reviewResponseFirst, fetchFn, (reviewList) =>
+    reviewList
+      .filter((_) => _.reviewId !== reviewId)
+      .map((reviewInfo) => <ReviewCard key={reviewInfo.reviewId} reviewData={reviewInfo} />),
   );
 
   if (!infiniteData) return <Loader />;
-  return renderCurrentData();
+  return (
+    <>
+      {renderCurrentData()}
+      {loadPoint}
+    </>
+  );
 }
 
 export default OtherShopReview;
