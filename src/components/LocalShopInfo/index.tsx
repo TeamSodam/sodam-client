@@ -12,7 +12,7 @@ interface LocalShopInfoProps {
   currentOption: OptionLabel;
   shopList: ShopAreaResponse[];
   toggleOption: (option: OptionLabel) => void;
-  moveByAddress: (landAddress: string, shopName: string) => void;
+  moveByAddress: (landAddress: string, shopName: string) => boolean;
   isLoading: boolean;
 }
 
