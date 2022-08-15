@@ -5,6 +5,7 @@ import ShopCard from 'components/common/ShopCard';
 import { shopApi, useGetShopByBookmarkQuery } from 'features/shops/shopApi';
 import { selectIsLogin } from 'features/users/userSlice';
 import useInfiniteQuery from 'hooks/useInfiniteQuery';
+import uniqBy from 'lodash-es/uniqBy';
 import { useCallback, useState } from 'react';
 import styled from 'styled-components';
 import { applyMediaQuery } from 'styles/mediaQuery';
@@ -12,6 +13,7 @@ import { theme } from 'styles/theme';
 import { ShopBookMarkRequestType, ShopResponse } from 'types/shop';
 
 const emptyContentData = {
+  title: '저장한 소품샵',
   src: '/assets/img_shopNoContent.png',
   label: '아직 저장한 소품샵이 없어요',
   subLabel: '취향저격 소품샵 찾으러 가볼까요?',
@@ -46,10 +48,11 @@ function Collect() {
     [currentSort],
   );
 
-  const { data, renderCurrentData } = useInfiniteQuery<ShopResponse>(
+  const { data, renderCurrentData, loadPoint } = useInfiniteQuery<ShopResponse>(
     collectShopList,
     fetchFn,
-    (shopList) => shopList.map((shop) => <ShopCard key={shop.shopId} cardData={shop} />),
+    (shopList) =>
+      uniqBy(shopList, 'shopId').map((shop) => <ShopCard key={shop.shopId} cardData={shop} />),
   );
 
   const filterProps = [
@@ -69,14 +72,18 @@ function Collect() {
 
   return (
     <StyledContainer>
-      <>
-        <StyledFilterWrapper>
-          <h2>저장한 소품샵</h2>
-          <DropDownFilter pageType="collect" filterProps={filterProps} />
-        </StyledFilterWrapper>
-        <StyledCardWrapper>{renderCurrentData()}</StyledCardWrapper>
-        {!data && <EmptyContent emptyContentData={emptyContentData} />}
-      </>
+      {data.length === 0 ? (
+        <EmptyContent emptyContentData={emptyContentData} />
+      ) : (
+        <>
+          <StyledFilterWrapper>
+            <h2>저장한 소품샵</h2>
+            <DropDownFilter pageType="collect" filterProps={filterProps} />
+          </StyledFilterWrapper>
+          <StyledCardWrapper>{renderCurrentData()}</StyledCardWrapper>
+        </>
+      )}
+      {loadPoint}
     </StyledContainer>
   );
 }
