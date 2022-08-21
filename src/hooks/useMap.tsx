@@ -77,8 +77,14 @@ function useMap<T>(
           if (targetMarker.setPage && targetMarkerIndex >= 0) {
             targetMarker.setPage(targetMarkerIndex);
           }
+
+          return true;
         }
+
+        return false;
       }
+
+      return false;
     },
     [map, currentMarkerList, isStaticMarker, isSmallDevice],
   );

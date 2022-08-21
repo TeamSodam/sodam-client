@@ -1,5 +1,6 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { MarkerInfo } from 'features/map/mapSlice';
+import LogRocket from 'logrocket';
 import { getMiniToolTipTemplate } from 'map/overlays/miniTooltip';
 import { getPagedToolTipTemplate, getToolTipTemplate } from 'map/overlays/tooltip';
 import shortid from 'shortid';
@@ -7,6 +8,12 @@ import { KakaoLatLng, KakaoMap } from 'types/map';
 import { Shop } from 'types/shop';
 
 import { getLocationByAddress } from './search';
+
+type MarkerOverlayDataType = Array<
+  Pick<Shop, 'shopName' | 'category' | 'landAddress' | 'shopId'> & {
+    latlng: KakaoLatLng | null;
+  }
+>;
 
 export const displayMarker = async (
   map: KakaoMap,
@@ -62,11 +69,21 @@ export const displayMarkerWithArray = async (
     const locationPromiseList = shopList.map(async ({ landAddress, shopName }) =>
       getLocationByAddress(landAddress, shopName),
     );
-    const locationList = await Promise.all(locationPromiseList);
-    const shopListWithMarkerPosition = shopList.map((shopInfo, infoIndex) => ({
-      ...shopInfo,
-      latlng: locationList[infoIndex],
-    }));
+    const settledPromises = await Promise.allSettled(locationPromiseList);
+    const shopListWithMarkerPosition = settledPromises.reduce((acc, setteledPromise, index) => {
+      if (setteledPromise.status === 'fulfilled')
+        return [
+          ...acc,
+          {
+            ...shopList[index],
+            latlng: setteledPromise.value,
+          },
+        ];
+
+      LogRocket.warn(setteledPromise.reason);
+
+      return acc;
+    }, [] as MarkerOverlayDataType);
 
     /**
      * 동일한 좌표를 갖는 소품샵들을 배열로 그룹화하는 작업.

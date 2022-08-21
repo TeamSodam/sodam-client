@@ -17,7 +17,7 @@ function ShopList({
 }: {
   shopList: ShopAreaResponse[];
   isSaveOption: boolean;
-  moveByAddress: (landAddress: string, shopName: string) => void;
+  moveByAddress: (landAddress: string, shopName: string) => boolean;
   isLoading: boolean;
 }) {
   const router = useRouter();

@@ -1,3 +1,4 @@
+import useToast from 'hooks/useToast';
 import DelimiterIC from 'public/assets/ic_delimiter.svg';
 import loadImageSafely from 'src/utils/loadImageSafely';
 import parseCategorySafely from 'src/utils/parseCategorySafely';
@@ -14,17 +15,23 @@ function ShopElement({
   moveByAddress,
 }: {
   shopInfo: ShopAreaResponse;
-  moveByAddress: (landAddress: string, shopName: string) => void;
+  moveByAddress: (landAddress: string, shopName: string) => boolean;
 }) {
   const { shopName, category, image, landAddress, time, reviewCount } = shopInfo;
+  const { toast, fireToast } = useToast();
+
+  const handleElementWithMarker = () => {
+    const isSuccess = moveByAddress(landAddress, shopName);
+    if (isSuccess) {
+      scrollTo(0, 0);
+      return;
+    }
+
+    fireToast('소품샵 위치정보를 가져오는데 실패했어요.');
+  };
 
   return (
-    <StyledShopElement
-      onClick={() => {
-        moveByAddress(landAddress, shopName);
-        scrollTo(0, 0);
-      }}
-    >
+    <StyledShopElement onClick={handleElementWithMarker}>
       <ShopLeftWrapper>
         <ShopMainInfo>
           <h2>{shopName}</h2>
@@ -38,6 +45,7 @@ function ShopElement({
         </ShopSubInfo>
       </ShopLeftWrapper>
       <ShopImage src={loadImageSafely(image)} />
+      {toast}
     </StyledShopElement>
   );
 }
