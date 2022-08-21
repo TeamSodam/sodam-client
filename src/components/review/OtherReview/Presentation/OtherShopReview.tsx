@@ -1,8 +1,8 @@
 import Loader from 'components/common/Loader';
 import ReviewCard from 'components/common/ReviewCard';
 import { reviewApi, useGetReviewByShopIdQuery } from 'features/reviews/reviewApi';
-import useObserver from 'hooks/useObserver';
-import { useEffect, useRef, useState } from 'react';
+import useInfiniteQuery from 'hooks/useInfiniteQuery';
+import { useCallback } from 'react';
 import { ReviewByShopIdData, ReviewShopIdRequestParams } from 'types/review';
 
 function OtherShopReview({
@@ -15,50 +15,32 @@ function OtherShopReview({
   const { data: reviewResponseFirst } = useGetReviewByShopIdQuery(reqInfo, { skip: !reqInfo });
   const [getReviewByShopId] = reviewApi.endpoints.getReviewByShopId.useLazyQuery();
 
-  const [reviewResponse, setReviewResponse] = useState<ReviewByShopIdData[] | undefined>(
-    reviewResponseFirst?.data,
-  );
-  const [isLoading, setIsLoading] = useState(false);
-
-  const bottomRef = useRef(null);
-  const offsetIndex = useRef(1);
-
-  useEffect(() => {
-    if (reviewResponseFirst) {
-      setReviewResponse(reviewResponseFirst.data);
-      setIsLoading(false);
-    } else {
-      setIsLoading(true);
-    }
-  }, [reviewResponseFirst]);
-
-  const onIntersect: IntersectionObserverCallback = async ([entry]) => {
-    if (entry.isIntersecting) {
-      offsetIndex.current += 1;
-      const { data: reviewResponseNext } = await getReviewByShopId({
+  const fetchFn = useCallback(
+    async (offset: number) => {
+      const result = await getReviewByShopId({
         ...reqInfo,
-        offset: offsetIndex.current,
+        offset,
       });
-      if (!reviewResponseNext || !reviewResponse) {
-        setIsLoading(true);
-      } else {
-        reviewResponseNext.data.length > 0 &&
-          setReviewResponse([...reviewResponse, ...reviewResponseNext.data]);
-        setIsLoading(false);
-      }
-    }
-  };
-  useObserver({ target: bottomRef, onIntersect });
+      return result?.data || [];
+    },
+    [reqInfo],
+  );
 
-  if (isLoading || !reviewResponse) return <Loader />;
+  const {
+    data: infiniteData,
+    renderCurrentData,
+    loadPoint,
+  } = useInfiniteQuery<ReviewByShopIdData>(reviewResponseFirst, fetchFn, (reviewList) =>
+    reviewList
+      .filter((_) => _.reviewId !== reviewId)
+      .map((reviewInfo) => <ReviewCard key={reviewInfo.reviewId} reviewData={reviewInfo} />),
+  );
+
+  if (!infiniteData) return <Loader />;
   return (
     <>
-      {reviewResponse
-        .filter((_) => _.reviewId !== reviewId)
-        .map((reviewInfo) => (
-          <ReviewCard key={reviewInfo.content} reviewData={reviewInfo} />
-        ))}
-      <div ref={bottomRef} />
+      {renderCurrentData()}
+      {loadPoint}
     </>
   );
 }

@@ -231,7 +231,7 @@ const DropDownWrapper = styled.div`
   }
 `;
 
-const LoadPoint = styled.div`
+export const LoadPoint = styled.span`
   position: relative;
   height: 100px;
   margin-bottom: 8rem;

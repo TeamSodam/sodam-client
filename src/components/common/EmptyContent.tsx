@@ -6,7 +6,7 @@ import ImageDiv from './ImageDiv';
 
 interface EmptyContentProps {
   emptyContentData: {
-    title: string;
+    title?: string;
     src: string;
     label: string;
     subLabel: string;
@@ -22,7 +22,7 @@ function EmptyContent(props: EmptyContentProps) {
 
   return (
     <StyledContainer>
-      <Header>{title}</Header>
+      {title && <Header>{title}</Header>}
       <ContentWrapper>
         <ImageDiv className="shop_image_empty" layout="fill" src={src} alt="shop_image" />
         <Label>{label}</Label>
