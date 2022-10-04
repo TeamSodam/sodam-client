@@ -18,7 +18,7 @@ function ThemeSelector() {
   const isValidCurrentTheme = !currentTheme || typeof currentTheme === 'string';
   return (
     <StyledRoot>
-      <h4>테마별 소품샵</h4>
+      <h2>테마별 소품샵</h2>
       <StyledElWrapper isMain={isMain}>
         {isValidCurrentTheme &&
           category.map((themeType) => (

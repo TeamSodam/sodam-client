@@ -12,7 +12,7 @@ function Banner(props: BannerProps) {
   if (href) {
     return (
       <Link passHref href={href}>
-        <StyledBannerLink imgUrl={src} />
+        <StyledBannerLink aria-label={`소담 ${src}(으)로 이동하기`} imgUrl={src} />
       </Link>
     );
   }

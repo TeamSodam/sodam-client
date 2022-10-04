@@ -58,7 +58,12 @@ function NavSearch() {
       <Screen wide>
         <SearchICWide />
       </Screen>
-      <input type="text" ref={searchKeywordRef} onChange={debounce(handleChangeSearch, 500)} />
+      <input
+        title="소품샵 검색"
+        type="text"
+        ref={searchKeywordRef}
+        onChange={debounce(handleChangeSearch, 500)}
+      />
       {isOpen && (
         <ResultList ref={searchRef}>
           {results.length > 0 ? (
