@@ -102,7 +102,7 @@ const MobileFontStyle = css`
   line-height: 7px;
 `;
 
-const ContactTitle = styled.div`
+const ContactTitle = styled.b`
   width: 7.7rem;
   font-weight: 600;
   font-size: 1.4rem;
@@ -116,7 +116,7 @@ const ContactTitle = styled.div`
   }
 `;
 
-const ContactContent = styled.li`
+const ContactContent = styled.span`
   flex: 1;
   list-style: none;
   font-weight: 400;
@@ -153,7 +153,7 @@ const RightFooterWrapper = styled.div`
   }
 `;
 
-const RightFooter = styled.li`
+const RightFooter = styled.span`
   list-style: none;
   display: flex;
   justify-content: space-between;
