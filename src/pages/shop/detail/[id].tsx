@@ -5,6 +5,7 @@ import PageNaviagator from 'components/common/PageNaviagator';
 import ReviewCard, { EmptyReview } from 'components/common/ReviewCard';
 import ShopCard from 'components/common/ShopCard';
 import WriteReviewLink from 'components/common/WriteReviewLink';
+import KakaoMap from 'components/KakaoMap';
 import DetailImageGrid from 'components/ShopDetail/DetailImageGrid';
 import DetailInfo from 'components/ShopDetail/DetailInfo';
 import DetailShopAddress from 'components/ShopDetail/DetailShopAddress';
@@ -54,7 +55,7 @@ function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQu
 
   const initialLocation = shopInfo && (shopInfo.landAddress || shopInfo?.roadAddress);
 
-  const { displayMarkerByAddress } = useMap(mapRef, initialLocation, true);
+  const { displayMarkerByAddress, initialize } = useMap(mapRef, initialLocation, true);
 
   const showDetailShopAddress = () => {
     if (!shopInfo) return null;
@@ -157,7 +158,9 @@ function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQu
         {shopInfo && <DetailInfo shopInfo={shopInfo} fireToast={fireToast} />}
       </ImageGridWrapper>
       <Wrapper>
-        <MapContainer ref={mapRef}>{showDetailShopAddress()}</MapContainer>
+        <KakaoMap initialize={initialize} mapType={'shopDetail'} mapRef={mapRef}>
+          {showDetailShopAddress()}
+        </KakaoMap>
         <LabelContentWrapper>
           <LabelWithOptions>
             <LabelWrapper>
@@ -232,36 +235,6 @@ const Wrapper = styled.div`
   gap: 9.6rem;
   ${applyMediaQuery('mobile', 'tablet')} {
     gap: 3.5rem;
-  }
-`;
-
-const MapContainer = styled.div`
-  width: 100%;
-  height: 32rem;
-
-  position: relative;
-
-  ${applyMediaQuery('desktop')} {
-    height: 21.3rem;
-
-    & img[title] {
-      transform: scale(0.85) translateX(7.5%);
-    }
-  }
-
-  ${applyMediaQuery('tablet')} {
-    height: 18rem;
-    & img[title] {
-      transform: scale(0.75) translateX(12.5%);
-    }
-  }
-
-  ${applyMediaQuery('mobile')} {
-    height: 13.5rem;
-
-    & img[title] {
-      transform: scale(0.55) translate(20%, 25px);
-    }
   }
 `;
 

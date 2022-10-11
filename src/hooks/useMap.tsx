@@ -89,6 +89,20 @@ function useMap<T>(
     [map, currentMarkerList, isStaticMarker, isSmallDevice],
   );
 
+  const initialize = async () => {
+    if (!map && containerRef?.current) {
+      const location = await getLocationByAddress(initialLocation || '서울 마포구');
+      if (location) {
+        setMap(
+          new window.kakao.maps.Map(containerRef.current, {
+            center: location,
+            level: 4,
+          }),
+        );
+      }
+    }
+  };
+
   useEffect(() => {
     (async () => {
       if (map && initialLocation) {
@@ -98,22 +112,10 @@ function useMap<T>(
   }, [map, initialLocation, isStaticMarker, isSmallDevice]);
 
   useEffect(() => {
-    (async () => {
-      if (!map && containerRef?.current) {
-        const location = await getLocationByAddress(initialLocation || '서울 마포구');
-        if (location) {
-          setMap(
-            new window.kakao.maps.Map(containerRef.current, {
-              center: location,
-              level: 4,
-            }),
-          );
-        }
-      }
-    })();
+    initialize();
   }, []);
 
-  return { map, displayMarkerByAddress, displayMarkerWithOverlay, moveByAddress };
+  return { map, displayMarkerByAddress, displayMarkerWithOverlay, moveByAddress, initialize };
 }
 
 export default useMap;

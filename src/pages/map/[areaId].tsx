@@ -1,5 +1,6 @@
 import { useAppDispatch, useAppSelector } from 'app/hook';
 import { wrapper } from 'app/store';
+import KakaoMap from 'components/KakaoMap';
 import LocalShopInfo, { OptionLabel } from 'components/LocalShopInfo';
 import SEOUL_ENUM from 'constants/SeoulAreaEnum';
 import { initMap } from 'features/map/mapSlice';
@@ -56,10 +57,11 @@ function MapWithAreaId(props: { areaId: number }) {
 
   const initialLocation = currentList && currentList.length > 0 && currentList[0].landAddress;
 
-  const { displayMarkerByAddress, displayMarkerWithOverlay, moveByAddress } = useMap(
+  const { displayMarkerByAddress, displayMarkerWithOverlay, moveByAddress, initialize } = useMap(
     mapRef,
     initialLocation || SEOUL_ENUM[AREA_ID],
   );
+
   const onClickGoBack = () => {
     dispatch(initMap());
     router.push('/map');
@@ -85,7 +87,7 @@ function MapWithAreaId(props: { areaId: number }) {
         <LeftArrIC />
         <span>지역 다시 선택하기</span>
       </StyledGoBack>
-      <MapContainer ref={mapRef}>
+      <KakaoMap mapType={'mapDetail'} mapRef={mapRef} initialize={initialize}>
         <Screen desktop wide>
           <LocalShopInfo
             isLoading={isLoading}
@@ -95,7 +97,7 @@ function MapWithAreaId(props: { areaId: number }) {
             moveByAddress={moveByAddress}
           />
         </Screen>
-      </MapContainer>
+      </KakaoMap>
       <Screen mobile tablet>
         <LocalShopInfo
           isLoading={isLoading}
@@ -169,34 +171,6 @@ const StyledGoBack = styled.button`
 
 const LeftArrIC = styled(LeftArr)`
   fill: ${({ theme }) => theme.colors.black2};
-`;
-
-const MapContainer = styled.div`
-  width: 100%;
-  height: 82.4rem;
-
-  margin: 3.5rem 0 13.2rem 0;
-
-  ${applyMediaQuery('desktop')} {
-    height: 55rem;
-    margin: 3.5rem 0 10rem 0;
-  }
-
-  ${applyMediaQuery('tablet')} {
-    height: 36rem;
-    margin: 1.1rem 0 0 0;
-  }
-
-  ${applyMediaQuery('mobile')} {
-    height: 29rem;
-    margin: 1.1rem 0 0 0;
-
-    & img[title] {
-      transform: scale(0.7);
-    }
-  }
-
-  position: relative;
 `;
 
 export default MapWithAreaId;
