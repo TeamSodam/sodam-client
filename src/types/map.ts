@@ -19,8 +19,8 @@ export interface ShopInfoInMarker {
 }
 
 export interface xy {
-  x: string;
-  y: string;
+  x: number;
+  y: number;
 }
 
 export type StatusText = 'OK' | 'ZERO_RESULT' | 'ERROR';

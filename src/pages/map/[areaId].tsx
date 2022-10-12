@@ -55,12 +55,18 @@ function MapWithAreaId(props: { areaId: number }) {
 
   const mapRef = useRef<HTMLDivElement>(null);
 
-  const initialLocation = currentList && currentList.length > 0 && currentList[0].landAddress;
+  const initialLocation =
+    currentList && currentList.length > 0
+      ? {
+          address: currentList[0].landAddress,
+          shopName: currentList[0].shopName,
+        }
+      : { address: SEOUL_ENUM[AREA_ID] };
 
-  const { displayMarkerByAddress, displayMarkerWithOverlay, moveByAddress, initialize } = useMap(
-    mapRef,
-    initialLocation || SEOUL_ENUM[AREA_ID],
-  );
+  const { displayMarkerWithOverlay, moveByAddress, initialize } = useMap({
+    containerRef: mapRef,
+    initialLocationInfo: initialLocation,
+  });
 
   const onClickGoBack = () => {
     dispatch(initMap());
@@ -75,7 +81,7 @@ function MapWithAreaId(props: { areaId: number }) {
         setIsLoading(false);
       })();
     }
-  }, [displayMarkerByAddress, displayMarkerWithOverlay, currentList]);
+  }, [displayMarkerWithOverlay, currentList]);
 
   return (
     <StyledContainer>

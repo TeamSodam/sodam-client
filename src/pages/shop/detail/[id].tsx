@@ -53,9 +53,16 @@ function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQu
 
   const [currentList, setCurrentList] = useState<ReviewByShopIdData[]>();
 
-  const initialLocation = shopInfo && (shopInfo.landAddress || shopInfo?.roadAddress);
+  const initialLocation = shopInfo && {
+    address: shopInfo.landAddress || shopInfo?.roadAddress,
+    shopName: shopInfo.shopName,
+  };
 
-  const { displayMarkerByAddress, initialize } = useMap(mapRef, initialLocation, true);
+  const { displayMarkerByAddress, initialize, mapError } = useMap({
+    initialLocationInfo: initialLocation,
+    containerRef: mapRef,
+    isStaticMarker: true,
+  });
 
   const showDetailShopAddress = () => {
     if (!shopInfo) return null;
@@ -158,7 +165,12 @@ function Detail({ params }: { params: NextParsedUrlQuery; query: NextParsedUrlQu
         {shopInfo && <DetailInfo shopInfo={shopInfo} fireToast={fireToast} />}
       </ImageGridWrapper>
       <Wrapper>
-        <KakaoMap initialize={initialize} mapType={'shopDetail'} mapRef={mapRef}>
+        <KakaoMap
+          fallbackOptions={{ shouldFallback: Boolean(mapError), fallbackUI: mapError }}
+          initialize={initialize}
+          mapType={'shopDetail'}
+          mapRef={mapRef}
+        >
           {showDetailShopAddress()}
         </KakaoMap>
         <LabelContentWrapper>

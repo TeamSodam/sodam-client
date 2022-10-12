@@ -8,10 +8,26 @@ interface KakaoMapProps {
   mapType: keyof typeof ContainerTypeMap;
   initialize: () => void;
   mapRef: RefObject<HTMLDivElement>;
+  fallbackOptions?: {
+    shouldFallback: boolean;
+    fallbackUI: JSX.Element | string;
+  };
 }
 
-function KakaoMap({ initialize, children, mapType, mapRef }: PropsWithChildren<KakaoMapProps>) {
+function KakaoMap(props: PropsWithChildren<KakaoMapProps>) {
+  const { initialize, children, mapType, mapRef, fallbackOptions } = props;
   const KakakMapContainer = ContainerTypeMap[mapType];
+
+  const renderFallback = () => {
+    if (!fallbackOptions?.shouldFallback) return;
+
+    return (
+      <MapFallbackUI>
+        <p>{fallbackOptions.fallbackUI}</p>
+        <b>관리자에게 문의해주세요.</b>
+      </MapFallbackUI>
+    );
+  };
 
   return (
     <>
@@ -24,10 +40,40 @@ function KakaoMap({ initialize, children, mapType, mapRef }: PropsWithChildren<K
         src={`//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_API_KEY}&libraries=services&autoload=false`}
         onLoad={() => window.kakao?.maps?.load(initialize)}
       />
-      <KakakMapContainer ref={mapRef}>{children}</KakakMapContainer>
+      <KakakMapContainer ref={mapRef}>
+        <>
+          {children}
+          {renderFallback()}
+        </>
+      </KakakMapContainer>
     </>
   );
 }
+
+const MapFallbackUI = styled.div`
+  position: absolute;
+  z-index: 9999;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
+
+  width: 100%;
+  height: 100%;
+
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  & > b {
+    margin-top: 1rem;
+    font-size: 1.5rem;
+  }
+`;
 
 const ContainerTypeMap = {
   mapDetail: styled.div`

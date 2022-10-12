@@ -3,10 +3,10 @@ import { MarkerInfo } from 'features/map/mapSlice';
 import { getMiniToolTipTemplate } from 'map/overlays/miniTooltip';
 import { getPagedToolTipTemplate, getToolTipTemplate } from 'map/overlays/tooltip';
 import shortid from 'shortid';
-import { KakaoLatLng, KakaoMap } from 'types/map';
+import { KakaoLatLng } from 'types/map';
 import { Shop } from 'types/shop';
 
-import { getLocationByAddress } from './search';
+import KakaoUtils from '.';
 
 type MarkerOverlayDataType = Array<
   Pick<Shop, 'shopName' | 'category' | 'landAddress' | 'shopId'> & {
@@ -14,60 +14,80 @@ type MarkerOverlayDataType = Array<
   }
 >;
 
-export const displayMarker = async (
-  map: KakaoMap,
+export const displayStaticMarker = async (
+  kakaoUtils: KakaoUtils,
   shopInfo: Pick<Shop, 'shopName' | 'category' | 'landAddress' | 'shopId'>,
 ) => {
-  const { kakao } = window;
   const { landAddress, shopName } = shopInfo;
   try {
-    const markerPosition = await getLocationByAddress(landAddress, shopName);
-
-    const MARKER_SRC = '/assets/ic_basic_marker.svg';
-    const imageSize = new kakao.maps.Size(32, 38);
-    const imageOption = { offset: new kakao.maps.Point(18, 36) };
-
-    const markerImage = new kakao.maps.MarkerImage(MARKER_SRC, imageSize, imageOption);
-    const marker = new kakao.maps.Marker({
-      position: markerPosition,
-      image: markerImage,
-      clickable: true,
-      title: shopName,
+    const markerPosition = await kakaoUtils.getLocationByAddress({
+      address: landAddress,
+      shopName,
+    });
+    const marker = kakaoUtils.createMarker({
+      markerPosition,
+      imageXY: [32, 38],
+      offsetXY: [18, 36],
+      shopName,
     });
 
-    const customOverlay = new kakao.maps.CustomOverlay({
-      map,
-      position: marker.getPosition(),
-    });
+    const customOverlay = kakaoUtils.createCustomOverlay(marker);
 
     customOverlay.setContent(getMiniToolTipTemplate(shopInfo));
-    map.setLevel(1);
-    marker.setMap(map);
+    kakaoUtils.setMapLevel(1);
+
+    marker.setMap(kakaoUtils.kakaoInstance);
   } catch (error) {
     console.error(`${shopName}의 주소를 나타내는데 실패했어요. ${error}`);
   }
 };
 
-export const displayMarkerWithArray = async (
-  map: KakaoMap,
+const groupShopByEqualMarkerPosition = (shopListWithMarkerPosition: MarkerOverlayDataType) => {
+  const grouped = new Array(shopListWithMarkerPosition.length).fill(false);
+  const groupedShopListByMarkerPosition: MarkerOverlayDataType[] = [];
+
+  shopListWithMarkerPosition.forEach((shopInfo, index) => {
+    const { latlng } = shopInfo;
+    if (grouped[index] || !latlng) return;
+
+    const currentGroupIndex = groupedShopListByMarkerPosition.length;
+
+    groupedShopListByMarkerPosition[currentGroupIndex] = [shopInfo];
+
+    shopListWithMarkerPosition.forEach((comparedInfo, comparedIndex) => {
+      if (comparedIndex <= index) return;
+      const { latlng: comparedLatLng } = comparedInfo;
+      if (!comparedLatLng || grouped[comparedIndex]) return;
+      if (latlng.equals(comparedLatLng)) {
+        grouped[comparedIndex] = true;
+        groupedShopListByMarkerPosition[currentGroupIndex].push(comparedInfo);
+      }
+    });
+
+    grouped[index] = true;
+  });
+
+  return groupedShopListByMarkerPosition;
+};
+
+export const displayDynamicMarkers = async (
+  kakaoUtils: KakaoUtils,
   shopList: Array<Pick<Shop, 'shopName' | 'category' | 'landAddress' | 'shopId'>>,
   addMarkerToList: (markerInfo: MarkerInfo) => PayloadAction<MarkerInfo>,
   changeClickState: (markerInfo: MarkerInfo) => PayloadAction<MarkerInfo>,
   navigate: (path: string) => void,
 ) => {
-  const { kakao } = window;
   try {
-    const MARKER_SRC = '/assets/ic_basic_marker.svg';
-    const ACTIVE_MARKER_SRC = '/assets/ic_active_marker.svg';
-    const imageSize = new kakao.maps.Size(32, 38);
-    const imageOption = { offset: new kakao.maps.Point(18, 36) };
-
-    const markerImage = new kakao.maps.MarkerImage(MARKER_SRC, imageSize, imageOption);
-    const activeMarkerImage = new kakao.maps.MarkerImage(ACTIVE_MARKER_SRC, imageSize, imageOption);
+    const markerImage = kakaoUtils.createMarkerImage([32, 38], [18, 36]);
+    const activeMarkerImage = kakaoUtils.createMarkerImage([32, 38], [18, 36], true);
 
     const locationPromiseList = shopList.map(async ({ landAddress, shopName }) =>
-      getLocationByAddress(landAddress, shopName),
+      kakaoUtils.getLocationByAddress({
+        address: landAddress,
+        shopName,
+      }),
     );
+
     const settledPromises = await Promise.allSettled(locationPromiseList);
     const shopListWithMarkerPosition = settledPromises.reduce((acc, setteledPromise, index) => {
       if (setteledPromise.status === 'fulfilled')
@@ -79,7 +99,6 @@ export const displayMarkerWithArray = async (
           },
         ];
 
-
       return acc;
     }, [] as MarkerOverlayDataType);
 
@@ -87,35 +106,9 @@ export const displayMarkerWithArray = async (
      * 동일한 좌표를 갖는 소품샵들을 배열로 그룹화하는 작업.
      * 작업의 편의를 위해 동일한 좌표가 없는 소품샵도 길이가 1인 배열로 표현.
      */
-    const grouped = new Array(shopListWithMarkerPosition.length).fill(false);
-    const groupedShopListByMarkerPosition: Array<
-      Array<
-        Pick<Shop, 'shopName' | 'category' | 'landAddress' | 'shopId'> & {
-          latlng: KakaoLatLng | null;
-        }
-      >
-    > = [];
-
-    shopListWithMarkerPosition.forEach((shopInfo, index) => {
-      const { latlng } = shopInfo;
-      if (grouped[index] || !latlng) return;
-
-      const currentGroupIndex = groupedShopListByMarkerPosition.length;
-
-      groupedShopListByMarkerPosition[currentGroupIndex] = [shopInfo];
-
-      shopListWithMarkerPosition.forEach((comparedInfo, comparedIndex) => {
-        if (comparedIndex <= index) return;
-        const { latlng: comparedLatLng } = comparedInfo;
-        if (!comparedLatLng || grouped[comparedIndex]) return;
-        if (latlng.equals(comparedLatLng)) {
-          grouped[comparedIndex] = true;
-          groupedShopListByMarkerPosition[currentGroupIndex].push(comparedInfo);
-        }
-      });
-
-      grouped[index] = true;
-    });
+    const groupedShopListByMarkerPosition: MarkerOverlayDataType[] = groupShopByEqualMarkerPosition(
+      shopListWithMarkerPosition,
+    );
 
     /**
      * 하나의 마커에 그룹화된 소품샵들을 오버레이에 올림.
@@ -124,19 +117,15 @@ export const displayMarkerWithArray = async (
       if (!groupedShopList.length) return;
       const shopNameList = groupedShopList.map(({ shopName }) => shopName);
       const { latlng } = groupedShopList[0];
-      const marker = new kakao.maps.Marker({
-        position: latlng,
+      const marker = kakaoUtils.createMarker({
+        markerPosition: latlng,
         image: markerImage,
-        clickable: true,
-        title: 'group' + shortid(),
+        shopName: 'group' + shortid(),
       });
 
-      const customOverlay = new kakao.maps.CustomOverlay({
-        map,
-        position: latlng,
-      });
+      const customOverlay = kakaoUtils.createCustomOverlay(marker);
 
-      marker.setMap(map);
+      marker.setMap(kakaoUtils.kakaoInstance);
       customOverlay.setMap(null);
       const { tooltip, setPage } = getPagedToolTipTemplate(groupedShopList, navigate);
       if (groupedShopList.length === 1) {
@@ -146,7 +135,7 @@ export const displayMarkerWithArray = async (
       }
 
       let isClicked = false;
-      kakao.maps.event.addListener(marker, 'click', () => {
+      kakaoUtils.addListener(marker, 'click', () => {
         const nextMarkerState = {
           marker,
           name: shopNameList,
@@ -158,7 +147,7 @@ export const displayMarkerWithArray = async (
           customOverlay.setMap(null);
         } else {
           marker.setImage(activeMarkerImage);
-          customOverlay.setMap(map);
+          customOverlay.setMap(kakaoUtils.kakaoInstance);
         }
 
         changeClickState(nextMarkerState);
