@@ -3,21 +3,15 @@ import Footer from 'components/common/Footer';
 import Layout from 'components/common/Layout';
 import NavBar from 'components/common/Navbar/GlobalNav';
 import useWindowSize from 'hooks/useWindowSize';
-import LogRocket from 'logrocket';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import Script from 'next/script';
-import { useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyles from 'styles/globalStyle';
 import { theme } from 'styles/theme';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const { clientWidth, availableWidth } = useWindowSize();
-
-  useEffect(() => {
-    LogRocket.init('zkogtj/sodam');
-  }, []);
 
   return (
     <ThemeProvider theme={{ ...theme, clientWidth, availableWidth }}>

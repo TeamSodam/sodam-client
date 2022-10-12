@@ -1,6 +1,5 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { MarkerInfo } from 'features/map/mapSlice';
-import LogRocket from 'logrocket';
 import { getMiniToolTipTemplate } from 'map/overlays/miniTooltip';
 import { getPagedToolTipTemplate, getToolTipTemplate } from 'map/overlays/tooltip';
 import shortid from 'shortid';
@@ -80,7 +79,6 @@ export const displayMarkerWithArray = async (
           },
         ];
 
-      LogRocket.warn(setteledPromise.reason);
 
       return acc;
     }, [] as MarkerOverlayDataType);
