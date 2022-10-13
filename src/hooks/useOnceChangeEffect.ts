@@ -9,7 +9,7 @@ function useOnceChangeEffect(effect: () => void, targetDependency: undefined | n
     if (
       !isEffectExecuted.current &&
       targetDependency &&
-      isEqual(prevTargetDependency.current, targetDependency)
+      !isEqual(prevTargetDependency.current, targetDependency)
     ) {
       isEffectExecuted.current = true;
       effect();
