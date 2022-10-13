@@ -70,6 +70,16 @@ const groupShopByEqualMarkerPosition = (shopListWithMarkerPosition: MarkerOverla
   return groupedShopListByMarkerPosition;
 };
 
+const getPagedOrSingleTooltipTemplate = (
+  mayGroupedList: MarkerOverlayDataType,
+  navigate: (path: string) => void,
+) => {
+  if (mayGroupedList.length === 1)
+    return { tooltip: getToolTipTemplate(mayGroupedList[0], navigate), setPage: null };
+
+  return getPagedToolTipTemplate(mayGroupedList, navigate);
+};
+
 export const displayDynamicMarkers = async (
   kakaoUtils: KakaoUtils,
   shopList: Array<Pick<Shop, 'shopName' | 'category' | 'landAddress' | 'shopId'>>,
@@ -127,12 +137,9 @@ export const displayDynamicMarkers = async (
 
       marker.setMap(kakaoUtils.kakaoInstance);
       customOverlay.setMap(null);
-      const { tooltip, setPage } = getPagedToolTipTemplate(groupedShopList, navigate);
-      if (groupedShopList.length === 1) {
-        customOverlay.setContent(getToolTipTemplate(groupedShopList[0], navigate));
-      } else {
-        customOverlay.setContent(tooltip);
-      }
+
+      const { tooltip, setPage } = getPagedOrSingleTooltipTemplate(groupedShopList, navigate);
+      customOverlay.setContent(tooltip);
 
       let isClicked = false;
       kakaoUtils.addListener(marker, 'click', () => {
@@ -140,15 +147,14 @@ export const displayDynamicMarkers = async (
           marker,
           name: shopNameList,
           isClicked: !isClicked,
-          setPage: groupedShopList.length === 1 ? null : setPage,
+          setPage,
         };
-        if (isClicked) {
-          marker.setImage(markerImage);
-          customOverlay.setMap(null);
-        } else {
-          marker.setImage(activeMarkerImage);
-          customOverlay.setMap(kakaoUtils.kakaoInstance);
-        }
+
+        const currentMarkerImage = isClicked ? markerImage : activeMarkerImage;
+        const overlayMap = isClicked ? null : kakaoUtils.kakaoInstance;
+
+        marker.setImage(currentMarkerImage);
+        customOverlay.setMap(overlayMap);
 
         changeClickState(nextMarkerState);
         isClicked = !isClicked;
@@ -158,7 +164,7 @@ export const displayDynamicMarkers = async (
         marker,
         name: shopNameList,
         isClicked,
-        setPage: groupedShopList.length === 1 ? null : setPage,
+        setPage,
       });
     });
   } catch (error) {
