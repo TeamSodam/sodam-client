@@ -36,7 +36,7 @@ function GlobalNavDesktop(props: NavProps) {
         <GlobalNavBar>
           <LeftNav>
             <Link href="/" passHref>
-              <Logo>
+              <Logo aria-label="소담 홈페이지">
                 <Screen wide>
                   <MainLogoIC />
                 </Screen>

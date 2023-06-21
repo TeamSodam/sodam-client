@@ -18,7 +18,7 @@ function ThemeSelector() {
   const isValidCurrentTheme = !currentTheme || typeof currentTheme === 'string';
   return (
     <StyledRoot>
-      <h4>테마별 소품샵</h4>
+      <h2>테마별 소품샵</h2>
       <StyledElWrapper isMain={isMain}>
         {isValidCurrentTheme &&
           category.map((themeType) => (
@@ -44,7 +44,7 @@ const StyledRoot = styled.div`
   align-self: center;
   width: 100%;
 
-  & > h4 {
+  & > h2 {
     font-weight: 700;
     font-size: 3rem;
     line-height: 4.3rem;
@@ -52,7 +52,7 @@ const StyledRoot = styled.div`
   }
 
   ${applyMediaQuery('desktop')} {
-    & > h4 {
+    & > h2 {
       font-size: 2.6rem;
       line-height: 3.8rem;
     }
@@ -60,7 +60,7 @@ const StyledRoot = styled.div`
     gap: 3.8rem;
   }
   ${applyMediaQuery('tablet')} {
-    & > h4 {
+    & > h2 {
       font-size: 2rem;
       line-height: 2.9rem;
     }
@@ -68,7 +68,7 @@ const StyledRoot = styled.div`
     gap: 2.7rem;
   }
   ${applyMediaQuery('mobile')} {
-    & > h4 {
+    & > h2 {
       font-size: 1.4rem;
       line-height: 2rem;
     }

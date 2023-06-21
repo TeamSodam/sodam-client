@@ -54,6 +54,8 @@ function MainSlider(props: MainSliderProps) {
           prevEl: prevRef.current, // 이전 버튼
           nextEl: nextRef.current, // 다음 버튼
         },
+        lazy: true,
+        preloadImages: false,
         pagination: {
           clickable: false,
           renderBullet: (index, className) =>
